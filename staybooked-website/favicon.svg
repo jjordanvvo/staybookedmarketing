@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" role="img" aria-label="Stay Booked">
+  <title>Stay Booked</title>
+  <!--
+    Favicon — 32×32 viewBox.
+
+    Spine: x=16, y=2→30.
+    Upper arcs: radius 6, y=2→14 (distance 12 = 2×6).
+    Lower arcs: radius 8, y=14→30 (distance 16 = 2×8).
+    Arc centers: upper at (16,8), lower at (16,22).
+    Mark extents: left x=8, right x=24. Centered in 32×32.
+    Stroke-width 3 gives bold, crisp rendering at 16px and 32px.
+  -->
+  <g stroke="#3B82F6" stroke-width="3" stroke-linecap="round" fill="none">
+
+    <!-- Shared vertical spine -->
+    <line x1="16" y1="2" x2="16" y2="30"/>
+
+    <!-- S: upper arc (left, r=6) then lower arc (left, r=8) -->
+    <path d="M 16,2 A 6,6 0 0,0 16,14 A 8,8 0 0,0 16,30"/>
+
+    <!-- B: upper bump (right, r=6) then lower bump (right, r=8) -->
+    <path d="M 16,2 A 6,6 0 0,1 16,14 A 8,8 0 0,1 16,30"/>
+
+  </g>
+</svg>

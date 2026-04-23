@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 100" fill="none" role="img" aria-label="Stay Booked">
+  <title>Stay Booked</title>
+  <!--
+    SB Monogram — Stay Booked
+
+    Geometry: three elements share a central vertical spine at x=40.
+
+    Spine: straight vertical line, x=40, y=10→90.
+
+    S: two left-opening semicircular arcs. Both arcs are CCW (sweep=0),
+       so they curve to the LEFT of the spine.
+       Upper arc — radius 17, spans y=10→44 (smaller upper bowl of S).
+       Lower arc — radius 23, spans y=44→90 (larger lower bowl of S).
+       The two arcs are tangent at y=44, creating a smooth S curve.
+
+    B: two right-opening semicircular arcs. Both arcs are CW (sweep=1),
+       mirroring the S. Upper bump (r=17) is smaller; lower bump (r=23)
+       is larger — standard typographic B proportions.
+
+    All three paths share endpoints at (40,10) and (40,90). Round caps
+    create intentional anchor dots at top and bottom of the mark.
+
+    Arc centers: upper at (40,27), lower at (40,67).
+    Mark extents: left x=17, right x=63. Centered in 80×100 viewBox.
+  -->
+  <g stroke="#3B82F6" stroke-width="9" stroke-linecap="round" fill="none">
+
+    <!-- Shared vertical spine -->
+    <line x1="40" y1="10" x2="40" y2="90"/>
+
+    <!-- S: upper arc (left, smaller r=17) then lower arc (left, larger r=23) -->
+    <path d="M 40,10 A 17,17 0 0,0 40,44 A 23,23 0 0,0 40,90"/>
+
+    <!-- B: upper bump (right, smaller r=17) then lower bump (right, larger r=23) -->
+    <path d="M 40,10 A 17,17 0 0,1 40,44 A 23,23 0 0,1 40,90"/>
+
+  </g>
+</svg>
