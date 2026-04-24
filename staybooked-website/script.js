@@ -487,13 +487,37 @@
   var current   = 0;
   var autoTimer = null;
   var AUTO_MS   = 4000;
+  var GAP       = 20;
+
+  function visibleCount() {
+    var w = window.innerWidth;
+    if (w >= 900) return 3;
+    if (w >= 600) return 2;
+    return 1;
+  }
+
+  function setCardWidths() {
+    var n      = visibleCount();
+    var wrapW  = wrap.clientWidth;
+    var cardW  = Math.floor((wrapW - GAP * (n - 1)) / n);
+    Array.from(track.children).forEach(function (c) {
+      c.style.width    = cardW + 'px';
+      c.style.minWidth = cardW + 'px';
+    });
+  }
 
   function stepSize() {
     var card = track.children[0];
-    if (!card) return 380;
-    var gap = parseFloat(window.getComputedStyle(track).gap) || 20;
-    return card.offsetWidth + gap;
+    if (!card) return 300;
+    return card.offsetWidth + GAP;
   }
+
+  window.addEventListener('resize', function () {
+    setCardWidths();
+    goTo(current);
+  });
+
+  setCardWidths();
 
   function goTo(index) {
     current = Math.max(0, Math.min(index, total - 1));

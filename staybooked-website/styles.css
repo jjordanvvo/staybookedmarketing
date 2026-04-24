@@ -1821,22 +1821,11 @@ input, textarea, select {
   will-change: transform;
 }
 
-/* ~3 cards visible on desktop */
+/* card widths are set by JS so they always fill the wrapper exactly */
 .testimonial-carousel .testimonial-card {
-  min-width: 360px;
   flex-shrink: 0;
   margin-top: 0 !important;
   box-sizing: border-box;
-}
-
-@media (max-width: 900px) {
-  .testimonial-carousel .testimonial-card { min-width: 300px; }
-  .tc-track { gap: 16px; }
-}
-
-@media (max-width: 600px) {
-  .testimonial-carousel .testimonial-card { min-width: calc(100vw - 48px); }
-  .tc-track { gap: 14px; }
 }
 
 /* ============================================================
