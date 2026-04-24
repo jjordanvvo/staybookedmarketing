@@ -461,9 +461,9 @@
     { text: 'Referred them to two other contractors I know. Both are getting the same results I am. I tell everyone who asks about marketing.', name: 'Walt S.', detail: 'Contractor — Nashville, TN' }
   ];
 
-  /* ── Build cards × 2 for seamless infinite loop ── */
-  var marquee = document.getElementById('tcMarquee');
-  if (!marquee) return;
+  /* ── Build cards ── */
+  var track = document.getElementById('tcTrack');
+  if (!track) return;
 
   function makeCard(r) {
     var card = document.createElement('article');
@@ -480,10 +480,70 @@
   }
 
   var frag = document.createDocumentFragment();
-  /* Set A + Set B — animating to -50% lands back at the start of Set A */
   reviews.forEach(function (r) { frag.appendChild(makeCard(r)); });
-  reviews.forEach(function (r) { frag.appendChild(makeCard(r)); });
-  marquee.appendChild(frag);
+  track.appendChild(frag);
+
+  var total     = reviews.length;
+  var current   = 0;
+  var autoTimer = null;
+  var AUTO_MS   = 4000;
+
+  function stepSize() {
+    var card = track.children[0];
+    if (!card) return 380;
+    var gap = parseFloat(window.getComputedStyle(track).gap) || 20;
+    return card.offsetWidth + gap;
+  }
+
+  function goTo(index) {
+    current = Math.max(0, Math.min(index, total - 1));
+    track.style.transform = 'translateX(-' + (current * stepSize()) + 'px)';
+    if (current >= total - 1) {
+      setTimeout(function () {
+        track.style.transition = 'none';
+        current = 0;
+        track.style.transform = 'translateX(0)';
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            track.style.transition = '';
+          });
+        });
+      }, 600);
+    }
+  }
+
+  function startAuto() {
+    clearInterval(autoTimer);
+    autoTimer = setInterval(function () { goTo(current + 1); }, AUTO_MS);
+  }
+
+  function stopAuto() { clearInterval(autoTimer); }
+
+  /* ── Touch / mouse drag ── */
+  var wrap       = track.parentElement;
+  var dragStartX = 0;
+  var isDragging = false;
+
+  function onDragStart(x) { dragStartX = x; isDragging = true; stopAuto(); }
+  function onDragEnd(x) {
+    if (!isDragging) return;
+    isDragging = false;
+    var dx = x - dragStartX;
+    if (Math.abs(dx) > 40) { goTo(dx < 0 ? current + 1 : current - 1); }
+    startAuto();
+  }
+
+  wrap.addEventListener('touchstart', function (e) { onDragStart(e.touches[0].clientX); }, { passive: true });
+  wrap.addEventListener('touchend',   function (e) { onDragEnd(e.changedTouches[0].clientX); }, { passive: true });
+  wrap.addEventListener('mousedown',  function (e) { onDragStart(e.clientX); });
+  window.addEventListener('mouseup',  function (e) { onDragEnd(e.clientX); });
+
+  /* Pause on hover */
+  wrap.addEventListener('mouseenter', stopAuto);
+  wrap.addEventListener('mouseleave', startAuto);
+
+  goTo(0);
+  startAuto();
 })();
 
 /* ============================================================

@@ -1800,53 +1800,43 @@ input, textarea, select {
   color: var(--text-subtle);
 }
 
-/* ── Testimonial Marquee ── */
+/* ── Testimonial Multi-Card Carousel ── */
 .testimonial-carousel {
-  /* full-bleed so the marquee runs edge-to-edge */
-  width: 100%;
   overflow: hidden;
 }
 
-.tc-marquee-wrap {
+.tc-track-wrap {
   overflow: hidden;
-  /* fade edges to background */
-  -webkit-mask-image: linear-gradient(to right,
-    transparent 0%, #000 80px, #000 calc(100% - 80px), transparent 100%);
-  mask-image: linear-gradient(to right,
-    transparent 0%, #000 80px, #000 calc(100% - 80px), transparent 100%);
+  cursor: grab;
 }
 
-.tc-marquee {
+.tc-track-wrap:active {
+  cursor: grabbing;
+}
+
+.tc-track {
   display: flex;
   gap: 20px;
-  width: max-content;
-  animation: tc-scroll 500s linear infinite;
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: transform;
 }
 
-.tc-marquee:hover {
-  animation-play-state: paused;
-}
-
-@keyframes tc-scroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-
+/* ~3 cards visible on desktop */
 .testimonial-carousel .testimonial-card {
-  width: 380px;
-  min-width: 380px;
+  min-width: 360px;
   flex-shrink: 0;
   margin-top: 0 !important;
   box-sizing: border-box;
 }
 
+@media (max-width: 900px) {
+  .testimonial-carousel .testimonial-card { min-width: 300px; }
+  .tc-track { gap: 16px; }
+}
+
 @media (max-width: 600px) {
-  .testimonial-carousel .testimonial-card {
-    width: 300px;
-    min-width: 300px;
-  }
-  .tc-marquee { gap: 14px; }
+  .testimonial-carousel .testimonial-card { min-width: calc(100vw - 48px); }
+  .tc-track { gap: 14px; }
 }
 
 /* ============================================================
