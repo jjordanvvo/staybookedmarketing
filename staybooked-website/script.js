@@ -274,7 +274,81 @@
 })();
 
 /* ============================================================
-   7. SMOOTH SCROLL for nav links (polyfill for browsers
+   7. TESTIMONIAL CAROUSEL
+   ============================================================ */
+(function initCarousel() {
+  var track   = document.getElementById('tcTrack');
+  var prevBtn = document.getElementById('tcPrev');
+  var nextBtn = document.getElementById('tcNext');
+  var dots    = document.querySelectorAll('.tc-dot');
+  if (!track || !prevBtn || !nextBtn) return;
+
+  var total      = track.children.length;
+  var current    = 0;
+  var autoTimer  = null;
+  var AUTO_DELAY = 5000;
+
+  function goTo(index) {
+    current = (index + total) % total;
+    track.style.transform = 'translateX(-' + (current * 100) + '%)';
+    dots.forEach(function (dot, i) {
+      dot.classList.toggle('tc-dot-active', i === current);
+    });
+  }
+
+  function startAuto() {
+    clearInterval(autoTimer);
+    autoTimer = setInterval(function () { goTo(current + 1); }, AUTO_DELAY);
+  }
+
+  function stopAuto() { clearInterval(autoTimer); }
+
+  prevBtn.addEventListener('click', function () { goTo(current - 1); startAuto(); });
+  nextBtn.addEventListener('click', function () { goTo(current + 1); startAuto(); });
+
+  dots.forEach(function (dot) {
+    dot.addEventListener('click', function () {
+      goTo(parseInt(dot.dataset.index, 10));
+      startAuto();
+    });
+  });
+
+  // Keyboard arrows (only when carousel is in view)
+  document.addEventListener('keydown', function (e) {
+    var wrap = track.closest('.testimonial-carousel');
+    if (!wrap) return;
+    var rect = wrap.getBoundingClientRect();
+    var inView = rect.top < window.innerHeight && rect.bottom > 0;
+    if (!inView) return;
+    if (e.key === 'ArrowLeft')  { goTo(current - 1); startAuto(); }
+    if (e.key === 'ArrowRight') { goTo(current + 1); startAuto(); }
+  });
+
+  // Touch swipe
+  var touchStartX = 0;
+  track.addEventListener('touchstart', function (e) {
+    touchStartX = e.touches[0].clientX;
+  }, { passive: true });
+  track.addEventListener('touchend', function (e) {
+    var dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 44) {
+      goTo(dx < 0 ? current + 1 : current - 1);
+      startAuto();
+    }
+  }, { passive: true });
+
+  // Pause on hover
+  var wrap = track.closest('.testimonial-carousel');
+  if (wrap) {
+    wrap.addEventListener('mouseenter', stopAuto);
+    wrap.addEventListener('mouseleave', startAuto);
+  }
+
+  startAuto();
+})();
+
+/* ============================================================
+   8. SMOOTH SCROLL for nav links (polyfill for browsers
       that don't support scroll-behavior: smooth)
    ============================================================ */
 (function initSmoothScroll() {
