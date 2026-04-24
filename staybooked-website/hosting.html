@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Website Hosting & Maintenance | Stay Booked</title>
+  <meta name="description" content="Premium website hosting and maintenance for contractors and service businesses. Fast, secure, always up to date. No long-term contracts." />
+
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    /* ── Page layout ── */
+    .hosting-page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(100px, 14vw, 160px) clamp(20px, 5vw, 80px) clamp(60px, 8vw, 100px);
+      position: relative;
+    }
+
+    /* background orbs matching site style */
+    .hosting-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hosting-orb-1 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(59,130,246,0.14) 0%, transparent 70%);
+      top: -80px; left: -100px;
+    }
+    .hosting-orb-2 {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(139,92,246,0.10) 0%, transparent 70%);
+      bottom: 0; right: -80px;
+    }
+
+    .hosting-inner {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 680px;
+    }
+
+    /* ── Section label ── */
+    .hosting-label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      color: var(--blue);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .hosting-label-line {
+      display: block;
+      width: 32px;
+      height: 1px;
+      background: var(--blue);
+    }
+
+    .hosting-heading {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(32px, 5vw, 52px);
+      line-height: 1.1;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+    .hosting-heading span { color: var(--blue); }
+
+    .hosting-sub {
+      font-size: 16px;
+      color: var(--text-muted);
+      margin-bottom: 48px;
+      line-height: 1.6;
+    }
+
+    /* ── Checkout card ── */
+    .checkout-card {
+      background: #111113;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: clamp(28px, 5vw, 44px);
+      box-shadow: 0 0 60px rgba(59,130,246,0.08);
+    }
+
+    .checkout-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(59,130,246,0.10);
+      color: var(--blue);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid rgba(59,130,246,0.25);
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+    .checkout-badge::before {
+      content: '';
+      display: inline-block;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--blue);
+      box-shadow: 0 0 6px rgba(59,130,246,0.8);
+    }
+
+    .checkout-title {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(28px, 4vw, 40px);
+      letter-spacing: 0.5px;
+      line-height: 1.1;
+      margin-bottom: 6px;
+      color: var(--text-primary);
+    }
+    .checkout-title span { color: var(--blue); }
+
+    .checkout-price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin: 20px 0 24px;
+    }
+    .checkout-price {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 56px;
+      color: var(--blue);
+      line-height: 1;
+    }
+    .checkout-per {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--text-subtle);
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .checkout-divider {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      margin: 24px 0;
+    }
+
+    .checkout-desc {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 28px;
+    }
+    .checkout-desc strong { color: var(--text-primary); }
+
+    .checkout-features {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .checkout-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    .checkout-check {
+      width: 22px; height: 22px; min-width: 22px;
+      background: rgba(59,130,246,0.10);
+      border: 1px solid rgba(59,130,246,0.30);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+    }
+    .checkout-check svg { width: 10px; height: 10px; }
+    .checkout-features li strong { color: var(--text-primary); }
+
+    .checkout-note {
+      background: rgba(59,130,246,0.06);
+      border-left: 3px solid var(--blue);
+      border-radius: 4px;
+      padding: 14px 18px;
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+    .checkout-note strong { color: var(--blue); }
+
+    /* ── CTA button ── */
+    .btn-checkout {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 18px 32px;
+      background: var(--blue);
+      color: #fff;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 18px;
+      letter-spacing: 1px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+      box-shadow: 0 0 30px rgba(59,130,246,0.35);
+    }
+    .btn-checkout:hover {
+      background: #2563EB;
+      box-shadow: 0 0 45px rgba(59,130,246,0.55);
+      transform: translateY(-1px);
+    }
+    .btn-checkout svg { width: 20px; height: 20px; }
+
+    .checkout-fine {
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-subtle);
+      margin-top: 14px;
+      letter-spacing: 0.3px;
+    }
+
+    /* ── Back link ── */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      font-size: 13px;
+      text-decoration: none;
+      margin-bottom: 40px;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--blue); }
+    .back-link svg { width: 16px; height: 16px; }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="navbar" id="navbar" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="Stay Booked — Home">
+        <img src="logo-white.svg" class="nav-logo-mark" alt="" aria-hidden="true" width="22" height="28" />
+        <span class="nav-logo-text">STAY BOOKED</span>
+      </a>
+      <ul class="nav-links" role="list">
+        <li><a href="index.html#services">Services</a></li>
+        <li><a href="index.html#results">Results</a></li>
+        <li><a href="index.html#process">Process</a></li>
+        <li><a href="index.html#industries">Industries</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+      <a href="index.html#contact" class="btn btn-primary nav-cta">Book a Call</a>
+      <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+        <span class="ham-line"></span>
+        <span class="ham-line"></span>
+        <span class="ham-line"></span>
+      </button>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hosting-page">
+      <div class="hosting-orb hosting-orb-1" aria-hidden="true"></div>
+      <div class="hosting-orb hosting-orb-2" aria-hidden="true"></div>
+
+      <div class="hosting-inner">
+
+        <a href="index.html" class="back-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
+          </svg>
+          Back to Stay Booked
+        </a>
+
+        <div class="hosting-label">
+          <span class="hosting-label-line"></span>
+          Simple Monthly Pricing
+        </div>
+
+        <h1 class="hosting-heading">Your Website. <span>Handled.</span></h1>
+        <p class="hosting-sub">One flat monthly rate. Everything included. No surprises.</p>
+
+        <div class="checkout-card">
+
+          <div class="checkout-badge">Monthly Subscription</div>
+
+          <h2 class="checkout-title">
+            Website Hosting &amp; <span>Maintenance</span>
+          </h2>
+
+          <div class="checkout-price-row">
+            <div class="checkout-price">$__</div>
+            <div class="checkout-per">/ Month</div>
+          </div>
+
+          <p class="checkout-desc">
+            Your website is your <strong>24/7 salesperson</strong> — it needs to be fast, secure, and always up to date.
+            We handle everything behind the scenes so you can stay focused on the work, not the tech headaches.
+          </p>
+
+          <hr class="checkout-divider" />
+
+          <ul class="checkout-features">
+            <li>
+              <div class="checkout-check">
+                <svg viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="#3B82F6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <span><strong>Premium Hosting</strong> — Lightning-fast load times on enterprise-grade servers. No downtime, no slowdowns.</span>
+            </li>
+            <li>
+              <div class="checkout-check">
+                <svg viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="#3B82F6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <span><strong>Content Updates &amp; Edits</strong> — Need a new photo, updated pricing, or a page change? Just ask. We've got it.</span>
+            </li>
+            <li>
+              <div class="checkout-check">
+                <svg viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="#3B82F6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <span><strong>Priority Support</strong> — Real humans, real responses. Get help fast whenever something comes up.</span>
+            </li>
+            <li>
+              <div class="checkout-check">
+                <svg viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="#3B82F6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <span><strong>Security &amp; Backups</strong> — SSL certificate, malware protection, and daily backups keeping your site safe 24/7.</span>
+            </li>
+            <li>
+              <div class="checkout-check">
+                <svg viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="#3B82F6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <span><strong>Monthly Performance Reports</strong> — Know exactly how your site is performing — traffic, leads, and more.</span>
+            </li>
+          </ul>
+
+          <div class="checkout-note">
+            <strong>No long-term contracts.</strong> Cancel anytime. We keep your business running online so you never have to think about it.
+          </div>
+
+          <!-- Replace YOUR_STRIPE_PAYMENT_LINK with your actual Stripe payment link -->
+          <a href="YOUR_STRIPE_PAYMENT_LINK" class="btn-checkout">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/>
+            </svg>
+            Subscribe Now — $__ / Month
+          </a>
+
+          <p class="checkout-fine">Secure payment · Cancel anytime · 30-day money-back guarantee</p>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
