@@ -777,97 +777,19 @@
 
         <div class="testimonial-carousel reveal" aria-label="Customer reviews">
 
-          <!-- Track -->
+          <!-- Track (filled by script.js) -->
           <div class="tc-track-wrap">
-            <div class="tc-track" id="tcTrack">
-
-              <article class="testimonial-card">
-                <div class="testimonial-quote-mark" aria-hidden="true">"</div>
-                <blockquote class="testimonial-text">
-                  We were spending $3,000 a month with another agency and had nothing to show for it. Stay Booked came in, cut our ad spend in half, and tripled our leads. I wish I found them a year ago.
-                </blockquote>
-                <div class="testimonial-stars" aria-label="5 stars">★★★★★</div>
-                <footer class="testimonial-author">
-                  <strong class="testimonial-name">Mike R.</strong>
-                  <span class="testimonial-detail">Roofing Contractor — Sacramento, CA</span>
-                </footer>
-              </article>
-
-              <article class="testimonial-card">
-                <div class="testimonial-quote-mark" aria-hidden="true">"</div>
-                <blockquote class="testimonial-text">
-                  I was skeptical. Every marketing company I've talked to sounds the same. But these guys actually know my trade — they talk about ROs and service calls, not "brand awareness." First month: 53 new customers.
-                </blockquote>
-                <div class="testimonial-stars" aria-label="5 stars">★★★★★</div>
-                <footer class="testimonial-author">
-                  <strong class="testimonial-name">Dave T.</strong>
-                  <span class="testimonial-detail">Auto Repair Shop Owner — San Diego, CA</span>
-                </footer>
-              </article>
-
-              <article class="testimonial-card">
-                <div class="testimonial-quote-mark" aria-hidden="true">"</div>
-                <blockquote class="testimonial-text">
-                  My wife handles our books and she was the one who said we needed to try this. Best call we ever made. Stay Booked runs everything — ads, website, emails — and we just show up and do the work.
-                </blockquote>
-                <div class="testimonial-stars" aria-label="5 stars">★★★★★</div>
-                <footer class="testimonial-author">
-                  <strong class="testimonial-name">Carlos M.</strong>
-                  <span class="testimonial-detail">HVAC Contractor — Bay Area, CA</span>
-                </footer>
-              </article>
-
-              <article class="testimonial-card">
-                <div class="testimonial-quote-mark" aria-hidden="true">"</div>
-                <blockquote class="testimonial-text">
-                  I tried running Google Ads myself and burned through $2,000 with nothing to show for it. Stay Booked had everything dialed in within a week. We booked 14 jobs in the first month alone.
-                </blockquote>
-                <div class="testimonial-stars" aria-label="5 stars">★★★★★</div>
-                <footer class="testimonial-author">
-                  <strong class="testimonial-name">Sarah K.</strong>
-                  <span class="testimonial-detail">Plumbing Company Owner — Fresno, CA</span>
-                </footer>
-              </article>
-
-              <article class="testimonial-card">
-                <div class="testimonial-quote-mark" aria-hidden="true">"</div>
-                <blockquote class="testimonial-text">
-                  These guys don't just run ads — they track every lead back to a real job. I know exactly what I'm spending and exactly what I'm making from it. That kind of clarity is worth everything.
-                </blockquote>
-                <div class="testimonial-stars" aria-label="5 stars">★★★★★</div>
-                <footer class="testimonial-author">
-                  <strong class="testimonial-name">Jason L.</strong>
-                  <span class="testimonial-detail">General Contractor — San Jose, CA</span>
-                </footer>
-              </article>
-
-              <article class="testimonial-card">
-                <div class="testimonial-quote-mark" aria-hidden="true">"</div>
-                <blockquote class="testimonial-text">
-                  We doubled our service area and filled our entire spring schedule before the season even started. The ads they run look like our actual business — not some generic template.
-                </blockquote>
-                <div class="testimonial-stars" aria-label="5 stars">★★★★★</div>
-                <footer class="testimonial-author">
-                  <strong class="testimonial-name">Maria S.</strong>
-                  <span class="testimonial-detail">Landscaping &amp; Hardscape — Modesto, CA</span>
-                </footer>
-              </article>
-
-            </div>
+            <div class="tc-track" id="tcTrack"></div>
           </div>
 
-          <!-- Controls: prev · dots · next -->
+          <!-- Controls: prev · progress · next -->
           <div class="tc-controls">
             <button class="tc-btn" id="tcPrev" aria-label="Previous review">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
             </button>
-            <div class="tc-dots" role="list" aria-label="Review navigation">
-              <button class="tc-dot tc-dot-active" data-index="0" aria-label="Review 1 of 6" role="listitem"></button>
-              <button class="tc-dot" data-index="1" aria-label="Review 2 of 6" role="listitem"></button>
-              <button class="tc-dot" data-index="2" aria-label="Review 3 of 6" role="listitem"></button>
-              <button class="tc-dot" data-index="3" aria-label="Review 4 of 6" role="listitem"></button>
-              <button class="tc-dot" data-index="4" aria-label="Review 5 of 6" role="listitem"></button>
-              <button class="tc-dot" data-index="5" aria-label="Review 6 of 6" role="listitem"></button>
+            <div class="tc-progress-wrap">
+              <div class="tc-progress-bar"><div class="tc-progress-fill" id="tcProgressFill"></div></div>
+              <div class="tc-counter" id="tcCounter" aria-live="polite">1 / 150</div>
             </div>
             <button class="tc-btn" id="tcNext" aria-label="Next review">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>

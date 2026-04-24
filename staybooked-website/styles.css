@@ -1861,32 +1861,37 @@ input, textarea, select {
   height: 18px;
 }
 
-.tc-dots {
+.tc-progress-wrap {
+  flex: 1;
+  max-width: 320px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 8px;
 }
 
-.tc-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.15);
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  transition: background 0.25s, width 0.25s, border-radius 0.25s, box-shadow 0.25s;
+.tc-progress-bar {
+  width: 100%;
+  height: 2px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 2px;
+  overflow: hidden;
 }
 
-.tc-dot.tc-dot-active {
-  width: 26px;
-  border-radius: 4px;
-  background: var(--blue);
-  box-shadow: 0 0 10px rgba(59,130,246,0.55);
+.tc-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(to right, var(--blue), #93C5FD);
+  border-radius: 2px;
+  transition: width 0.55s cubic-bezier(0.4,0,0.2,1);
+  box-shadow: 0 0 8px rgba(59,130,246,0.5);
 }
 
-.tc-dot:hover:not(.tc-dot-active) {
-  background: rgba(255,255,255,0.30);
+.tc-counter {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-subtle);
+  letter-spacing: 1.5px;
 }
 
 /* ============================================================
