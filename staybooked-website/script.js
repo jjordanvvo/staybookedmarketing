@@ -251,7 +251,7 @@
 
     var formData = new FormData(form);
 
-    fetch('https://formspree.io/f/FORMSPREE_ID', {
+    fetch('https://formspree.io/f/mnjllyyg', {
       method: 'POST',
       headers: { 'Accept': 'application/json' },
       body: formData
