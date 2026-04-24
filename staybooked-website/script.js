@@ -488,6 +488,7 @@
   var autoTimer = null;
   var AUTO_MS   = 4000;
   var GAP       = 20;
+  var wrap      = track.parentElement;
 
   function visibleCount() {
     var w = window.innerWidth;
@@ -544,7 +545,6 @@
   function stopAuto() { clearInterval(autoTimer); }
 
   /* ── Touch / mouse drag ── */
-  var wrap       = track.parentElement;
   var dragStartX = 0;
   var isDragging = false;
 
