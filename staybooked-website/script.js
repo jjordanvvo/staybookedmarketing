@@ -277,12 +277,6 @@
    7. TESTIMONIAL CAROUSEL — data-driven, 150 reviews
    ============================================================ */
 (function initCarousel() {
-  var track        = document.getElementById('tcTrack');
-  var prevBtn      = document.getElementById('tcPrev');
-  var nextBtn      = document.getElementById('tcNext');
-  var progressFill = document.getElementById('tcProgressFill');
-  var counter      = document.getElementById('tcCounter');
-  if (!track || !prevBtn || !nextBtn) return;
 
   /* ── Review data ── */
   var reviews = [
@@ -467,9 +461,11 @@
     { text: 'Referred them to two other contractors I know. Both are getting the same results I am. I tell everyone who asks about marketing.', name: 'Walt S.', detail: 'Contractor — Nashville, TN' }
   ];
 
-  /* ── Build cards ── */
-  var fragment = document.createDocumentFragment();
-  reviews.forEach(function (r) {
+  /* ── Build cards × 2 for seamless infinite loop ── */
+  var marquee = document.getElementById('tcMarquee');
+  if (!marquee) return;
+
+  function makeCard(r) {
     var card = document.createElement('article');
     card.className = 'testimonial-card';
     card.innerHTML =
@@ -480,70 +476,14 @@
         '<strong class="testimonial-name">' + r.name + '</strong>' +
         '<span class="testimonial-detail">' + r.detail + '</span>' +
       '</footer>';
-    fragment.appendChild(card);
-  });
-  track.appendChild(fragment);
-
-  /* ── State ── */
-  var total      = reviews.length;
-  var current    = 0;
-  var autoTimer  = null;
-  var AUTO_DELAY = 6000;
-
-  function updateUI() {
-    track.style.transform = 'translateX(-' + (current * 100) + '%)';
-    if (progressFill) {
-      progressFill.style.width = ((current / (total - 1)) * 100) + '%';
-    }
-    if (counter) {
-      counter.textContent = (current + 1) + ' / ' + total;
-    }
+    return card;
   }
 
-  function goTo(index) {
-    current = (index + total) % total;
-    updateUI();
-  }
-
-  function startAuto() {
-    clearInterval(autoTimer);
-    autoTimer = setInterval(function () { goTo(current + 1); }, AUTO_DELAY);
-  }
-
-  function stopAuto() { clearInterval(autoTimer); }
-
-  prevBtn.addEventListener('click', function () { goTo(current - 1); startAuto(); });
-  nextBtn.addEventListener('click', function () { goTo(current + 1); startAuto(); });
-
-  /* Keyboard */
-  document.addEventListener('keydown', function (e) {
-    var wrap = track.closest('.testimonial-carousel');
-    if (!wrap) return;
-    var rect = wrap.getBoundingClientRect();
-    if (rect.top >= window.innerHeight || rect.bottom <= 0) return;
-    if (e.key === 'ArrowLeft')  { goTo(current - 1); startAuto(); }
-    if (e.key === 'ArrowRight') { goTo(current + 1); startAuto(); }
-  });
-
-  /* Touch swipe */
-  var touchStartX = 0;
-  track.addEventListener('touchstart', function (e) {
-    touchStartX = e.touches[0].clientX;
-  }, { passive: true });
-  track.addEventListener('touchend', function (e) {
-    var dx = e.changedTouches[0].clientX - touchStartX;
-    if (Math.abs(dx) > 44) { goTo(dx < 0 ? current + 1 : current - 1); startAuto(); }
-  }, { passive: true });
-
-  /* Pause on hover */
-  var carousel = track.closest('.testimonial-carousel');
-  if (carousel) {
-    carousel.addEventListener('mouseenter', stopAuto);
-    carousel.addEventListener('mouseleave', startAuto);
-  }
-
-  updateUI();
-  startAuto();
+  var frag = document.createDocumentFragment();
+  /* Set A + Set B — animating to -50% lands back at the start of Set A */
+  reviews.forEach(function (r) { frag.appendChild(makeCard(r)); });
+  reviews.forEach(function (r) { frag.appendChild(makeCard(r)); });
+  marquee.appendChild(frag);
 })();
 
 /* ============================================================
