@@ -466,15 +466,19 @@
   if (!track) return;
 
   function makeCard(r) {
-    var card = document.createElement('article');
+    var card    = document.createElement('article');
     card.className = 'testimonial-card';
+    var initial = r.name.charAt(0).toUpperCase();
     card.innerHTML =
       '<div class="testimonial-quote-mark" aria-hidden="true">\u201c</div>' +
       '<blockquote class="testimonial-text">' + r.text + '</blockquote>' +
-      '<div class="testimonial-stars" aria-label="5 stars">\u2605\u2605\u2605\u2605\u2605</div>' +
-      '<footer class="testimonial-author">' +
-        '<strong class="testimonial-name">' + r.name + '</strong>' +
-        '<span class="testimonial-detail">' + r.detail + '</span>' +
+      '<div class="testimonial-stars" aria-label="5 out of 5 stars">\u2605\u2605\u2605\u2605\u2605</div>' +
+      '<footer class="tc-author-row">' +
+        '<div class="tc-avatar" aria-hidden="true">' + initial + '</div>' +
+        '<div class="tc-author-info">' +
+          '<strong class="testimonial-name">' + r.name + '</strong>' +
+          '<span class="testimonial-detail">' + r.detail + '</span>' +
+        '</div>' +
       '</footer>';
     return card;
   }

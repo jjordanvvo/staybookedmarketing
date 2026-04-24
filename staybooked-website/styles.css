@@ -1808,24 +1808,95 @@ input, textarea, select {
 .tc-track-wrap {
   overflow: hidden;
   cursor: grab;
+  /* fade cards into the edges for depth */
+  -webkit-mask-image: linear-gradient(to right,
+    transparent 0%, #000 48px, #000 calc(100% - 48px), transparent 100%);
+  mask-image: linear-gradient(to right,
+    transparent 0%, #000 48px, #000 calc(100% - 48px), transparent 100%);
 }
 
-.tc-track-wrap:active {
-  cursor: grabbing;
-}
+.tc-track-wrap:active { cursor: grabbing; }
 
 .tc-track {
   display: flex;
   gap: 20px;
-  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   will-change: transform;
 }
 
-/* card widths are set by JS so they always fill the wrapper exactly */
+/* ── Refined card for carousel context ── */
 .testimonial-carousel .testimonial-card {
   flex-shrink: 0;
   margin-top: 0 !important;
   box-sizing: border-box;
+  /* override base card border with cleaner version */
+  border: 1px solid rgba(255,255,255,0.07);
+  border-image: none;
+  border-radius: 20px;
+  background: linear-gradient(160deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
+  box-shadow: 0 4px 32px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.07);
+  padding: 28px 24px;
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+/* top highlight shimmer */
+.testimonial-carousel .testimonial-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.14) 50%, transparent 100%);
+  pointer-events: none;
+}
+
+.testimonial-carousel .testimonial-card:hover {
+  border-color: rgba(59,130,246,0.28);
+  box-shadow: 0 10px 44px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.10),
+              0 0 0 1px rgba(59,130,246,0.10);
+  transform: translateY(-3px);
+}
+
+/* gold stars */
+.testimonial-carousel .testimonial-stars {
+  color: #F59E0B;
+  font-size: 13px;
+  letter-spacing: 3px;
+}
+
+/* author row with avatar */
+.tc-author-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  font-style: normal;
+}
+
+.tc-avatar {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--blue) 0%, var(--violet) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 15px;
+  color: #fff;
+  box-shadow: 0 0 0 2px rgba(59,130,246,0.20);
+}
+
+.tc-author-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
 }
 
 /* ============================================================
