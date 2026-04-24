@@ -630,14 +630,58 @@
 
         <div class="about-layout">
           <div class="about-img-col reveal" style="--delay:0s">
-            <div class="about-img-wrap">
-              <img
-                src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1600&q=90"
-                alt="Ad performance dashboard showing leads and revenue going up"
-                loading="lazy"
-                class="about-img"
-              />
-              <div class="about-img-overlay" aria-hidden="true"></div>
+            <div class="about-img-wrap about-anim-wrap">
+              <div class="anim-dash" aria-label="Animated ad performance dashboard">
+
+                <!-- Header row -->
+                <div class="anim-dash-header">
+                  <span class="anim-live-dot" aria-hidden="true"></span>
+                  <span class="anim-dash-title">Ad Performance</span>
+                  <span class="anim-live-badge">Live</span>
+                </div>
+
+                <!-- Chart area: sparkline + bars -->
+                <div class="anim-chart-area" aria-hidden="true">
+                  <svg class="anim-sparkline" viewBox="0 0 280 56" fill="none" preserveAspectRatio="none">
+                    <defs>
+                      <linearGradient id="sparkFill" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.28"/>
+                        <stop offset="100%" stop-color="#3B82F6" stop-opacity="0"/>
+                      </linearGradient>
+                    </defs>
+                    <path d="M0,52 C30,49 55,42 85,35 C115,28 135,24 165,16 C195,8 225,5 280,1 L280,56 L0,56 Z" fill="url(#sparkFill)"/>
+                    <path class="anim-spark-line" d="M0,52 C30,49 55,42 85,35 C115,28 135,24 165,16 C195,8 225,5 280,1" stroke="#3B82F6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="280" cy="1" r="4.5" fill="#60A5FA" style="filter:drop-shadow(0 0 7px rgba(59,130,246,0.9))"/>
+                  </svg>
+                  <div class="anim-bars">
+                    <div class="anim-bar" style="--h:35%;--d:0.05s"></div>
+                    <div class="anim-bar" style="--h:50%;--d:0.10s"></div>
+                    <div class="anim-bar" style="--h:44%;--d:0.15s"></div>
+                    <div class="anim-bar" style="--h:65%;--d:0.20s"></div>
+                    <div class="anim-bar" style="--h:58%;--d:0.25s"></div>
+                    <div class="anim-bar" style="--h:76%;--d:0.30s"></div>
+                    <div class="anim-bar anim-bar-hi" style="--h:87%;--d:0.35s"></div>
+                    <div class="anim-bar anim-bar-hi" style="--h:100%;--d:0.40s"></div>
+                  </div>
+                </div>
+
+                <!-- Metric cards -->
+                <div class="anim-metrics">
+                  <div class="anim-metric">
+                    <div class="anim-metric-num">+247%</div>
+                    <div class="anim-metric-lbl">Lead Growth</div>
+                  </div>
+                  <div class="anim-metric">
+                    <div class="anim-metric-num">4.8×</div>
+                    <div class="anim-metric-lbl">ROAS</div>
+                  </div>
+                  <div class="anim-metric">
+                    <div class="anim-metric-num">$0.94</div>
+                    <div class="anim-metric-lbl">Cost / Lead</div>
+                  </div>
+                </div>
+
+              </div>
             </div>
           </div>
 
