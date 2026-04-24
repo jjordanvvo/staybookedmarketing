@@ -219,7 +219,7 @@
 })();
 
 /* ============================================================
-   6. CONTACT FORM — Netlify submission with inline success
+   6. CONTACT FORM — Formspree submission with inline success
    ============================================================ */
 (function initContactForm() {
   var form    = document.getElementById('contactForm');
@@ -251,14 +251,14 @@
 
     var formData = new FormData(form);
 
-    fetch('/', {
+    fetch('https://formspree.io/f/FORMSPREE_ID', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams(formData).toString()
+      headers: { 'Accept': 'application/json' },
+      body: formData
     })
       .then(function (response) {
         if (response.ok) {
-          form.hidden   = true;
+          form.hidden    = true;
           success.hidden = false;
           success.scrollIntoView({ behavior: 'smooth', block: 'center' });
         } else {
@@ -266,11 +266,9 @@
         }
       })
       .catch(function () {
-        // Fallback: show success anyway (Netlify may return 200 sometimes)
-        // or show a polite error
         submitBtn.disabled    = false;
         submitBtn.textContent = originalText;
-        alert('Something went wrong. Please try again or call us at (916) 606-9970.');
+        alert('Something went wrong. Please try again or call us at (408) 712-0017.');
       });
   });
 })();
