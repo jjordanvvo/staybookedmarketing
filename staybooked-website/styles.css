@@ -1906,6 +1906,35 @@ input, textarea, select {
   background: var(--bg-primary);
 }
 
+/* ============================================================
+   14. BOOKING — Google Calendar embed
+   ============================================================ */
+.booking-section {
+  background: var(--bg-secondary);
+}
+
+.booking-embed {
+  background: #0E0E11;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(59,130,246,0.06),
+    0 0 80px rgba(59,130,246,0.10),
+    0 24px 64px rgba(0,0,0,0.40);
+}
+
+.booking-embed iframe {
+  display: block;
+  width: 100%;
+  height: 700px;
+  border: none;
+}
+
+@media (max-width: 768px) {
+  .booking-embed iframe { height: 820px; }
+}
+
 .faq-list {
   max-width: 800px;
   margin: 0 auto;
