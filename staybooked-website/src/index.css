@@ -1,5 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* ============================================================
-   STAY BOOKED MARKETING — styles.css
+   STAY BOOKED MARKETING — global styles (ported 1:1)
    sbm. — DM Serif Display + DM Sans + Baloo 2 (wordmark only)
    Page-turn scroll snap + blur-to-clear reveals
    ============================================================ */
