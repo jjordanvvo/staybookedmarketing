@@ -3,730 +3,152 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Stay Booked | Online Advertising That Fills Your Calendar</title>
-  <meta name="description" content="Facebook ads, Google ads, websites, and lead generation built specifically for contractors and service businesses. More booked jobs. Less wasted money. No long-term contracts." />
-  <link rel="canonical" href="https://staybookedonline.com" />
+  <title>Stay Booked Marketing</title>
+  <meta name="description" content="Stay Booked Marketing builds websites, runs ads, and handles local SEO for service businesses that want more customers." />
 
-  <!-- Open Graph -->
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://staybookedonline.com" />
-  <meta property="og:title" content="Stay Booked | Online Advertising That Fills Your Calendar" />
-  <meta property="og:description" content="Facebook ads, Google ads, websites, and lead generation built for contractors and service businesses. More booked jobs. Less wasted money." />
-  <meta property="og:image" content="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1200&q=80" />
-
-  <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Serif+Display:ital@0;1&family=Baloo+2:wght@500;600;700&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-  <!-- ================================================
-       NAVIGATION
-       ================================================ -->
-  <header class="navbar" id="navbar" role="banner">
-    <div class="nav-inner">
-
-      <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="slideMenu">
-        <span class="ham-line"></span>
-        <span class="ham-line"></span>
-        <span class="ham-line"></span>
-      </button>
-
-      <a href="index.html" class="nav-logo" aria-label="Stay Booked — Home">STAY BOOKED</a>
-
-      <a href="https://calendar.app.google/7mv7e8CYAxiTw7jw8" class="nav-book" target="_blank" rel="noopener">Book a Call</a>
+  <!-- NAVIGATION -->
+  <nav class="nav" aria-label="Main navigation">
+    <div class="nav-left">
+      <a href="#hero" class="nav-logo-link" aria-label="Stay Booked Marketing home">
+        <img class="nav-logo" src="Firefly_gpt-image_add%20a%20period%20after%20the%20m%20928436.png" alt="Stay Booked Marketing" />
+      </a>
+      <span class="nav-wordmark">staybookedmarketing.com</span>
     </div>
+    <ul class="nav-links">
+      <li><a href="#founders">Founders</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero snap" id="hero">
+    <img class="hero-logo" src="Firefly_gpt-image_add%20a%20period%20after%20the%20m%20928436.png" alt="Stay Booked Marketing" />
   </header>
 
-  <!-- SLIDE-OUT MENU -->
-  <div class="slide-menu" id="slideMenu" aria-hidden="true" role="dialog" aria-label="Navigation menu">
-    <button class="slide-menu-close" id="slideMenuClose" aria-label="Close menu">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
-        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-      </svg>
-    </button>
-    <nav aria-label="Site navigation">
-      <ul class="slide-nav-links" role="list">
-        <li><a href="#services" class="slide-link">Services</a></li>
-        <li><a href="#work" class="slide-link">Our Work</a></li>
-        <li><a href="#results" class="slide-link">Results</a></li>
-        <li><a href="#about" class="slide-link">About</a></li>
-        <li><a href="#testimonials" class="slide-link">Testimonials</a></li>
-        <li><a href="#faq" class="slide-link">FAQ</a></li>
-        <li><a href="#contact" class="slide-link">Contact</a></li>
-      </ul>
-    </nav>
-    <a href="https://calendar.app.google/7mv7e8CYAxiTw7jw8" class="slide-cta" target="_blank" rel="noopener">Book a Strategy Call</a>
-  </div>
-  <div class="slide-overlay" id="slideOverlay" aria-hidden="true"></div>
+  <!-- SECTION 1 — MEET OUR FOUNDERS -->
+  <section class="section section-light section-reveal snap" id="founders">
+    <div class="wrap">
+      <p class="label stagger">Meet our founders</p>
+      <h2 class="title stagger heading">The people behind the work.</h2>
+      <div class="founders-grid">
 
-  <main>
-
-    <!-- ================================================
-         HERO SLIDESHOW
-         ================================================ -->
-    <section class="hero" id="hero" aria-label="Hero">
-      <div class="hero-slides" id="heroSlides" aria-live="off">
-
-        <div class="hero-slide active" aria-hidden="false">
-          <div class="hero-slide-img" style="background-image:url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1600&q=80')" role="img" aria-label="Business professionals in a meeting"></div>
-          <div class="hero-slide-overlay" aria-hidden="true"></div>
-          <div class="hero-slide-content">
-            <h1 class="hero-headline">Online Advertising That<br>Fills Your Calendar</h1>
-            <a href="https://calendar.app.google/7mv7e8CYAxiTw7jw8" class="hero-cta" target="_blank" rel="noopener">Book a Strategy Call</a>
+        <article class="founder-card stagger">
+          <!-- Replace src with Jordan's photo (square, e.g. jordan-vo.jpg) -->
+          <img class="founder-photo" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1'%20height='1'%3E%3C/svg%3E" alt="Jordan Vo" />
+          <h3 class="founder-name">Jordan Vo</h3>
+          <p class="founder-title">Founder</p>
+          <p class="founder-bio">Jordan leads client outreach and partnerships, making sure every business we work with gets the attention it deserves. He oversees advertising strategy and campaign review, keeping our clients in front of the right people at the right time.</p>
+          <div class="founder-contact">
+            <a class="founder-email" href="mailto:jordan@staybookedmarketing.com">jordan@staybookedmarketing.com</a>
+            <p class="founder-phone">+1 (408) 712-0017</p>
           </div>
-        </div>
+        </article>
 
-        <div class="hero-slide" aria-hidden="true">
-          <div class="hero-slide-img" style="background-image:url('https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=1600&q=80')" role="img" aria-label="Laptop with website design work"></div>
-          <div class="hero-slide-overlay" aria-hidden="true"></div>
-          <div class="hero-slide-content">
-            <h1 class="hero-headline">Websites That Turn<br>Visitors Into Customers</h1>
-            <a href="#work" class="hero-cta">See Our Work</a>
+        <article class="founder-card stagger">
+          <!-- Replace src with Kolby's photo (square, e.g. kolby-mccargar.jpg) -->
+          <img class="founder-photo" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1'%20height='1'%3E%3C/svg%3E" alt="Kolby McCargar" />
+          <h3 class="founder-name">Kolby McCargar</h3>
+          <p class="founder-title">Co-Founder</p>
+          <p class="founder-bio">Kolby runs the technical side of Stay Booked, from web design and development to project management and analytics. He turns ideas into clean, high-performing websites and keeps every project moving from first build to final launch.</p>
+          <div class="founder-contact">
+            <a class="founder-email" href="mailto:kolby@staybookedmarketing.com">kolby@staybookedmarketing.com</a>
+            <p class="founder-phone">+1 (916) 606-9970</p>
           </div>
-        </div>
-
-        <div class="hero-slide" aria-hidden="true">
-          <div class="hero-slide-img" style="background-image:url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&q=80')" role="img" aria-label="City skyline at golden hour"></div>
-          <div class="hero-slide-overlay" aria-hidden="true"></div>
-          <div class="hero-slide-content">
-            <h1 class="hero-headline">Your Growth.<br>Our Expertise.</h1>
-            <a href="#services" class="hero-cta">Learn More</a>
-          </div>
-        </div>
+        </article>
 
       </div>
+    </div>
+  </section>
 
-      <div class="hero-dots" role="tablist" aria-label="Slideshow navigation">
-        <button class="hero-dot active" role="tab" aria-selected="true" aria-label="Slide 1" data-index="0"></button>
-        <button class="hero-dot" role="tab" aria-selected="false" aria-label="Slide 2" data-index="1"></button>
-        <button class="hero-dot" role="tab" aria-selected="false" aria-label="Slide 3" data-index="2"></button>
+  <!-- SECTION 2 — WHAT WE DO -->
+  <section class="section section-alt section-reveal snap" id="what">
+    <div class="wrap">
+      <p class="label stagger">What we do</p>
+      <h2 class="title stagger heading">We get local businesses booked.</h2>
+      <div class="body-block stagger">
+        <p class="body">Stay Booked Marketing builds websites, runs ads, and handles local SEO for service businesses that want more customers. We handle the digital side so you can focus on the work.</p>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- ================================================
-         MARQUEE STRIP
-         ================================================ -->
-    <div class="marquee-strip" aria-hidden="true">
-      <div class="marquee-track" id="marqueeTrack">
-        <span class="marquee-content">Meta Ads <span class="marquee-diamond">&#9670;</span> Google Ads <span class="marquee-diamond">&#9670;</span> Website Design <span class="marquee-diamond">&#9670;</span> SEO <span class="marquee-diamond">&#9670;</span> Cold Email <span class="marquee-diamond">&#9670;</span> Full Service <span class="marquee-diamond">&#9670;</span> Meta Ads <span class="marquee-diamond">&#9670;</span> Google Ads <span class="marquee-diamond">&#9670;</span> Website Design <span class="marquee-diamond">&#9670;</span> SEO <span class="marquee-diamond">&#9670;</span> Cold Email <span class="marquee-diamond">&#9670;</span> Full Service <span class="marquee-diamond">&#9670;</span></span>
-        <span class="marquee-content" aria-hidden="true">Meta Ads <span class="marquee-diamond">&#9670;</span> Google Ads <span class="marquee-diamond">&#9670;</span> Website Design <span class="marquee-diamond">&#9670;</span> SEO <span class="marquee-diamond">&#9670;</span> Cold Email <span class="marquee-diamond">&#9670;</span> Full Service <span class="marquee-diamond">&#9670;</span> Meta Ads <span class="marquee-diamond">&#9670;</span> Google Ads <span class="marquee-diamond">&#9670;</span> Website Design <span class="marquee-diamond">&#9670;</span> SEO <span class="marquee-diamond">&#9670;</span> Cold Email <span class="marquee-diamond">&#9670;</span> Full Service <span class="marquee-diamond">&#9670;</span></span>
+  <!-- SECTION 3 — SERVICES -->
+  <section class="section section-deep section-reveal snap" id="services">
+    <div class="wrap">
+      <p class="label stagger">Services</p>
+      <h2 class="title stagger heading">Three things, done well.</h2>
+      <div class="services">
+        <div class="service-row stagger">
+          <span class="service-name">Website Design</span>
+          <span class="service-desc">Fast, clean sites built to convert local traffic into booked jobs.</span>
+        </div>
+        <div class="service-row stagger">
+          <span class="service-name">Local SEO</span>
+          <span class="service-desc">Google Business Profile, citations, and on-page work that puts you in front of buyers.</span>
+        </div>
+        <div class="service-row stagger">
+          <span class="service-name">Meta Advertising</span>
+          <span class="service-desc">Lead campaigns that send new customers directly to your phone.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4 — WHY US -->
+  <section class="section section-light section-reveal snap" id="why">
+    <div class="wrap">
+      <div class="why-grid">
+        <div class="why-left">
+          <p class="label stagger">Why Stay Booked</p>
+          <h2 class="title stagger heading">Results first. No long contracts.</h2>
+          <p class="body why-body stagger">We work month to month because we earn your business every month. Most clients see results in the first 30 days.</p>
+        </div>
+        <div class="why-right">
+          <div class="stat stagger">
+            <div class="stat-num">5+</div>
+            <div class="stat-label">Active Clients</div>
+          </div>
+          <div class="stat stagger">
+            <div class="stat-num">30</div>
+            <div class="stat-label">Days to Results</div>
+          </div>
+          <div class="stat stagger">
+            <div class="stat-num">0</div>
+            <div class="stat-label">Long Term Contracts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5 — CONTACT (footer nested at bottom of this snap screen) -->
+  <section class="section section-deep section-reveal snap contact-section" id="contact">
+    <div class="contact-center">
+      <div class="wrap wrap-contact">
+        <p class="label stagger">Get in touch</p>
+        <h2 class="title stagger heading">Ready to stay booked?</h2>
+        <p class="body contact-body stagger">Tell us about your business and we will show you exactly what we would do.</p>
+        <a class="email-cta stagger" href="mailto:kolby@staybookedmarketing.com">kolby@staybookedmarketing.com</a>
       </div>
     </div>
 
-    <!-- ================================================
-         INTRO / ABOUT BLURB
-         ================================================ -->
-    <section class="intro-section" id="intro" aria-label="About Stay Booked">
-      <div class="intro-inner reveal">
-        <div class="intro-ornament" aria-hidden="true"></div>
-        <p class="intro-text">Stay Booked is a full-service advertising agency built for businesses that want real results. We fill your calendar, grow your revenue, and make your phone ring.</p>
-        <p class="intro-byline">Founded by Kolby McCargar and Jordan Vo</p>
-      </div>
-    </section>
-
-    <!-- ================================================
-         SERVICES
-         ================================================ -->
-    <section class="section services-section" id="services" aria-labelledby="services-heading">
-      <div class="container">
-        <div class="section-header reveal">
-          <p class="section-label">OUR SERVICES</p>
-          <h2 class="section-headline" id="services-heading">Everything You Need to Grow</h2>
-        </div>
-
-        <div class="services-grid">
-
-          <article class="service-card reveal" style="--delay:0s">
-            <div class="service-card-img-wrap">
-              <img src="https://images.unsplash.com/photo-1611162616475-46b635cb6868?w=800&q=80" alt="Social media advertising on phone and laptop" loading="lazy" class="service-card-img" />
-            </div>
-            <div class="service-card-body">
-              <h3 class="service-name">Facebook &amp; Instagram Ads</h3>
-              <p class="service-desc">Scroll-stopping campaigns that put your business in front of homeowners actively looking for your services. Lead forms, retargeting, and before-and-after creative — all managed for you.</p>
-              <p class="service-price">$750&ndash;$1,500<span>/month</span></p>
-              <p class="service-terms">Month-to-month. Cancel anytime.</p>
-              <a href="#contact" class="service-link">Get started <span aria-hidden="true">&rarr;</span></a>
-            </div>
-          </article>
-
-          <article class="service-card reveal" style="--delay:0.08s">
-            <div class="service-card-img-wrap">
-              <img src="https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=800&q=80" alt="Google search on laptop screen" loading="lazy" class="service-card-img" />
-            </div>
-            <div class="service-card-body">
-              <h3 class="service-name">Google Ads &amp; Local Services Ads</h3>
-              <p class="service-desc">Show up at the top of Google when someone searches for your service. We manage Search, LSA, and Maps ads to capture high-intent customers at the exact moment they need you.</p>
-              <p class="service-price">$750&ndash;$1,500<span>/month</span></p>
-              <p class="service-terms">Month-to-month. Cancel anytime.</p>
-              <a href="#contact" class="service-link">Get started <span aria-hidden="true">&rarr;</span></a>
-            </div>
-          </article>
-
-          <article class="service-card reveal" style="--delay:0.16s">
-            <div class="service-card-img-wrap">
-              <img src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=800&q=80" alt="Website design on laptop" loading="lazy" class="service-card-img" />
-            </div>
-            <div class="service-card-body">
-              <h3 class="service-name">Website Design &amp; Development</h3>
-              <p class="service-desc">Fast, mobile-first websites built to convert visitors into leads. Not a pretty brochure — a 24/7 sales machine with click-to-call, quote forms, and SEO built in from day one.</p>
-              <p class="service-price">$1,500&ndash;$5,000<span> one-time</span></p>
-              <p class="service-terms">Month-to-month. Cancel anytime.</p>
-              <a href="#contact" class="service-link">Get started <span aria-hidden="true">&rarr;</span></a>
-            </div>
-          </article>
-
-          <article class="service-card reveal" style="--delay:0.24s">
-            <div class="service-card-img-wrap">
-              <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80" alt="Analytics dashboard and data charts" loading="lazy" class="service-card-img" />
-            </div>
-            <div class="service-card-body">
-              <h3 class="service-name">Search Engine Optimization</h3>
-              <p class="service-desc">Get found organically. We optimize your Google Business Profile, build local citations, and create content that ranks — so you stop paying for every single click.</p>
-              <p class="service-price">$700&ndash;$1,200<span>/month</span></p>
-              <p class="service-terms">Month-to-month. Cancel anytime.</p>
-              <a href="#contact" class="service-link">Get started <span aria-hidden="true">&rarr;</span></a>
-            </div>
-          </article>
-
-          <article class="service-card reveal" style="--delay:0.32s">
-            <div class="service-card-img-wrap">
-              <img src="https://images.unsplash.com/photo-1596526131083-e8c633c948d2?w=800&q=80" alt="Email on laptop screen" loading="lazy" class="service-card-img" />
-            </div>
-            <div class="service-card-body">
-              <h3 class="service-name">Cold Email Outreach</h3>
-              <p class="service-desc">Automated email sequences that reach potential customers before they even know they need you. Custom-written for your trade, A/B tested, and fully compliant.</p>
-              <p class="service-price">$500<span>/month</span></p>
-              <p class="service-terms">Month-to-month. Cancel anytime.</p>
-              <a href="#contact" class="service-link">Get started <span aria-hidden="true">&rarr;</span></a>
-            </div>
-          </article>
-
-          <article class="service-card reveal" style="--delay:0.40s">
-            <div class="service-card-img-wrap">
-              <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80" alt="Team working together in modern office" loading="lazy" class="service-card-img" />
-            </div>
-            <div class="service-card-body">
-              <h3 class="service-name">Full Service Package</h3>
-              <p class="service-desc">Don't want to think about marketing at all? We handle everything — ads, website, email, SEO, and reporting — so you can focus entirely on running your business.</p>
-              <p class="service-price">$2,000&ndash;$4,000<span>/month</span></p>
-              <p class="service-terms">Month-to-month. Cancel anytime.</p>
-              <a href="#contact" class="service-link">Get started <span aria-hidden="true">&rarr;</span></a>
-            </div>
-          </article>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ================================================
-         OUR WORK / PORTFOLIO
-         ================================================ -->
-    <section class="section work-section" id="work" aria-labelledby="work-heading">
-      <div class="container">
-        <div class="section-header reveal">
-          <p class="section-label">OUR WORK</p>
-          <h2 class="section-headline" id="work-heading">Websites We Have Built</h2>
-        </div>
-      </div>
-      <div class="work-scroll-wrap">
-        <div class="work-scroll reveal" role="list" aria-label="Client website portfolio">
-
-          <article class="work-card" role="listitem">
-            <div class="work-card-img-wrap">
-              <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80" alt="DD's Construction website" loading="lazy" class="work-card-img" />
-            </div>
-            <div class="work-card-body">
-              <h3 class="work-card-name">DD's Construction</h3>
-              <p class="work-card-tag">General Contracting</p>
-            </div>
-          </article>
-
-          <article class="work-card" role="listitem">
-            <div class="work-card-img-wrap">
-              <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Jordan's Heating and Cooling website" loading="lazy" class="work-card-img" />
-            </div>
-            <div class="work-card-body">
-              <h3 class="work-card-name">Jordan's Heating and Cooling</h3>
-              <p class="work-card-tag">HVAC</p>
-            </div>
-          </article>
-
-          <article class="work-card" role="listitem">
-            <div class="work-card-img-wrap">
-              <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=600&q=80" alt="Harmony Nail Spa website" loading="lazy" class="work-card-img" />
-            </div>
-            <div class="work-card-body">
-              <h3 class="work-card-name">Harmony Nail Spa</h3>
-              <p class="work-card-tag">Beauty &amp; Wellness</p>
-            </div>
-          </article>
-
-          <article class="work-card" role="listitem">
-            <div class="work-card-img-wrap">
-              <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=600&q=80" alt="Waterboy Delivery website" loading="lazy" class="work-card-img" />
-            </div>
-            <div class="work-card-body">
-              <h3 class="work-card-name">Waterboy Delivery</h3>
-              <p class="work-card-tag">Delivery Service</p>
-            </div>
-          </article>
-
-          <article class="work-card" role="listitem">
-            <div class="work-card-img-wrap">
-              <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600&q=80" alt="Grove Heritage Academy website" loading="lazy" class="work-card-img" />
-            </div>
-            <div class="work-card-body">
-              <h3 class="work-card-name">Grove Heritage Academy</h3>
-              <p class="work-card-tag">Education</p>
-            </div>
-          </article>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ================================================
-         FULL-WIDTH IMAGE BREAK
-         ================================================ -->
-    <div class="photo-break" aria-hidden="true">
-      <div class="photo-break-img"></div>
-    </div>
-
-    <!-- ================================================
-         WHY STAY BOOKED
-         ================================================ -->
-    <section class="section why-section" id="results" aria-labelledby="why-heading">
-      <div class="why-ribbon" aria-hidden="true">
-        <svg width="100%" height="60" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true">
-          <path d="M0,30 Q150,5 300,30 Q450,55 600,30 Q750,5 900,30 Q1050,55 1200,30" fill="none" stroke="var(--gold-light)" stroke-width="1" opacity="0.6"/>
-          <path d="M0,30 Q150,55 300,30 Q450,5 600,30 Q750,55 900,30 Q1050,5 1200,30" fill="none" stroke="var(--gold-light)" stroke-width="0.5" opacity="0.35"/>
-        </svg>
-      </div>
-      <div class="container">
-        <div class="section-header reveal">
-          <p class="section-label">WHY STAY BOOKED</p>
-          <h2 class="section-headline" id="why-heading">What Sets Us Apart</h2>
-        </div>
-        <div class="why-statements reveal">
-          <p class="why-statement">Month-to-month contracts. No lock-ins.</p>
-          <p class="why-statement">Real humans. Not a chatbot agency.</p>
-          <p class="why-statement">We only win when your phone rings.</p>
-          <p class="why-statement">Built for blue-collar businesses that need results.</p>
-        </div>
-
-        <!-- Stats -->
-        <div class="stats-grid reveal" id="statsGrid">
-          <div class="stat-card">
-            <div class="stat-num" data-target="2847" data-prefix="" data-suffix="" data-format="comma">2,847</div>
-            <div class="stat-label">Leads Generated This Quarter</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-num" data-target="2.3" data-prefix="$" data-suffix="M+" data-format="decimal">$2.3M+</div>
-            <div class="stat-label">Revenue Generated for Clients</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-num" data-target="34" data-prefix="$" data-suffix="" data-format="int">$34</div>
-            <div class="stat-label">Average Cost Per Lead</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-num" data-target="150" data-prefix="" data-suffix="+" data-format="int">150+</div>
-            <div class="stat-label">Businesses Served</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================================================
-         ABOUT / TEAM
-         ================================================ -->
-    <section class="section about-section" id="about" aria-labelledby="about-heading">
-      <div class="container">
-        <div class="about-layout">
-          <div class="about-text-col reveal" style="--delay:0s">
-            <p class="section-label">THE TEAM</p>
-            <h2 class="section-headline" id="about-heading">Two Guys Who Actually Give a Damn</h2>
-            <div class="about-text">
-              <p>Stay Booked was founded by <strong>Kolby McCargar</strong> and <strong>Jordan Vo</strong> — two people who saw the same problem over and over: service businesses getting ripped off by marketing agencies that don't understand their world.</p>
-              <p>We've spent years learning the trades — not the theory, but the actual reality of how a roofer books a job, how an HVAC company fills shoulder season, how a plumber decides where to spend money. We built Stay Booked to be the agency we wished existed.</p>
-              <p>No long-term contracts. No confusing dashboards. No excuses. Just more booked jobs, every single month.</p>
-            </div>
-            <div class="team-cards">
-              <div class="team-card">
-                <div class="team-initials" aria-hidden="true">KM</div>
-                <div class="team-info">
-                  <div class="team-name">Kolby McCargar</div>
-                  <div class="team-role">Co-Founder</div>
-                  <div class="team-bio">Ads, strategy, and making sure your phone doesn't stop ringing.</div>
-                </div>
-              </div>
-              <div class="team-card">
-                <div class="team-initials" aria-hidden="true">JV</div>
-                <div class="team-info">
-                  <div class="team-name">Jordan Vo</div>
-                  <div class="team-role">Founder</div>
-                  <div class="team-bio">Operations, client success, and the reason everything runs on time.</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="about-img-col reveal" style="--delay:0.1s">
-            <img src="https://images.unsplash.com/photo-1556761175-4b46a572b786?w=800&q=80" alt="Two business partners discussing strategy" loading="lazy" class="about-img" />
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================================================
-         TESTIMONIALS
-         ================================================ -->
-    <section class="section testimonials-section" id="testimonials" aria-labelledby="testimonials-heading">
-      <div class="container">
-        <div class="section-header reveal">
-          <p class="section-label">WHAT CLIENTS SAY</p>
-          <h2 class="section-headline" id="testimonials-heading">Results That Speak</h2>
-        </div>
-        <div class="testimonials-list reveal">
-
-          <blockquote class="testimonial-card">
-            <p class="testimonial-text">We were spending $3,000 a month with another agency and had nothing to show for it. Stay Booked came in, cut our ad spend in half, and tripled our leads. I wish I found them a year ago.</p>
-            <footer class="testimonial-footer">
-              <div class="testimonial-stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-              <cite class="testimonial-author">
-                <strong>Mike R.</strong> &mdash; Roofing Contractor, Sacramento CA
-              </cite>
-            </footer>
-          </blockquote>
-
-          <blockquote class="testimonial-card">
-            <p class="testimonial-text">I tried running Google Ads myself and burned through $2,000 with nothing to show for it. Stay Booked had everything dialed in within a week. We booked 14 jobs in the first month alone.</p>
-            <footer class="testimonial-footer">
-              <div class="testimonial-stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-              <cite class="testimonial-author">
-                <strong>Sarah K.</strong> &mdash; Plumbing Company Owner, Fresno CA
-              </cite>
-            </footer>
-          </blockquote>
-
-          <blockquote class="testimonial-card">
-            <p class="testimonial-text">The biggest thing Stay Booked gave us wasn't just leads — it was predictability. Knowing the phone will ring changes how you run a business.</p>
-            <footer class="testimonial-footer">
-              <div class="testimonial-stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-              <cite class="testimonial-author">
-                <strong>Ty B.</strong> &mdash; Trades Business Owner, Austin TX
-              </cite>
-            </footer>
-          </blockquote>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ================================================
-         FAQ
-         ================================================ -->
-    <section class="section faq-section" id="faq" aria-labelledby="faq-heading">
-      <div class="container">
-        <div class="section-header reveal">
-          <p class="section-label">QUESTIONS</p>
-          <h2 class="section-headline" id="faq-heading">Frequently Asked</h2>
-        </div>
-        <div class="faq-list reveal">
-
-          <div class="faq-item">
-            <button class="faq-question" aria-expanded="false">
-              <span>How much does it cost?</span>
-              <span class="faq-icon" aria-hidden="true">+</span>
-            </button>
-            <div class="faq-answer">
-              <p>Our management fees start at $750/month depending on the scope of work. Ad spend is separate and paid directly to the platform — we recommend starting at $1,000–$1,500/month for most trades. No setup fees, no long-term contracts.</p>
-            </div>
-          </div>
-
-          <div class="faq-item">
-            <button class="faq-question" aria-expanded="false">
-              <span>How fast will I see results?</span>
-              <span class="faq-icon" aria-hidden="true">+</span>
-            </button>
-            <div class="faq-answer">
-              <p>Most clients see leads within the first 7–14 days of launching. By the end of month one, you'll have a clear picture of your cost per lead and what's working. Full optimization typically happens by month 2–3.</p>
-            </div>
-          </div>
-
-          <div class="faq-item">
-            <button class="faq-question" aria-expanded="false">
-              <span>Do I need a website?</span>
-              <span class="faq-icon" aria-hidden="true">+</span>
-            </button>
-            <div class="faq-answer">
-              <p>Not necessarily to start — we can run Facebook lead form ads that work without one. But a fast, mobile-optimized website dramatically improves results. We build them too, and they're included in some of our packages.</p>
-            </div>
-          </div>
-
-          <div class="faq-item">
-            <button class="faq-question" aria-expanded="false">
-              <span>I got burned by a marketing company before. How are you different?</span>
-              <span class="faq-icon" aria-hidden="true">+</span>
-            </button>
-            <div class="faq-answer">
-              <p>We hear this constantly. Here's what makes us different: no long-term contracts (month-to-month only), we specialize in trades, and we actually pick up the phone when you call. We also give you full access to your ad accounts — we don't hold your data hostage.</p>
-            </div>
-          </div>
-
-          <div class="faq-item">
-            <button class="faq-question" aria-expanded="false">
-              <span>What trades do you work with?</span>
-              <span class="faq-icon" aria-hidden="true">+</span>
-            </button>
-            <div class="faq-answer">
-              <p>Roofers, HVAC, plumbers, electricians, landscapers, painters, auto shops, pest control, pool services, tree services, concrete contractors, garage door companies, cleaning services, and more. If you're a service-based business, we can help.</p>
-            </div>
-          </div>
-
-          <div class="faq-item">
-            <button class="faq-question" aria-expanded="false">
-              <span>Do I have to sign a long contract?</span>
-              <span class="faq-icon" aria-hidden="true">+</span>
-            </button>
-            <div class="faq-answer">
-              <p>No. Every client is month-to-month with a 30-day cancellation notice. We keep clients because we deliver results, not because they're locked in.</p>
-            </div>
-          </div>
-
-          <div class="faq-item">
-            <button class="faq-question" aria-expanded="false">
-              <span>What do I need to get started?</span>
-              <span class="faq-icon" aria-hidden="true">+</span>
-            </button>
-            <div class="faq-answer">
-              <p>A phone that you'll answer, a service area, and 30 minutes for a strategy call. We handle everything else — ad accounts, creative, copy, targeting, tracking, reporting.</p>
-            </div>
-          </div>
-
-          <div class="faq-item">
-            <button class="faq-question" aria-expanded="false">
-              <span>Do you work with businesses outside of California?</span>
-              <span class="faq-icon" aria-hidden="true">+</span>
-            </button>
-            <div class="faq-answer">
-              <p>Absolutely. We're based in Southern California but we serve clients across the entire United States. Online advertising works the same everywhere — the only thing that changes is the local market, and we research every single one.</p>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ================================================
-         EMAIL SUBSCRIBE
-         ================================================ -->
-    <section class="subscribe-section" aria-label="Newsletter signup">
-      <div class="subscribe-inner reveal">
-        <h2 class="subscribe-headline">Stay in the loop</h2>
-        <p class="subscribe-sub">Get marketing tips and updates delivered to your inbox.</p>
-        <form
-          class="subscribe-form"
-          name="newsletter"
-          method="POST"
-          data-netlify="true"
-          novalidate
-        >
-          <input type="hidden" name="form-name" value="newsletter" />
-          <div class="subscribe-row">
-            <label for="sub-email" class="sr-only">Email address</label>
-            <input type="email" id="sub-email" name="email" placeholder="Your email address" required autocomplete="email" class="subscribe-input" />
-            <button type="submit" class="subscribe-btn">Subscribe</button>
-          </div>
-        </form>
-      </div>
-    </section>
-
-    <!-- ================================================
-         CONTACT
-         ================================================ -->
-    <section class="section contact-section" id="contact" aria-labelledby="contact-heading">
-      <div class="container">
-        <div class="section-header reveal">
-          <p class="section-label">GET IN TOUCH</p>
-          <h2 class="section-headline" id="contact-heading">Let's Talk About Your Business</h2>
-          <p class="section-subtitle">Fill out the form and we'll be in touch within 24 hours. Or call us right now.</p>
-        </div>
-
-        <div class="contact-layout">
-
-          <!-- Contact Info -->
-          <div class="contact-info-col reveal" style="--delay:0s">
-            <div class="contact-info-block">
-              <div class="contact-info-item">
-                <p class="contact-info-label">Phone</p>
-                <a href="tel:+19166069970" class="contact-info-value">(916) 606-9970</a>
-              </div>
-              <div class="contact-info-item">
-                <p class="contact-info-label">Email</p>
-                <a href="mailto:info@staybookedmarketing.com" class="contact-info-value">info@staybookedmarketing.com</a>
-              </div>
-              <div class="contact-info-item">
-                <p class="contact-info-label">Location</p>
-                <p class="contact-info-value">Southern California &mdash; Serves nationwide</p>
-              </div>
-              <div class="contact-info-item">
-                <p class="contact-info-label">Hours</p>
-                <p class="contact-info-value">Mon&ndash;Fri &nbsp;7:00 AM &ndash; 5:00 PM PST</p>
-              </div>
-              <div class="contact-info-item">
-                <p class="contact-info-label">Schedule a Call</p>
-                <a href="https://calendar.app.google/7mv7e8CYAxiTw7jw8" class="contact-info-value contact-book-link" target="_blank" rel="noopener">Book a time &rarr;</a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Form -->
-          <div class="contact-form-col reveal" style="--delay:0.1s">
-            <form
-              class="contact-form"
-              id="contactForm"
-              name="contact"
-              method="POST"
-              data-netlify="true"
-              novalidate
-            >
-              <input type="hidden" name="form-name" value="contact" />
-
-              <div class="form-row-2">
-                <div class="form-group">
-                  <label for="name">Full Name <span class="required" aria-label="required">*</span></label>
-                  <input type="text" id="name" name="name" placeholder="John Smith" required autocomplete="name" />
-                </div>
-                <div class="form-group">
-                  <label for="phone">Phone Number <span class="required" aria-label="required">*</span></label>
-                  <input type="tel" id="phone" name="phone" placeholder="(916) 555-0123" required autocomplete="tel" />
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label for="email">Email Address <span class="required" aria-label="required">*</span></label>
-                <input type="email" id="email" name="email" placeholder="john@yourcompany.com" required autocomplete="email" />
-              </div>
-
-              <div class="form-row-2">
-                <div class="form-group">
-                  <label for="business-type">Business Type <span class="required" aria-label="required">*</span></label>
-                  <select id="business-type" name="business-type" required>
-                    <option value="" disabled selected>Select your trade</option>
-                    <option>Roofing</option>
-                    <option>HVAC</option>
-                    <option>Plumbing</option>
-                    <option>Electrical</option>
-                    <option>Landscaping</option>
-                    <option>Painting</option>
-                    <option>Auto Repair</option>
-                    <option>Pest Control</option>
-                    <option>Pool Service</option>
-                    <option>Tree Service</option>
-                    <option>Cleaning</option>
-                    <option>Moving</option>
-                    <option>Other</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="revenue">Annual Revenue Range</label>
-                  <select id="revenue" name="revenue">
-                    <option value="" disabled selected>Select range</option>
-                    <option>Under $250K/year</option>
-                    <option>$250K&ndash;$500K/year</option>
-                    <option>$500K&ndash;$1M/year</option>
-                    <option>$1M&ndash;$3M/year</option>
-                    <option>$3M+/year</option>
-                  </select>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label for="message">Tell us about your business</label>
-                <textarea id="message" name="message" rows="4" placeholder="What does your business do? What's your biggest challenge right now?"></textarea>
-              </div>
-
-              <button type="submit" class="btn-submit">Send Message</button>
-            </form>
-
-            <div class="form-success" id="formSuccess" aria-live="polite" hidden>
-              <p class="form-success-icon" aria-hidden="true">&#10003;</p>
-              <h3>Message Received</h3>
-              <p>We'll be in touch within 24 hours. If you need a faster response, call us at <a href="tel:+19166069970">(916) 606-9970</a>.</p>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- ================================================
-       FOOTER
-       ================================================ -->
-  <footer class="site-footer" aria-label="Site footer">
-    <div class="container">
-      <div class="footer-grid">
-
-        <div class="footer-col">
-          <h3 class="footer-col-heading">Information</h3>
-          <ul class="footer-links" role="list">
-            <li><a href="mailto:info@staybookedmarketing.com">info@staybookedmarketing.com</a></li>
-            <li><a href="tel:+19166069970">(916) 606-9970</a></li>
-            <li>Mon&ndash;Fri, 7:00 AM &ndash; 5:00 PM PST</li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <h3 class="footer-col-heading">Services</h3>
-          <ul class="footer-links" role="list">
-            <li><a href="#services">Facebook &amp; Instagram Ads</a></li>
-            <li><a href="#services">Google Ads &amp; LSA</a></li>
-            <li><a href="#services">Website Design</a></li>
-            <li><a href="#services">SEO</a></li>
-            <li><a href="#services">Cold Email</a></li>
-            <li><a href="#services">Full Service</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <h3 class="footer-col-heading">Company</h3>
-          <ul class="footer-links" role="list">
-            <li><a href="#about">About</a></li>
-            <li><a href="#faq">FAQ</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li><a href="https://calendar.app.google/7mv7e8CYAxiTw7jw8" target="_blank" rel="noopener">Book a Call</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <h3 class="footer-col-heading">Legal</h3>
-          <ul class="footer-links" role="list">
-            <li><a href="#contact">Privacy Policy</a></li>
-            <li><a href="#contact">Terms of Service</a></li>
-          </ul>
-          <div class="footer-social">
-            <a href="#contact" class="footer-social-link" rel="noopener">Facebook</a>
-            <a href="#contact" class="footer-social-link" rel="noopener">Instagram</a>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="footer-wordmark">STAY BOOKED</div>
-      <div class="footer-bottom">
-        <p class="footer-copy">&copy; 2026, Stay Booked Online Advertising</p>
-        <p class="footer-sub">Based in Southern California. Serving businesses nationwide.</p>
-      </div>
-    </div>
-  </footer>
+    <!-- FOOTER -->
+    <footer class="footer">
+      <img class="footer-logo" src="Firefly_gpt-image_add%20a%20period%20after%20the%20m%20928436.png" alt="Stay Booked Marketing" />
+      <span class="footer-domain">staybookedmarketing.com</span>
+      <span class="footer-phone">(916) 606-9970</span>
+    </footer>
+  </section>
 
   <script src="script.js"></script>
 </body>

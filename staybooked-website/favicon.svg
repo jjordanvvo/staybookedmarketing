@@ -10,7 +10,7 @@
     Mark extents: left x=8, right x=24. Centered in 32×32.
     Stroke-width 3 gives bold, crisp rendering at 16px and 32px.
   -->
-  <g stroke="#3B82F6" stroke-width="3" stroke-linecap="round" fill="none">
+  <g stroke="#4A90B8" stroke-width="3" stroke-linecap="round" fill="none">
 
     <!-- Shared vertical spine -->
     <line x1="16" y1="2" x2="16" y2="30"/>
