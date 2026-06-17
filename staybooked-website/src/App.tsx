@@ -6,11 +6,8 @@ import Services from '@/components/sections/Services'
 import WhyUs from '@/components/sections/WhyUs'
 import Contact from '@/components/sections/Contact'
 import Footer from '@/components/sections/Footer'
-import { useScrollReveal } from '@/hooks/useScrollReveal'
 
 export default function App() {
-  useScrollReveal()
-
   return (
     <>
       <Navbar />

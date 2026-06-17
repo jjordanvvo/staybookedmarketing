@@ -33,8 +33,6 @@
 html {
   font-size: 16px;
   -webkit-text-size-adjust: 100%;
-  /* Page-turn snapping */
-  scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
 }
 
@@ -50,9 +48,6 @@ body {
 img { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }
 ul { list-style: none; }
-
-/* Snap target */
-.snap { scroll-snap-align: start; }
 
 /* ============================================================
    NAVIGATION
@@ -109,46 +104,35 @@ ul { list-style: none; }
 .nav-links a:hover { color: var(--logo-blue); }
 
 /* ============================================================
-   HERO — the logo, full stop
+   HERO — just the logo, filling the section
+   SBM. centered on its own blue. Simplistic, no borders.
    ============================================================ */
+:root {
+  --hero-cream: #F1EBDC;
+  --logo-fill:  #789FF4;   /* exact logo background — seamless edge-to-edge fill */
+}
+
 .hero {
   height: 100vh;
-  background: var(--logo-blue);
+  background: var(--logo-fill);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  /* Intro stage 1 -> 3: starts blurred & slightly dim, pops into clarity once */
-  filter: blur(10px) brightness(0.92);
-  animation: heroClarity 1.7s cubic-bezier(0.16,1,0.3,1) forwards;
 }
 
-@keyframes heroClarity {
-  0%   { filter: blur(10px) brightness(0.92); }
-  100% { filter: blur(0px) brightness(1); }
-}
-
+/* The logo fills the section; SBM. stays centered and is never cropped */
 .hero-logo {
-  width: clamp(260px, 40vw, 480px);
-  height: auto;
-  /* Intro stage 2: enters at 1.4x and settles into its resting 1x */
-  transform: scale(1.4);
-  animation: logoSettle 1.2s cubic-bezier(0.16,1,0.3,1) forwards;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  animation: heroFade 0.9s ease-out backwards;
 }
 
-/* Breath takes over only after the intro completes (JS adds .settled at 1.8s) */
-.hero-logo.settled {
-  animation: breath 6s 0s infinite ease-in-out alternate;
-}
-
-@keyframes logoSettle {
-  0%   { transform: scale(1.4); }
-  100% { transform: scale(1); }
-}
-
-@keyframes breath {
-  from { transform: scale(1); }
-  to   { transform: scale(1.03); }
+@keyframes heroFade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
 /* ============================================================
@@ -269,12 +253,43 @@ ul { list-style: none; }
 }
 
 /* ============================================================
-   SECTION 2 — WHAT WE DO
+   SECTION 2 — WHAT WE DO  (full-bleed photo background)
    ============================================================ */
 .body-block {
   max-width: 620px;
   margin-top: 30px;            /* heading -> body */
 }
+
+/* Photo fills the whole screen; lettering rides on top with the reveal intact */
+.section-photo {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  isolation: isolate;
+}
+
+/* Scrim keeps the type legible over the photo (darker on the text side) */
+.section-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(90deg,
+      rgba(20,30,42,0.86) 0%,
+      rgba(20,30,42,0.66) 46%,
+      rgba(20,30,42,0.34) 100%),
+    linear-gradient(180deg,
+      rgba(20,30,42,0.30) 0%,
+      rgba(20,30,42,0) 30%);
+}
+
+.section-photo .wrap { position: relative; z-index: 2; transform: translate(-110px, -78px); }
+
+/* Light type over the photo */
+.section-photo .label { color: #A9CBEC; }
+.section-photo .title { color: var(--hero-cream); }
+.section-photo .body  { color: rgba(241,235,220,0.86); }
 
 /* ============================================================
    SECTION 3 — SERVICES
@@ -500,12 +515,9 @@ ul { list-style: none; }
    ============================================================ */
 @media (prefers-reduced-motion: reduce) {
   html {
-    scroll-snap-type: none;
     scroll-behavior: auto;
   }
-  .hero { filter: none !important; animation: none !important; }
-  .hero-logo,
-  .hero-logo.settled { animation: none !important; transform: none !important; }
+  .hero-logo { animation: none !important; opacity: 1 !important; }
   .section-reveal,
   .stagger,
   .stagger.heading {
