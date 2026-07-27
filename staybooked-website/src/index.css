@@ -12,24 +12,27 @@
    ============================================================ */
 
 /* ---- Tokens ---- */
+/* Matte cream / rich black / textured warm-white palette */
 :root {
-  --page-bg:    #EDF5FB;   /* skyLight */
-  --alt-bg:     #D8ECF7;   /* skyAlt   */
-  --deep-bg:    #C5E1F2;   /* skyDeep  */
-  --nav-bg:     rgba(237,245,251,0.88);
-  --logo-blue:  #6B9FD4;
-  --accent:     #6B9FD4;
-  --text:       #1C2B3A;   /* textPrimary */
-  --text-2:     #4A6478;   /* textSecondary */
-  --border:     rgba(107,159,212,0.18);
-  --white-surface: rgba(255,255,255,0.72);
-  --footer-bg:  #1C2B3A;
+  --page-bg:    #F0EBE0;   /* matte cream        (was skyLight)      */
+  --alt-bg:     #F7F4EE;   /* soft warm white    (was skyAlt)        */
+  --deep-bg:    #FBFAF6;   /* elevated shiny white (was skyDeep)     */
+  --nav-bg:     rgba(240,235,224,0.85);
+  --logo-blue:  #141414;   /* rich black         (was logoBlue)      */
+  --accent:     #141414;   /* rich black accents (was logoBlue)      */
+  --text:       #141414;   /* rich black         (was textPrimary)   */
+  --text-2:     #3A3A3A;   /* soft charcoal      (was textSecondary) */
+  --border:     #C9C2B4;   /* warm mid grey                          */
+  --white-surface: rgba(251,250,246,0.85);
+  --footer-bg:  #141414;   /* near black         (was footerDark)    */
 
   /* Editorial additions */
-  --ink:        #16191D;   /* near-black for statement type */
-  --offwhite:   #F7F5F0;   /* editorial off-white surface */
-  --rule:       rgba(28,43,58,0.16);   /* hairline separators on light */
-  --card-border: rgba(28,43,58,0.12);
+  --ink:        #141414;   /* rich black for statement type */
+  --offwhite:   #F7F4EE;   /* soft warm white surface */
+  --rule:       #C9C2B4;   /* warm mid grey hairline separators */
+  --card-border: #C9C2B4;  /* warm mid grey card borders */
+  /* Soft sheen for elevated surfaces: lighter top-left, warmer bottom-right */
+  --sheen: linear-gradient(135deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0) 42%, rgba(201,194,180,0.10) 100%);
   --font-display: 'Archivo', sans-serif;
 }
 
@@ -55,6 +58,20 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Subtle matte paper grain across the whole page — reads as texture up close,
+   clean from a distance. Sits above section backgrounds, below the nav, and
+   never intercepts clicks. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
 img { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }
 ul { list-style: none; }
@@ -76,7 +93,7 @@ ul { list-style: none; }
   background: var(--nav-bg);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(107,159,212,0.15);
+  border-bottom: 1px solid var(--border);
 }
 
 .nav-left {
@@ -134,14 +151,14 @@ ul { list-style: none; }
   transition: background 0.25s ease, color 0.25s ease;
   white-space: nowrap;
 }
-.nav-cta:hover { background: var(--logo-blue); color: #fff; }
+.nav-cta:hover { background: var(--logo-blue); color: var(--page-bg); }
 
 /* ============================================================
    HERO — SBM. logo, reduced to ~70vh so it no longer fills the screen
    ============================================================ */
 :root {
-  --hero-cream: #F1EBDC;
-  --logo-fill:  #789FF4;   /* exact logo background — seamless edge-to-edge fill */
+  --hero-cream: #F0EBE0;   /* light cream text over the dark photo scrim */
+  --logo-fill:  #CFB48E;   /* warm tan matching the SBM logo tile — seamless hero panel */
 }
 
 .hero {
@@ -157,7 +174,7 @@ ul { list-style: none; }
 .hero-logo {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: contain;   /* show the full SBM. wordmark; hero fill matches the tile's tan */
   object-position: center;
   animation: heroFade 0.9s ease-out backwards;
 }
@@ -220,7 +237,10 @@ ul { list-style: none; }
 .feature-band {
   height: 60vh;
   min-height: 360px;
-  background: var(--deep-bg);
+  background-color: var(--deep-bg);
+  background-image: var(--sheen);   /* subtle sheen so the panel lifts off the cream */
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -320,7 +340,8 @@ ul { list-style: none; }
 
 .section-light { background: var(--page-bg); }
 .section-alt   { background: var(--alt-bg); }
-.section-deep  { background: var(--deep-bg); }
+/* Elevated white section — subtle sheen lifts it off the matte cream */
+.section-deep  { background-color: var(--deep-bg); background-image: var(--sheen); }
 .section-offwhite { background: var(--offwhite); }
 
 .wrap {
@@ -374,19 +395,19 @@ ul { list-style: none; }
   z-index: 1;
   background:
     linear-gradient(90deg,
-      rgba(20,30,42,0.86) 0%,
-      rgba(20,30,42,0.66) 46%,
-      rgba(20,30,42,0.34) 100%),
+      rgba(20,20,20,0.86) 0%,
+      rgba(20,20,20,0.66) 46%,
+      rgba(20,20,20,0.34) 100%),
     linear-gradient(180deg,
-      rgba(20,30,42,0.30) 0%,
-      rgba(20,30,42,0) 30%);
+      rgba(20,20,20,0.30) 0%,
+      rgba(20,20,20,0) 30%);
 }
 
 .section-photo .wrap { position: relative; z-index: 2; }
 
-.section-photo .label { color: #A9CBEC; }
+.section-photo .label { color: rgba(240,235,224,0.78); }
 .section-photo .title { color: var(--hero-cream); }
-.section-photo .body  { color: rgba(241,235,220,0.86); }
+.section-photo .body  { color: rgba(240,235,224,0.86); }
 
 .body-block {
   max-width: 620px;
@@ -485,14 +506,17 @@ ul { list-style: none; }
   border: 1px solid var(--card-border);
   border-radius: 20px;
   padding: 26px;
-  background: rgba(255,255,255,0.5);
+  /* Warm-white surface with a faint sheen so the card lifts off the cream */
+  background-color: var(--alt-bg);
+  background-image: var(--sheen);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* One card carries more prominence — filled skyLight + soft depth */
+/* One card carries more prominence — whitest elevated surface + soft depth */
 .founder-card.featured {
-  background: var(--page-bg);
-  box-shadow: 0 34px 60px -34px rgba(28,43,58,0.42);
+  background-color: var(--deep-bg);
+  background-image: var(--sheen);
+  box-shadow: 0 34px 60px -34px rgba(20,20,20,0.20);
 }
 
 /* Photo slot: swap this <div> for <img className="founder-photo" src=... /> later */
@@ -501,7 +525,9 @@ ul { list-style: none; }
   aspect-ratio: 1;
   object-fit: cover;
   border-radius: 14px;
-  background: var(--deep-bg);
+  background-color: var(--deep-bg);
+  background-image: var(--sheen);
+  border: 1px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -642,14 +668,14 @@ ul { list-style: none; }
   font-family: 'Baloo 2', sans-serif;
   font-weight: 500;
   font-size: 0.95rem;
-  color: rgba(255,255,255,0.5);
+  color: rgba(240,235,224,0.55);   /* cream text on near-black footer */
 }
 
 .footer-phone {
   font-family: 'DM Sans', sans-serif;
   font-weight: 300;
   font-size: 0.78rem;
-  color: rgba(255,255,255,0.45);
+  color: rgba(240,235,224,0.5);    /* cream text on near-black footer */
 }
 
 /* ============================================================
