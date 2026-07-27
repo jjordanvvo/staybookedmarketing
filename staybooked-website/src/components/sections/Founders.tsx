@@ -1,5 +1,5 @@
 import { Reveal, RevealItem } from '@/components/ui/Reveal'
-import jordanPhoto from '@/assets/jordan.png'
+import jordanPhoto from '@/assets/jordan.jpg'
 import kolbyPhoto from '@/assets/kolby.png'
 
 /**
