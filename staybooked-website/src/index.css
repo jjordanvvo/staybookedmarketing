@@ -723,18 +723,67 @@ ul { list-style: none; }
   max-width: 560px;
 }
 
-.email-cta {
-  display: inline-block;
+/* Contact actions — primary booking button + email / call alternatives */
+.contact-book-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   margin-top: 40px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 0.9rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--page-bg);
+  background: var(--text);
+  border: 1px solid var(--text);
+  border-radius: 999px;
+  padding: 18px 42px;
+  transition:
+    background-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.contact-book-btn:hover {
+  background: transparent;
+  color: var(--text);
+  transform: translateY(-2px);
+}
+
+.contact-alts {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: clamp(32px, 6vw, 76px);
+  margin-top: 44px;
+}
+
+.contact-alt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.contact-alt-label {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+
+.contact-alt-value {
   font-family: 'DM Serif Display', serif;
   font-style: italic;
-  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-size: clamp(1.15rem, 2.2vw, 1.45rem);
   color: var(--text);
-  border-bottom: 1px solid var(--logo-blue);
-  padding-bottom: 4px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 2px;
   transition: opacity 0.25s ease;
 }
-.email-cta:hover { opacity: 0.65; }
+.contact-alt-value:hover { opacity: 0.65; }
 
 /* ============================================================
    FOOTER
@@ -824,6 +873,9 @@ ul { list-style: none; }
   .statement { padding: 72px 24px; }
   .howwework { padding: 72px 24px; }
   .contact-center { padding: 90px 24px; }
+
+  /* Contact alternatives stack cleanly on phones */
+  .contact-alts { flex-direction: column; gap: 26px; margin-top: 36px; }
 
   .statement-inner {
     grid-template-columns: 1fr;

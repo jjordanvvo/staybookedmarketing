@@ -1,11 +1,10 @@
 import { Reveal, RevealItem } from '@/components/ui/Reveal'
+import jordanPhoto from '@/assets/jordan.png'
+import kolbyPhoto from '@/assets/kolby.png'
 
 /**
  * Meet our Team — two founder cards with depth.
- *
- * Photo slots are placeholder <div>s. To use a real square photo later,
- * import it and swap the placeholder div for:
- *   <img className="founder-photo" src={jordanPhoto} alt="Jordan Vo" />
+ * Founder photos fill the square slots via object-fit: cover (see .founder-photo).
  */
 export default function Founders() {
   return (
@@ -17,8 +16,7 @@ export default function Founders() {
 
           {/* Featured card — filled skyLight + soft depth for hierarchy */}
           <RevealItem as="article" className="founder-card featured">
-            {/* Replace with Jordan's square photo: <img className="founder-photo" src={...} alt="Jordan Vo" /> */}
-            <div className="founder-photo"><span className="founder-photo-label">Photo</span></div>
+            <img className="founder-photo" src={jordanPhoto} alt="Jordan Vo" />
             <h3 className="founder-name">Jordan Vo</h3>
             <p className="founder-title">Founder</p>
             <p className="founder-bio">Jordan leads client outreach and partnerships, making sure every business we work with gets the attention it deserves. He oversees advertising strategy and campaign review, keeping our clients in front of the right people at the right time.</p>
@@ -29,8 +27,7 @@ export default function Founders() {
           </RevealItem>
 
           <RevealItem as="article" className="founder-card">
-            {/* Replace with Kolby's square photo: <img className="founder-photo" src={...} alt="Kolby McCargar" /> */}
-            <div className="founder-photo"><span className="founder-photo-label">Photo</span></div>
+            <img className="founder-photo" src={kolbyPhoto} alt="Kolby McCargar" />
             <h3 className="founder-name">Kolby McCargar</h3>
             <p className="founder-title">Co-Founder</p>
             <p className="founder-bio">Kolby runs the technical side of Stay Booked, from web design and development to project management and analytics. He turns ideas into clean, high-performing websites and keeps every project moving from first build to final launch.</p>
