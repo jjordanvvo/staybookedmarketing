@@ -415,39 +415,116 @@ ul { list-style: none; }
 }
 
 /* ============================================================
-   SERVICES — clean full-width bordered editorial rows
+   SERVICES — interactive editorial blocks
+   Oversized outline index numbers + Syne names, alternating
+   asymmetry (left / right / left), premium hover + scroll reveal.
    ============================================================ */
-.services {
-  margin-top: 40px;
-  border-top: 1px solid var(--rule);
-}
-
-.service-row {
+.svc-list {
+  margin-top: 48px;
   display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 40px;
-  padding: 40px 0;
-  border-bottom: 1px solid var(--rule);
+  flex-direction: column;
+  gap: 10px;
 }
 
-.service-name {
-  font-family: 'DM Serif Display', serif;
-  font-weight: 400;
-  font-size: clamp(1.7rem, 3vw, 2.4rem);
-  line-height: 1.05;
-  color: var(--text);
+.svc-block {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas:
+    "num  name"
+    ".    desc"
+    ".    line";
+  column-gap: clamp(18px, 3.5vw, 52px);
+  row-gap: 6px;
+  padding: clamp(24px, 3.6vw, 44px) clamp(18px, 3vw, 40px);
+  border-radius: 20px;
+  transition:
+    background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.service-desc {
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
-  font-size: 1rem;
-  line-height: 1.6;
-  color: var(--text-2);
-  max-width: 440px;
+/* Alternating asymmetry — every 2nd block mirrors to the right */
+.svc-block.svc-right {
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    "name  num"
+    "desc  ."
+    "line  .";
   text-align: right;
 }
+
+.svc-num-cell  { grid-area: num;  align-self: center; }
+.svc-name-cell { grid-area: name; align-self: end; }
+.svc-desc      { grid-area: desc; align-self: start; }
+.svc-line      { grid-area: line; }
+
+/* Oversized index number — outline / stroke, a design element in its own right */
+.svc-num {
+  display: inline-block;
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: clamp(4rem, 11.5vw, 9.5rem);
+  line-height: 0.82;
+  letter-spacing: -0.04em;
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--border);
+  transition:
+    -webkit-text-stroke-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Service name — Syne, large, tight, rich black */
+.svc-name {
+  display: inline-block;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.9rem, 4.6vw, 3.4rem);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.svc-desc {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--text-2);
+  max-width: 440px;
+  margin-top: 8px;
+}
+.svc-block.svc-right .svc-desc { justify-self: end; }
+
+/* Thin accent line that draws itself across on hover */
+.svc-line {
+  height: 2px;
+  width: 100%;
+  max-width: 300px;
+  margin-top: 22px;
+  background: var(--text);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.svc-block.svc-right .svc-line { margin-left: auto; transform-origin: right center; }
+
+/* Hover — the block comes alive: warms to shiny white, number fills + lifts,
+   name nudges, and the accent line draws across */
+.svc-block:hover {
+  background-color: var(--deep-bg);
+  background-image: var(--sheen);
+  box-shadow: 0 24px 50px -30px rgba(20, 20, 20, 0.22);
+}
+.svc-block:hover .svc-num {
+  -webkit-text-stroke-color: var(--text);
+  color: rgba(20, 20, 20, 0.05);
+  transform: translateY(-6px);
+}
+.svc-block:hover .svc-name { transform: translateX(10px); }
+.svc-block.svc-right:hover .svc-name { transform: translateX(-10px); }
+.svc-block:hover .svc-line { transform: scaleX(1); }
 
 /* ============================================================
    WHY US — restyled editorial stats (content preserved)
@@ -755,15 +832,23 @@ ul { list-style: none; }
     gap: 32px;
   }
 
-  .service-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-  .service-desc {
+  /* Services collapse to a clean single column; asymmetry resets to left */
+  .svc-block,
+  .svc-block.svc-right {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "num"
+      "name"
+      "desc"
+      "line";
     text-align: left;
-    max-width: 100%;
+    padding: 26px 4px;
+    row-gap: 2px;
   }
+  .svc-block.svc-right .svc-desc { justify-self: start; }
+  .svc-block.svc-right .svc-line { margin-left: 0; transform-origin: left center; }
+  .svc-num { font-size: clamp(3.5rem, 22vw, 6.5rem); }
+  .svc-desc { max-width: 100%; }
 
   .why-grid {
     grid-template-columns: 1fr;
