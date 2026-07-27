@@ -391,43 +391,6 @@ ul { list-style: none; }
 }
 
 /* ============================================================
-   WHAT WE DO — full-bleed photo background (content preserved)
-   ============================================================ */
-.section-photo {
-  position: relative;
-  min-height: 74vh;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  isolation: isolate;
-}
-
-.section-scrim {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background:
-    linear-gradient(90deg,
-      rgba(20,20,20,0.86) 0%,
-      rgba(20,20,20,0.66) 46%,
-      rgba(20,20,20,0.34) 100%),
-    linear-gradient(180deg,
-      rgba(20,20,20,0.30) 0%,
-      rgba(20,20,20,0) 30%);
-}
-
-.section-photo .wrap { position: relative; z-index: 2; }
-
-.section-photo .label { color: rgba(240,235,224,0.78); }
-.section-photo .title { color: var(--hero-cream); }
-.section-photo .body  { color: rgba(240,235,224,0.86); }
-
-.body-block {
-  max-width: 620px;
-  margin-top: 26px;
-}
-
-/* ============================================================
    SERVICES — interactive editorial blocks
    Oversized outline index numbers + Syne names, alternating
    asymmetry (left / right / left), premium hover + scroll reveal.
@@ -540,37 +503,43 @@ ul { list-style: none; }
 .svc-block:hover .svc-line { transform: scaleX(1); }
 
 /* ============================================================
-   WHY US — restyled editorial stats (content preserved)
+   WHY US — oversized count-up stats band
+   Giant display numbers as a design feature, echoing the editorial
+   numbered rows; thin separators, premium hover, count-up on reveal.
    ============================================================ */
-.why-grid {
+.why-body { margin-top: 26px; max-width: 620px; }
+
+.stats-band {
+  margin-top: clamp(44px, 6vw, 76px);
   display: grid;
-  grid-template-columns: 1.3fr 1fr;
-  gap: 80px;
-  align-items: start;
-}
-
-.why-body { margin-top: 26px; }
-
-.why-right {
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
 }
 
 .stat {
-  border-bottom: 1px solid var(--rule);
-  padding-bottom: 20px;
+  padding: clamp(28px, 4vw, 54px) clamp(16px, 2.5vw, 40px);
+  border-right: 1px solid var(--rule);   /* thin separators between stats */
+  transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.stat:last-child { border-bottom: none; }
+.stat:last-child { border-right: none; }
+
+/* Hover — warms to the shiny white surface, number gives a subtle lift */
+.stat:hover {
+  background-color: var(--deep-bg);
+  background-image: var(--sheen);
+}
 
 .stat-num {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(3rem, 6vw, 4.6rem);
-  line-height: 0.95;
-  letter-spacing: -0.02em;
-  color: var(--logo-blue);
+  font-size: clamp(4rem, 12vw, 9rem);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
+.stat:hover .stat-num { transform: scale(1.04); }
 
 .stat-label {
   font-family: 'DM Sans', sans-serif;
@@ -579,7 +548,7 @@ ul { list-style: none; }
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--text-2);
-  margin-top: 10px;
+  margin-top: 18px;
 }
 
 /* ============================================================
@@ -915,10 +884,13 @@ ul { list-style: none; }
   .svc-num { font-size: clamp(3.5rem, 22vw, 6.5rem); }
   .svc-desc { max-width: 100%; }
 
-  .why-grid {
-    grid-template-columns: 1fr;
-    gap: 44px;
+  /* Stats band stacks vertically; separators move to the bottom edge */
+  .stats-band { grid-template-columns: 1fr; }
+  .stat {
+    border-right: none;
+    border-bottom: 1px solid var(--rule);
   }
+  .stat:last-child { border-bottom: none; }
 
   .footer {
     padding: 32px 24px;

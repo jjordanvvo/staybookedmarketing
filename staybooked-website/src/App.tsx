@@ -3,7 +3,6 @@ import Hero from '@/components/sections/Hero'
 import HeroStatement from '@/components/sections/HeroStatement'
 import FeatureBand from '@/components/sections/FeatureBand'
 import HowWeWork from '@/components/sections/HowWeWork'
-import WhatWeDo from '@/components/sections/WhatWeDo'
 import Services from '@/components/sections/Services'
 import WhyUs from '@/components/sections/WhyUs'
 import Founders from '@/components/sections/Founders'
@@ -19,7 +18,6 @@ export default function App() {
       <HeroStatement />
       <FeatureBand />
       <HowWeWork />
-      <WhatWeDo />
       <Services />
       <WhyUs />
       <Founders />
