@@ -327,6 +327,19 @@ ul { list-style: none; }
   margin-top: 14px;
 }
 
+/* "How to get started" — reuses the HOW WE WORK row system; each step is a
+   readable editorial statement rather than a single giant word. */
+.hw-step {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  line-height: 1.45;
+  color: var(--text);
+  max-width: 720px;
+  padding-top: 0.15em;
+}
+.hw-step strong { font-weight: 500; }
+
 /* ============================================================
    SECTION SHELL & SPACING SYSTEM
    min-height dropped so sections size to their content (no dead space)

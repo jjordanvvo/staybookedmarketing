@@ -3,18 +3,18 @@ import { Reveal, RevealItem } from '@/components/ui/Reveal'
 const SERVICES = [
   {
     num: '01',
-    name: 'Website Design',
-    desc: 'Fast, clean sites built to convert local traffic into booked jobs.',
+    name: 'Lead Generation Systems',
+    desc: 'Complete Meta ad campaigns with automated lead qualification and booking, built to deliver you a steady flow of ready-to-buy customers.',
   },
   {
     num: '02',
-    name: 'Local SEO',
-    desc: 'Google Business Profile, citations, and on-page work that puts you in front of buyers.',
+    name: 'Website Design',
+    desc: 'Fast, clean, conversion-focused websites that turn your traffic into booked jobs and give your ads somewhere powerful to land.',
   },
   {
     num: '03',
-    name: 'Meta Advertising',
-    desc: 'Lead campaigns that send new customers directly to your phone.',
+    name: 'Local SEO and Google Profile',
+    desc: 'Google Business Profile optimization and local SEO that makes your business the obvious choice when customers search.',
   },
 ]
 

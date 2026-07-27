@@ -7,6 +7,7 @@ import WhatWeDo from '@/components/sections/WhatWeDo'
 import Services from '@/components/sections/Services'
 import WhyUs from '@/components/sections/WhyUs'
 import Founders from '@/components/sections/Founders'
+import HowToStart from '@/components/sections/HowToStart'
 import Contact from '@/components/sections/Contact'
 import Footer from '@/components/sections/Footer'
 
@@ -22,6 +23,7 @@ export default function App() {
       <Services />
       <WhyUs />
       <Founders />
+      <HowToStart />
       {/* Footer is nested inside the Contact section to match the original layout */}
       <Contact>
         <Footer />

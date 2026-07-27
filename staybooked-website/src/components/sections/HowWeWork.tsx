@@ -4,17 +4,17 @@ const STEPS = [
   {
     num: '01',
     word: 'Advertise',
-    desc: 'We run targeted Meta ad campaigns that put your business in front of the right local customers.',
+    desc: 'We build and run targeted Meta ad campaigns that put your business in front of the right local customers actively looking for what you offer.',
   },
   {
     num: '02',
     word: 'Qualify',
-    desc: 'Our automated system follows up instantly and filters every lead so you only talk to real prospects.',
+    desc: 'Every lead is automatically contacted and screened the moment they come in, so you never waste time on tire-kickers or cold inquiries.',
   },
   {
     num: '03',
     word: 'Book',
-    desc: 'Qualified leads get routed straight to you or booked onto your calendar, ready to close.',
+    desc: 'Qualified, interested leads are delivered straight to you or booked directly onto your calendar, ready for you to close.',
   },
 ]
 

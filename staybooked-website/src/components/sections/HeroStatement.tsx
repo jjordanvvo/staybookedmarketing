@@ -12,8 +12,8 @@ export default function HeroStatement() {
           We don't chase leads.<br />We book them.
         </RevealItem>
         <RevealItem className="statement-support">
-          <p>We build advertising systems that bring local businesses a steady flow of qualified, ready-to-buy customers.</p>
-          <p>Websites, ads, and automation built to turn attention into booked revenue.</p>
+          <p>We build complete lead generation systems for local businesses. Targeted Meta ads bring in the right people, our automated system qualifies them, and booked, ready-to-buy customers land straight on your calendar.</p>
+          <p>Advertising, qualification, and booking, handled end to end, so you focus on closing, not chasing.</p>
         </RevealItem>
       </Reveal>
     </section>
