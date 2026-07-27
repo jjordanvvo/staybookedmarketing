@@ -9,11 +9,14 @@ export default function Navbar() {
         </a>
         <span className="nav-wordmark">staybookedmarketing.com</span>
       </div>
-      <ul className="nav-links">
-        <li><a href="#founders">Founders</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
+      <div className="nav-right">
+        <ul className="nav-links">
+          <li><a href="#founders">Founders</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <a className="nav-cta" href="#contact">Let's Talk</a>
+      </div>
     </nav>
   )
 }

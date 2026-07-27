@@ -16,6 +16,7 @@ export default {
         sans: ['"DM Sans"', 'sans-serif'],
         serif: ['"DM Serif Display"', 'serif'],
         baloo: ['"Baloo 2"', 'sans-serif'],
+        display: ['"Archivo"', 'sans-serif'],
       },
     },
   },

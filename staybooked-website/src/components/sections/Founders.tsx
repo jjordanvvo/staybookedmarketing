@@ -1,19 +1,24 @@
 import { Reveal, RevealItem } from '@/components/ui/Reveal'
 
-// Transparent 1x1 placeholder — swap each `src` for a square founder photo later.
-const PHOTO_PLACEHOLDER =
-  "data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1'%20height='1'%3E%3C/svg%3E"
-
+/**
+ * Meet our Team — two founder cards with depth.
+ *
+ * Photo slots are placeholder <div>s. To use a real square photo later,
+ * import it and swap the placeholder div for:
+ *   <img className="founder-photo" src={jordanPhoto} alt="Jordan Vo" />
+ */
 export default function Founders() {
   return (
-    <section className="section section-light" id="founders">
+    <section className="section section-offwhite" id="founders">
       <Reveal className="wrap">
+        <RevealItem as="p" className="label">Meet the founders</RevealItem>
         <RevealItem as="h2" className="title">Meet our Team</RevealItem>
         <div className="founders-grid">
 
-          <RevealItem as="article" className="founder-card">
-            {/* Replace src with Jordan's photo (square, e.g. jordan-vo.jpg) */}
-            <img className="founder-photo" src={PHOTO_PLACEHOLDER} alt="Jordan Vo" />
+          {/* Featured card — filled skyLight + soft depth for hierarchy */}
+          <RevealItem as="article" className="founder-card featured">
+            {/* Replace with Jordan's square photo: <img className="founder-photo" src={...} alt="Jordan Vo" /> */}
+            <div className="founder-photo"><span className="founder-photo-label">Photo</span></div>
             <h3 className="founder-name">Jordan Vo</h3>
             <p className="founder-title">Founder</p>
             <p className="founder-bio">Jordan leads client outreach and partnerships, making sure every business we work with gets the attention it deserves. He oversees advertising strategy and campaign review, keeping our clients in front of the right people at the right time.</p>
@@ -24,8 +29,8 @@ export default function Founders() {
           </RevealItem>
 
           <RevealItem as="article" className="founder-card">
-            {/* Replace src with Kolby's photo (square, e.g. kolby-mccargar.jpg) */}
-            <img className="founder-photo" src={PHOTO_PLACEHOLDER} alt="Kolby McCargar" />
+            {/* Replace with Kolby's square photo: <img className="founder-photo" src={...} alt="Kolby McCargar" /> */}
+            <div className="founder-photo"><span className="founder-photo-label">Photo</span></div>
             <h3 className="founder-name">Kolby McCargar</h3>
             <p className="founder-title">Co-Founder</p>
             <p className="founder-bio">Kolby runs the technical side of Stay Booked, from web design and development to project management and analytics. He turns ideas into clean, high-performing websites and keeps every project moving from first build to final launch.</p>
