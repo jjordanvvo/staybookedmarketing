@@ -230,16 +230,18 @@ ul { list-style: none; }
 }
 
 /* ============================================================
-   BIG FEATURE BAND — full-width background video
+   BIG FEATURE BAND — blurred background video + cursive SBM.
    Portrait video (720x1280) zoomed to fill this wide band.
    ── ADJUST LATER ──
    • Band height: change `height` below.
    • Vertical focal point: change `object-position` on .feature-band-video.
+   • Blur strength: change `filter: blur(...)` on .feature-band-video.
    ============================================================ */
 .feature-band {
+  position: relative;      /* anchor the overlay + wordmark */
   height: 60vh;            /* ADJUST: band height */
   min-height: 360px;
-  background: var(--deep-bg);   /* fallback color while the video loads */
+  background: #141414;     /* dark fallback while the video loads */
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
   overflow: hidden;
@@ -248,9 +250,38 @@ ul { list-style: none; }
 .feature-band-video {
   width: 100%;
   height: 100%;
-  object-fit: cover;         /* fill the wide band; crop the portrait top/bottom, no side gaps */
-  object-position: center;   /* ADJUST: vertical focal point, e.g. "center 30%" */
+  object-fit: cover;               /* fill the wide band; crop portrait top/bottom, no side gaps */
+  object-position: center 65%;     /* ADJUST: vertical focal point (higher % = framing sits lower) */
   display: block;
+  filter: blur(6px);               /* ADJUST: soft atmospheric blur (~4–8px) */
+  transform: scale(1.08);          /* hide the blur's soft edges just outside the band */
+}
+
+/* Subtle dark tonal wash so the white cursive wordmark stays legible */
+.feature-band-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 20, 20, 0.30);
+  pointer-events: none;
+}
+
+/* Elegant cursive wordmark, centered and luminous over the video */
+.feature-band-mark {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Great Vibes', cursive;
+  font-weight: 400;
+  font-size: clamp(4.5rem, 13vw, 11rem);
+  line-height: 1;
+  color: #FBF7EF;                  /* soft warm white */
+  text-shadow:
+    0 2px 24px rgba(0, 0, 0, 0.45),      /* soft drop for pop */
+    0 0 60px rgba(255, 255, 255, 0.18);  /* gentle luminous glow */
+  pointer-events: none;
+  user-select: none;
 }
 
 /* ============================================================

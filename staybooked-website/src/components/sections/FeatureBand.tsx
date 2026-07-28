@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { motion, useReducedMotion } from 'framer-motion'
 import bgVideo from '@/assets/backgroundvid.mp4'
 
 /**
@@ -6,16 +7,19 @@ import bgVideo from '@/assets/backgroundvid.mp4'
  *
  * The source video is portrait (720x1280); `object-fit: cover` zooms it to
  * fill this wide horizontal band, cropping top/bottom. It plays silently and
- * automatically as a background element — muted, looping, no controls.
+ * automatically as a soft, blurred atmospheric background, with an elegant
+ * cursive "SBM." wordmark fading in over it.
  *
  * ── FINE-TUNE FRAMING LATER (see .feature-band* in src/index.css) ──────────
- *  • Vertical focal point → change `object-position` on .feature-band-video
- *    (e.g. "center 30%" shows more of the top, "center 70%" more of the bottom).
- *  • Band height → change `height` on .feature-band.
+ *  • Vertical focal point → `object-position` on .feature-band-video
+ *    (higher % = framing sits lower; currently "center 65%").
+ *  • Blur amount → `filter: blur(...)` on .feature-band-video.
+ *  • Band height → `height` on .feature-band.
  * ───────────────────────────────────────────────────────────────────────────
  */
 export default function FeatureBand() {
   const videoRef = useRef<HTMLVideoElement>(null)
+  const reduce = useReducedMotion()
 
   // Force the muted property (React's `muted` attribute alone isn't always
   // applied to the DOM node, and browsers only autoplay truly-muted video).
@@ -24,7 +28,7 @@ export default function FeatureBand() {
   }, [])
 
   return (
-    <section className="feature-band" id="feature" aria-label="Stay Booked Marketing background video">
+    <section className="feature-band" id="feature" aria-label="Stay Booked Marketing">
       <video
         ref={videoRef}
         className="feature-band-video"
@@ -35,6 +39,18 @@ export default function FeatureBand() {
         playsInline
         aria-hidden="true"
       />
+      {/* Subtle dark tonal overlay so the white wordmark lifts off the video */}
+      <div className="feature-band-overlay" aria-hidden="true" />
+      {/* Elegant cursive wordmark — slow, graceful fade in on scroll into view */}
+      <motion.div
+        className="feature-band-mark"
+        initial={reduce ? { opacity: 1 } : { opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, amount: 0.5 }}
+        transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
+      >
+        SBM.
+      </motion.div>
     </section>
   )
 }
