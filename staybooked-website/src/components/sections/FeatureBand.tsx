@@ -41,7 +41,9 @@ export default function FeatureBand() {
       />
       {/* Subtle dark tonal overlay so the white wordmark lifts off the video */}
       <div className="feature-band-overlay" aria-hidden="true" />
-      {/* Elegant cursive wordmark — slow, graceful fade in on scroll into view */}
+      {/* Elegant cursive line — slow, graceful fade in on scroll into view.
+          Font "Mr De Haviland" chosen to match the thin, old-fashioned ink
+          handwriting in the "cursive inspo.png" reference. */}
       <motion.div
         className="feature-band-mark"
         initial={reduce ? { opacity: 1 } : { opacity: 0 }}
@@ -49,7 +51,7 @@ export default function FeatureBand() {
         viewport={{ once: true, amount: 0.5 }}
         transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
       >
-        SBM.
+        Choose SBM.
       </motion.div>
     </section>
   )
