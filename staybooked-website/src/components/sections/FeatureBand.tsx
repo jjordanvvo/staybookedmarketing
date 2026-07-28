@@ -41,9 +41,8 @@ export default function FeatureBand() {
       />
       {/* Subtle dark tonal overlay so the white wordmark lifts off the video */}
       <div className="feature-band-overlay" aria-hidden="true" />
-      {/* Elegant cursive line — slow, graceful fade in on scroll into view.
-          Font "Mr De Haviland" chosen to match the thin, old-fashioned ink
-          handwriting in the "cursive inspo.png" reference. */}
+      {/* Bold editorial statement — same condensed display font as the giant
+          ADVERTISE/QUALIFY/BOOK words. Slow, graceful fade in on scroll. */}
       <motion.div
         className="feature-band-mark"
         initial={reduce ? { opacity: 1 } : { opacity: 0 }}
