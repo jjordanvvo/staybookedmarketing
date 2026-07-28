@@ -811,6 +811,16 @@ ul { list-style: none; }
   color: rgba(240,235,224,0.5);    /* cream text on near-black footer */
 }
 
+/* LinkedIn icon — matches footer cream text, brightens to full cream on hover */
+.footer-linkedin {
+  display: inline-flex;
+  align-items: center;
+  color: rgba(240,235,224,0.55);
+  transition: color 0.25s ease;
+}
+.footer-linkedin:hover { color: rgba(240,235,224,1); }
+.footer-linkedin svg { display: block; }
+
 /* ============================================================
    BLUR-TO-CLEAR SCROLL CHOREOGRAPHY (legacy CSS reveal — kept)
    ============================================================ */
