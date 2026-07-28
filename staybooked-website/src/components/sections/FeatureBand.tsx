@@ -1,15 +1,40 @@
+import { useEffect, useRef } from 'react'
+import bgVideo from '@/assets/backgroundvid.mp4'
+
 /**
- * Full-width feature image band — an easy-to-replace image slot.
+ * Full-width background video band (sits directly below the hero statement).
  *
- * To drop in a real photo later, import it and replace the placeholder
- * <span> with:
- *   import feature from '@/assets/feature.jpg'
- *   <img className="feature-band-img" src={feature} alt="Stay Booked Marketing" />
+ * The source video is portrait (720x1280); `object-fit: cover` zooms it to
+ * fill this wide horizontal band, cropping top/bottom. It plays silently and
+ * automatically as a background element — muted, looping, no controls.
+ *
+ * ── FINE-TUNE FRAMING LATER (see .feature-band* in src/index.css) ──────────
+ *  • Vertical focal point → change `object-position` on .feature-band-video
+ *    (e.g. "center 30%" shows more of the top, "center 70%" more of the bottom).
+ *  • Band height → change `height` on .feature-band.
+ * ───────────────────────────────────────────────────────────────────────────
  */
 export default function FeatureBand() {
+  const videoRef = useRef<HTMLVideoElement>(null)
+
+  // Force the muted property (React's `muted` attribute alone isn't always
+  // applied to the DOM node, and browsers only autoplay truly-muted video).
+  useEffect(() => {
+    if (videoRef.current) videoRef.current.muted = true
+  }, [])
+
   return (
-    <section className="feature-band" id="feature" aria-label="Featured image">
-      <span className="feature-band-text">Image coming soon</span>
+    <section className="feature-band" id="feature" aria-label="Stay Booked Marketing background video">
+      <video
+        ref={videoRef}
+        className="feature-band-video"
+        src={bgVideo}
+        autoPlay
+        muted
+        loop
+        playsInline
+        aria-hidden="true"
+      />
     </section>
   )
 }

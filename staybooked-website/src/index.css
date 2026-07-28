@@ -230,38 +230,27 @@ ul { list-style: none; }
 }
 
 /* ============================================================
-   BIG FEATURE IMAGE BAND — easy-to-replace image slot
-   To use a real photo: replace the .feature-band-text span with
-   <img className="feature-band-img" src={photo} alt="..." />
+   BIG FEATURE BAND — full-width background video
+   Portrait video (720x1280) zoomed to fill this wide band.
+   ── ADJUST LATER ──
+   • Band height: change `height` below.
+   • Vertical focal point: change `object-position` on .feature-band-video.
    ============================================================ */
 .feature-band {
-  height: 60vh;
+  height: 60vh;            /* ADJUST: band height */
   min-height: 360px;
-  background-color: var(--deep-bg);
-  background-image: var(--sheen);   /* subtle sheen so the panel lifts off the cream */
+  background: var(--deep-bg);   /* fallback color while the video loads */
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   overflow: hidden;
 }
 
-.feature-band-img {
+.feature-band-video {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center;
-}
-
-.feature-band-text {
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 400;
-  font-size: 0.82rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--text-2);
-  opacity: 0.75;
+  object-fit: cover;         /* fill the wide band; crop the portrait top/bottom, no side gaps */
+  object-position: center;   /* ADJUST: vertical focal point, e.g. "center 30%" */
+  display: block;
 }
 
 /* ============================================================
