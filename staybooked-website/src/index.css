@@ -677,6 +677,22 @@ ul { list-style: none; }
   color: var(--text-2);
 }
 
+/* Personal Instagram — icon + handle, matches contact typography, darkens on hover */
+.founder-instagram {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;     /* keep the hover area to the icon + handle */
+  gap: 8px;
+  margin-top: 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  font-size: 0.85rem;
+  color: var(--text-2);
+  transition: color 0.2s ease;
+}
+.founder-instagram:hover { color: var(--text); }
+.founder-instagram svg { display: block; }
+
 /* ============================================================
    CONTACT (+ nested footer) — editorial close
    ============================================================ */
