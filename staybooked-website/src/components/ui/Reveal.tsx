@@ -39,6 +39,7 @@ const TAGS = {
   span: motion.span,
   a: motion.a,
   article: motion.article,
+  ul: motion.ul,
 } as const
 
 type Tag = keyof typeof TAGS

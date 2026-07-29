@@ -8,14 +8,24 @@ const FINE_POINTER =
   typeof window !== 'undefined' &&
   window.matchMedia('(hover: hover) and (pointer: fine)').matches
 
+type HeroProps = {
+  /** False while the intro title card is still up — the entrance holds until
+   *  the curtains start lifting, so the logo settles in mid-reveal. */
+  revealed?: boolean
+  /** Whether this page load opened with the intro (pushes the idle breath back
+   *  so it never runs during the entrance). */
+  intro?: boolean
+}
+
 /**
  * Hero — cinematic logo intro.
- * 1. The mark settles in with a slow scale-and-blur entrance (global easing).
+ * 1. The mark settles in with a slow scale-and-blur entrance (global easing),
+ *    cued by the intro curtain when the title sequence plays.
  * 2. A barely-perceptible idle breath keeps it alive (CSS keyframes on the img).
  * 3. On desktop, the mark drifts a few pixels toward the cursor via lazy
  *    springs — disabled on touch devices and under prefers-reduced-motion.
  */
-export default function Hero() {
+export default function Hero({ revealed = true, intro = false }: HeroProps) {
   const reduce = useReducedMotion()
 
   // Lazy, heavy springs — the drift trails the cursor rather than tracking it.
@@ -33,16 +43,23 @@ export default function Hero() {
     y.set(0)
   }
 
+  const show = reduce || revealed
+
   return (
     <header className="hero" id="hero" onMouseMove={onMove} onMouseLeave={onLeave}>
       <motion.div
         className="hero-motion"
         style={{ x, y }}
         initial={reduce ? { opacity: 1 } : { opacity: 0, scale: 1.045, filter: 'blur(14px)' }}
-        animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-        transition={{ duration: 1.5, ease: EASE }}
+        animate={show ? { opacity: 1, scale: 1, filter: 'blur(0px)' } : undefined}
+        transition={{ duration: 1.6, ease: EASE, delay: intro ? 0.35 : 0 }}
       >
-        <img className="hero-logo" src={logo} alt="Stay Booked Marketing" />
+        <img
+          className="hero-logo"
+          src={logo}
+          alt="Stay Booked Marketing"
+          style={intro ? { animationDelay: '6.5s' } : undefined}
+        />
       </motion.div>
     </header>
   )

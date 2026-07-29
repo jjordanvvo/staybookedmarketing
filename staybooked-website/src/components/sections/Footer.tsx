@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import logo from '@/assets/logo-nav.webp'
 
 export default function Footer() {
@@ -6,6 +7,7 @@ export default function Footer() {
       <img className="footer-logo" src={logo} alt="Stay Booked Marketing" />
       <span className="footer-domain">staybookedmarketing.com</span>
       <span className="footer-phone">(916) 606-9970</span>
+      <Link className="footer-privacy" to="/privacy">Privacy Policy</Link>
       <div className="footer-socials">
         <a
           className="footer-linkedin"

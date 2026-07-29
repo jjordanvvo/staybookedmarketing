@@ -1,8 +1,24 @@
+import { motion, useReducedMotion } from 'framer-motion'
 import logo from '@/assets/logo-nav.webp'
+import { EASE } from '@/components/ui/Reveal'
 
-export default function Navbar() {
+type NavbarProps = {
+  /** Held offscreen until the intro curtains start lifting. */
+  revealed?: boolean
+  /** Entrance delay in seconds (longer after the intro so the hero lands first). */
+  delay?: number
+}
+
+export default function Navbar({ revealed = true, delay = 0 }: NavbarProps) {
+  const reduce = useReducedMotion()
   return (
-    <nav className="nav" aria-label="Main navigation">
+    <motion.nav
+      className="nav"
+      aria-label="Main navigation"
+      initial={reduce ? false : { y: -18, opacity: 0 }}
+      animate={reduce || revealed ? { y: 0, opacity: 1 } : undefined}
+      transition={{ duration: 0.9, ease: EASE, delay }}
+    >
       <div className="nav-left">
         <a href="#hero" className="nav-logo-link" aria-label="Stay Booked Marketing home">
           <img className="nav-logo" src={logo} alt="Stay Booked Marketing" />
@@ -17,6 +33,6 @@ export default function Navbar() {
         </ul>
         <a className="nav-cta" href="#contact">Let's Talk</a>
       </div>
-    </nav>
+    </motion.nav>
   )
 }

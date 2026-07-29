@@ -1,0 +1,288 @@
+import { useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
+import { Reveal, RevealItem, EASE } from '@/components/ui/Reveal'
+import logoTile from '@/assets/logo.webp'
+import logo from '@/assets/logo-nav.webp'
+
+const BOOKING_URL = 'https://calendar.app.google/Euu7i4zJdkcJc6Eb6'
+
+const STEPS = [
+  {
+    num: '01',
+    word: 'Advertise',
+    desc: 'Targeted Meta ads put your practice in front of the right local patients.',
+  },
+  {
+    num: '02',
+    word: 'Qualify',
+    desc: 'Every lead is contacted and screened within minutes, so you only deal with real prospects.',
+  },
+  {
+    num: '03',
+    word: 'Book',
+    desc: 'Qualified patients are booked straight onto your calendar, ready for you to see.',
+  },
+]
+
+const TRUST_POINTS = [
+  'Month-to-month, we earn your business every month.',
+  'Most clients see results in the first 30 days.',
+  'You only focus on patients. We handle the rest.',
+]
+
+/**
+ * Cinematic cold-open, played once on load (skipped entirely under
+ * prefers-reduced-motion):
+ *
+ *   0.00s  tan curtain covers the screen
+ *   0.00s  the SBM mark presses in — scale overshoots down like a stamp,
+ *          sharpening from blur, then holds
+ *   0.70s  a hairline "cut" draws across the center seam and fades
+ *   1.05s  the curtain parts along the cut — top half up, bottom half down —
+ *          revealing the hero beneath; the stamp dissolves as it opens
+ *   1.95s  overlay unmounts
+ *
+ * Transform/opacity only; both panels and the mark are composited layers.
+ */
+function Intro({ onDone }: { onDone: () => void }) {
+  return (
+    <div className="lp-intro" aria-hidden="true">
+      <motion.div
+        className="lp-intro-panel lp-intro-top"
+        initial={{ y: 0 }}
+        animate={{ y: '-100.5%' }}
+        transition={{ delay: 1.05, duration: 0.9, ease: EASE }}
+      />
+      <motion.div
+        className="lp-intro-panel lp-intro-bottom"
+        initial={{ y: 0 }}
+        animate={{ y: '100.5%' }}
+        transition={{ delay: 1.05, duration: 0.9, ease: EASE }}
+        onAnimationComplete={onDone}
+      />
+      {/* The stamp — the actual logo tile, so it blends seamlessly into the
+          tan curtain and reads as printed on it */}
+      <motion.img
+        className="lp-intro-mark"
+        src={logoTile}
+        alt=""
+        initial={{ opacity: 0, scale: 1.18, filter: 'blur(12px)' }}
+        animate={{
+          opacity: [0, 1, 1, 0],
+          scale: [1.18, 0.985, 1, 1.06],
+          filter: ['blur(12px)', 'blur(0px)', 'blur(0px)', 'blur(5px)'],
+        }}
+        transition={{ duration: 1.45, times: [0, 0.42, 0.78, 1], ease: EASE }}
+      />
+      {/* The cut line the curtain will part along */}
+      <motion.div
+        className="lp-intro-rule"
+        initial={{ scaleX: 0, opacity: 0 }}
+        animate={{ scaleX: [0, 1, 1], opacity: [0, 1, 0] }}
+        transition={{ delay: 0.7, duration: 0.8, times: [0, 0.55, 1], ease: EASE }}
+      />
+    </div>
+  )
+}
+
+/**
+ * /free-call — single-purpose ad landing page (medical lead gen campaign).
+ * One job: convert ad traffic into a booked strategy call. No nav, no
+ * distractions; every CTA is the booking calendar.
+ *
+ * Hero choreography (starts while the curtain is still parting, so the page
+ * feels continuous): headline lines swing up from behind masks (1.12s/1.30s),
+ * the giant outlined "Booked." ghost-mark breathes in behind the content
+ * (1.55s) and drifts on scroll, support copy blur-rises (1.70s), and the CTA
+ * springs in (1.95s) with a one-time sheen sweep (2.7s, CSS).
+ */
+export default function FreeCall() {
+  const reduce = useReducedMotion()
+  const [introDone, setIntroDone] = useState(false)
+  const showIntro = !reduce && !introDone
+
+  // Ghost-mark parallax: drifts down slightly as the hero scrolls away.
+  const heroRef = useRef<HTMLElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  })
+  const ghostY = useTransform(scrollYProgress, [0, 1], [0, 70])
+
+  useEffect(() => {
+    document.title = 'Book a Free Call | Stay Booked Marketing'
+    return () => {
+      document.title = 'Stay Booked Marketing | Lead Generation for Local Businesses'
+    }
+  }, [])
+
+  // Safety net: animation clocks pause in hidden tabs, so a page opened in the
+  // background plays its intro when the visitor arrives — good. But if the
+  // completion callback ever failed to fire, the curtain would strand the page.
+  // Retire the overlay after 5s of *visible* time, no matter what.
+  useEffect(() => {
+    if (reduce || introDone) return
+    let timer: number | undefined
+    const arm = () => {
+      if (document.visibilityState === 'visible' && timer === undefined) {
+        timer = window.setTimeout(() => setIntroDone(true), 5000)
+      }
+    }
+    arm()
+    document.addEventListener('visibilitychange', arm)
+    return () => {
+      window.clearTimeout(timer)
+      document.removeEventListener('visibilitychange', arm)
+    }
+  }, [reduce, introDone])
+
+  return (
+    <>
+      {showIntro && <Intro onDone={() => setIntroDone(true)} />}
+
+      {/* Minimal header — logo only, no nav */}
+      <header className="simple-header">
+        <Link to="/" className="simple-header-logo" aria-label="Stay Booked Marketing home">
+          <img src={logo} alt="Stay Booked Marketing" />
+        </Link>
+      </header>
+
+      {/* 1. Hero — bold statement + primary CTA, choreographed off the intro */}
+      <section ref={heroRef} className="lp-hero">
+        {/* Giant outlined ghost-mark — echoes the outlined service numbers */}
+        <motion.span
+          className="lp-ghost"
+          aria-hidden="true"
+          style={reduce ? undefined : { y: ghostY }}
+          initial={reduce ? false : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.55, duration: 1.4, ease: EASE }}
+        >
+          Booked.
+        </motion.span>
+
+        <div className="lp-hero-inner">
+          <h1 className="lp-headline">
+            <span className="lp-line-mask">
+              <motion.span
+                className="lp-line"
+                initial={reduce ? false : { y: '115%', rotate: 2.5 }}
+                animate={{ y: '0%', rotate: 0 }}
+                transition={{ delay: 1.12, duration: 0.95, ease: EASE }}
+              >
+                More Booked Patients.
+              </motion.span>
+            </span>
+            <span className="lp-line-mask">
+              <motion.span
+                className="lp-line"
+                initial={reduce ? false : { y: '115%', rotate: 2.5 }}
+                animate={{ y: '0%', rotate: 0 }}
+                transition={{ delay: 1.3, duration: 0.95, ease: EASE }}
+              >
+                Less Chasing.
+              </motion.span>
+            </span>
+          </h1>
+
+          <motion.p
+            className="body lp-support"
+            initial={reduce ? false : { opacity: 0, y: 24, filter: 'blur(8px)' }}
+            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            transition={{ delay: 1.7, duration: 0.8, ease: EASE }}
+          >
+            We build complete lead generation systems for local practices. Targeted ads, instant follow-up, and qualified patients booked straight onto your calendar.
+          </motion.p>
+
+          <motion.a
+            className="contact-book-btn lp-cta-hero"
+            href={BOOKING_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            initial={reduce ? false : { opacity: 0, y: 20, scale: 0.94 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{
+              opacity: { delay: 1.95, duration: 0.5, ease: EASE },
+              y: { type: 'spring', stiffness: 90, damping: 14, delay: 1.95 },
+              scale: { type: 'spring', stiffness: 90, damping: 14, delay: 1.95 },
+            }}
+            whileTap={reduce ? undefined : { scale: 0.98 }}
+          >
+            Book a Free Call
+          </motion.a>
+        </div>
+      </section>
+
+      {/* 2. The hook — short and punchy */}
+      <section className="section section-offwhite lp-hook">
+        <Reveal className="wrap lp-narrow" amount={0.35}>
+          <RevealItem as="h2" className="title">Getting leads is easy. Booking them isn't.</RevealItem>
+          <RevealItem as="p" className="body lp-hook-body">
+            Most practices lose patients in the gap between interest and follow-up. The lead sits, the response is slow, and they book with someone else. We fix that.
+          </RevealItem>
+        </Reveal>
+      </section>
+
+      {/* 3. How it works — the site's signature numbered editorial rows */}
+      <section className="howwework lp-how">
+        <div className="howwework-inner">
+          <Reveal amount={0.3}>
+            <RevealItem as="p" className="label">How it works</RevealItem>
+          </Reveal>
+          <div className="hw-rows">
+            {STEPS.map((step) => (
+              <Reveal key={step.num} className="hw-row" amount={0.35} stagger={0}>
+                <RevealItem as="span" className="hw-num" delay={0.16}>{step.num}</RevealItem>
+                <div className="hw-main">
+                  <RevealItem className="hw-word">{step.word}</RevealItem>
+                  <RevealItem as="p" className="hw-desc" delay={0.22}>{step.desc}</RevealItem>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Trust — results first, no long contracts */}
+      <section className="section section-light">
+        <Reveal className="wrap lp-narrow" amount={0.35}>
+          <RevealItem as="h2" className="title">Results first. No long contracts.</RevealItem>
+          <RevealItem as="ul" className="lp-points">
+            {TRUST_POINTS.map((point) => (
+              <li key={point} className="lp-point">{point}</li>
+            ))}
+          </RevealItem>
+        </Reveal>
+      </section>
+
+      {/* 5. Final CTA */}
+      <section className="section section-deep lp-final">
+        <Reveal className="wrap wrap-contact" amount={0.35}>
+          <RevealItem as="h2" className="contact-headline lp-final-headline">Ready to fill your calendar?</RevealItem>
+          <RevealItem as="p" className="body contact-body">
+            Book a free strategy call and we'll show you exactly what this would look like for your practice.
+          </RevealItem>
+          <RevealItem
+            as="a"
+            className="contact-book-btn lp-cta-large"
+            href={BOOKING_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            delay={0.2}
+          >
+            Book a Free Call
+          </RevealItem>
+        </Reveal>
+      </section>
+
+      {/* 6. Minimal footer — logo, domain, phone, privacy. No other nav. */}
+      <footer className="footer lp-footer">
+        <img className="footer-logo" src={logo} alt="Stay Booked Marketing" />
+        <span className="footer-domain">staybookedmarketing.com</span>
+        <span className="footer-phone">(916) 606-9970</span>
+        <Link className="footer-privacy" to="/privacy">Privacy Policy</Link>
+      </footer>
+    </>
+  )
+}

@@ -1,31 +1,28 @@
-import Navbar from '@/components/sections/Navbar'
-import Hero from '@/components/sections/Hero'
-import HeroStatement from '@/components/sections/HeroStatement'
-import FeatureBand from '@/components/sections/FeatureBand'
-import HowWeWork from '@/components/sections/HowWeWork'
-import Services from '@/components/sections/Services'
-import WhyUs from '@/components/sections/WhyUs'
-import Founders from '@/components/sections/Founders'
-import HowToStart from '@/components/sections/HowToStart'
-import Contact from '@/components/sections/Contact'
-import Footer from '@/components/sections/Footer'
+import { useEffect } from 'react'
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import Home from '@/pages/Home'
+import Privacy from '@/pages/Privacy'
+import FreeCall from '@/pages/FreeCall'
+
+/** Route changes land at the top of the new page (browsers only restore
+ *  scroll on history navigation, not on pushed links). */
+function ScrollToTop() {
+  const { pathname } = useLocation()
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathname])
+  return null
+}
 
 export default function App() {
   return (
-    <>
-      <Navbar />
-      <Hero />
-      <HeroStatement />
-      <FeatureBand />
-      <HowWeWork />
-      <Services />
-      <WhyUs />
-      <Founders />
-      <HowToStart />
-      {/* Footer is nested inside the Contact section to match the original layout */}
-      <Contact>
-        <Footer />
-      </Contact>
-    </>
+    <BrowserRouter>
+      <ScrollToTop />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/privacy" element={<Privacy />} />
+        <Route path="/free-call" element={<FreeCall />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
