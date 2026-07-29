@@ -17,23 +17,26 @@ const STEPS = [
 
 /**
  * How to get started — clear three-step path, reusing the HOW WE WORK
- * editorial row system (off-white band, numbered rows, blur-to-clear reveal).
+ * editorial row system. Each step unfolds on its own as it enters view:
+ * number first, its text following in a tight cascade.
  */
 export default function HowToStart() {
   return (
     <section className="howwework" id="start">
-      <Reveal className="howwework-inner" amount={0.2}>
+      <Reveal className="howwework-inner" amount={0.3}>
         <RevealItem as="p" className="label">The process</RevealItem>
         <RevealItem as="h2" className="title">How to get started</RevealItem>
+      </Reveal>
+      <div className="howwework-inner">
         <div className="hw-rows">
           {STEPS.map((step) => (
-            <RevealItem key={step.num} className="hw-row">
-              <span className="hw-num">{step.num}</span>
-              <p className="hw-step">{step.text}</p>
-            </RevealItem>
+            <Reveal key={step.num} className="hw-row" amount={0.4} stagger={0}>
+              <RevealItem as="span" className="hw-num">{step.num}</RevealItem>
+              <RevealItem as="p" className="hw-step" delay={0.14}>{step.text}</RevealItem>
+            </Reveal>
           ))}
         </div>
-      </Reveal>
+      </div>
     </section>
   )
 }

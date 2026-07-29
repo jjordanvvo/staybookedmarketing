@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { useReducedMotion } from 'framer-motion'
 import { Reveal, RevealItem } from '@/components/ui/Reveal'
 
 const BOOKING_URL = 'https://calendar.app.google/Euu7i4zJdkcJc6Eb6'
@@ -10,6 +11,7 @@ const BOOKING_URL = 'https://calendar.app.google/Euu7i4zJdkcJc6Eb6'
  * Three ways to start: schedule (primary button), email, and call.
  */
 export default function Contact({ children }: { children?: ReactNode }) {
+  const reduce = useReducedMotion()
   return (
     <section className="section section-deep contact-section" id="contact">
       <div className="contact-center">
@@ -18,13 +20,15 @@ export default function Contact({ children }: { children?: ReactNode }) {
           <RevealItem as="h2" className="contact-headline">Let's get you booked.</RevealItem>
           <RevealItem as="p" className="body contact-body">Send us an email, give us a direct call, or schedule a 15-minute meeting with our team. Whatever works best for you.</RevealItem>
 
-          {/* Primary call to action — a booked call is the best outcome */}
+          {/* Primary call to action — a booked call is the best outcome.
+              whileTap gives a confident press; hover lift + fill live in CSS. */}
           <RevealItem
             as="a"
             className="contact-book-btn"
             href={BOOKING_URL}
             target="_blank"
             rel="noopener noreferrer"
+            whileTap={reduce ? undefined : { scale: 0.98 }}
           >
             Book a 15-Minute Call
           </RevealItem>

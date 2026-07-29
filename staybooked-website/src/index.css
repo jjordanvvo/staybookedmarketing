@@ -34,6 +34,8 @@
   /* Soft sheen for elevated surfaces: lighter top-left, warmer bottom-right */
   --sheen: linear-gradient(135deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0) 42%, rgba(201,194,180,0.10) 100%);
   --font-display: 'Archivo', sans-serif;
+  /* Global premium easing — every transition and entrance settles with this voice */
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ---- Reset & base ---- */
@@ -132,7 +134,7 @@ ul { list-style: none; }
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--text-2);
-  transition: color 0.25s ease;
+  transition: color 0.3s var(--ease);
 }
 .nav-links a:hover { color: var(--logo-blue); }
 
@@ -148,7 +150,7 @@ ul { list-style: none; }
   border-radius: 999px;
   padding: 9px 20px;
   line-height: 1;
-  transition: background 0.25s ease, color 0.25s ease;
+  transition: background 0.3s var(--ease), color 0.3s var(--ease);
   white-space: nowrap;
 }
 .nav-cta:hover { background: var(--logo-blue); color: var(--page-bg); }
@@ -171,17 +173,31 @@ ul { list-style: none; }
   overflow: hidden;
 }
 
+/* Motion wrapper — framer-motion drives the cinematic intro (scale + blur
+   settle) and the desktop cursor drift on this element. Sized to fill the
+   hero so the img inside lays out exactly as before. */
+.hero-motion {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  will-change: transform;
+}
+
 .hero-logo {
   width: 100%;
   height: 100%;
   object-fit: contain;   /* show the full SBM. wordmark; hero fill matches the tile's tan */
   object-position: center;
-  animation: heroFade 0.9s ease-out backwards;
+  /* Barely-perceptible idle breath once the intro settles — transform-only */
+  animation: heroBreath 9s ease-in-out 2.4s infinite;
+  will-change: transform;
 }
 
-@keyframes heroFade {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+@keyframes heroBreath {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50%      { transform: translateY(-6px) scale(1.005); }
 }
 
 /* ============================================================
@@ -212,6 +228,10 @@ ul { list-style: none; }
   color: var(--ink);
   overflow-wrap: break-word;
 }
+
+/* Each headline line is its own animated span — block display recreates the
+   old <br/> line break exactly, so the rendered layout is unchanged. */
+.statement-line { display: block; }
 
 .statement-support {
   display: flex;
@@ -316,11 +336,15 @@ ul { list-style: none; }
   align-items: start;
   padding: 30px 24px 30px 0;
   border-bottom: 1px solid var(--rule);
-  transition: background 0.35s ease, padding-left 0.35s ease;
+  transition: background 0.5s var(--ease);
 }
-.hw-row:hover {
-  background: var(--page-bg);   /* skyLight subtle shift */
-  padding-left: 24px;
+
+/* Hover — the row warms and the giant word nudges (transform-only; the old
+   padding-left shift animated layout). Hover-capable pointers only, so touch
+   taps never leave a stuck state. */
+@media (hover: hover) and (pointer: fine) {
+  .hw-row:hover { background: var(--page-bg); }   /* skyLight subtle shift */
+  .hw-row:hover .hw-word { transform: translateX(10px); }
 }
 
 .hw-num {
@@ -340,6 +364,7 @@ ul { list-style: none; }
   letter-spacing: -0.035em;
   text-transform: uppercase;
   color: var(--ink);
+  transition: transform 0.5s var(--ease);
 }
 
 .hw-desc {
@@ -440,8 +465,9 @@ ul { list-style: none; }
   padding: clamp(24px, 3.6vw, 44px) clamp(18px, 3vw, 40px);
   border-radius: 20px;
   transition:
-    background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    background-color 0.4s var(--ease),
+    box-shadow 0.4s var(--ease),
+    transform 0.5s var(--ease);
 }
 
 /* Alternating asymmetry — every 2nd block mirrors to the right */
@@ -527,6 +553,11 @@ ul { list-style: none; }
 .svc-block.svc-right:hover .svc-name { transform: translateX(-10px); }
 .svc-block:hover .svc-line { transform: scaleX(1); }
 
+/* Gentle lift for real pointers only — the whole block rises as it warms */
+@media (hover: hover) and (pointer: fine) {
+  .svc-block:hover { transform: translateY(-4px); }
+}
+
 /* ============================================================
    WHY US — oversized count-up stats band
    Giant display numbers as a design feature, echoing the editorial
@@ -545,7 +576,7 @@ ul { list-style: none; }
 .stat {
   padding: clamp(28px, 4vw, 54px) clamp(16px, 2.5vw, 40px);
   border-right: 1px solid var(--rule);   /* thin separators between stats */
-  transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: background-color 0.4s var(--ease), transform 0.5s var(--ease);
 }
 .stat:last-child { border-right: none; }
 
@@ -553,6 +584,9 @@ ul { list-style: none; }
 .stat:hover {
   background-color: var(--deep-bg);
   background-image: var(--sheen);
+}
+@media (hover: hover) and (pointer: fine) {
+  .stat:hover { transform: translateY(-4px); }
 }
 
 .stat-num {
@@ -593,7 +627,17 @@ ul { list-style: none; }
   /* Warm-white surface with a faint sheen so the card lifts off the cream */
   background-color: var(--alt-bg);
   background-image: var(--sheen);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
+}
+
+/* Refined hover: the card rises with a soft shadow while the photo breathes
+   inside its frame. Real pointers only — taps never stick. */
+@media (hover: hover) and (pointer: fine) {
+  .founder-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 40px 70px -38px rgba(20, 20, 20, 0.26);
+  }
+  .founder-card:hover .founder-photo { transform: scale(1.04); }
 }
 
 /* One card carries more prominence — whitest elevated surface + soft depth */
@@ -603,18 +647,22 @@ ul { list-style: none; }
   box-shadow: 0 34px 60px -34px rgba(20,20,20,0.20);
 }
 
-/* Photo slot: swap this <div> for <img className="founder-photo" src=... /> later */
-.founder-photo {
-  width: 100%;
+/* Photo frame — carries the rounded slot's border/radius/surface (exactly what
+   the img used to) and clips the photo so its slow hover scale stays inside. */
+.founder-photo-frame {
   aspect-ratio: 1;
-  object-fit: cover;
   border-radius: 14px;
+  border: 1px solid var(--border);
+  overflow: hidden;
   background-color: var(--deep-bg);
   background-image: var(--sheen);
-  border: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+}
+
+.founder-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.9s var(--ease);
 }
 
 .founder-photo-label {
@@ -666,7 +714,7 @@ ul { list-style: none; }
   font-weight: 400;
   font-size: 0.85rem;
   color: var(--logo-blue);
-  transition: opacity 0.2s ease;
+  transition: opacity 0.3s var(--ease);
 }
 .founder-email:hover { opacity: 0.7; }
 
@@ -688,7 +736,7 @@ ul { list-style: none; }
   font-weight: 400;
   font-size: 0.85rem;
   color: var(--text-2);
-  transition: color 0.2s ease;
+  transition: color 0.3s var(--ease);
 }
 .founder-instagram:hover { color: var(--text); }
 .founder-instagram svg { display: block; }
@@ -750,14 +798,16 @@ ul { list-style: none; }
   border-radius: 999px;
   padding: 18px 42px;
   transition:
-    background-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-    color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    background-color 0.35s var(--ease),
+    color 0.35s var(--ease),
+    transform 0.45s var(--ease);
 }
+/* Premium press: fill inverts, the button lifts and grows a hair — expensive,
+   confident, colors unchanged. (whileTap in Contact.tsx adds the press-down.) */
 .contact-book-btn:hover {
   background: transparent;
   color: var(--text);
-  transform: translateY(-2px);
+  transform: translateY(-2px) scale(1.02);
 }
 
 .contact-alts {
@@ -791,9 +841,12 @@ ul { list-style: none; }
   color: var(--text);
   border-bottom: 1px solid var(--border);
   padding-bottom: 2px;
-  transition: opacity 0.25s ease;
+  transition: opacity 0.3s var(--ease), transform 0.4s var(--ease);
 }
 .contact-alt-value:hover { opacity: 0.65; }
+@media (hover: hover) and (pointer: fine) {
+  .contact-alt-value:hover { transform: translateY(-2px); }
+}
 
 /* ============================================================
    FOOTER
@@ -838,7 +891,7 @@ ul { list-style: none; }
   display: inline-flex;
   align-items: center;
   color: rgba(240,235,224,0.55);
-  transition: color 0.25s ease;
+  transition: color 0.3s var(--ease);
 }
 .footer-linkedin:hover,
 .footer-instagram:hover { color: rgba(240,235,224,1); }
@@ -958,7 +1011,6 @@ ul { list-style: none; }
     gap: 12px;
     padding: 16px 0;
   }
-  .hw-row:hover { padding-left: 0; }
   .hw-num { padding-top: 0.35em; font-size: 0.8rem; }
   .hw-desc { margin-top: 8px; }
   .hw-step { padding-top: 0; }

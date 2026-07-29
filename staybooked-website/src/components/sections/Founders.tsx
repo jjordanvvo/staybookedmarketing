@@ -16,7 +16,10 @@ export default function Founders() {
 
           {/* Featured card — filled skyLight + soft depth for hierarchy */}
           <RevealItem as="article" className="founder-card featured">
-            <img className="founder-photo" src={jordanPhoto} alt="Jordan Vo" />
+            {/* Frame clips the photo so its slow hover scale stays inside the rounded slot */}
+            <div className="founder-photo-frame">
+              <img className="founder-photo" src={jordanPhoto} alt="Jordan Vo" />
+            </div>
             <h3 className="founder-name">Jordan Vo</h3>
             <p className="founder-title">Founder</p>
             <p className="founder-bio">Jordan leads client outreach and partnerships, making sure every business we work with gets the attention it deserves. He oversees advertising strategy and campaign review, keeping our clients in front of the right people at the right time.</p>
@@ -39,7 +42,9 @@ export default function Founders() {
           </RevealItem>
 
           <RevealItem as="article" className="founder-card">
-            <img className="founder-photo" src={kolbyPhoto} alt="Kolby McCargar" />
+            <div className="founder-photo-frame">
+              <img className="founder-photo" src={kolbyPhoto} alt="Kolby McCargar" />
+            </div>
             <h3 className="founder-name">Kolby McCargar</h3>
             <p className="founder-title">Co-Founder</p>
             <p className="founder-bio">Kolby runs the technical side of Stay Booked, from web design and development to project management and analytics. He turns ideas into clean, high-performing websites and keeps every project moving from first build to final launch.</p>

@@ -78,20 +78,23 @@ export default function WhyUs() {
           <RevealItem as="p" className="body why-body">We work month to month because we earn your business every month. Most clients see results in the first 30 days.</RevealItem>
         </Reveal>
 
-        <div className="stats-band">
-          <div className="stat">
+        {/* Stats enter with the global stagger; the count-ups fire in the same
+            left-to-right order (existing delayMs), so each number lands and
+            starts counting just after its neighbor. */}
+        <Reveal className="stats-band" amount={0.3}>
+          <RevealItem className="stat">
             <div className="stat-num"><CountUp to={5} suffix="+" delayMs={0} /></div>
             <div className="stat-label">Active Clients</div>
-          </div>
-          <div className="stat">
+          </RevealItem>
+          <RevealItem className="stat">
             <div className="stat-num"><CountUp to={30} delayMs={160} /></div>
             <div className="stat-label">Days to Results</div>
-          </div>
-          <div className="stat">
+          </RevealItem>
+          <RevealItem className="stat">
             <div className="stat-num"><CountUp to={0} peak={9} delayMs={320} /></div>
             <div className="stat-label">Long Term Contracts</div>
-          </div>
-        </div>
+          </RevealItem>
+        </Reveal>
       </div>
     </section>
   )
