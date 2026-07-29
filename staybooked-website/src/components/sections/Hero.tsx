@@ -1,6 +1,6 @@
 import type { MouseEvent } from 'react'
 import { motion, useReducedMotion, useSpring } from 'framer-motion'
-import logo from '@/assets/logo.png'
+import logo from '@/assets/logo.webp'
 import { EASE } from '@/components/ui/Reveal'
 
 // Cursor parallax only makes sense with a real pointer (decided once at load).

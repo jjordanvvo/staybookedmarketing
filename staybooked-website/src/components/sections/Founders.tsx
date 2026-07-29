@@ -1,6 +1,6 @@
 import { Reveal, RevealItem } from '@/components/ui/Reveal'
-import jordanPhoto from '@/assets/jordan.jpg'
-import kolbyPhoto from '@/assets/kolby.png'
+import jordanPhoto from '@/assets/jordan.webp'
+import kolbyPhoto from '@/assets/kolby.webp'
 
 /**
  * Meet our Team — two founder cards with depth.
