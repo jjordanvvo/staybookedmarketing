@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Raw founder photo originals — the optimized webp copies live in src/assets
+Austin Uke.png
+Trevor Mayberry.jpg

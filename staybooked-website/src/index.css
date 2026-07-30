@@ -161,6 +161,7 @@ ul { list-style: none; }
 :root {
   --hero-cream: #F0EBE0;   /* light cream text over the dark photo scrim */
   --logo-fill:  #CFB48E;   /* warm tan matching the SBM logo tile — seamless hero panel */
+  --tan-ink:    #82683F;   /* deep warm tan — the legible text shade of --logo-fill */
 }
 
 .hero {
@@ -611,7 +612,7 @@ ul { list-style: none; }
 }
 
 /* ============================================================
-   MEET OUR TEAM — founder cards with depth
+   OUR FOUNDERS — four founder cards, 2×2 grid on desktop
    ============================================================ */
 .founders-grid {
   display: grid;
@@ -638,13 +639,6 @@ ul { list-style: none; }
     box-shadow: 0 40px 70px -38px rgba(20, 20, 20, 0.26);
   }
   .founder-card:hover .founder-photo { transform: scale(1.04); }
-}
-
-/* One card carries more prominence — whitest elevated surface + soft depth */
-.founder-card.featured {
-  background-color: var(--deep-bg);
-  background-image: var(--sheen);
-  box-shadow: 0 34px 60px -34px rgba(20,20,20,0.20);
 }
 
 /* Photo frame — carries the rounded slot's border/radius/surface (exactly what
@@ -689,7 +683,7 @@ ul { list-style: none; }
   font-size: 0.72rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--logo-blue);
+  color: var(--tan-ink);
   margin-top: 8px;
 }
 
@@ -1301,16 +1295,45 @@ ul { list-style: none; }
     align-items: center;
   }
 
-  /* FOUNDERS — tighter section + consistent gap between the two stacked cards */
+  /* FOUNDERS — single compact column. Four full-size cards would scroll
+     forever on a phone, so each card condenses: the photo shrinks to a small
+     square beside the name/title, with the bio and contact flowing below. */
   .founders-grid {
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 16px;
     margin-top: 24px;
   }
-  .founder-card { padding: 20px; }
-  .founder-name { margin-top: 16px; }
-  .founder-bio { margin-top: 12px; line-height: 1.7; }
-  .founder-contact { margin-top: 16px; }
+  .founder-card {
+    padding: 16px;
+    display: grid;
+    grid-template-columns: 88px 1fr;
+    grid-template-areas:
+      "photo name"
+      "photo title"
+      "bio   bio"
+      "contact contact";
+    column-gap: 14px;
+  }
+  .founder-photo-frame {
+    grid-area: photo;
+    width: 88px;
+    height: 88px;
+    align-self: center;
+    border-radius: 12px;
+  }
+  .founder-name {
+    grid-area: name;
+    margin-top: 0;
+    font-size: 1.3rem;
+    align-self: end;
+  }
+  .founder-title {
+    grid-area: title;
+    margin-top: 4px;
+    align-self: start;
+  }
+  .founder-bio { grid-area: bio; margin-top: 14px; font-size: 0.9rem; line-height: 1.65; }
+  .founder-contact { grid-area: contact; margin-top: 12px; gap: 3px; }
 
   /* CONTACT — compact, action-focused block; less blank space up top */
   .contact-center { padding: 56px 24px 64px; }
