@@ -41,7 +41,7 @@ export default function Contact({ children }: { children?: ReactNode }) {
             </div>
             <div className="contact-alt">
               <span className="contact-alt-label">Call direct</span>
-              <a className="contact-alt-value" href="tel:+19166069970">(916) 606-9970</a>
+              <a className="contact-alt-value" href="tel:+14087120017">(408) 712-0017</a>
             </div>
           </RevealItem>
         </Reveal>

@@ -205,7 +205,7 @@ export default function Intro({ onReveal }: { onReveal: () => void }) {
           transition={{ duration: 0.45, ease: EASE }}
         >
           <motion.span className="intro-label intro-label-top" variants={labelV} custom={0.15} initial="hidden" animate={seq}>
-            California
+            Based in California
           </motion.span>
 
           {/* Beat 2 — the three stamped process words, film-leader style. */}

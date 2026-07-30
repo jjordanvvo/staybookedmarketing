@@ -73,7 +73,7 @@ export default function Privacy() {
               <p className="legal-body legal-contact">
                 Stay Booked Marketing<br />
                 Email: <a href="mailto:staybookedmarketing@gmail.com">staybookedmarketing@gmail.com</a><br />
-                Phone: <a href="tel:+19166069970">(916) 606-9970</a>
+                Phone: <a href="tel:+14087120017">(408) 712-0017</a>
               </p>
             </section>
 

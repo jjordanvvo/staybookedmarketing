@@ -6,7 +6,7 @@ export default function Footer() {
     <footer className="footer">
       <img className="footer-logo" src={logo} alt="Stay Booked Marketing" />
       <span className="footer-domain">staybookedmarketing.com</span>
-      <span className="footer-phone">(916) 606-9970</span>
+      <span className="footer-phone">(408) 712-0017</span>
       <Link className="footer-privacy" to="/privacy">Privacy Policy</Link>
       <div className="footer-socials">
         <a

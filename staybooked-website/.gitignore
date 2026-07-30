@@ -23,7 +23,8 @@ dist-ssr
 *.sln
 *.sw?
 
-# Raw founder photo originals — the optimized webp copies live in src/assets
+# Raw image originals — optimized copies live in src/assets and public/
 Austin Uke.png
 Trevor Mayberry.jpg
 Trevor.png
+SBM Logo.png
