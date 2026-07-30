@@ -4,7 +4,7 @@ const STEPS = [
   {
     num: '01',
     word: 'Advertise',
-    desc: 'We build and run targeted Meta ad campaigns that put your business in front of the right local customers actively looking for what you offer.',
+    desc: 'We build and run targeted ad campaigns that put your practice in front of the right local patients actively looking for care.',
   },
   {
     num: '02',
@@ -14,7 +14,7 @@ const STEPS = [
   {
     num: '03',
     word: 'Book',
-    desc: 'Qualified, interested leads are delivered straight to you or booked directly onto your calendar, ready for you to close.',
+    desc: 'Qualified, interested patients are delivered straight to you or booked directly onto your calendar, ready for their appointment.',
   },
 ]
 

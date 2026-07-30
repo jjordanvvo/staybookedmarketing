@@ -11,24 +11,44 @@ const STEPS = [
   {
     num: '01',
     word: 'Advertise',
-    desc: 'Targeted Meta ads put your practice in front of the right local patients.',
+    desc: 'Targeted ads put your practice in front of people in your area actively seeking mental health care.',
   },
   {
     num: '02',
     word: 'Qualify',
-    desc: 'Every lead is contacted and screened within minutes, so you only deal with real prospects.',
+    desc: 'Every lead is contacted and screened within minutes, so you only see real, qualified patients.',
   },
   {
     num: '03',
     word: 'Book',
-    desc: 'Qualified patients are booked straight onto your calendar, ready for you to see.',
+    desc: 'Qualified patients are booked straight onto your calendar, ready for their appointment.',
   },
 ]
 
-const TRUST_POINTS = [
-  'Month-to-month, we earn your business every month.',
-  'Most clients see results in the first 30 days.',
-  'You only focus on patients. We handle the rest.',
+// Real, sourced speed-to-lead research — the figures are pulled out as the big
+// editorial numbers; the sentences and sources render exactly as written.
+const SPEED_STATS = [
+  {
+    figure: '21x',
+    text: 'Responding to a lead within 5 minutes makes you 21x more likely to qualify them than waiting 30 minutes.',
+    source: 'MIT / Harvard Business Review Lead Response Study',
+  },
+  {
+    figure: '78%',
+    text: '78% of patients book with the first practice that responds to them.',
+    source: 'Lead Response Management research',
+  },
+  {
+    figure: '7%',
+    text: 'The average business takes 42 hours to respond. Only 7% respond within 5 minutes.',
+    source: 'Lead Response Management Study',
+  },
+]
+
+const WHY_POINTS = [
+  'Month to month. We earn your business every month, no long contracts.',
+  'We handle everything: ads, follow-up, qualification, and booking.',
+  'You focus on your patients. We keep them coming.',
 ]
 
 /**
@@ -87,9 +107,10 @@ function Intro({ onDone }: { onDone: () => void }) {
 }
 
 /**
- * /free-call — single-purpose ad landing page (medical lead gen campaign).
- * One job: convert ad traffic into a booked strategy call. No nav, no
- * distractions; every CTA is the booking calendar.
+ * /free-call — single-purpose ad landing page for psychiatric and mental
+ * health practices. One job: convert ad traffic into a booked strategy call.
+ * No nav, no distractions; every CTA is the booking calendar. The guarantee
+ * band is the trust anchor, backed by sourced speed-to-lead research.
  *
  * Hero choreography (starts while the curtain is still parting, so the page
  * feels continuous): headline lines swing up from behind masks (1.12s/1.30s),
@@ -141,14 +162,14 @@ export default function FreeCall() {
     <>
       {showIntro && <Intro onDone={() => setIntroDone(true)} />}
 
-      {/* Minimal header — logo only, no nav */}
+      {/* 1. Minimal header — logo only, no nav */}
       <header className="simple-header">
         <Link to="/" className="simple-header-logo" aria-label="Stay Booked Marketing home">
           <img src={logo} alt="Stay Booked Marketing" />
         </Link>
       </header>
 
-      {/* 1. Hero — bold statement + primary CTA, choreographed off the intro */}
+      {/* 2. Hero — bold statement + primary CTA, choreographed off the intro */}
       <section ref={heroRef} className="lp-hero">
         {/* Giant outlined ghost-mark — echoes the outlined service numbers */}
         <motion.span
@@ -171,7 +192,7 @@ export default function FreeCall() {
                 animate={{ y: '0%', rotate: 0 }}
                 transition={{ delay: 1.12, duration: 0.95, ease: EASE }}
               >
-                More Booked Patients.
+                More Patients for Your Practice.
               </motion.span>
             </span>
             <span className="lp-line-mask">
@@ -181,7 +202,7 @@ export default function FreeCall() {
                 animate={{ y: '0%', rotate: 0 }}
                 transition={{ delay: 1.3, duration: 0.95, ease: EASE }}
               >
-                Less Chasing.
+                Without the Chasing.
               </motion.span>
             </span>
           </h1>
@@ -192,7 +213,7 @@ export default function FreeCall() {
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
             transition={{ delay: 1.7, duration: 0.8, ease: EASE }}
           >
-            We build complete lead generation systems for local practices. Targeted ads, instant follow-up, and qualified patients booked straight onto your calendar.
+            We help psychiatric and mental health practices fill their calendars with qualified patients, using targeted ads and instant, automated follow-up. You focus on care. We keep the appointments coming.
           </motion.p>
 
           <motion.a
@@ -214,17 +235,54 @@ export default function FreeCall() {
         </div>
       </section>
 
-      {/* 2. The hook — short and punchy */}
-      <section className="section section-offwhite lp-hook">
-        <Reveal className="wrap lp-narrow" amount={0.35}>
-          <RevealItem as="h2" className="title">Getting leads is easy. Booking them isn't.</RevealItem>
-          <RevealItem as="p" className="body lp-hook-body">
-            Most practices lose patients in the gap between interest and follow-up. The lead sits, the response is slow, and they book with someone else. We fix that.
+      {/* 3. The guarantee — the trust anchor, set on its own ink band */}
+      <section className="lp-guarantee">
+        <Reveal className="wrap" amount={0.35}>
+          <RevealItem as="p" className="label lp-guarantee-label">Our Guarantee</RevealItem>
+          <RevealItem as="h2" className="title lp-guarantee-headline">
+            10 booked appointments in 90 days. Or we work for free until you get them.
+          </RevealItem>
+          <RevealItem as="p" className="body lp-guarantee-body">
+            We put our own skin in the game. If we don't deliver at least 10 booked patient appointments within 90 days, we keep working at no cost until we do. That's how confident we are in the system, and how serious we are about your results.
           </RevealItem>
         </Reveal>
       </section>
 
-      {/* 3. How it works — the site's signature numbered editorial rows */}
+      {/* 4. The problem / hook — short and punchy */}
+      <section className="section section-offwhite lp-hook">
+        <Reveal className="wrap lp-narrow" amount={0.35}>
+          <RevealItem as="h2" className="title">Getting interest is easy. Booking patients isn't.</RevealItem>
+          <RevealItem as="p" className="body lp-hook-body">
+            Most practices lose potential patients in the gap between interest and follow-up. Someone reaches out, waits, hears nothing for hours, and books with whoever responds first. We close that gap completely.
+          </RevealItem>
+        </Reveal>
+      </section>
+
+      {/* 5. Speed-to-lead proof — sourced stats in the editorial number style */}
+      <section className="section section-light lp-proof">
+        <Reveal className="wrap" amount={0.35}>
+          <RevealItem as="p" className="label">Why It Works</RevealItem>
+          <RevealItem as="h2" className="title">Speed wins patients. We're built for speed.</RevealItem>
+        </Reveal>
+        <Reveal as="div" className="wrap lp-stat-rows" amount={0.2}>
+          {SPEED_STATS.map((s) => (
+            <RevealItem as="article" className="lp-stat-row" key={s.figure}>
+              <span className="lp-stat-figure" aria-hidden="true">{s.figure}</span>
+              <div>
+                <p className="lp-stat-text">{s.text}</p>
+                <p className="lp-stat-source">{s.source}</p>
+              </div>
+            </RevealItem>
+          ))}
+        </Reveal>
+        <Reveal className="wrap" amount={0.5}>
+          <RevealItem as="p" className="body lp-proof-close">
+            Our system contacts every lead in minutes, automatically. That's the difference between a full calendar and a missed opportunity.
+          </RevealItem>
+        </Reveal>
+      </section>
+
+      {/* 6. How it works — the site's signature numbered editorial rows */}
       <section className="howwework lp-how">
         <div className="howwework-inner">
           <Reveal amount={0.3}>
@@ -244,24 +302,24 @@ export default function FreeCall() {
         </div>
       </section>
 
-      {/* 4. Trust — results first, no long contracts */}
-      <section className="section section-light">
+      {/* 7. Why us — practice-first promises, hairline editorial list */}
+      <section className="section section-offwhite">
         <Reveal className="wrap lp-narrow" amount={0.35}>
-          <RevealItem as="h2" className="title">Results first. No long contracts.</RevealItem>
+          <RevealItem as="h2" className="title">Built for practices. Backed by a guarantee.</RevealItem>
           <RevealItem as="ul" className="lp-points">
-            {TRUST_POINTS.map((point) => (
+            {WHY_POINTS.map((point) => (
               <li key={point} className="lp-point">{point}</li>
             ))}
           </RevealItem>
         </Reveal>
       </section>
 
-      {/* 5. Final CTA */}
+      {/* 8. Final CTA */}
       <section className="section section-deep lp-final">
         <Reveal className="wrap wrap-contact" amount={0.35}>
           <RevealItem as="h2" className="contact-headline lp-final-headline">Ready to fill your calendar?</RevealItem>
           <RevealItem as="p" className="body contact-body">
-            Book a free strategy call and we'll show you exactly what this would look like for your practice.
+            Book a free strategy call and we'll show you exactly what this would look like for your practice, guarantee included.
           </RevealItem>
           <RevealItem
             as="a"
@@ -276,7 +334,7 @@ export default function FreeCall() {
         </Reveal>
       </section>
 
-      {/* 6. Minimal footer — logo, domain, phone, privacy. No other nav. */}
+      {/* 9. Minimal footer — logo, domain, phone, privacy. No other nav. */}
       <footer className="footer lp-footer">
         <img className="footer-logo" src={logo} alt="Stay Booked Marketing" />
         <span className="footer-domain">staybookedmarketing.com</span>

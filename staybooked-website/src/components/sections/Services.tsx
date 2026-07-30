@@ -4,7 +4,7 @@ const SERVICES = [
   {
     num: '01',
     name: 'Lead Generation Systems',
-    desc: 'Complete Meta ad campaigns with automated lead qualification and booking, built to deliver you a steady flow of ready-to-buy customers.',
+    desc: 'Complete ad campaigns with automated patient qualification and booking, built to deliver your practice a steady flow of ready-to-book patients.',
   },
   {
     num: '02',

@@ -43,8 +43,8 @@ export default function HeroStatement() {
           </motion.span>
         </h1>
         <div className="statement-support">
-          <motion.p variants={v} custom={2.4}>We build complete lead generation systems for local businesses. Targeted Meta ads bring in the right people, our automated system qualifies them, and booked, ready-to-buy customers land straight on your calendar.</motion.p>
-          <motion.p variants={v} custom={3.1}>Advertising, qualification, and booking, handled end to end, so you focus on closing, not chasing.</motion.p>
+          <motion.p variants={v} custom={2.4}>We build complete lead generation systems for medical and local practices. Targeted ads bring in the right patients, our automated system qualifies them, and booked, ready-to-book patients land straight on your calendar.</motion.p>
+          <motion.p variants={v} custom={3.1}>Stay Booked Marketing builds lead generation systems for medical practices and local businesses that want more patients and customers. We run the ads, qualify every lead, and handle the digital side so you can focus on care.</motion.p>
         </div>
       </motion.div>
     </section>

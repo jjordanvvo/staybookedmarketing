@@ -1108,6 +1108,70 @@ ul { list-style: none; }
 
 .lp-cta-large { padding: 22px 54px; font-size: 1rem; }
 
+/* Guarantee band — the trust anchor. Ink surface, cream serif headline, tan
+   label: the same palette inversion as the footer, set as a centered statement. */
+.lp-guarantee {
+  background: var(--footer-bg);
+  padding: clamp(80px, 12vh, 140px) 48px;
+  text-align: center;
+}
+.lp-guarantee-label { color: var(--logo-fill); }
+.lp-guarantee-headline {
+  color: var(--hero-cream);
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.lp-guarantee-body {
+  color: rgba(240, 235, 224, 0.75);
+  max-width: 680px;
+  margin: 26px auto 0;
+}
+
+/* Speed-to-lead proof — giant editorial figures with hairline-separated rows,
+   each stat's sentence and small sourced credit alongside. */
+.lp-stat-rows {
+  margin-top: clamp(40px, 6vw, 64px);
+  border-top: 1px solid var(--rule);
+}
+.lp-stat-row {
+  display: grid;
+  grid-template-columns: clamp(130px, 18vw, 230px) 1fr;
+  gap: clamp(20px, 4vw, 48px);
+  align-items: center;
+  padding: clamp(28px, 4vw, 44px) 0;
+  border-bottom: 1px solid var(--rule);
+}
+.lp-stat-figure {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(3.2rem, 8vw, 6.4rem);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+}
+.lp-stat-text {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  font-size: clamp(1.02rem, 1.7vw, 1.25rem);
+  line-height: 1.6;
+  color: var(--text);
+}
+.lp-stat-source {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  opacity: 0.75;
+  margin-top: 8px;
+}
+.lp-proof-close {
+  max-width: 640px;
+  margin-top: clamp(28px, 4vw, 40px);
+}
+
 /* Privacy link — sits with the footer's dim cream text, brightens on hover */
 .footer-privacy {
   font-family: 'DM Sans', sans-serif;
@@ -1358,6 +1422,10 @@ ul { list-style: none; }
   .lp-hero { padding: 72px 24px; }
   .lp-point { padding: 16px 0; }
   .lp-cta-large { padding: 18px 44px; font-size: 0.95rem; }
+  .lp-guarantee { padding: 64px 24px; }
+  /* Stats stack: figure above its sentence, tighter rows */
+  .lp-stat-row { grid-template-columns: 1fr; gap: 12px; padding: 24px 0; }
+  .lp-stat-figure { font-size: clamp(2.8rem, 14vw, 4rem); }
   .lp-intro-mark { width: min(58vw, 240px); height: min(58vw, 240px); }
   .lp-ghost { font-size: clamp(5rem, 27vw, 9rem); }
 }
