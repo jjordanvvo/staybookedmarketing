@@ -58,7 +58,7 @@ export default function Hero({ revealed = true, intro = false }: HeroProps) {
           className="hero-logo"
           src={logo}
           alt="Stay Booked Marketing"
-          style={intro ? { animationDelay: '6.5s' } : undefined}
+          style={intro ? { animationDelay: '7.3s' } : undefined}
         />
       </motion.div>
     </header>

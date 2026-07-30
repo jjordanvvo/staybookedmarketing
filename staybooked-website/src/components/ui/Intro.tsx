@@ -43,14 +43,14 @@ export function consumeIntro() {
 
 /* ---- Timeline (seconds, relative to "armed" = fonts ready) ---- */
 const STAMP_START = 0.55
-const STAMP_GAP = 0.5
-const STAMP_DUR = 0.62
-const TITLE_AT = 2.05 // first letter rises
+const STAMP_GAP = 0.68
+const STAMP_DUR = 0.85 // longer full-opacity hold so each word reads clearly
+const TITLE_AT = 2.7 // first letter rises
 const LETTER_STAGGER = 0.045
-const DOT_AT = 2.62 // brand period pop
-const RING_AT = 2.74 // ripple ring around the period
-const TAG_AT = 2.85 // serif brand line
-const EXIT_AT = 3.95 // curtains begin
+const DOT_AT = 3.3 // brand period pop
+const RING_AT = 3.42 // ripple ring around the period
+const TAG_AT = 3.55 // serif brand line
+const EXIT_AT = 4.75 // curtains begin
 
 const STAMPS = [
   { n: '01', w: 'ADVERTISE' },
@@ -226,7 +226,7 @@ export default function Intro({ onReveal }: { onReveal: () => void }) {
                 }
                 transition={{
                   duration: STAMP_DUR,
-                  times: [0, 0.22, 0.8, 1],
+                  times: [0, 0.18, 0.84, 1],
                   ease: EASE,
                   delay: STAMP_START + i * STAMP_GAP,
                 }}
