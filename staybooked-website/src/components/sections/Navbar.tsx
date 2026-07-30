@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { motion, useReducedMotion } from 'framer-motion'
 import logo from '@/assets/logo-nav.webp'
 import { EASE } from '@/components/ui/Reveal'
@@ -27,6 +28,9 @@ export default function Navbar({ revealed = true, delay = 0 }: NavbarProps) {
       </div>
       <div className="nav-right">
         <ul className="nav-links">
+          {/* Internal route to the practices landing page (client-side, no new tab).
+              Stays visible on mobile, where the anchor links are hidden. */}
+          <li className="nav-practices"><Link to="/free-call">For Practices</Link></li>
           <li><a href="#founders">Founders</a></li>
           <li><a href="#services">Services</a></li>
           <li><a href="#contact">Contact</a></li>
