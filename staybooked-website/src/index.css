@@ -234,6 +234,75 @@ ul { list-style: none; }
    old <br/> line break exactly, so the rendered layout is unchanged. */
 .statement-line { display: block; }
 
+/* Learn More CTA — editorial ink pill under the supporting copy.
+   Transform/opacity motion only: entrance rides the section's variants,
+   the idle sheen and hover lift live here. */
+.statement-cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  align-self: flex-start;
+  margin-top: 18px;            /* + the column's 18px gap ≈ 36px below the copy */
+  padding: 16px 40px;
+  border-radius: 999px;
+  background: #1C1C1A;
+  color: #F0EBE0;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+  overflow: hidden;            /* clips the sheen to the pill */
+  isolation: isolate;
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+  will-change: transform;
+}
+
+/* Idle shimmer — a soft band of light sweeps the pill every ~5s, resting
+   between passes. Skewed, translate-only, GPU-composited. */
+.statement-cta::after {
+  content: "";
+  position: absolute;
+  top: -40%;
+  bottom: -40%;
+  left: 0;
+  width: 46%;
+  background: linear-gradient(115deg, transparent 0%, rgba(240, 235, 224, 0.16) 50%, transparent 100%);
+  transform: translateX(-170%) skewX(-18deg);
+  animation: statementSheen 4.8s var(--ease) 1.4s infinite;
+  pointer-events: none;
+}
+@keyframes statementSheen {
+  0%   { transform: translateX(-170%) skewX(-18deg); }
+  38%  { transform: translateX(430%) skewX(-18deg); }
+  100% { transform: translateX(430%) skewX(-18deg); }
+}
+
+.statement-cta-arrow { display: block; transition: transform 0.3s var(--ease); }
+
+/* Hover — gentle lift, deepening shadow, tan bloom at the edges, faster
+   sheen, arrow nudge. Real pointers only so taps never stick. */
+@media (hover: hover) and (pointer: fine) {
+  .statement-cta:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow:
+      0 18px 38px -16px rgba(20, 20, 20, 0.45),
+      0 0 0 1px rgba(196, 168, 124, 0.4),
+      0 0 26px rgba(196, 168, 124, 0.28);
+  }
+  .statement-cta:hover::after { animation-duration: 3s; }
+  .statement-cta:hover .statement-cta-arrow { transform: translateX(4px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .statement-cta { transition: box-shadow 0.3s var(--ease); }
+  .statement-cta::after { animation: none !important; }
+  .statement-cta:hover { transform: none !important; }
+  .statement-cta:hover .statement-cta-arrow { transform: none !important; }
+}
+
 .statement-support {
   display: flex;
   flex-direction: column;
