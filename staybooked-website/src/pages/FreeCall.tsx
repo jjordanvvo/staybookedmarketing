@@ -4,8 +4,7 @@ import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion
 import { Reveal, RevealItem, EASE } from '@/components/ui/Reveal'
 import logoTile from '@/assets/logo.webp'
 import logo from '@/assets/logo-nav.webp'
-
-const BOOKING_URL = 'https://calendar.app.google/Euu7i4zJdkcJc6Eb6'
+import { BOOKING_URL } from '@/lib/booking'
 
 const STEPS = [
   {
@@ -162,11 +161,12 @@ export default function FreeCall() {
     <>
       {showIntro && <Intro onDone={() => setIntroDone(true)} />}
 
-      {/* 1. Minimal header — logo only, no nav */}
+      {/* 1. Minimal header — logo plus the booking CTA (the page's one job) */}
       <header className="simple-header">
         <Link to="/" className="simple-header-logo" aria-label="Stay Booked Marketing home">
           <img src={logo} alt="Stay Booked Marketing" />
         </Link>
+        <a className="nav-cta" href={BOOKING_URL} target="_blank" rel="noopener noreferrer">Book a Call</a>
       </header>
 
       {/* 2. Hero — bold statement + primary CTA, choreographed off the intro */}

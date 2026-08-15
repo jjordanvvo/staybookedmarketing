@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { motion, useReducedMotion } from 'framer-motion'
 import logo from '@/assets/logo-nav.webp'
 import { EASE } from '@/components/ui/Reveal'
+import { BOOKING_URL } from '@/lib/booking'
 
 type NavbarProps = {
   /** Held offscreen until the intro curtains start lifting. */
@@ -33,9 +34,12 @@ export default function Navbar({ revealed = true, delay = 0 }: NavbarProps) {
           <li className="nav-practices"><Link to="/free-call">For Practices</Link></li>
           <li><a href="#founders">Founders</a></li>
           <li><a href="#services">Services</a></li>
+          <li><a href="#pricing">Pricing</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
-        <a className="nav-cta" href="#contact">Let's Talk</a>
+        {/* The nav CTA goes straight to the booking calendar — same link as
+            every other Book a Call button on the site. */}
+        <a className="nav-cta" href={BOOKING_URL} target="_blank" rel="noopener noreferrer">Book a Call</a>
       </div>
     </motion.nav>
   )

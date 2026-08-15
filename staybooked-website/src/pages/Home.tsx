@@ -9,6 +9,8 @@ import Services from '@/components/sections/Services'
 import WhyUs from '@/components/sections/WhyUs'
 import Founders from '@/components/sections/Founders'
 import HowToStart from '@/components/sections/HowToStart'
+import Pricing from '@/components/sections/Pricing'
+import Faq from '@/components/sections/Faq'
 import Contact from '@/components/sections/Contact'
 import Footer from '@/components/sections/Footer'
 
@@ -42,6 +44,8 @@ export default function Home() {
           <WhyUs />
           <Founders />
           <HowToStart />
+          <Pricing />
+          <Faq />
           {/* Footer is nested inside the Contact section to match the original layout */}
           <Contact>
             <Footer />

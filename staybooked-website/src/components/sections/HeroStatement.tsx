@@ -38,17 +38,22 @@ export default function HeroStatement() {
         whileInView="show"
         viewport={{ once: true, amount: 0.35 }}
       >
+        {/* Trust line — lands first, a beat ahead of the headline */}
+        <motion.p className="statement-badge" variants={v} custom={0}>
+          <span className="statement-badge-dot" aria-hidden="true" />
+          Founded by Stanford graduates
+        </motion.p>
         <h1 className="statement-headline">
-          <motion.span className="statement-line" variants={v} custom={0}>
+          <motion.span className="statement-line" variants={v} custom={0.7}>
             We don't chase leads.
           </motion.span>
-          <motion.span className="statement-line" variants={v} custom={1}>
+          <motion.span className="statement-line" variants={v} custom={1.7}>
             We book them.
           </motion.span>
         </h1>
         <div className="statement-support">
-          <motion.p variants={v} custom={2.4}>We build complete lead generation systems for medical and local practices. Targeted ads bring in the right patients, our automated system qualifies them, and booked, ready-to-book patients land straight on your calendar.</motion.p>
-          <motion.p variants={v} custom={3.1}>Stay Booked Marketing builds lead generation systems for medical practices and local businesses that want more patients and customers. We run the ads, qualify every lead, and handle the digital side so you can focus on care.</motion.p>
+          <motion.p variants={v} custom={3.1}>We build complete lead generation systems for medical and local practices. Targeted ads bring in the right patients, our automated system qualifies them, and booked, ready-to-book patients land straight on your calendar.</motion.p>
+          <motion.p variants={v} custom={3.8}>Stay Booked Marketing builds lead generation systems for medical practices and local businesses that want more patients and customers. We run the ads, qualify every lead, and handle the digital side so you can focus on care.</motion.p>
           {/* Learn More — cascades in one slot after the copy, routes to the
               practices landing page. Shimmer/hover/arrow motion lives in CSS
               (.statement-cta); press feedback here. */}
@@ -56,7 +61,7 @@ export default function HeroStatement() {
             to="/free-call"
             className="statement-cta"
             variants={v}
-            custom={3.8}
+            custom={4.5}
             whileTap={reduce ? undefined : { scale: 0.97 }}
           >
             Learn More

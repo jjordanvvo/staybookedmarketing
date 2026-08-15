@@ -1,8 +1,7 @@
 import type { ReactNode } from 'react'
 import { useReducedMotion } from 'framer-motion'
 import { Reveal, RevealItem } from '@/components/ui/Reveal'
-
-const BOOKING_URL = 'https://calendar.app.google/Euu7i4zJdkcJc6Eb6'
+import { BOOKING_URL } from '@/lib/booking'
 
 /**
  * Contact is the final section. The Footer is rendered as `children`

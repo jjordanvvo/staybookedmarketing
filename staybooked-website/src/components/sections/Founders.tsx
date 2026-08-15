@@ -5,65 +5,70 @@ import austinPhoto from '@/assets/austin.webp'
 import trevorPhoto from '@/assets/trevor.webp'
 
 /**
- * Our Founders — four founder cards in a 2×2 grid (single compact column on
- * mobile). Founder photos fill the square slots via object-fit: cover
- * (see .founder-photo); cards are data-driven so all four stay identical.
+ * Our Founders — five founder cards in a two-column grid (single compact
+ * column on mobile; the odd fifth card centers itself across both columns).
+ * Founder photos fill the square slots via object-fit: cover
+ * (see .founder-photo); cards are data-driven so all five stay identical.
+ * Two founders are named Jordan, so cards always show full names.
  */
 
 type Founder = {
   name: string
   title: string
+  /** Education line, shown between the title and the bio. */
+  degree?: string
   bio: string
-  email: string
-  phone: string
-  photo: string
-  instagram?: { url: string; handle: string }
+  email?: string
+  phone?: string
+  photo?: string
+  /** Fallback monogram for founders without a headshot yet. */
+  initials?: string
 }
 
 const FOUNDERS: Founder[] = [
   {
-    name: 'Kolby McCargar',
-    title: 'Head of Ads & Technical Operations',
-    bio: 'Kolby runs the technical side of Stay Booked, from web design and development to project management and analytics. He turns ideas into clean, high-performing websites and keeps every project moving from first build to final launch.',
-    email: 'kolby@staybookedmarketing.com',
-    phone: '+1 (916) 606-9970',
-    photo: kolbyPhoto,
-    instagram: { url: 'https://www.instagram.com/kolbymccargar', handle: '@kolbymccargar' },
+    name: 'Trevor Mayberry',
+    title: 'CEO & CFO',
+    degree: 'Graduated from Stanford University with a degree in Science, Technology, and Society.',
+    bio: "Trevor Mayberry is the CEO and CFO of Stay Booked Marketing, where he sets the company's vision, drives strategic direction, and oversees every facet of the business from finance to daily operations. He built the company's entity structure, financial systems, and operational framework, and now leads a high-performing team, setting priorities and driving seamless execution across every department. Trevor also leads new business, meeting directly with prospective clients and closing every deal himself. He combines big-picture leadership with hands-on execution, keeping the company running at full strength while positioning it for sustained growth.",
+    email: 'trevor@staybookedmarketing.com',
+    phone: '+1 (813) 480-5818',
+    photo: trevorPhoto,
   },
   {
     name: 'Jordan Vo',
-    title: 'Head of Client Relations & Growth',
-    bio: 'Jordan leads client outreach and partnerships, making sure every business we work with gets the attention it deserves. He oversees advertising strategy and campaign review, keeping our clients in front of the right people at the right time.',
+    title: 'Chief Revenue Officer & Chief Growth Officer',
+    bio: 'Jordan Vo leads client relations once a partnership begins, making sure every business we work with gets the attention it deserves. He keeps clients informed on campaign performance and results, overseeing advertising strategy and campaign review so clients stay in front of the right people at the right time. His dedication to communication and follow-through keeps every relationship strong long after the deal is signed. He translates campaign data into clear, plain-language updates clients can act on, and stays focused on building long-term trust that keeps clients with Stay Booked well beyond the first campaign.',
     email: 'jordan@staybookedmarketing.com',
     phone: '+1 (408) 712-0017',
     photo: jordanPhoto,
-    instagram: { url: 'https://www.instagram.com/jjordanvvo', handle: '@jjordanvvo' },
+  },
+  {
+    name: 'Kolby McCargar',
+    title: 'Chief Technology Officer',
+    degree: "Studying Business Marketing at Point Loma Nazarene University's Fermanian School of Business.",
+    bio: "Kolby runs the technical side of Stay Booked, from web design and development to project management and analytics. He turns ideas into clean, high-performing websites and keeps every project moving from first build to final launch, making sure every client's digital presence is polished, functional, and built to convert. He keeps a sharp focus on page speed and mobile optimization, and stays hands-on after launch, troubleshooting and maintaining sites to keep everything running smoothly long-term.",
+    email: 'kolby@staybookedmarketing.com',
+    phone: '+1 (916) 606-9970',
+    photo: kolbyPhoto,
   },
   {
     name: 'Austin Uke',
-    title: 'Head of Systems & Operations',
-    bio: "Austin leads operations and systems setup, handling much of the technical backend that keeps everything running. He builds and manages the infrastructure behind our lead generation systems, making sure every client's setup is dialed in and built to scale.",
+    title: 'Chief Marketing Officer',
+    degree: 'Graduated from Stanford University with a degree in Science, Technology, and Society.',
+    bio: "Austin leads marketing at Stay Booked, building and managing the infrastructure behind the company's lead generation systems and running the campaigns that keep clients in front of the right audience. He handles much of the technical backend that keeps everything running, closely tracking ad performance to identify what's working and optimizing what isn't, making sure every client's setup is dialed in and built to scale. He keeps close watch on cost-per-lead and ad spend efficiency, and delivers clear, data-driven updates so clients always know exactly how their campaigns are performing.",
     email: 'austin@staybookedmarketing.com',
     phone: '+1 (214) 708-2025',
     photo: austinPhoto,
   },
   {
-    name: 'Trevor Mayberry',
-    title: 'Head of Finance & Client Management',
-    bio: 'Trevor helps manage the company and oversees our financials while working directly with clients alongside the team. He keeps the business steady and organized and makes sure every client relationship gets the attention it deserves.',
-    email: 'trevor@staybookedmarketing.com',
-    phone: '+1 (813) 480-5818',
-    photo: trevorPhoto,
+    name: 'Jordan Niles',
+    title: 'Chief Operating Officer',
+    degree: 'Graduated from the University of Pennsylvania.',
+    bio: 'Jordan Niles serves as Chief Operating Officer, managing the daily operations that keep Stay Booked Marketing running smoothly behind the scenes. He handles internal workflows, coordinates across teams, and makes sure projects stay on track and deadlines get met. Jordan brings a steady, organized hand to the business, making sure the small details never fall through the cracks as the company scales.',
+    initials: 'JN',
   },
 ]
-
-function InstagramIcon() {
-  return (
-    <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true">
-      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-    </svg>
-  )
-}
 
 export default function Founders() {
   return (
@@ -76,27 +81,23 @@ export default function Founders() {
             <RevealItem as="article" className="founder-card" key={f.name}>
               {/* Frame clips the photo so its slow hover scale stays inside the rounded slot */}
               <div className="founder-photo-frame">
-                <img className="founder-photo" src={f.photo} alt={f.name} />
+                {f.photo ? (
+                  <img className="founder-photo" src={f.photo} alt={f.name} />
+                ) : (
+                  // Branded monogram tile until a headshot is supplied
+                  <span className="founder-monogram" aria-hidden="true">{f.initials}</span>
+                )}
               </div>
               <h3 className="founder-name">{f.name}</h3>
               <p className="founder-title">{f.title}</p>
+              {f.degree && <p className="founder-degree">{f.degree}</p>}
               <p className="founder-bio">{f.bio}</p>
-              <div className="founder-contact">
-                <a className="founder-email" href={`mailto:${f.email}`}>{f.email}</a>
-                <p className="founder-phone">{f.phone}</p>
-                {f.instagram && (
-                  <a
-                    className="founder-instagram"
-                    href={f.instagram.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`${f.name} on Instagram`}
-                  >
-                    <InstagramIcon />
-                    <span>{f.instagram.handle}</span>
-                  </a>
-                )}
-              </div>
+              {(f.email || f.phone) && (
+                <div className="founder-contact">
+                  {f.email && <a className="founder-email" href={`mailto:${f.email}`}>{f.email}</a>}
+                  {f.phone && <p className="founder-phone">{f.phone}</p>}
+                </div>
+              )}
             </RevealItem>
           ))}
         </div>

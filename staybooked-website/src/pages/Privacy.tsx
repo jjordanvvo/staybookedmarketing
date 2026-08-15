@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { Reveal, RevealItem } from '@/components/ui/Reveal'
 import Footer from '@/components/sections/Footer'
 import logo from '@/assets/logo-nav.webp'
+import { BOOKING_URL } from '@/lib/booking'
 
 const SECTIONS = [
   {
@@ -46,6 +47,7 @@ export default function Privacy() {
         <Link to="/" className="simple-header-logo" aria-label="Stay Booked Marketing home">
           <img src={logo} alt="Stay Booked Marketing" />
         </Link>
+        <a className="nav-cta" href={BOOKING_URL} target="_blank" rel="noopener noreferrer">Book a Call</a>
       </header>
 
       <main className="legal">
