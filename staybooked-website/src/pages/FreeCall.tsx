@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
 import { Reveal, RevealItem, EASE } from '@/components/ui/Reveal'
+import Navbar from '@/components/sections/Navbar'
 import logoTile from '@/assets/logo.webp'
 import logo from '@/assets/logo-nav.webp'
 import { BOOKING_URL } from '@/lib/booking'
@@ -45,7 +46,7 @@ const SPEED_STATS = [
 ]
 
 const WHY_POINTS = [
-  'Month to month. We earn your business every month, no long contracts.',
+  'Flexible terms. Month to month or longer, whatever fits your practice. We earn your business either way.',
   'We handle everything: ads, follow-up, qualification, and booking.',
   'You focus on your patients. We keep them coming.',
 ]
@@ -108,7 +109,7 @@ function Intro({ onDone }: { onDone: () => void }) {
 /**
  * /free-call — single-purpose ad landing page for psychiatric and mental
  * health practices. One job: convert ad traffic into a booked strategy call.
- * No nav, no distractions; every CTA is the booking calendar. The guarantee
+ * Carries the site-wide nav; every CTA is the booking calendar. The guarantee
  * band is the trust anchor, backed by sourced speed-to-lead research.
  *
  * Hero choreography (starts while the curtain is still parting, so the page
@@ -161,13 +162,9 @@ export default function FreeCall() {
     <>
       {showIntro && <Intro onDone={() => setIntroDone(true)} />}
 
-      {/* 1. Minimal header — logo plus the booking CTA (the page's one job) */}
-      <header className="simple-header">
-        <Link to="/" className="simple-header-logo" aria-label="Stay Booked Marketing home">
-          <img src={logo} alt="Stay Booked Marketing" />
-        </Link>
-        <a className="nav-cta" href={BOOKING_URL} target="_blank" rel="noopener noreferrer">Book a Call</a>
-      </header>
+      {/* 1. The one site-wide nav; the spacer keeps the hero clear of the fixed bar */}
+      <Navbar />
+      <div className="nav-spacer" aria-hidden="true" />
 
       {/* 2. Hero — bold statement + primary CTA, choreographed off the intro */}
       <section ref={heroRef} className="lp-hero">

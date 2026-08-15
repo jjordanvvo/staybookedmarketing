@@ -19,7 +19,7 @@ const STEPS = [
   {
     num: '04',
     name: 'Ongoing Optimization',
-    desc: 'We review performance month to month and keep improving what works.',
+    desc: 'We review performance every month and keep improving what works.',
   },
 ]
 

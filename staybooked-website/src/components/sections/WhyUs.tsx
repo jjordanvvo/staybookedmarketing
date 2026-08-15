@@ -11,10 +11,12 @@ const easeOutExpo = (t: number) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t))
  */
 function CountUp({
   to,
+  prefix = '',
   suffix = '',
   delayMs = 0,
 }: {
   to: number
+  prefix?: string
   suffix?: string
   delayMs?: number
 }) {
@@ -52,6 +54,7 @@ function CountUp({
 
   return (
     <span ref={ref}>
+      {prefix}
       {n}
       {suffix}
     </span>
@@ -64,8 +67,8 @@ export default function WhyUs() {
       <div className="wrap">
         <Reveal>
           <RevealItem as="p" className="label">Why Stay Booked</RevealItem>
-          <RevealItem as="h2" className="title">Results first. No long contracts.</RevealItem>
-          <RevealItem as="p" className="body why-body">We work month to month because we earn your business every month. Most clients see results in the first 30 days.</RevealItem>
+          <RevealItem as="h2" className="title">Results first. Terms that fit you.</RevealItem>
+          <RevealItem as="p" className="body why-body">We earn your business every month, on terms that fit you: month to month or a longer partnership, your choice. Most clients see results in the first 30 days.</RevealItem>
         </Reveal>
 
         {/* Stats enter with the global stagger; the count-ups fire in the same
@@ -77,8 +80,8 @@ export default function WhyUs() {
             <div className="stat-label">Days to Results</div>
           </RevealItem>
           <RevealItem className="stat">
-            <div className="stat-num"><CountUp to={100} suffix="%" delayMs={160} /></div>
-            <div className="stat-label">Month to Month</div>
+            <div className="stat-num"><CountUp to={2} prefix="$" suffix="K" delayMs={160} /></div>
+            <div className="stat-label">Flat Monthly Rate</div>
           </RevealItem>
           <RevealItem className="stat">
             <div className="stat-num"><CountUp to={24} suffix="/7" delayMs={320} /></div>

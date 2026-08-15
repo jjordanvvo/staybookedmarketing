@@ -1,9 +1,7 @@
 import { useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import { Reveal, RevealItem } from '@/components/ui/Reveal'
+import Navbar from '@/components/sections/Navbar'
 import Footer from '@/components/sections/Footer'
-import logo from '@/assets/logo-nav.webp'
-import { BOOKING_URL } from '@/lib/booking'
 
 const SECTIONS = [
   {
@@ -43,12 +41,9 @@ export default function Privacy() {
 
   return (
     <>
-      <header className="simple-header">
-        <Link to="/" className="simple-header-logo" aria-label="Stay Booked Marketing home">
-          <img src={logo} alt="Stay Booked Marketing" />
-        </Link>
-        <a className="nav-cta" href={BOOKING_URL} target="_blank" rel="noopener noreferrer">Book a Call</a>
-      </header>
+      {/* The one site-wide nav; the spacer keeps content clear of the fixed bar */}
+      <Navbar />
+      <div className="nav-spacer" aria-hidden="true" />
 
       <main className="legal">
         <Reveal className="legal-inner" amount={0.1}>

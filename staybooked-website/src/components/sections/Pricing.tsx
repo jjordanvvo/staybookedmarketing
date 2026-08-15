@@ -12,7 +12,7 @@ export default function Pricing() {
       <div className="wrap">
         <Reveal>
           <RevealItem as="p" className="label">Pricing</RevealItem>
-          <RevealItem as="h2" className="title">One plan. One flat rate.</RevealItem>
+          <RevealItem as="h2" className="title">Simple pricing. Lower than anyone else.</RevealItem>
         </Reveal>
 
         <Reveal className="pricing-band" amount={0.3}>
@@ -23,7 +23,10 @@ export default function Pricing() {
           <RevealItem as="div" className="pricing-detail" delay={0.14}>
             <p className="pricing-promise">No startup fee. Just simple monthly pricing.</p>
             <p className="body pricing-body">
-              Everything is included: ads, follow-up, qualification, and booking, managed end to end. Month to month, no long-term contracts.
+              Everything included: campaign creation and management, lead follow-up, qualification, and booking, all handled end to end. Ad spend is billed separately by the ad platforms and always stays yours.
+            </p>
+            <p className="body pricing-body pricing-terms">
+              Flexible terms: month to month or longer, your choice.
             </p>
             <a
               className="contact-book-btn pricing-cta"
