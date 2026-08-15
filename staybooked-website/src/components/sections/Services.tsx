@@ -13,8 +13,8 @@ const SERVICES = [
   },
   {
     num: '03',
-    name: 'Local SEO and Google Profile',
-    desc: 'Google Business Profile optimization and local SEO that makes your business the obvious choice when customers search.',
+    name: 'Full-Funnel Campaigns',
+    desc: 'Complete campaigns that carry people from first click to booked appointment: creative, targeting, landing pages, and follow-up, all working as one system.',
   },
 ]
 

@@ -155,6 +155,79 @@ ul { list-style: none; }
 }
 .nav-cta:hover { background: var(--logo-blue); color: var(--page-bg); }
 
+/* Hamburger + drop-down menu — mobile only (desktop hides both below) */
+.nav-burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  padding: 9px 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.nav-burger span {
+  display: block;
+  height: 1.6px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: transform 0.35s var(--ease), opacity 0.25s var(--ease);
+}
+.nav-burger-open span:nth-child(1) { transform: translateY(6.6px) rotate(45deg); }
+.nav-burger-open span:nth-child(2) { opacity: 0; }
+.nav-burger-open span:nth-child(3) { transform: translateY(-6.6px) rotate(-45deg); }
+
+/* Sheet under the bar: grid 0fr → 1fr collapse, so no measured heights */
+.nav-menu {
+  display: none;
+  position: absolute;
+  top: 76px;
+  left: 0;
+  right: 0;
+  grid-template-rows: 0fr;
+  visibility: hidden;
+  background: rgba(240, 235, 224, 0.97);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid transparent;
+  transition:
+    grid-template-rows 0.45s var(--ease),
+    visibility 0.45s,
+    border-color 0.3s var(--ease);
+}
+.nav-menu-open {
+  grid-template-rows: 1fr;
+  visibility: visible;
+  border-color: var(--border);
+}
+.nav-menu-inner {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.nav-menu-inner li + li { border-top: 1px solid var(--rule); }
+.nav-menu-inner a {
+  display: block;
+  padding: 16px 24px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  font-size: 0.8rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+
+/* Spacer for pages whose content starts at the top (the nav bar is fixed) */
+.nav-spacer { height: 76px; }
+
+/* Anchored sections settle just below the fixed bar instead of under it */
+#statement, #how, #services, #why, #founders, #start, #pricing, #faq, #contact {
+  scroll-margin-top: 84px;
+}
+
 /* ============================================================
    HERO — SBM. logo, reduced to ~70vh so it no longer fills the screen
    ============================================================ */
@@ -215,8 +288,37 @@ ul { list-style: none; }
   margin: 0 auto;
   display: grid;
   grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr);
-  gap: 56px;
+  gap: 28px 56px;   /* tight row gap keeps the badge close to the headline */
   align-items: end;
+}
+
+/* Founded-by-Stanford trust marker — bold ink pill above the headline, set in
+   the display face so it reads as a credential, not a footnote */
+.statement-badge {
+  grid-column: 1 / -1;
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 15px 30px;
+  border-radius: 999px;
+  background: #1C1C1A;
+  color: #F0EBE0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(0.95rem, 1.7vw, 1.2rem);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  line-height: 1;
+  box-shadow:
+    0 18px 36px -22px rgba(20, 20, 20, 0.45),
+    0 0 0 1px rgba(196, 168, 124, 0.35);
+}
+.statement-badge-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--logo-fill);
 }
 
 .statement-headline {
@@ -447,18 +549,22 @@ ul { list-style: none; }
   margin-top: 14px;
 }
 
-/* "How to get started" — reuses the HOW WE WORK row system; each step is a
-   readable editorial statement rather than a single giant word. */
-.hw-step {
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 400;
-  font-size: clamp(1.1rem, 2vw, 1.5rem);
-  line-height: 1.45;
-  color: var(--text);
-  max-width: 720px;
-  padding-top: 0.15em;
+/* "The plan" — reuses the HOW WE WORK row system at a smaller display scale:
+   each step gets a condensed uppercase name with a one-line description. */
+.hw-plan-word {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.7rem, 4.2vw, 3.2rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--ink);
+  transition: transform 0.5s var(--ease);
 }
-.hw-step strong { font-weight: 500; }
+@media (hover: hover) and (pointer: fine) {
+  .hw-row:hover .hw-plan-word { transform: translateX(10px); }
+}
+
 
 /* ============================================================
    SECTION SHELL & SPACING SYSTEM
@@ -690,6 +796,14 @@ ul { list-style: none; }
   margin-top: 44px;
 }
 
+/* Five cards leave an odd one on the last row — center it at card width so
+   the grid closes cleanly instead of leaving a hole. */
+.founders-grid > .founder-card:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+  justify-self: center;
+  width: calc(50% - 20px);   /* one column's width (half minus half the gap) */
+}
+
 .founder-card {
   border: 1px solid var(--card-border);
   border-radius: 20px;
@@ -728,6 +842,22 @@ ul { list-style: none; }
   transition: transform 0.9s var(--ease);
 }
 
+/* Monogram tile — stands in for a missing headshot, echoing the tan SBM mark */
+.founder-monogram {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: var(--logo-fill);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(3rem, 6vw, 5rem);
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  user-select: none;
+}
+
 .founder-photo-label {
   font-family: 'DM Sans', sans-serif;
   font-weight: 400;
@@ -754,6 +884,16 @@ ul { list-style: none; }
   text-transform: uppercase;
   color: var(--tan-ink);
   margin-top: 8px;
+}
+
+/* Education line — quiet italic serif between the title and the bio */
+.founder-degree {
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--text-2);
+  margin-top: 12px;
 }
 
 .founder-bio {
@@ -787,22 +927,6 @@ ul { list-style: none; }
   font-size: 0.85rem;
   color: var(--text-2);
 }
-
-/* Personal Instagram — icon + handle, matches contact typography, darkens on hover */
-.founder-instagram {
-  display: inline-flex;
-  align-items: center;
-  align-self: flex-start;     /* keep the hover area to the icon + handle */
-  gap: 8px;
-  margin-top: 10px;
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 400;
-  font-size: 0.85rem;
-  color: var(--text-2);
-  transition: color 0.3s var(--ease);
-}
-.founder-instagram:hover { color: var(--text); }
-.founder-instagram svg { display: block; }
 
 /* ============================================================
    CONTACT (+ nested footer) — editorial close
@@ -912,6 +1036,135 @@ ul { list-style: none; }
 }
 
 /* ============================================================
+   PRICING — one flat rate, giant editorial figure
+   ============================================================ */
+.pricing-band {
+  margin-top: clamp(44px, 6vw, 72px);
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 72px);
+  align-items: center;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  padding: clamp(36px, 5vw, 60px) 0;
+}
+
+.pricing-figure-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.pricing-figure {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(4rem, 10vw, 8rem);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+}
+
+.pricing-term {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+
+.pricing-promise {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(1.3rem, 2.4vw, 1.8rem);
+  line-height: 1.3;
+  color: var(--text);
+}
+
+.pricing-body {
+  margin-top: 14px;
+  max-width: 460px;
+  font-size: 0.98rem;
+  line-height: 1.7;
+}
+
+.pricing-terms { margin-top: 10px; }
+
+.pricing-cta { margin-top: 28px; }
+
+/* ============================================================
+   FAQ — hairline accordion in the editorial list rhythm
+   ============================================================ */
+.faq-list {
+  margin-top: clamp(32px, 5vw, 56px);
+  border-top: 1px solid var(--rule);
+}
+
+.faq-item { border-bottom: 1px solid var(--rule); }
+
+.faq-q {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  padding: 22px 4px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  font-size: clamp(1.02rem, 1.8vw, 1.3rem);
+  line-height: 1.5;
+  color: var(--text);
+  transition: color 0.3s var(--ease);
+}
+@media (hover: hover) and (pointer: fine) {
+  .faq-q:hover { color: var(--tan-ink); }
+}
+
+/* Plus that folds to a minus when the row opens — two hairline bars */
+.faq-icon {
+  position: relative;
+  flex: none;
+  width: 14px;
+  height: 14px;
+}
+.faq-icon::before,
+.faq-icon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+  margin-top: -0.75px;
+  background: var(--text);
+  transition: transform 0.45s var(--ease);
+}
+.faq-icon::after { transform: rotate(90deg); }
+.faq-icon-open::after { transform: rotate(0deg); }
+
+/* Collapse via the grid 0fr → 1fr trick — no measured heights needed */
+.faq-a-wrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.5s var(--ease);
+}
+.faq-a-wrap.faq-a-open { grid-template-rows: 1fr; }
+.faq-a { overflow: hidden; }
+
+.faq-body {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 0.98rem;
+  line-height: 1.8;
+  color: var(--text-2);
+  max-width: 760px;
+  padding: 0 4px 24px;
+}
+
+/* ============================================================
    FOOTER
    ============================================================ */
 .footer {
@@ -962,18 +1215,9 @@ ul { list-style: none; }
 .footer-instagram svg { display: block; }
 
 /* ============================================================
-   SUBPAGES — minimal header, /privacy legal page, /free-call landing
+   SUBPAGES — /privacy legal page, /free-call landing
    Additive only: nothing here restyles the homepage.
    ============================================================ */
-.simple-header {
-  display: flex;
-  align-items: center;
-  padding: 18px 48px;
-  background: var(--page-bg);
-  border-bottom: 1px solid var(--border);
-}
-.simple-header-logo { display: inline-flex; align-items: center; }
-.simple-header-logo img { height: 50px; width: auto; }
 
 /* ---- Privacy policy ---- */
 .legal {
@@ -1296,17 +1540,27 @@ ul { list-style: none; }
 }
 
 /* ============================================================
+   RESPONSIVE — below 1080px: the nav now carries five links plus the
+   booking pill, so the gaps tighten before anything can wrap
+   ============================================================ */
+@media (max-width: 1080px) {
+  .nav { padding: 0 28px; }
+  .nav-links { gap: 22px; }
+  .nav-right { gap: 22px; }
+  .nav-wordmark { display: none; }
+}
+
+/* ============================================================
    RESPONSIVE — below 768px
    ============================================================ */
 @media (max-width: 768px) {
-  .nav { padding: 0 20px; }
-  /* The section anchors disappear on mobile (as before); the For Practices
-     route link stays reachable beside the LET'S TALK pill. */
-  .nav-links { gap: 0; }
-  .nav-links li { display: none; }
-  .nav-links li.nav-practices { display: block; }
-  .nav-right { gap: 16px; }
-  .nav-wordmark { font-size: 0.9rem; }
+  .nav { padding: 0 16px 0 20px; }
+  /* Mobile keeps the bar to three things: logo, Book a Call, hamburger.
+     Every link lives in the drop-down sheet instead. */
+  .nav-links { display: none; }
+  .nav-burger { display: flex; }
+  .nav-menu { display: grid; }
+  .nav-right { gap: 10px; }
   .nav-cta { padding: 8px 14px; font-size: 0.66rem; }
 
   /* ---- Global mobile spacing: tighter section padding + label→heading gap ---- */
@@ -1362,6 +1616,23 @@ ul { list-style: none; }
   }
   .statement-support { gap: 12px; padding-bottom: 0; }
   .statement-support p { max-width: 100%; }
+  .statement-badge { padding: 12px 20px; font-size: 0.85rem; gap: 10px; }
+  .statement-badge-dot { width: 8px; height: 8px; }
+
+  /* PRICING — figure stacks above the promise and CTA */
+  .pricing-band {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-top: 28px;
+    padding: 28px 0 32px;
+  }
+  .pricing-figure { font-size: clamp(3.4rem, 17vw, 5rem); }
+  .pricing-cta { margin-top: 20px; }
+
+  /* FAQ — tighter rows */
+  .faq-list { margin-top: 24px; }
+  .faq-q { padding: 16px 0; gap: 16px; }
+  .faq-body { padding: 0 0 18px; }
 
   /* HOW WE WORK — tight rows; small number sits close to the giant word */
   .hw-rows { margin-top: 24px; }
@@ -1372,7 +1643,6 @@ ul { list-style: none; }
   }
   .hw-num { padding-top: 0.35em; font-size: 0.8rem; }
   .hw-desc { margin-top: 8px; }
-  .hw-step { padding-top: 0; }
 
   /* SERVICES — number + title + description read as one tight unit */
   .svc-list { margin-top: 24px; gap: 6px; }
@@ -1440,6 +1710,12 @@ ul { list-style: none; }
     gap: 16px;
     margin-top: 24px;
   }
+  /* Single column again — undo the desktop odd-card centering */
+  .founders-grid > .founder-card:last-child:nth-child(odd) {
+    grid-column: auto;
+    justify-self: stretch;
+    width: auto;
+  }
   .founder-card {
     padding: 16px;
     display: grid;
@@ -1447,6 +1723,7 @@ ul { list-style: none; }
     grid-template-areas:
       "photo name"
       "photo title"
+      "degree degree"
       "bio   bio"
       "contact contact";
     column-gap: 14px;
@@ -1469,8 +1746,10 @@ ul { list-style: none; }
     margin-top: 4px;
     align-self: start;
   }
-  .founder-bio { grid-area: bio; margin-top: 14px; font-size: 0.9rem; line-height: 1.65; }
+  .founder-degree { grid-area: degree; margin-top: 12px; font-size: 0.88rem; }
+  .founder-bio { grid-area: bio; margin-top: 12px; font-size: 0.9rem; line-height: 1.65; }
   .founder-contact { grid-area: contact; margin-top: 12px; gap: 3px; }
+  .founder-monogram { font-size: 2rem; }
 
   /* CONTACT — compact, action-focused block; less blank space up top */
   .contact-center { padding: 56px 24px 64px; }
@@ -1488,8 +1767,6 @@ ul { list-style: none; }
   }
 
   /* SUBPAGES — /privacy and /free-call */
-  .simple-header { padding: 14px 24px; }
-  .simple-header-logo img { height: 42px; }
   .legal { padding: 56px 24px; }
   .legal-section { margin-top: 36px; }
   .lp-hero { padding: 72px 24px; }
@@ -1543,6 +1820,13 @@ ul { list-style: none; }
     filter: none !important;
     transition: none !important;
   }
+  /* FAQ answers toggle instantly, icon bars snap */
+  .faq-a-wrap,
+  .faq-icon::before,
+  .faq-icon::after { transition: none !important; }
+  /* Mobile menu snaps open/closed, burger bars snap */
+  .nav-menu,
+  .nav-burger span { transition: none !important; }
 }
 
 /* ============================================================
