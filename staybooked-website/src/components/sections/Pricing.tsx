@@ -12,7 +12,7 @@ export default function Pricing() {
       <div className="wrap">
         <Reveal>
           <RevealItem as="p" className="label">Pricing</RevealItem>
-          <RevealItem as="h2" className="title">Simple pricing. Lower than anyone else.</RevealItem>
+          <RevealItem as="h2" className="title">Great marketing shouldn't cost a fortune.</RevealItem>
         </Reveal>
 
         <Reveal className="pricing-band" amount={0.3}>
