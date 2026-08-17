@@ -336,7 +336,10 @@ export default function FreeCall() {
         <img className="footer-logo" src={logo} alt="Stay Booked Marketing" />
         <span className="footer-domain">staybookedmarketing.com</span>
         <span className="footer-phone">(408) 712-0017</span>
-        <Link className="footer-privacy" to="/privacy">Privacy Policy</Link>
+        <div className="footer-legal">
+          <Link className="footer-privacy" to="/privacy">Privacy Policy</Link>
+          <Link className="footer-privacy" to="/terms">Terms of Service</Link>
+        </div>
       </footer>
     </>
   )

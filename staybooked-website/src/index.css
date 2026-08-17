@@ -1265,6 +1265,20 @@ ul { list-style: none; }
 
 .legal-section .legal-body { margin-top: 12px; }
 
+/* Bulleted clauses inside a legal section (Tailwind preflight strips list
+   styling, so disc + indent are restated here). */
+.legal-list {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--text-2);
+  margin-top: 12px;
+  padding-left: 24px;
+  list-style: disc outside;
+}
+.legal-list li { margin-top: 6px; }
+
 .legal-contact a {
   color: var(--text);
   border-bottom: 1px solid var(--border);
@@ -1486,6 +1500,12 @@ ul { list-style: none; }
 }
 
 /* Privacy link — sits with the footer's dim cream text, brightens on hover */
+.footer-legal {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+}
+
 .footer-privacy {
   font-family: 'DM Sans', sans-serif;
   font-weight: 300;
