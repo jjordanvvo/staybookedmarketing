@@ -3,6 +3,7 @@ import kolbyPhoto from '@/assets/kolby.webp'
 import jordanPhoto from '@/assets/jordan.webp'
 import austinPhoto from '@/assets/austin.webp'
 import trevorPhoto from '@/assets/trevor.webp'
+import nilesPhoto from '@/assets/niles.webp'
 
 /**
  * Our Founders — five founder cards in a two-column grid (single compact
@@ -66,7 +67,9 @@ const FOUNDERS: Founder[] = [
     title: 'Chief Operating Officer',
     degree: 'Graduated from the University of Pennsylvania.',
     bio: 'Jordan Niles serves as Chief Operating Officer, managing the daily operations that keep Stay Booked Marketing running smoothly behind the scenes. He handles internal workflows, coordinates across teams, and makes sure projects stay on track and deadlines get met. Jordan brings a steady, organized hand to the business, making sure the small details never fall through the cracks as the company scales.',
-    initials: 'JN',
+    email: 'jordanniles@staybookedmarketing.com',
+    phone: '+1 (727) 479-3780',
+    photo: nilesPhoto,
   },
 ]
 
