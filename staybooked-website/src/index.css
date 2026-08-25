@@ -1201,6 +1201,7 @@ ul { list-style: none; }
   display: inline-flex;
   align-items: center;
   gap: 18px;
+  margin-right: 48px;  /* clear the chat widget bubble fixed to the bottom-right */
 }
 .footer-linkedin,
 .footer-instagram {
@@ -1785,6 +1786,7 @@ ul { list-style: none; }
     gap: 14px;
     text-align: center;
   }
+  .footer-socials { margin-right: 0; }  /* stacked layout centers; bubble no longer collides */
 
   /* SUBPAGES — /privacy and /free-call */
   .legal { padding: 56px 24px; }
