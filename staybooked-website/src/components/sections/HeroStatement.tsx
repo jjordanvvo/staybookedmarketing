@@ -1,9 +1,5 @@
-import { Link } from 'react-router-dom'
 import { motion, useReducedMotion, type Variants } from 'framer-motion'
 import { EASE, still } from '@/components/ui/Reveal'
-
-// Router link that participates in the section's variant choreography.
-const MotionLink = motion(Link)
 
 /**
  * Editorial statement band directly under the logo hero.
@@ -52,13 +48,13 @@ export default function HeroStatement() {
           </motion.span>
         </h1>
         <div className="statement-support">
-          <motion.p variants={v} custom={3.1}>We build complete lead generation systems for medical and local practices. Targeted ads bring in the right patients, our automated system qualifies them, and booked, ready-to-book patients land straight on your calendar.</motion.p>
-          <motion.p variants={v} custom={3.8}>Stay Booked Marketing builds lead generation systems for medical practices and local businesses that want more patients and customers. We run the ads, qualify every lead, and handle the digital side so you can focus on care.</motion.p>
-          {/* Learn More — cascades in one slot after the copy, routes to the
-              practices landing page. Shimmer/hover/arrow motion lives in CSS
-              (.statement-cta); press feedback here. */}
-          <MotionLink
-            to="/free-call"
+          <motion.p variants={v} custom={3.1}>We build complete lead generation systems for local businesses. Targeted ads bring in the right local customers, our automated system qualifies them, and ready-to-book customers land straight on your calendar.</motion.p>
+          <motion.p variants={v} custom={3.8}>Stay Booked Marketing builds lead generation systems for local businesses that want more customers. We run the ads, qualify every lead, and handle the digital side so you can focus on running your business.</motion.p>
+          {/* Learn More — cascades in one slot after the copy, scrolls to the
+              Industries section so visitors self-identify. Shimmer/hover/arrow
+              motion lives in CSS (.statement-cta); press feedback here. */}
+          <motion.a
+            href="#industries"
             className="statement-cta"
             variants={v}
             custom={4.5}
@@ -81,7 +77,7 @@ export default function HeroStatement() {
                 strokeLinejoin="round"
               />
             </svg>
-          </MotionLink>
+          </motion.a>
         </div>
       </motion.div>
     </section>
