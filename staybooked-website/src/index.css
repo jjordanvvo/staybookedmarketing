@@ -1432,6 +1432,25 @@ ul { list-style: none; }
   border-bottom: 1px solid var(--rule);
 }
 
+/* Industry / expertise rows — lead term + one-liner on the lp-point hairlines
+   (shared by the homepage Industries list and the healthcare page pillars) */
+.ind-list { list-style: none; padding-left: 0; }
+.ind-row {
+  display: grid;
+  grid-template-columns: minmax(170px, 250px) 1fr;
+  gap: 6px 36px;
+  align-items: baseline;
+}
+.ind-link { display: contents; color: inherit; text-decoration: none; }
+.ind-name { font-weight: 500; color: var(--ink); }
+.ind-more { white-space: nowrap; color: var(--ink); }
+.ind-arrow { display: inline-block; vertical-align: middle; margin-left: 6px; transition: transform 0.3s var(--ease); }
+@media (hover: hover) and (pointer: fine) {
+  .ind-link:hover .ind-name,
+  .ind-link:hover .ind-more { text-decoration: underline; text-underline-offset: 4px; }
+  .ind-link:hover .ind-arrow { transform: translateX(4px); }
+}
+
 .lp-final-headline { font-size: clamp(2.2rem, 6vw, 4.6rem); }
 
 .lp-cta-large { padding: 22px 54px; font-size: 1rem; }
@@ -1575,6 +1594,10 @@ ul { list-style: none; }
    RESPONSIVE — below 768px
    ============================================================ */
 @media (max-width: 768px) {
+  /* Industry rows stack: name above its one-liner */
+  .ind-row { grid-template-columns: 1fr; gap: 4px; }
+  .ind-more { white-space: normal; }
+
   .nav { padding: 0 16px 0 20px; }
   /* Mobile keeps the bar to three things: logo, Book a Call, hamburger.
      Every link lives in the drop-down sheet instead. */
