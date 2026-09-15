@@ -15,6 +15,7 @@ type NavbarProps = {
 // Section anchors on the home page. Off "/" they route to /#id and the
 // ScrollToTop handler in App.tsx finishes the scroll once the section mounts.
 const ANCHORS = [
+  { label: 'Industries', id: 'industries' },
   { label: 'Founders', id: 'founders' },
   { label: 'Services', id: 'services' },
   { label: 'Pricing', id: 'pricing' },
@@ -78,7 +79,6 @@ export default function Navbar({ revealed = true, delay = 0 }: NavbarProps) {
       </div>
       <div className="nav-right">
         <ul className="nav-links">
-          <li><Link to="/free-call">For Practices</Link></li>
           {ANCHORS.map((a) => (
             <li key={a.id}>{anchor(a)}</li>
           ))}
@@ -103,7 +103,6 @@ export default function Navbar({ revealed = true, delay = 0 }: NavbarProps) {
       {/* Mobile drop-down sheet — lives inside the fixed nav so it tracks it */}
       <div id="nav-menu" className={`nav-menu${open ? ' nav-menu-open' : ''}`}>
         <ul className="nav-menu-inner">
-          <li><Link to="/free-call" onClick={close}>For Practices</Link></li>
           {ANCHORS.map((a) => (
             <li key={a.id}>{anchor(a)}</li>
           ))}
