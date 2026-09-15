@@ -40,6 +40,7 @@ const TAGS = {
   a: motion.a,
   article: motion.article,
   ul: motion.ul,
+  li: motion.li,
 } as const
 
 type Tag = keyof typeof TAGS
