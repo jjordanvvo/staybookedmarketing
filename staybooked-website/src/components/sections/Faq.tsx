@@ -1,42 +1,36 @@
 import { useState } from 'react'
 import { Reveal, RevealItem } from '@/components/ui/Reveal'
 
-const FAQS = [
+export type FaqEntry = { q: string; a: string }
+
+const FAQS: FaqEntry[] = [
   {
-    q: 'Do you actually understand HIPAA, or do you just say you do?',
-    a: "We're not a covered entity, but we operate as a Business Associate whenever we touch anything PHI-adjacent. That means we're built to sign BAAs, avoid standard tracking pixels on pages that could capture health information, and design with data minimization in mind from day one.",
+    q: 'What industries do you work with?',
+    a: 'Any local service business: home services, trades, legal, fitness and med spas, professional services, and healthcare. If your customers are local and your business runs on appointments or jobs, the system fits. For medical and healthcare practices, we have a dedicated compliance-first approach you can read about on our healthcare page.',
   },
   {
-    q: 'Do you know the advertising rules in my state?',
-    a: 'State medical advertising rules vary widely. Texas, for example, bans testimonials in medical advertising outright. We research your specific state and license type before any campaign goes live, not after.',
+    q: 'How fast will I see results?',
+    a: "Most clients see results within the first 30 days. Ads can start running within days of your strategy call, and our follow-up system goes to work on the very first lead. Timelines vary by industry and budget, so we'll give you an honest read on yours during the call.",
   },
   {
-    q: 'Can you guarantee more patients?',
-    a: "No agency honestly can, and we won't pretend to. What we focus on is a compliant, professional presence and a process built specifically for regulated healthcare marketing, which most agencies simply aren't equipped to do.",
+    q: "What's included in the monthly price?",
+    a: "Everything: campaign creation and management, landing pages, automated lead follow-up, qualification, and booking, all handled end to end for $2,000 per month. There's no startup fee. Ad spend is billed separately by the ad platforms and always stays yours.",
   },
   {
-    q: 'I have a delegating physician or collaborative practice agreement. Does that affect my marketing?',
-    a: 'Yes, and we account for it. Your scope of practice, prescriptive authority, and any required physician disclosures are all part of what we review before we write a single word of copy.',
+    q: 'Do you require a long-term contract?',
+    a: "No. Terms are flexible: month to month or longer, your choice. We'd rather earn your business every month than lock you into anything.",
   },
   {
-    q: 'Will you use my tracking pixels the way a normal agency would?',
-    a: 'No. On any page that could capture health-related information, we work to skip standard Meta Pixel and Google Analytics setups in favor of server-side or anonymized tracking, specifically to reduce your HIPAA exposure.',
+    q: 'Who owns the ad accounts and the data?',
+    a: 'You do. Ad accounts, audiences, and every lead we generate belong to you. If we ever part ways, all of it stays with you.',
   },
   {
-    q: 'Do you handle patient data directly?',
-    a: "We minimize this wherever possible by design. Where it's unavoidable, we're built to operate under a signed Business Associate Agreement with the appropriate safeguards.",
+    q: 'Can you guarantee results?',
+    a: "No agency honestly can, and we won't pretend to. What we can promise is a complete system, fast follow-up on every lead, and a team that reviews performance every month and keeps improving what works.",
   },
   {
-    q: 'What happens if you make a mistake that creates compliance risk for me?',
-    a: 'Our process is built so copy and landing pages get a compliance review before they publish. That step exists specifically to catch issues before they ever become your problem.',
-  },
-  {
-    q: 'Do you work with solo and independent NP practices, or only larger groups?',
-    a: "Both. Our niche focus started with independent and small-practice NPs specifically because they're the ones least likely to have marketing support built for their regulatory reality.",
-  },
-  {
-    q: 'How is this different from a general marketing agency?',
-    a: "A general agency treats healthcare like any other client. We built our process around the actual rules that apply to prescribers, state advertising law, HIPAA, delegating-physician requirements, because getting those wrong isn't just bad marketing. It's real liability for you.",
+    q: 'How is this different from other agencies?',
+    a: "Most agencies stop at generating leads and leave the follow-up to you. We built the whole system around speed: every lead is contacted and qualified within minutes, automatically, and booked straight onto your calendar. Responding first is how local businesses win, and we make sure that's you.",
   },
 ]
 
@@ -46,18 +40,24 @@ const FAQS = [
  * the CSS grid 0fr → 1fr trick, so no JS measuring and reduced-motion users
  * just get an instant toggle (transition disabled in CSS).
  */
-export default function Faq() {
+type FaqProps = {
+  /** Question list — defaults to the general main-site FAQ. */
+  items?: FaqEntry[]
+  title?: string
+}
+
+export default function Faq({ items = FAQS, title = 'Questions, answered.' }: FaqProps) {
   const [open, setOpen] = useState<number | null>(null)
   return (
     <section className="section section-offwhite" id="faq">
       <div className="wrap">
         <Reveal>
           <RevealItem as="p" className="label">FAQ</RevealItem>
-          <RevealItem as="h2" className="title">Questions, answered.</RevealItem>
+          <RevealItem as="h2" className="title">{title}</RevealItem>
         </Reveal>
 
         <Reveal as="div" className="faq-list" amount={0.15}>
-          {FAQS.map((item, i) => {
+          {items.map((item, i) => {
             const isOpen = open === i
             return (
               <RevealItem as="div" className="faq-item" key={item.q}>
