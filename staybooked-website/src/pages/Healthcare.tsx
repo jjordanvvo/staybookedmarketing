@@ -95,7 +95,7 @@ export default function Healthcare() {
           <RevealItem as="p" className="label">Industries / Healthcare</RevealItem>
           <RevealItem as="h1" className="title">Marketing built for regulated healthcare.</RevealItem>
           <RevealItem as="p" className="body lp-hook-body">
-            We work with medical and healthcare practices across California: solo NPs, independent clinics, and growing groups. The same system that books customers for any local business gets a compliance-first layer here, because healthcare marketing has rules most agencies ignore.
+            We work with medical and healthcare practices of every size: solo NPs, independent clinics, and growing groups. The same system that books customers for any local business gets a compliance-first layer here, because healthcare marketing has rules most agencies ignore.
           </RevealItem>
         </Reveal>
       </section>

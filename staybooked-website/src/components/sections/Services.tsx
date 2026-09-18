@@ -4,17 +4,17 @@ const SERVICES = [
   {
     num: '01',
     name: 'Lead Generation Systems',
-    desc: 'Complete ad campaigns with automated lead qualification and booking, built to deliver your business a steady flow of ready-to-book customers.',
+    desc: 'Our core offering. We build the entire path from first click to booked appointment — campaigns, landing pages, automated qualification, and follow-up that runs without you. Every lead is screened before it reaches you, so what lands on your calendar is ready to talk.',
   },
   {
     num: '02',
-    name: 'Website Design',
-    desc: 'Fast, clean, conversion-focused websites that turn your traffic into booked jobs and give your ads somewhere powerful to land.',
+    name: 'Multi-Platform Advertising',
+    desc: 'Meta, Google, and social, managed as one system rather than separate channels. We handle creative, targeting, budget, and testing, and we layer conversational AI on top so leads get a response in seconds instead of hours.',
   },
   {
     num: '03',
-    name: 'Full-Funnel Campaigns',
-    desc: 'Complete campaigns that carry people from first click to booked appointment: creative, targeting, landing pages, and follow-up, all working as one system.',
+    name: 'Software Development',
+    desc: 'Websites, web applications, and custom software built in-house. Fast, clean, and built to convert — whether that is a site your ads can actually send traffic to or an internal tool that runs a piece of your business.',
   },
 ]
 
@@ -24,7 +24,7 @@ export default function Services() {
       <div className="wrap">
         <Reveal>
           <RevealItem as="p" className="label">Services</RevealItem>
-          <RevealItem as="h2" className="title">Three things, done well.</RevealItem>
+          <RevealItem as="h2" className="title">What we build.</RevealItem>
         </Reveal>
 
         <div className="svc-list">
