@@ -1,6 +1,6 @@
 import { Reveal, RevealItem } from '@/components/ui/Reveal'
 
-const STEPS = [
+export const STEPS = [
   {
     num: '01',
     name: 'Strategy Call',

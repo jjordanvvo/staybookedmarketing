@@ -223,9 +223,202 @@ ul { list-style: none; }
 /* Spacer for pages whose content starts at the top (the nav bar is fixed) */
 .nav-spacer { height: 76px; }
 
-/* Anchored sections settle just below the fixed bar instead of under it */
-#statement, #how, #services, #why, #founders, #start, #pricing, #faq, #contact {
+/* Anchored sections settle just below the fixed bar instead of under it
+   (the second line is the search-result anchors on the other pages) */
+#statement, #how, #services, #industries, #why, #founders, #start, #pricing, #faq, #contact,
+#hc-intro, #hc-compliance, #hc-program, #guarantee, #gap, #why-it-works, #how-it-works, #why-practices, #ready,
+.legal-section[id] {
   scroll-margin-top: 84px;
+}
+
+/* ============================================================
+   SITE SEARCH — compact pill input in the nav (desktop) or an icon that
+   opens a full-width overlay (mobile + tablet). One ARIA combobox either
+   way; see ui/SiteSearch.tsx.
+   ============================================================ */
+.search { position: relative; display: flex; align-items: center; }
+.search-inline { position: relative; display: flex; align-items: center; }
+
+.search-field { position: relative; display: flex; align-items: center; }
+.search-icon {
+  position: absolute;
+  left: 12px;
+  color: var(--text-2);
+  pointer-events: none;
+}
+.search-input {
+  width: 150px;
+  height: 32px;
+  padding: 0 12px 0 32px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: rgba(251, 250, 246, 0.6);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+  color: var(--text);
+  outline: none;
+  transition:
+    width 0.45s var(--ease),
+    border-color 0.3s var(--ease),
+    background 0.3s var(--ease);
+}
+.search-input::placeholder {
+  color: var(--text-2);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 1;
+}
+.search-input:focus {
+  width: 210px;
+  border-color: var(--logo-blue);
+  background: var(--deep-bg);
+}
+.search-input:focus-visible { box-shadow: 0 0 0 3px rgba(20, 20, 20, 0.08); }
+.search-input::-webkit-search-decoration,
+.search-input::-webkit-search-cancel-button { display: none; }
+
+/* Icon-only trigger (hidden on desktop; shown where the input won't fit) */
+.search-trigger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: none;
+  color: var(--text);
+  cursor: pointer;
+  transition: background 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+.search-trigger .search-icon { position: static; color: currentColor; }
+@media (hover: hover) and (pointer: fine) {
+  .search-trigger:hover { border-color: var(--logo-blue); background: var(--deep-bg); }
+}
+
+/* Results panel — dropdown under the input on desktop, inline in the overlay */
+.search-panel {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: 380px;
+  max-width: calc(100vw - 32px);
+  background: var(--deep-bg);
+  background-image: var(--sheen);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: 0 18px 44px rgba(20, 20, 20, 0.10);
+  overflow: hidden;
+}
+.search-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: min(60vh, 460px);
+  overflow-y: auto;
+}
+.search-option + .search-option { border-top: 1px solid var(--rule); }
+.search-option a {
+  display: block;
+  padding: 12px 18px;
+  color: inherit;
+  text-decoration: none;
+  transition: background 0.2s var(--ease);
+}
+.search-option-active a { background: var(--page-bg); }
+.search-option-title {
+  display: block;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 0.92rem;
+  line-height: 1.35;
+  color: var(--ink);
+}
+.search-option-meta {
+  display: block;
+  margin-top: 3px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+.search-empty .search-option-meta {
+  text-transform: none;
+  letter-spacing: 0.01em;
+  font-size: 0.85rem;
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* Full-width overlay (mobile + tablet) */
+.search-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 300;                 /* above the nav (100), below the intro (400) */
+  display: flex;
+  flex-direction: column;
+  padding: 14px 16px 24px;
+  background: rgba(240, 235, 224, 0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  overflow-y: auto;
+}
+.search-overlay-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 48px;
+  flex: none;
+}
+.search-overlay .search-field { flex: 1; min-width: 0; }
+.search-overlay .search-input,
+.search-overlay .search-input:focus {
+  width: 100%;
+  height: 44px;
+  font-size: 1rem;
+  padding-left: 38px;
+  background: var(--deep-bg);
+}
+.search-overlay .search-icon { left: 15px; }
+.search-close {
+  flex: none;
+  background: none;
+  border: none;
+  padding: 8px 4px;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+.search-overlay .search-panel {
+  position: static;
+  width: auto;
+  max-width: none;
+  margin-top: 16px;
+}
+.search-overlay .search-list { max-height: none; }
+.search-hint {
+  margin-top: 20px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 0.95rem;
+  color: var(--text-2);
+}
+
+/* Below 1100px the six links plus the pill leave no room for an input;
+   the icon takes over and opens the overlay instead. */
+@media (max-width: 1100px) {
+  .search-inline { display: none; }
+  .search-trigger { display: inline-flex; }
 }
 
 /* ============================================================
@@ -1583,14 +1776,30 @@ ul { list-style: none; }
 }
 
 /* ============================================================
-   RESPONSIVE — below 1080px: the nav now carries five links plus the
-   booking pill, so the gaps tighten before anything can wrap
+   RESPONSIVE — the nav carries six links, the search input, and the
+   booking pill. Below 1400px the decorative domain wordmark gives way and
+   the gaps tighten; below 1080px they tighten again (the search input has
+   already become an icon at 1100px, see .search-trigger).
    ============================================================ */
+@media (max-width: 1400px) {
+  .nav-links { gap: 28px; }
+  .nav-right { gap: 28px; }
+  .nav-wordmark { display: none; }
+}
+
 @media (max-width: 1080px) {
   .nav { padding: 0 28px; }
   .nav-links { gap: 22px; }
   .nav-right { gap: 22px; }
-  .nav-wordmark { display: none; }
+}
+
+/* Between 769px and 860px even the tightened link row plus icon and pill
+   overran the bar, so the links move into the hamburger sheet here rather
+   than at the general 768px mobile breakpoint. */
+@media (max-width: 860px) {
+  .nav-links { display: none; }
+  .nav-burger { display: flex; }
+  .nav-menu { display: grid; }
 }
 
 /* ============================================================
@@ -1609,6 +1818,7 @@ ul { list-style: none; }
   .nav-menu { display: grid; }
   .nav-right { gap: 10px; }
   .nav-cta { padding: 8px 14px; font-size: 0.66rem; }
+  .search-trigger { width: 34px; height: 34px; }
 
   /* ---- Global mobile spacing: tighter section padding + label→heading gap ---- */
   .section { padding: 64px 24px; }
@@ -1875,6 +2085,8 @@ ul { list-style: none; }
   /* Mobile menu snaps open/closed, burger bars snap */
   .nav-menu,
   .nav-burger span { transition: none !important; }
+  .search-input,
+  .search-option a { transition: none !important; }
 }
 
 /* ============================================================

@@ -26,7 +26,7 @@ type Founder = {
   initials?: string
 }
 
-const FOUNDERS: Founder[] = [
+export const FOUNDERS: Founder[] = [
   {
     name: 'Trevor Mayberry',
     title: 'CEO & CFO',

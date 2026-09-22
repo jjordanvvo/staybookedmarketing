@@ -1,6 +1,10 @@
 import LegalPage, { type LegalSection } from '@/components/sections/LegalPage'
 
-const SECTIONS: LegalSection[] = [
+export const TERMS_INTRO = [
+  'These Terms of Service ("Terms") govern your access to and use of the website and services provided by Stay Booked Marketing LLC ("Stay Booked," "we," "us," or "our"). By accessing our website or using our services, you agree to be bound by these Terms. If you do not agree, please do not use our website or services.',
+]
+
+export const TERMS_SECTIONS: LegalSection[] = [
   {
     heading: '1. Our Services',
     paras: [
@@ -141,10 +145,8 @@ export default function Terms() {
       docTitle="Terms of Service | Stay Booked Marketing"
       title="Terms of Service"
       effectiveDate="August 16, 2026"
-      intro={[
-        'These Terms of Service ("Terms") govern your access to and use of the website and services provided by Stay Booked Marketing LLC ("Stay Booked," "we," "us," or "our"). By accessing our website or using our services, you agree to be bound by these Terms. If you do not agree, please do not use our website or services.',
-      ]}
-      sections={SECTIONS}
+      intro={TERMS_INTRO}
+      sections={TERMS_SECTIONS}
     />
   )
 }

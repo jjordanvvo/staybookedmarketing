@@ -3,7 +3,7 @@ import { Reveal, RevealItem } from '@/components/ui/Reveal'
 
 export type FaqEntry = { q: string; a: string }
 
-const FAQS: FaqEntry[] = [
+export const FAQS: FaqEntry[] = [
   {
     q: 'What industries do you work with?',
     a: 'Any local service business: home services, trades, legal, fitness and med spas, professional services, and healthcare. If your customers are local and your business runs on appointments or jobs, the system fits. For medical and healthcare practices, we have a dedicated compliance-first approach you can read about on our healthcare page.',

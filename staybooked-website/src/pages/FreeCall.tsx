@@ -7,7 +7,7 @@ import logoTile from '@/assets/logo.webp'
 import logo from '@/assets/logo-nav.webp'
 import { BOOKING_URL } from '@/lib/booking'
 
-const STEPS = [
+export const STEPS = [
   {
     num: '01',
     word: 'Advertise',
@@ -27,7 +27,7 @@ const STEPS = [
 
 // Real, sourced speed-to-lead research — the figures are pulled out as the big
 // editorial numbers; the sentences and sources render exactly as written.
-const SPEED_STATS = [
+export const SPEED_STATS = [
   {
     figure: '21x',
     text: 'Responding to a lead within 5 minutes makes you 21x more likely to qualify them than waiting 30 minutes.',
@@ -45,7 +45,7 @@ const SPEED_STATS = [
   },
 ]
 
-const WHY_POINTS = [
+export const WHY_POINTS = [
   'Flexible terms. Month to month or longer, whatever fits your practice. We earn your business either way.',
   'We handle everything: ads, follow-up, qualification, and booking.',
   'You focus on your patients. We keep them coming.',
@@ -232,8 +232,9 @@ export default function FreeCall() {
         </div>
       </section>
 
-      {/* 3. The guarantee — the trust anchor, set on its own ink band */}
-      <section className="lp-guarantee">
+      {/* 3. The guarantee — the trust anchor, set on its own ink band
+          (section ids from here down are search-result anchors) */}
+      <section className="lp-guarantee" id="guarantee">
         <Reveal className="wrap" amount={0.35}>
           <RevealItem as="p" className="label lp-guarantee-label">Our Guarantee</RevealItem>
           <RevealItem as="h2" className="title lp-guarantee-headline">
@@ -246,7 +247,7 @@ export default function FreeCall() {
       </section>
 
       {/* 4. The problem / hook — short and punchy */}
-      <section className="section section-offwhite lp-hook">
+      <section className="section section-offwhite lp-hook" id="gap">
         <Reveal className="wrap lp-narrow" amount={0.35}>
           <RevealItem as="h2" className="title">Getting interest is easy. Booking patients isn't.</RevealItem>
           <RevealItem as="p" className="body lp-hook-body">
@@ -256,7 +257,7 @@ export default function FreeCall() {
       </section>
 
       {/* 5. Speed-to-lead proof — sourced stats in the editorial number style */}
-      <section className="section section-light lp-proof">
+      <section className="section section-light lp-proof" id="why-it-works">
         <Reveal className="wrap" amount={0.35}>
           <RevealItem as="p" className="label">Why It Works</RevealItem>
           <RevealItem as="h2" className="title">Speed wins patients. We're built for speed.</RevealItem>
@@ -280,7 +281,7 @@ export default function FreeCall() {
       </section>
 
       {/* 6. How it works — the site's signature numbered editorial rows */}
-      <section className="howwework lp-how">
+      <section className="howwework lp-how" id="how-it-works">
         <div className="howwework-inner">
           <Reveal amount={0.3}>
             <RevealItem as="p" className="label">How it works</RevealItem>
@@ -300,7 +301,7 @@ export default function FreeCall() {
       </section>
 
       {/* 7. Why us — practice-first promises, hairline editorial list */}
-      <section className="section section-offwhite">
+      <section className="section section-offwhite" id="why-practices">
         <Reveal className="wrap lp-narrow" amount={0.35}>
           <RevealItem as="h2" className="title">Built for practices. Backed by a guarantee.</RevealItem>
           <RevealItem as="ul" className="lp-points">
@@ -312,7 +313,7 @@ export default function FreeCall() {
       </section>
 
       {/* 8. Final CTA */}
-      <section className="section section-deep lp-final">
+      <section className="section section-deep lp-final" id="ready">
         <Reveal className="wrap wrap-contact" amount={0.35}>
           <RevealItem as="h2" className="contact-headline lp-final-headline">Ready to fill your calendar?</RevealItem>
           <RevealItem as="p" className="body contact-body">

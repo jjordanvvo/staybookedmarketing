@@ -8,7 +8,7 @@ import { BOOKING_URL } from '@/lib/booking'
 
 // The compliance pillars — short versions; the full detail lives in the FAQ
 // accordion below, moved verbatim from the old main-site FAQ.
-const PILLARS = [
+export const PILLARS = [
   {
     name: 'HIPAA & BAAs',
     desc: "We're built to operate as a Business Associate: signed BAAs, data minimization, and PHI-aware page design from day one.",
@@ -31,7 +31,7 @@ const PILLARS = [
   },
 ]
 
-const HEALTHCARE_FAQS: FaqEntry[] = [
+export const HEALTHCARE_FAQS: FaqEntry[] = [
   {
     q: 'Do you actually understand HIPAA, or do you just say you do?',
     a: "We're not a covered entity, but we operate as a Business Associate whenever we touch anything PHI-adjacent. That means we're built to sign BAAs, avoid standard tracking pixels on pages that could capture health information, and design with data minimization in mind from day one.",
@@ -89,8 +89,8 @@ export default function Healthcare() {
       <Navbar />
       <div className="nav-spacer" aria-hidden="true" />
 
-      {/* 1. Header — who this page is for */}
-      <section className="section section-offwhite">
+      {/* 1. Header — who this page is for (ids here are search-result anchors) */}
+      <section className="section section-offwhite" id="hc-intro">
         <Reveal className="wrap lp-narrow" amount={0.2}>
           <RevealItem as="p" className="label">Industries / Healthcare</RevealItem>
           <RevealItem as="h1" className="title">Marketing built for regulated healthcare.</RevealItem>
@@ -101,7 +101,7 @@ export default function Healthcare() {
       </section>
 
       {/* 2. Compliance pillars — the healthcare-specific expertise */}
-      <section className="section section-light">
+      <section className="section section-light" id="hc-compliance">
         <div className="wrap">
           <Reveal>
             <RevealItem as="p" className="label">Compliance</RevealItem>
@@ -122,7 +122,7 @@ export default function Healthcare() {
       <Faq items={HEALTHCARE_FAQS} title="Healthcare questions, answered." />
 
       {/* 4. Mental health program + booking CTA */}
-      <section className="section section-deep lp-final">
+      <section className="section section-deep lp-final" id="hc-program">
         <Reveal className="wrap wrap-contact" amount={0.35}>
           <RevealItem as="h2" className="contact-headline">Run a psychiatric or mental health practice?</RevealItem>
           <RevealItem as="p" className="body contact-body">

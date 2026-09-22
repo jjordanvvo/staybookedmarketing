@@ -1,6 +1,10 @@
 import LegalPage, { type LegalSection } from '@/components/sections/LegalPage'
 
-const SECTIONS: LegalSection[] = [
+export const PRIVACY_INTRO = [
+  'Stay Booked Marketing LLC ("Stay Booked," "we," "us," or "our") respects your privacy and is committed to protecting the personal information you share with us. This Privacy Policy explains how we collect, use, disclose, and safeguard information when you visit our website, submit an inquiry, or engage our services.',
+]
+
+export const PRIVACY_SECTIONS: LegalSection[] = [
   {
     heading: '1. Information We Collect',
     paras: ['We may collect the following categories of information:'],
@@ -119,10 +123,8 @@ export default function Privacy() {
       docTitle="Privacy Policy | Stay Booked Marketing"
       title="Privacy Policy"
       effectiveDate="August 16, 2026"
-      intro={[
-        'Stay Booked Marketing LLC ("Stay Booked," "we," "us," or "our") respects your privacy and is committed to protecting the personal information you share with us. This Privacy Policy explains how we collect, use, disclose, and safeguard information when you visit our website, submit an inquiry, or engage our services.',
-      ]}
-      sections={SECTIONS}
+      intro={PRIVACY_INTRO}
+      sections={PRIVACY_SECTIONS}
     />
   )
 }

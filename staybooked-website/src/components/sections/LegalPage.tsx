@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { Reveal, RevealItem } from '@/components/ui/Reveal'
 import Navbar from '@/components/sections/Navbar'
 import Footer from '@/components/sections/Footer'
+import { slugify } from '@/lib/utils'
 
 export type LegalSection = {
   heading: string
@@ -58,7 +59,8 @@ export default function LegalPage({ docTitle, title, effectiveDate, intro, secti
           </Reveal>
 
           {sections.map((s) => (
-            <Reveal key={s.heading} as="section" className="legal-section" amount={0.2} stagger={0.08}>
+            // The id is the site search's anchor for this clause (see lib/searchIndex.ts)
+            <Reveal key={s.heading} as="section" id={slugify(s.heading)} className="legal-section" amount={0.2} stagger={0.08}>
               <RevealItem as="h2" className="legal-heading">{s.heading}</RevealItem>
               {s.paras?.map((p) => (
                 <RevealItem key={p.slice(0, 40)} as="p" className="legal-body">{p}</RevealItem>

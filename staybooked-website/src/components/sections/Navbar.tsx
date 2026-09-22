@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { motion, useReducedMotion } from 'framer-motion'
 import logo from '@/assets/logo-nav.webp'
 import { EASE } from '@/components/ui/Reveal'
+import SiteSearch from '@/components/ui/SiteSearch'
 import { BOOKING_URL } from '@/lib/booking'
 
 type NavbarProps = {
@@ -83,6 +84,8 @@ export default function Navbar({ revealed = true, delay = 0 }: NavbarProps) {
             <li key={a.id}>{anchor(a)}</li>
           ))}
         </ul>
+        {/* Site search sits directly left of the CTA on every width */}
+        <SiteSearch />
         {/* The nav CTA goes straight to the booking calendar — same link as
             every other Book a Call button on the site. */}
         <a className="nav-cta" href={BOOKING_URL} target="_blank" rel="noopener noreferrer">Book a Call</a>

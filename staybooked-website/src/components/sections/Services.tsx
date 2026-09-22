@@ -1,6 +1,6 @@
 import { Reveal, RevealItem } from '@/components/ui/Reveal'
 
-const SERVICES = [
+export const SERVICES = [
   {
     num: '01',
     name: 'Lead Generation Systems',

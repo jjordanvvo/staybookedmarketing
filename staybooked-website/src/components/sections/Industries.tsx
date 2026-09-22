@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Reveal, RevealItem } from '@/components/ui/Reveal'
 
-const INDUSTRIES = [
+export const INDUSTRIES = [
   {
     name: 'Home Services',
     desc: 'Cleaning, landscaping, HVAC, and every service that keeps homes running.',
@@ -27,6 +27,18 @@ const INDUSTRIES = [
     desc: 'Practices and clinics, with a compliance-first process built for regulated healthcare.',
     to: '/healthcare',
     linkLabel: 'See how we work with healthcare',
+  },
+  {
+    name: 'Restaurants & Clubs',
+    desc: 'Reservations, events, and private bookings, with fast sites and targeted ads.',
+  },
+  {
+    name: 'Rentals & Transactional Services',
+    desc: 'Businesses that book and get paid online, with pricing, checkout, and follow-up.',
+  },
+  {
+    name: 'Brand & Product Promotion',
+    desc: 'Product launches with landing pages built to convert and ads on Meta and Google.',
   },
 ]
 
