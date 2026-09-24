@@ -71,17 +71,17 @@ const FILL_COUNT = FILLED.length // 24
 
 /* ---- Timeline (seconds, relative to "armed" = fonts ready) ---- */
 const CAL_START = 0.5 // day headers + first block land
-const CELL_STAG = 0.046 // booking blocks stamp in, one after another
+const CELL_STAG = 0.065 // slower, breathier fills — the week books up calmly
 const COUNTER_HOLD = 0.3 // counter line fades in as the fills begin
-const CAL_BLOOM_AT = 1.78 // last blocks still settling → bloom already starts
-const CAL_OUT_AT = 2.2 // calendar fully gone
-const TITLE_AT = 1.9 // letters rise as the calendar blooms — direct handoff
+const CAL_BLOOM_AT = 2.0 // last blocks still landing → bloom already starts
+const CAL_OUT_AT = 2.6 // calendar fades out WHILE the title is rising over it
+const TITLE_AT = 2.1 // letters rise as the calendar blooms — one motion
 const LETTER_STAGGER = 0.045
 const DOT_AT = 2.95 // brand period pop
 const RING_AT = 3.07 // ripple ring around the period
-const SWEEP_AT = 3.29 // light sweep passes across the landed title
-const TAG_AT = 3.41 // serif brand line
-const EXIT_AT = 4.7 // curtains begin
+const SWEEP_AT = 3.35 // light sweep passes across the landed title
+const TAG_AT = 3.5 // serif brand line
+const EXIT_AT = 4.95 // curtains begin
 
 const WORDS = ['STAY', 'BOOKED']
 
