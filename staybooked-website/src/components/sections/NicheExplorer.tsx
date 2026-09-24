@@ -5,17 +5,23 @@ import { NICHES, SPEED_STATS } from '@/lib/niches'
 import { BOOKING_URL } from '@/lib/booking'
 
 /**
- * NICHE EXPLORER — the interactive comparison graph. Pick your niche and the
- * same market renders twice: what bookings look like WITHOUT a system (grey,
- * dashed, leaking demand to slow follow-up and missed inquiries) versus WITH
- * Stay Booked (tan, higher, smooth — the captured version of the same
- * demand). Both curves morph with a spring on every niche switch, the legend
- * toggles each series on and off, the stat cards flip to the one-pager's
- * details, and the speed-to-lead counters re-run (the 100x / 21x stats ARE
- * the comparison: our 5-minute AI contact vs. a reply 30 minutes later).
+ * NICHE EXPLORER — the interactive comparison graph. Pick your niche and both
+ * curves start at the SAME point — where the business is today — then diverge
+ * across an illustrative 12 months:
  *
- * The curves are illustrative seasonal patterns (labeled as such), not client
- * data. Reduced-motion visitors get the same section with instant swaps.
+ *   WITH Stay Booked (tan): the same seasonal demand compounds, because every
+ *   inquiry is qualified and booked within 5 minutes instead of leaking away.
+ *   WITHOUT a system (grey, dashed): business as usual, slowly drifting down
+ *   as slow follow-up and competitors take their cut.
+ *
+ * Both curves morph with a spring on every niche switch, the legend toggles
+ * each series on and off, the stat cards flip to the one-pager's details, and
+ * the speed-to-lead counters re-run (the 100x / 21x stats ARE the comparison:
+ * our 5-minute AI contact vs. a reply 30 minutes later).
+ *
+ * The curves are illustrative (labeled as such), not client data or a promise.
+ * The y-scale is dynamic per niche, so the divergence always fills the chart.
+ * Reduced-motion visitors get the same section with instant swaps.
  */
 
 const W = 640
@@ -25,24 +31,30 @@ const PAD_Y = 34
 const MONTHS = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
 
 const xAt = (i: number) => PAD_X + (i * (W - 2 * PAD_X)) / (MONTHS.length - 1)
-const yAt = (v: number) => H - PAD_Y - (v / 100) * (H - 2 * PAD_Y)
+const yAt = (v: number, max: number) => H - PAD_Y - (v / max) * (H - 2 * PAD_Y)
 
-/** The "without us" version of a niche's demand: the same market, but a
- *  portion of every month's bookings leaks to slow replies, missed calls,
- *  and competitors. Deterministic wobble so it never looks mechanical. */
-function without(vals: number[]): number[] {
+/** WITH Stay Booked: the seasonal demand shape (0-100) with a compounding
+ *  capture factor — 1.0x at month one, 1.75x by month twelve. */
+function withCurve(vals: number[]): number[] {
+  return vals.map((v, i) => Math.round(v * (1 + (0.75 * i) / (MONTHS.length - 1))))
+}
+
+/** WITHOUT a system: the same seasonal shape at the same starting point, with
+ *  a leak factor — 1.0x at month one, 0.9x by month twelve. By construction
+ *  the with-line ends at exactly 1.9x the without-line. */
+function withoutCurve(vals: number[]): number[] {
   return vals.map((v, i) =>
-    Math.max(8, Math.round(v * (0.52 + 0.09 * Math.sin(i * 1.9 + 2))))
+    Math.round(v * (1 - (0.1 * i) / (MONTHS.length - 1)))
   )
 }
 
 /** Smooth cubic-bezier curve through all 12 points (same command count
  *  every time, so framer-motion can morph d values directly). */
-function curveD(vals: number[]): string {
-  let d = `M ${xAt(0)} ${yAt(vals[0])}`
+function curveD(vals: number[], max: number): string {
+  let d = `M ${xAt(0)} ${yAt(vals[0], max)}`
   for (let i = 0; i < vals.length - 1; i++) {
-    const y1 = yAt(vals[i])
-    const y2 = yAt(vals[i + 1])
+    const y1 = yAt(vals[i], max)
+    const y2 = yAt(vals[i + 1], max)
     const c1x = xAt(i) + (xAt(i + 1) - xAt(i)) / 3
     const c2x = xAt(i + 1) - (xAt(i + 1) - xAt(i)) / 3
     d += ` C ${c1x} ${y1 + (y2 - y1) / 3}, ${c2x} ${y2 - (y2 - y1) / 3}, ${xAt(i + 1)} ${y2}`
@@ -50,9 +62,9 @@ function curveD(vals: number[]): string {
   return d
 }
 
-/** The gradient area under the curve, closed to the baseline. */
-function areaD(vals: number[]): string {
-  return `${curveD(vals)} L ${xAt(vals.length - 1)} ${H - PAD_Y} L ${xAt(0)} ${H - PAD_Y} Z`
+/** The gradient area under the with-curve, closed to the baseline. */
+function areaD(vals: number[], max: number): string {
+  return `${curveD(vals, max)} L ${xAt(vals.length - 1)} ${H - PAD_Y} L ${xAt(0)} ${H - PAD_Y} Z`
 }
 
 /** Count-up that re-runs whenever `trigger` changes. */
@@ -94,22 +106,26 @@ export default function NicheExplorer() {
   const [showWithout, setShowWithout] = useState(true)
   const reduce = useReducedMotion()
   const niche = NICHES.find((n) => n.id === activeId) ?? NICHES[0]
-  const withoutVals = without(niche.demand)
   // Under reduced motion the curve swaps instantly instead of flowing.
   const spring = reduce
     ? ({ duration: 0 } as const)
     : ({ type: 'spring', stiffness: 55, damping: 16 } as const)
+
+  const withVals = withCurve(niche.demand)
+  const withoutVals = withoutCurve(niche.demand)
+  const maxV = Math.max(...withVals) * 1.06
 
   return (
     <section className="section section-deep nx-section" id="explorer">
       <div className="wrap">
         <Reveal>
           <RevealItem as="p" className="label">The comparison</RevealItem>
-          <RevealItem as="h2" className="title">Same market. Two very different calendars.</RevealItem>
+          <RevealItem as="h2" className="title">Both lines start where you are today.</RevealItem>
           <RevealItem as="p" className="body why-body">
-            Pick your niche. The grey line is your market without a system: demand that slow
-            follow-up and missed inquiries quietly leak away. The tan line is the same demand
-            with Stay Booked, qualified and booked within 5 minutes.
+            Pick your niche. The grey line is business as usual: bookings quietly leaking
+            to slow follow-up and competitors. The tan line is the same demand with Stay
+            Booked — every inquiry qualified and booked within 5 minutes, compounding
+            month after month.
           </RevealItem>
         </Reveal>
 
@@ -134,7 +150,7 @@ export default function NicheExplorer() {
           </div>
 
           <div className="nx-grid">
-            {/* The morphing demand curve */}
+            {/* The morphing before/after chart */}
             <div className="nx-chartcard">
               <div className="nx-chart-head">
                 <AnimatePresence mode="wait" initial={false}>
@@ -146,7 +162,7 @@ export default function NicheExplorer() {
                     transition={{ duration: 0.3, ease: EASE }}
                   >
                     <p className="nx-chart-title">{niche.name}</p>
-                    <p className="nx-chart-sub">With Stay Booked vs. without a system</p>
+                    <p className="nx-chart-sub">Bookings over 12 months, with and without the system</p>
                   </motion.div>
                 </AnimatePresence>
               </div>
@@ -172,7 +188,7 @@ export default function NicheExplorer() {
                 </button>
               </div>
 
-              <svg className="nx-chart" viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`Illustrative comparison for ${niche.name}: bookings without a system versus with Stay Booked`}>
+              <svg className="nx-chart" viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`Illustrative 12-month booking trajectory for ${niche.name}: with Stay Booked versus without a system`}>
                 <defs>
                   <linearGradient id="nx-area" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="0%" stopColor="#CFB48E" stopOpacity="0.55" />
@@ -180,17 +196,17 @@ export default function NicheExplorer() {
                   </linearGradient>
                 </defs>
 
-                {/* gridlines */}
-                {[0, 25, 50, 75, 100].map((g) => (
-                  <line key={g} className="nx-gridline" x1={PAD_X} x2={W - PAD_X} y1={yAt(g)} y2={yAt(g)} />
+                {/* gridlines (relative to the niche's own scale) */}
+                {[0, 0.25, 0.5, 0.75, 1].map((f) => (
+                  <line key={f} className="nx-gridline" x1={PAD_X} x2={W - PAD_X} y1={yAt(maxV * f, maxV)} y2={yAt(maxV * f, maxV)} />
                 ))}
 
-                {/* WITHOUT — grey dashed leak of the same demand */}
+                {/* WITHOUT — grey dashed: same start, slow leak */}
                 <motion.path
                   className="nx-line nx-line-without"
                   style={{ opacity: showWithout ? 1 : 0 }}
                   initial={false}
-                  animate={{ d: curveD(withoutVals) }}
+                  animate={{ d: curveD(withoutVals, maxV) }}
                   transition={spring}
                 />
 
@@ -199,16 +215,42 @@ export default function NicheExplorer() {
                   fill="url(#nx-area)"
                   style={{ opacity: showWith ? 1 : 0 }}
                   initial={false}
-                  animate={{ d: areaD(niche.demand) }}
+                  animate={{ d: areaD(withVals, maxV) }}
                   transition={spring}
                 />
                 <motion.path
                   className="nx-line"
                   style={{ opacity: showWith ? 1 : 0 }}
                   initial={false}
-                  animate={{ d: curveD(niche.demand) }}
+                  animate={{ d: curveD(withVals, maxV) }}
                   transition={spring}
                 />
+
+                {/* end-state labels — the result, stated plainly */}
+                {showWith && (
+                  <motion.text
+                    className="nx-endlabel nx-endlabel-with"
+                    x={W - PAD_X - 4}
+                    textAnchor="end"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1, y: yAt(withVals[withVals.length - 1], maxV) - 14 }}
+                    transition={spring}
+                  >
+                    1.9x business as usual by month 12
+                  </motion.text>
+                )}
+                {showWithout && (
+                  <motion.text
+                    className="nx-endlabel nx-endlabel-without"
+                    x={W - PAD_X - 4}
+                    textAnchor="end"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1, y: yAt(withoutVals[withoutVals.length - 1], maxV) + 22 }}
+                    transition={spring}
+                  >
+                    1 in 10 bookings still leaks
+                  </motion.text>
+                )}
 
                 {/* month points + hover bubbles (both series) */}
                 {MONTHS.map((m, i) => (
@@ -218,7 +260,7 @@ export default function NicheExplorer() {
                         className="nx-dot nx-dot-without"
                         r={hover === i ? 5 : 3}
                         initial={false}
-                        animate={{ cy: yAt(withoutVals[i]), cx: xAt(i) }}
+                        animate={{ cy: yAt(withoutVals[i], maxV), cx: xAt(i) }}
                         transition={spring}
                         onMouseEnter={() => setHover(i)}
                         onMouseLeave={() => setHover(null)}
@@ -229,7 +271,7 @@ export default function NicheExplorer() {
                         className="nx-dot"
                         r={hover === i ? 6 : 3.5}
                         initial={false}
-                        animate={{ cy: yAt(niche.demand[i]), cx: xAt(i) }}
+                        animate={{ cy: yAt(withVals[i], maxV), cx: xAt(i) }}
                         transition={spring}
                         onMouseEnter={() => setHover(i)}
                         onMouseLeave={() => setHover(null)}
@@ -237,9 +279,9 @@ export default function NicheExplorer() {
                     )}
                     {hover === i && (
                       <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                        <rect className="nx-bubble-box" x={xAt(i) - 72} y={yAt(niche.demand[i]) - 46} width="144" height="32" rx="16" />
-                        <text className="nx-bubble-text" x={xAt(i)} y={yAt(niche.demand[i]) - 25} textAnchor="middle">
-                          {MONTHS[i]}: {withoutVals[i]} → {niche.demand[i]}
+                        <rect className="nx-bubble-box" x={xAt(i) - 74} y={Math.min(yAt(withVals[i], maxV), yAt(withoutVals[i], maxV)) - 46} width="148" height="32" rx="16" />
+                        <text className="nx-bubble-text" x={xAt(i)} y={Math.min(yAt(withVals[i], maxV), yAt(withoutVals[i], maxV)) - 25} textAnchor="middle">
+                          {MONTHS[i]}: {withoutVals[i]} → {withVals[i]}
                         </text>
                       </motion.g>
                     )}
@@ -253,8 +295,9 @@ export default function NicheExplorer() {
                 ))}
               </div>
               <p className="nx-note">
-                Illustrative comparison for {niche.name.toLowerCase()}: the same seasonal demand,
-                with and without 5-minute AI follow-up and booking.
+                Illustrative trajectory for {niche.name.toLowerCase()}, not a promise: both lines
+                start at the same point, and with us the same demand compounds while
+                business as usual leaks. Actual results vary by niche and budget.
               </p>
             </div>
 
