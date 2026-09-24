@@ -38,8 +38,8 @@ export const FOUNDERS: Founder[] = [
   },
   {
     name: 'Jordan Vo',
-    title: 'Chief Revenue Officer & Chief Growth Officer',
-    bio: 'Jordan Vo leads client relations once a partnership begins, making sure every business we work with gets the attention it deserves. He keeps clients informed on campaign performance and results, overseeing advertising strategy and campaign review so clients stay in front of the right people at the right time. His dedication to communication and follow-through keeps every relationship strong long after the deal is signed. He translates campaign data into clear, plain-language updates clients can act on, and stays focused on building long-term trust that keeps clients with Stay Booked well beyond the first campaign.',
+    title: 'Founder & CEO',
+    bio: "Jordan Vo founded Stay Booked Marketing and leads the company as CEO, setting its direction and building the close, hands-on client relationships the business runs on. He oversees advertising strategy and campaign performance across every account, making sure each business stays in front of the right people at the right time, and he keeps clients informed with clear, plain-language updates they can act on. His dedication to communication and follow-through keeps every relationship strong long after the deal is signed, and his focus on long-term trust keeps clients with Stay Booked well beyond the first campaign.",
     email: 'jordan@staybookedmarketing.com',
     phone: '+1 (408) 712-0017',
     photo: jordanPhoto,

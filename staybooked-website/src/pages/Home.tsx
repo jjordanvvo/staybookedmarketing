@@ -5,7 +5,6 @@ import Navbar from '@/components/sections/Navbar'
 import Hero from '@/components/sections/Hero'
 import HeroStatement from '@/components/sections/HeroStatement'
 import FlowSegment from '@/components/ui/FlowSegment'
-import WeekChapter from '@/components/sections/WeekChapter'
 import FeatureBand from '@/components/sections/FeatureBand'
 import HowWeWork from '@/components/sections/HowWeWork'
 import Services from '@/components/sections/Services'
@@ -47,7 +46,9 @@ export default function Home() {
           {/* Flow segment A: the Week figure pins beside the story, then
               becomes the System diagram while the real chapters scroll by */}
           <FlowSegment variant="A">
-            <WeekChapter />
+            {/* Rail anchor: the Week chapter node points here; the pinned
+                figure IS the chapter, no caption section needed */}
+            <span id="week" className="flow-anchor" aria-hidden="true" />
             <HowWeWork />
             <Services />
           </FlowSegment>
