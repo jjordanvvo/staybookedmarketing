@@ -431,6 +431,7 @@ ul { list-style: none; }
 }
 
 .hero {
+  position: relative;      /* particle-hero branch: canvas layer anchor */
   height: 70vh;
   min-height: 460px;
   background: var(--logo-fill);
@@ -3471,4 +3472,113 @@ html.lenis body {
     animation: none !important;
   }
   .sys-minical-block { opacity: 1; }
+}
+
+/* ==========================================================================
+   /motion — particle test bench (branch: particle-hero)
+   ========================================================================== */
+.motion-page {
+  --tan: #CFB48E;
+  --tan-ink: #82683F;
+  background: var(--page-bg, #F0EBE0);
+  color: #141414;
+  min-height: 100vh;
+}
+.motion-back {
+  position: fixed;
+  top: 18px;
+  left: 20px;
+  z-index: 30;
+  font: 500 13px/1 'Archivo', sans-serif;
+  letter-spacing: 0.02em;
+  color: #141414;
+  text-decoration: none;
+  background: rgba(251, 250, 246, 0.8);
+  border: 1px solid #C9C2B4;
+  border-radius: 999px;
+  padding: 10px 16px;
+  backdrop-filter: blur(8px);
+}
+.motion-back:hover { border-color: #141414; }
+
+.motion-stage {
+  position: relative;
+  width: 100%;
+  height: 86vh;
+  border-bottom: 1px solid #C9C2B4;
+  overflow: hidden;
+  cursor: crosshair;
+}
+.motion-stage--tall { height: 100vh; }
+.motion-stage--hero { background: var(--page-bg, #F0EBE0); cursor: default; }
+
+.motion-ambient-canvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.motion-caption {
+  position: absolute;
+  z-index: 10;
+  max-width: 34ch;
+  pointer-events: none;
+}
+.motion-caption--top { top: 26px; left: 24px; }
+.motion-caption--bottom { bottom: 26px; left: 24px; }
+.motion-caption--center {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  max-width: 44ch;
+}
+.motion-label {
+  margin: 0 0 6px;
+  font: 700 12px/1 'Archivo', sans-serif;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #82683F;
+}
+.motion-note {
+  margin: 0;
+  font: 400 14px/1.55 'Archivo', sans-serif;
+  color: #3A3A3A;
+}
+.motion-cta {
+  display: inline-block;
+  margin-top: 14px;
+  font: 600 14px/1 'Archivo', sans-serif;
+  color: #141414;
+  text-decoration: none;
+  border-bottom: 1.5px solid #CFB48E;
+  padding-bottom: 3px;
+  pointer-events: auto;
+}
+.motion-cta:hover { border-color: #141414; }
+
+.motion-foot {
+  padding: 34px 24px 44px;
+  max-width: 72ch;
+  font: 400 13px/1.7 'Archivo', sans-serif;
+  color: #3A3A3A;
+}
+.motion-foot code {
+  font-family: 'Archivo', monospace;
+  font-size: 12px;
+  background: rgba(201, 194, 180, 0.35);
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+/* ---- particle-hero branch: ambient swarm behind the logo ---- */
+.hero-particles {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.hero-motion {
+  position: relative;
+  z-index: 1;
 }

@@ -7,6 +7,7 @@ import Privacy from '@/pages/Privacy'
 import Terms from '@/pages/Terms'
 import FreeCall from '@/pages/FreeCall'
 import Healthcare from '@/pages/Healthcare'
+import MotionDemo from '@/pages/MotionDemo'
 
 /** Route changes land at the top of the new page (browsers only restore
  *  scroll on history navigation, not on pushed links). A /#section hash keeps
@@ -44,6 +45,8 @@ export default function App() {
         <Route path="/terms" element={<Terms />} />
         <Route path="/free-call" element={<FreeCall />} />
         <Route path="/healthcare" element={<Healthcare />} />
+        {/* particle-hero branch only: test bench, not linked on the site */}
+        <Route path="/motion" element={<MotionDemo />} />
       </Routes>
     </BrowserRouter>
   )

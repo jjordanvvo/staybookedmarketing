@@ -2,6 +2,7 @@ import type { MouseEvent } from 'react'
 import { motion, useReducedMotion, useSpring } from 'framer-motion'
 import logo from '@/assets/logo.webp'
 import { EASE } from '@/components/ui/Reveal'
+import ParticleField from '@/components/originkit-sb/ParticleField'
 
 // Cursor parallax only makes sense with a real pointer (decided once at load).
 const FINE_POINTER =
@@ -47,6 +48,11 @@ export default function Hero({ revealed = true, intro = false }: HeroProps) {
 
   return (
     <header className="hero" id="hero" onMouseMove={onMove} onMouseLeave={onLeave}>
+      {/* particle-hero branch: warm ambient swarm behind the mark (subtle,
+          pointer-reactive, sits behind everything) */}
+      <div className="hero-particles" aria-hidden="true">
+        <ParticleField mode="ambient" density={5} intensity={1.35} />
+      </div>
       <motion.div
         className="hero-motion"
         style={{ x, y }}
