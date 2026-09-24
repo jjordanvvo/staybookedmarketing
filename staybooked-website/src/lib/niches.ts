@@ -50,7 +50,7 @@ export const NICHES: Niche[] = [
     guarantee: 'qualified estimate requests',
     tuned: 'your busy season, storm spikes, and slower weeks',
     varies: 'trade & season',
-    demand: [55, 55, 62, 72, 86, 96, 100, 99, 88, 76, 62, 52],
+    demand: [55, 55, 62, 72, 86, 96, 100, 99, 92, 86, 84, 88],
   },
   {
     id: 'clubs',
@@ -92,7 +92,7 @@ export const NICHES: Niche[] = [
     guarantee: 'qualified appointments',
     tuned: 'your launch calendar and high-intent buying windows',
     varies: 'category & season',
-    demand: [62, 58, 64, 70, 76, 82, 84, 88, 78, 84, 100, 94],
+    demand: [62, 58, 64, 70, 76, 82, 84, 88, 78, 84, 100, 100],
   },
   {
     id: 'medical',
@@ -122,7 +122,7 @@ export const NICHES: Niche[] = [
     guarantee: 'qualified booking requests',
     tuned: 'availability, peak demand, and slower windows',
     varies: 'market & season',
-    demand: [60, 58, 64, 72, 82, 94, 100, 97, 86, 76, 66, 60],
+    demand: [58, 56, 62, 70, 80, 92, 98, 96, 90, 88, 95, 100],
   },
   {
     id: 'restaurants',
@@ -150,7 +150,7 @@ export const NICHES: Niche[] = [
     guarantee: 'qualified product appointments',
     tuned: 'launches, drops, and promo windows',
     varies: 'campaign & season',
-    demand: [66, 60, 56, 62, 72, 66, 60, 66, 76, 84, 100, 92],
+    demand: [66, 60, 56, 62, 72, 66, 60, 66, 76, 84, 100, 100],
   },
 ]
 
