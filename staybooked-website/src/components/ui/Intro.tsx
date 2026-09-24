@@ -16,12 +16,15 @@ import { EASE } from '@/components/ui/Reveal'
  *      appointments — blocks pop in slot by slot while a counter ticks up
  *      "24 appointments booked this week". A few dashed slots stay open,
  *      the way a real calendar looks.
- *   3. No dead air: as the calendar blooms away, a bold gradient arrow
- *      scales upward out of it — demand rising — then rockets out of frame
- *      as "STAY BOOKED." rises letter-by-letter through line masks; the tan
- *      brand period spring-pops with a ripple ring; a light sweep passes
- *      across the landed title and the brand line settles below in serif
- *      italic. The whole beat chain overlaps: fill → bloom → arrow → title.
+ *   3. No dead air, and no second "intro": as the last block lands, the
+ *      calendar blooms away WHILE the tan demand-curve (the same rising
+ *      line language as the comparison chart, no graph chrome) draws itself
+ *      upward through the stage, its gradient wash blooming behind it.
+ *      Mid-draw, "STAY BOOKED." letters start rising through line masks in
+ *      the curve's wake; the curve dissolves upward into the landed title
+ *      — one continuous upward motion from fill to bloom to curve to type.
+ *      The tan brand period spring-pops with a ripple ring, a light sweep
+ *      passes across the title, and the brand line settles below.
  *   4. Curtain exit, hero settles in beneath (choreographed via onReveal).
  *
  * Plays once per full page load (router navigation back to "/" never replays
@@ -69,16 +72,17 @@ const FILL_COUNT = FILLED.length // 24
 const CAL_START = 0.55 // day headers + first block land
 const CELL_STAG = 0.052 // booking blocks stamp in, one after another
 const COUNTER_HOLD = 0.35 // counter line fades in as the fills begin
-const CAL_BLOOM_AT = 2.28 // fills done → calendar immediately blooms away
-const CAL_OUT_AT = 2.72 // calendar fully gone
-const ARROW_AT = 2.42 // arrow scales upward while the calendar blooms out
-const ARROW_LAUNCH = 3.03 // arrow rockets up, handing off to the letters
-const TITLE_AT = 3.1 // first letter rises as the arrow exits
+const CAL_BLOOM_AT = 2.12 // fills done → calendar immediately blooms away
+const CAL_OUT_AT = 2.58 // calendar fully gone (curve is already drawing)
+const LINE_AT = 2.12 // the rising curve begins drawing through the bloom
+const LINE_DUR = 1.05 // draw time; the curve completes as the letters rise
+const LINE_OUT_AT = 3.3 // curve dissolves upward into the landed title
+const TITLE_AT = 3.04 // letters rise in the curve's wake, mid-draw
 const LETTER_STAGGER = 0.045
-const DOT_AT = 3.72 // brand period pop
-const RING_AT = 3.84 // ripple ring around the period
-const SWEEP_AT = 4.06 // light sweep passes across the landed title
-const TAG_AT = 4.18 // serif brand line
+const DOT_AT = 3.66 // brand period pop
+const RING_AT = 3.78 // ripple ring around the period
+const SWEEP_AT = 4.0 // light sweep passes across the landed title
+const TAG_AT = 4.12 // serif brand line
 const EXIT_AT = 5.4 // curtains begin
 
 const WORDS = ['STAY', 'BOOKED']
@@ -149,20 +153,51 @@ const calV: Variants = {
   },
 }
 
-// The arrow: scales upward out of the blooming calendar — demand rising —
-// holds a beat, then stretches and rockets out of frame as the letters take
-// over. One keyframed variant so the whole life cycle runs itself.
-const arrowV: Variants = {
-  hidden: { opacity: 0, y: 44, scaleY: 0.2 },
+// The rising curve: the comparison chart's tan with-line, freed of its graph
+// chrome. It draws itself upward through the blooming calendar (pathLength),
+// its gradient wash blooming in behind near completion, then the whole curve
+// dissolves upward into the landing title — one motion, no held beat.
+const LINE_PATH =
+  'M 70 300 C 130 292, 150 270, 190 262 C 240 252, 250 236, 300 210 C 350 184, 370 172, 430 130 C 480 95, 510 80, 570 56'
+const LINE_AREA =
+  LINE_PATH + ' L 570 320 L 70 320 Z'
+const curveV: Variants = {
+  hidden: { pathLength: 0, opacity: 0 },
   show: {
+    pathLength: 1,
     opacity: [0, 1, 1, 0],
-    y: [44, 0, 0, -160],
-    scaleY: [0.2, 1.05, 1, 1.18],
     transition: {
-      duration: ARROW_LAUNCH + 0.45 - ARROW_AT,
-      times: [0, 0.36, 0.58, 1],
+      pathLength: { duration: LINE_DUR, ease: EASE, delay: LINE_AT },
+      opacity: {
+        duration: LINE_OUT_AT + 0.35 - LINE_AT,
+        times: [0, 0.12, 0.72, 1],
+        ease: EASE,
+        delay: LINE_AT,
+      },
+    },
+  },
+}
+const curveWrapV: Variants = {
+  hidden: { y: 0 },
+  show: {
+    y: [0, 0, -46],
+    transition: {
+      duration: LINE_OUT_AT + 0.35 - LINE_AT,
+      times: [0, 0.7, 1],
       ease: EASE,
-      delay: ARROW_AT,
+      delay: LINE_AT,
+    },
+  },
+}
+const areaV: Variants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: [0, 0.16, 0.16, 0],
+    transition: {
+      duration: LINE_OUT_AT + 0.35 - (LINE_AT + 0.55),
+      times: [0, 0.45, 0.75, 1],
+      ease: EASE,
+      delay: LINE_AT + 0.55,
     },
   },
 }
@@ -389,18 +424,32 @@ export default function Intro({ onReveal }: { onReveal: () => void }) {
             </motion.p>
           </motion.div>
 
-          {/* Beat 3 — the rising arrow: scales up out of the blooming calendar,
-              then launches upward as the headline takes over. */}
-          <motion.div className="intro-arrowwrap" aria-hidden="true" variants={arrowV} initial="hidden" animate={seq}>
-            <svg className="intro-arrow" viewBox="0 0 90 130" style={{ transformOrigin: '50% 100%' }}>
+          {/* Beat 3 — the rising curve: draws itself up through the blooming
+              calendar (no graph chrome), wash blooming behind, then dissolves
+              upward into the landing headline. One motion, no held beat. */}
+          <motion.div className="intro-curvewrap" aria-hidden="true" variants={curveWrapV} initial="hidden" animate={seq}>
+            <svg className="intro-curve" viewBox="0 0 640 360">
               <defs>
-                <linearGradient id="introArrowInk" x1="0" y1="130" x2="0" y2="40" gradientUnits="userSpaceOnUse">
-                  <stop offset="0" stopColor="#3A3226" />
-                  <stop offset="1" stopColor="#82683F" />
+                <linearGradient id="introLineInk" x1="70" y1="300" x2="570" y2="56" gradientUnits="userSpaceOnUse">
+                  <stop offset="0" stopColor="#82683F" />
+                  <stop offset="1" stopColor="#CFB48E" />
+                </linearGradient>
+                <linearGradient id="introLineWash" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stopColor="#CFB48E" stopOpacity="0.7" />
+                  <stop offset="1" stopColor="#CFB48E" stopOpacity="0" />
                 </linearGradient>
               </defs>
-              <path d="M45 128 V52" stroke="url(#introArrowInk)" strokeWidth="13" strokeLinecap="round" fill="none" />
-              <path d="M17 80 45 52 73 80" stroke="url(#introArrowInk)" strokeWidth="13" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+              <motion.path d={LINE_AREA} fill="url(#introLineWash)" variants={areaV} initial="hidden" animate={seq} />
+              <motion.path
+                d={LINE_PATH}
+                fill="none"
+                stroke="url(#introLineInk)"
+                strokeWidth="7"
+                strokeLinecap="round"
+                variants={curveV}
+                initial="hidden"
+                animate={seq}
+              />
             </svg>
           </motion.div>
 

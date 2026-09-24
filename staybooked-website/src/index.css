@@ -2775,17 +2775,17 @@ ul { list-style: none; }
 .nx-endlabel-with { fill: var(--tan-ink); }
 .nx-endlabel-without { fill: rgba(58, 58, 58, 0.6); font-size: 11.5px; }
 
-/* ---- Intro: the rising arrow (calendar -> arrow -> STAY BOOKED) ---- */
-.intro-arrowwrap {
+/* ---- Intro: the rising curve (calendar -> curve -> STAY BOOKED) ---- */
+.intro-curvewrap {
   grid-area: 1 / 1;
   display: grid;
   place-items: center;
   pointer-events: none;
-  will-change: transform, opacity;
+  will-change: transform;
 }
-.intro-arrow {
-  width: clamp(52px, 9vw, 84px);
+.intro-curve {
+  width: clamp(300px, 74vw, 580px);
   height: auto;
   display: block;
-  filter: drop-shadow(0 10px 24px rgba(130, 104, 63, 0.28));
+  filter: drop-shadow(0 12px 28px rgba(130, 104, 63, 0.22));
 }
