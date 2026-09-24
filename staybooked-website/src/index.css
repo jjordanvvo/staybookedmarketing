@@ -2178,40 +2178,62 @@ ul { list-style: none; }
 .intro-label-top { top: clamp(28px, 7vh, 64px); }
 .intro-label-bottom { bottom: clamp(28px, 7vh, 64px); color: rgba(130, 104, 63, 0.58); }
 
-/* ---- Stamped process beats (01 ADVERTISE / 02 QUALIFY / 03 BOOK) ---- */
-.intro-stamps {
+/* ---- The week that books up — a real calendar, filling in ---- */
+.intro-calwrap {
   grid-area: 1 / 1;
-  display: grid;
-  place-items: center;
-  pointer-events: none;
-}
-.intro-stamp-row {
-  grid-area: 1 / 1;   /* all three beats occupy the same spot — hard cuts */
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 14px;
+  gap: clamp(18px, 3.4vh, 30px);
+  padding: 0 20px;
+  pointer-events: none;
   will-change: transform, opacity, filter;
 }
-.intro-kicker {
+.cal-board {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 7px;
+  width: min(500px, 76vw);
+}
+.cal-day {
+  text-align: center;
   font-family: 'DM Sans', sans-serif;
   font-weight: 500;
-  font-size: 0.66rem;
-  letter-spacing: 0.32em;
-  color: rgba(130, 104, 63, 0.88);
-}
-.intro-stamp {
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: clamp(2rem, 7vw, 4.2rem);
-  line-height: 1;
-  letter-spacing: -0.01em;
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  /* Gradient ink — deep warm espresso falling into the brand's deep tan. */
-  background: linear-gradient(180deg, #3A3226 0%, #82683F 118%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: rgba(130, 104, 63, 0.85);
+}
+.cal-slot {
+  height: clamp(30px, 5vh, 42px);
+  border-radius: 7px;
+  will-change: transform, opacity;
+}
+/* Booked slots — three near-identical warm tan shades so the grid feels
+   alive rather than stamped from one mold. */
+.cal-slot-booked {
+  background: linear-gradient(160deg, #DCC49D 0%, #CFB48E 80%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+.cal-slot-b { background: linear-gradient(160deg, #E0CBA6 0%, #D5BC96 80%); }
+.cal-slot-c { background: linear-gradient(160deg, #D3B98F 0%, #C6A87E 80%); }
+/* Open slots — dashed cream outlines, the availability you're about to fix. */
+.cal-slot-open {
+  background: transparent;
+  border: 1px dashed rgba(130, 104, 63, 0.35);
+}
+.cal-count {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: rgba(130, 104, 63, 0.9);
+}
+.cal-count-num {
+  font-weight: 800;
+  color: #2A2419;
+  font-variant-numeric: tabular-nums;   /* the digits don't jiggle as they tick */
 }
 
 /* ---- Masked headline ---- */
@@ -2330,6 +2352,10 @@ ul { list-style: none; }
 @media (max-width: 640px) {
   .intro-title { font-size: clamp(2.5rem, 14.5vw, 4.6rem); }
   .intro-label { font-size: 0.58rem; }
+  .cal-board { width: 84vw; gap: 5px; }
+  .cal-slot { height: clamp(22px, 4.6vh, 32px); border-radius: 5px; }
+  .cal-day { font-size: 0.52rem; letter-spacing: 0.1em; }
+  .cal-count { font-size: 0.78rem; }
 }
 
 /* React never mounts the intro under reduced motion; belt-and-suspenders. */

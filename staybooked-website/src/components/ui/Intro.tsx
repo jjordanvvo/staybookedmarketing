@@ -5,17 +5,21 @@ import { EASE } from '@/components/ui/Reveal'
 /**
  * Intro — cinematic opening title sequence for the landing page.
  *
- * A warm dawn title card — soft cream light, editorial hairline frame, and
- * the site's paper grain — runs a four-beat sequence, then exits as a double
+ * A warm dawn title card (soft cream light, editorial hairline frame, the
+ * site's paper grain) runs a four-beat sequence, then exits as a double
  * curtain: the cream panel lifts first, a cream-to-tan gradient panel follows,
  * and its bottom edge equals the hero tile exactly, so the second curtain
  * "becomes" the hero: a match-cut, not a wipe.
  *
  *   1. Small tracked location label + filmic progress line.
- *   2. Three stamped beats — 01 ADVERTISE / 02 QUALIFY / 03 BOOK.
- *   3. "STAY BOOKED." rises letter-by-letter through line masks; the tan
- *      brand period spring-pops with a ripple ring; the brand line settles
- *      underneath in serif italic.
+ *   2. The promise, visualized: a week's calendar stamps full of booked
+ *      appointments — blocks pop in slot by slot while a counter ticks up
+ *      "24 appointments booked this week". A few dashed slots stay open,
+ *      the way a real calendar looks.
+ *   3. The calendar blooms away in a soft blur as "STAY BOOKED." rises
+ *      letter-by-letter through line masks; the tan brand period spring-pops
+ *      with a ripple ring; a light sweep passes across the landed title and
+ *      the brand line settles underneath in serif italic.
  *   4. Curtain exit, hero settles in beneath (choreographed via onReveal).
  *
  * Plays once per full page load (router navigation back to "/" never replays
@@ -42,23 +46,35 @@ export function consumeIntro() {
   consumed = true
 }
 
-/* ---- Timeline (seconds, relative to "armed" = fonts ready) ---- */
-const STAMP_START = 0.55
-const STAMP_GAP = 0.68
-const STAMP_DUR = 0.85 // longer full-opacity hold so each word reads clearly
-const TITLE_AT = 2.7 // first letter rises
-const LETTER_STAGGER = 0.045
-const DOT_AT = 3.3 // brand period pop
-const RING_AT = 3.42 // ripple ring around the period
-const SWEEP_AT = 3.62 // light sweep passes across the landed title
-const TAG_AT = 3.55 // serif brand line
-const EXIT_AT = 4.75 // curtains begin
+/* ---- The week that fills up ---- */
+const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+const ROWS = 4
+// The slots that stay open, "col-row" 1-indexed — a real calendar has gaps.
+const OPEN_SLOTS = new Set(['2-4', '5-2', '6-1', '4-3'])
 
-const STAMPS = [
-  { n: '01', w: 'ADVERTISE' },
-  { n: '02', w: 'QUALIFY' },
-  { n: '03', w: 'BOOK' },
-]
+type Slot = { key: string; shade: 'a' | 'b' | 'c' }
+const FILLED: Slot[] = []
+for (let r = 1; r <= ROWS; r++) {
+  for (let c = 1; c <= DAYS.length; c++) {
+    if (!OPEN_SLOTS.has(`${c}-${r}`)) {
+      FILLED.push({ key: `${c}-${r}`, shade: (['a', 'b', 'c'] as const)[(r + c) % 3] })
+    }
+  }
+}
+const FILL_COUNT = FILLED.length // 24
+
+/* ---- Timeline (seconds, relative to "armed" = fonts ready) ---- */
+const CAL_START = 0.55 // day headers + first block land
+const CELL_STAG = 0.052 // booking blocks stamp in, one after another
+const COUNTER_HOLD = 0.35 // counter line fades in as the fills begin
+const TITLE_AT = 3.05 // calendar blooms away, first letter rises
+const LETTER_STAGGER = 0.045
+const DOT_AT = 3.68 // brand period pop
+const RING_AT = 3.8 // ripple ring around the period
+const SWEEP_AT = 4.02 // light sweep passes across the landed title
+const TAG_AT = 4.14 // serif brand line
+const EXIT_AT = 5.4 // curtains begin
+
 const WORDS = ['STAY', 'BOOKED']
 
 /* ---- Variants ---- */
@@ -70,6 +86,54 @@ const labelV: Variants = {
     letterSpacing: '0.34em',
     transition: { duration: 1.1, ease: EASE, delay },
   }),
+}
+
+// Day headers fade in as one row.
+const dayV: Variants = {
+  hidden: { opacity: 0, y: 6 },
+  show: (delay: number) => ({
+    opacity: 0.85,
+    y: 0,
+    transition: { duration: 0.5, ease: EASE, delay },
+  }),
+}
+
+// Each booked slot stamps in with a snappy spring pop.
+const cellV: Variants = {
+  hidden: { opacity: 0, scale: 0.3 },
+  show: (delay: number) => ({
+    opacity: 1,
+    scale: 1,
+    transition: { type: 'spring', stiffness: 260, damping: 17, delay },
+  }),
+}
+
+const counterV: Variants = {
+  hidden: { opacity: 0, y: 8 },
+  show: (delay: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: EASE, delay },
+  }),
+}
+
+// The whole calendar: rises in as the fills begin, holds while the week books
+// up, then blooms away (scale + blur) exactly as the headline takes over.
+const CAL_LAND = 0.32 // seconds from CAL_START to fully landed
+const calV: Variants = {
+  hidden: { opacity: 0, y: 26, scale: 0.96, filter: 'blur(8px)' },
+  show: {
+    opacity: [0, 1, 1, 0],
+    y: [26, 0, 0, -18],
+    scale: [0.96, 1, 1, 1.07],
+    filter: ['blur(8px)', 'blur(0px)', 'blur(0px)', 'blur(14px)'],
+    transition: {
+      duration: TITLE_AT + 0.25 - (CAL_START - 0.15),
+      times: [0, CAL_LAND / 3, 0.79, 1],
+      ease: EASE,
+      delay: CAL_START - 0.15,
+    },
+  },
 }
 
 // Each headline letter rises out of its own overflow mask on a snappy spring.
@@ -140,6 +204,7 @@ export default function Intro({ onReveal }: { onReveal: () => void }) {
   const [armed, setArmed] = useState(false) // fonts ready → sequence starts
   const [exiting, setExiting] = useState(false) // curtains lifting
   const [done, setDone] = useState(false) // overlay fully gone
+  const [count, setCount] = useState(0) // appointments booked this week
   const revealedRef = useRef(false)
 
   // Hold the sequence (briefly) until the display font is ready so the big
@@ -168,6 +233,24 @@ export default function Intro({ onReveal }: { onReveal: () => void }) {
     if (!armed) return
     const t = window.setTimeout(() => setExiting(true), EXIT_AT * 1000)
     return () => clearTimeout(t)
+  }, [armed])
+
+  // Counter ticks up in lockstep with the booking blocks stamping in.
+  useEffect(() => {
+    if (!armed) return
+    let n = 0
+    let interval = 0
+    const start = window.setTimeout(() => {
+      interval = window.setInterval(() => {
+        n += 1
+        setCount(n)
+        if (n >= FILL_COUNT) window.clearInterval(interval)
+      }, CELL_STAG * 1000)
+    }, CAL_START * 1000)
+    return () => {
+      clearTimeout(start)
+      window.clearInterval(interval)
+    }
   }, [armed])
 
   // Skippable at any moment.
@@ -224,7 +307,7 @@ export default function Intro({ onReveal }: { onReveal: () => void }) {
         animate={exiting ? { y: '-100%' } : { y: '0%' }}
         transition={{ duration: 0.9, ease: EASE, delay: 0.1 }}
       >
-        {/* Sun-glow — blooms behind the headline as the letters land. */}
+        {/* Sun-glow — blooms behind the calendar and headline as they land. */}
         <motion.div className="intro-glow" variants={glowV} initial="hidden" animate={seq} />
 
         <motion.div
@@ -236,34 +319,44 @@ export default function Intro({ onReveal }: { onReveal: () => void }) {
             Lead generation for local businesses
           </motion.span>
 
-          {/* Beat 2 — the three stamped process words, film-leader style. */}
-          <div className="intro-stamps" aria-hidden="true">
-            {STAMPS.map(({ n, w }, i) => (
-              <motion.div
-                key={w}
-                className="intro-stamp-row"
-                initial={{ opacity: 0 }}
-                animate={
-                  armed
-                    ? {
-                        opacity: [0, 1, 1, 0],
-                        y: [14, 0, 0, -10],
-                        filter: ['blur(10px)', 'blur(0px)', 'blur(0px)', 'blur(6px)'],
-                      }
-                    : { opacity: 0 }
+          {/* Beat 2 — the week books up: a real calendar, filling in. */}
+          <motion.div className="intro-calwrap" aria-hidden="true" variants={calV} initial="hidden" animate={seq}>
+            <div className="cal-board">
+              {DAYS.map((d, i) => (
+                <motion.span key={d + i} className="cal-day" variants={dayV} custom={CAL_START + i * 0.04}>
+                  {d}
+                </motion.span>
+              ))}
+              {Array.from({ length: ROWS * DAYS.length }, (_, i) => {
+                const col = (i % DAYS.length) + 1
+                const row = Math.floor(i / DAYS.length) + 1
+                const key = `${col}-${row}`
+                if (OPEN_SLOTS.has(key)) {
+                  return (
+                    <motion.span
+                      key={key}
+                      className="cal-slot cal-slot-open"
+                      variants={dayV}
+                      custom={CAL_START + 0.1}
+                    />
+                  )
                 }
-                transition={{
-                  duration: STAMP_DUR,
-                  times: [0, 0.18, 0.84, 1],
-                  ease: EASE,
-                  delay: STAMP_START + i * STAMP_GAP,
-                }}
-              >
-                <span className="intro-kicker">{n}</span>
-                <span className="intro-stamp">{w}</span>
-              </motion.div>
-            ))}
-          </div>
+                const fillIndex = FILLED.findIndex((f) => f.key === key)
+                const slot = FILLED[fillIndex]
+                return (
+                  <motion.span
+                    key={key}
+                    className={`cal-slot cal-slot-booked cal-slot-${slot.shade}`}
+                    variants={cellV}
+                    custom={CAL_START + fillIndex * CELL_STAG}
+                  />
+                )
+              })}
+            </div>
+            <motion.p className="cal-count" variants={counterV} custom={CAL_START + COUNTER_HOLD}>
+              <span className="cal-count-num">{count}</span> appointments booked this week
+            </motion.p>
+          </motion.div>
 
           {/* Beat 3 — the masked headline, period pop, and brand line. */}
           <div className="intro-titlewrap">
