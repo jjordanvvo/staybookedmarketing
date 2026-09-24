@@ -7,6 +7,7 @@ import FeatureBand from '@/components/sections/FeatureBand'
 import HowWeWork from '@/components/sections/HowWeWork'
 import Services from '@/components/sections/Services'
 import Industries from '@/components/sections/Industries'
+import NicheExplorer from '@/components/sections/NicheExplorer'
 import WhyUs from '@/components/sections/WhyUs'
 import Founders from '@/components/sections/Founders'
 import HowToStart from '@/components/sections/HowToStart'
@@ -43,6 +44,7 @@ export default function Home() {
           <HowWeWork />
           <Services />
           <Industries />
+          <NicheExplorer />
           <WhyUs />
           <Founders />
           <HowToStart />

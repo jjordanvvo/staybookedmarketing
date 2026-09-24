@@ -2368,3 +2368,359 @@ ul { list-style: none; }
 @media (max-width: 560px) {
   .nav-wordmark { display: none; }
 }
+
+/* ============================================================
+   NICHE DETAIL OVERLAY — "Who we help" rows open into the
+   one-pager's important info. Editorial cream card, tan accents.
+   ============================================================ */
+.niche-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 350;                 /* above content, below the intro (400) */
+  display: grid;
+  place-items: center;
+  padding: clamp(16px, 4vw, 48px);
+  background: rgba(20, 20, 20, 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  cursor: pointer;
+  overflow-y: auto;
+}
+.niche-card {
+  position: relative;
+  width: min(680px, 100%);
+  max-height: calc(100vh - 64px);
+  overflow-y: auto;
+  background: var(--deep-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 4px;
+  padding: clamp(28px, 5vw, 48px);
+  cursor: default;
+  box-shadow: 0 40px 80px rgba(20, 20, 20, 0.25);
+}
+.niche-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--card-border);
+  border-radius: 999px;
+  background: none;
+  color: var(--text-2);
+  cursor: pointer;
+  transition: color 0.25s var(--ease), border-color 0.25s var(--ease);
+}
+.niche-close:hover { color: var(--ink); border-color: var(--ink); }
+.niche-kicker {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 0.66rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--tan-ink);
+}
+.niche-name {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.7rem, 4vw, 2.4rem);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 10px 0 6px;
+}
+.niche-examples {
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--tan-ink);
+}
+.niche-what {
+  margin: 22px 0;
+  font-size: 0.98rem;
+  line-height: 1.85;
+  color: var(--text);
+}
+.niche-books {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 26px;
+}
+.niche-book-chip {
+  padding: 9px 18px;
+  border: 1px solid var(--card-border);
+  border-radius: 999px;
+  background: var(--page-bg);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--tan-ink);
+}
+.niche-facts {
+  display: grid;
+  gap: 0;
+  border-top: 1px solid var(--rule);
+}
+.niche-fact {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.niche-fact dt {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 0.64rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--tan-ink);
+  margin-bottom: 6px;
+}
+.niche-fact dd {
+  font-size: 0.92rem;
+  line-height: 1.75;
+  color: var(--text-2);
+}
+.niche-fact dd strong { color: var(--ink); font-weight: 600; }
+.niche-card-cta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-top: 26px;
+}
+.niche-page-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--tan-ink);
+  border-bottom: 1px solid var(--tan-ink);
+  padding-bottom: 3px;
+  transition: color 0.25s var(--ease);
+}
+.niche-page-link:hover { color: var(--ink); }
+
+/* Rows are now buttons — reset default button chrome */
+.ind-link-btn {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* ============================================================
+   NICHE EXPLORER — interactive graph section
+   ============================================================ */
+.nx-section { background: var(--offwhite); }
+.nx-board { margin-top: 40px; }
+.nx-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 34px;
+}
+.nx-chip {
+  padding: 11px 20px;
+  border: 1px solid var(--card-border);
+  border-radius: 999px;
+  background: none;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  cursor: pointer;
+  transition: color 0.25s var(--ease), border-color 0.25s var(--ease), background 0.25s var(--ease);
+}
+.nx-chip:hover { color: var(--ink); border-color: var(--tan-ink); }
+.nx-chip-active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--page-bg);
+}
+.nx-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  gap: 40px;
+  align-items: start;
+}
+.nx-chartcard {
+  background: var(--deep-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 4px;
+  padding: clamp(20px, 3vw, 32px);
+}
+.nx-chart-head { min-height: 64px; }
+.nx-chart-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.1rem, 2.4vw, 1.5rem);
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.nx-chart-sub {
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--tan-ink);
+  margin-top: 2px;
+}
+.nx-chart { width: 100%; height: auto; display: block; }
+.nx-gridline { stroke: rgba(130, 104, 63, 0.16); stroke-width: 1; }
+.nx-line {
+  fill: none;
+  stroke: var(--tan-ink);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+.nx-dot { fill: var(--ink); cursor: pointer; }
+.nx-bubble-box { fill: var(--ink); }
+.nx-bubble-text {
+  fill: var(--page-bg);
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+.nx-months {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  padding: 0 4px;
+}
+.nx-months span {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 0.58rem;
+  letter-spacing: 0.14em;
+  color: rgba(130, 104, 63, 0.8);
+}
+.nx-note {
+  margin-top: 14px;
+  font-size: 0.72rem;
+  line-height: 1.5;
+  color: var(--text-2);
+  opacity: 0.75;
+}
+.nx-side-label {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 0.62rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--tan-ink);
+  margin: 18px 0 6px;
+}
+.nx-side-label:first-child { margin-top: 0; }
+.nx-side-text {
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: var(--text);
+}
+.nx-books { display: flex; flex-wrap: wrap; gap: 8px; }
+.nx-book {
+  padding: 8px 14px;
+  background: var(--page-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.68rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.nx-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin: 26px 0;
+}
+.nx-stat {
+  border: 1px solid var(--card-border);
+  border-radius: 4px;
+  background: var(--deep-bg);
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.nx-stat-value {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+  line-height: 1;
+  color: var(--tan-ink);
+  font-variant-numeric: tabular-nums;
+}
+.nx-stat-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.66rem;
+  line-height: 1.5;
+  color: var(--text-2);
+}
+.nx-invest { display: grid; gap: 12px; }
+.nx-invest-row {
+  display: grid;
+  grid-template-columns: 72px 1fr 92px;
+  align-items: center;
+  gap: 12px;
+}
+.nx-invest-label {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--tan-ink);
+}
+.nx-invest-barwrap {
+  height: 12px;
+  background: var(--page-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.nx-invest-bar { height: 100%; border-radius: 999px; }
+.nx-invest-bar-spend { background: var(--logo-fill); }
+.nx-invest-bar-retainer { background: var(--ink); }
+.nx-invest-amt {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.74rem;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.nx-invest-note {
+  font-size: 0.78rem;
+  line-height: 1.65;
+  color: var(--text-2);
+  margin-top: 4px;
+}
+.nx-cta { margin-top: 24px; display: inline-block; }
+
+@media (max-width: 900px) {
+  .nx-grid { grid-template-columns: 1fr; gap: 28px; }
+}
+@media (max-width: 640px) {
+  .nx-chip { padding: 9px 14px; font-size: 0.64rem; }
+  .nx-stats { grid-template-columns: 1fr; gap: 10px; }
+  .nx-invest-row { grid-template-columns: 64px 1fr 82px; }
+}
