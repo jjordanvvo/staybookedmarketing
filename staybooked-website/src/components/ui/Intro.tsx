@@ -69,21 +69,21 @@ for (let r = 1; r <= ROWS; r++) {
 const FILL_COUNT = FILLED.length // 24
 
 /* ---- Timeline (seconds, relative to "armed" = fonts ready) ---- */
-const CAL_START = 0.55 // day headers + first block land
-const CELL_STAG = 0.052 // booking blocks stamp in, one after another
-const COUNTER_HOLD = 0.35 // counter line fades in as the fills begin
-const CAL_BLOOM_AT = 2.12 // fills done → calendar immediately blooms away
-const CAL_OUT_AT = 2.58 // calendar fully gone (curve is already drawing)
-const LINE_AT = 2.12 // the rising curve begins drawing through the bloom
-const LINE_DUR = 1.05 // draw time; the curve completes as the letters rise
-const LINE_OUT_AT = 3.3 // curve dissolves upward into the landed title
-const TITLE_AT = 3.04 // letters rise in the curve's wake, mid-draw
+const CAL_START = 0.5 // day headers + first block land
+const CELL_STAG = 0.046 // booking blocks stamp in, one after another
+const COUNTER_HOLD = 0.3 // counter line fades in as the fills begin
+const CAL_BLOOM_AT = 1.86 // last blocks still settling → bloom already starts
+const CAL_OUT_AT = 2.3 // calendar fully gone (curve is mid-draw by then)
+const LINE_AT = 1.86 // the rising curve begins drawing through the bloom
+const LINE_DUR = 0.95 // draw time; the curve completes as the letters rise
+const LINE_OUT_AT = 2.92 // curve dissolves upward into the landed title
+const TITLE_AT = 2.66 // letters rise in the curve's wake, mid-draw
 const LETTER_STAGGER = 0.045
-const DOT_AT = 3.66 // brand period pop
-const RING_AT = 3.78 // ripple ring around the period
-const SWEEP_AT = 4.0 // light sweep passes across the landed title
-const TAG_AT = 4.12 // serif brand line
-const EXIT_AT = 5.4 // curtains begin
+const DOT_AT = 3.28 // brand period pop
+const RING_AT = 3.4 // ripple ring around the period
+const SWEEP_AT = 3.62 // light sweep passes across the landed title
+const TAG_AT = 3.74 // serif brand line
+const EXIT_AT = 4.9 // curtains begin
 
 const WORDS = ['STAY', 'BOOKED']
 
