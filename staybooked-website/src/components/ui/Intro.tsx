@@ -5,10 +5,11 @@ import { EASE } from '@/components/ui/Reveal'
 /**
  * Intro — cinematic opening title sequence for the landing page.
  *
- * An ink-black title card (with the site's paper grain) runs a four-beat
- * sequence, then exits as a double curtain — the ink panel lifts first and a
- * warm-tan panel follows a beat later. The tan matches the hero's background
- * exactly, so the second curtain "becomes" the hero: a match-cut, not a wipe.
+ * A warm dawn title card — soft cream light, editorial hairline frame, and
+ * the site's paper grain — runs a four-beat sequence, then exits as a double
+ * curtain: the cream panel lifts first, a cream-to-tan gradient panel follows,
+ * and its bottom edge equals the hero tile exactly, so the second curtain
+ * "becomes" the hero: a match-cut, not a wipe.
  *
  *   1. Small tracked location label + filmic progress line.
  *   2. Three stamped beats — 01 ADVERTISE / 02 QUALIFY / 03 BOOK.
@@ -49,6 +50,7 @@ const TITLE_AT = 2.7 // first letter rises
 const LETTER_STAGGER = 0.045
 const DOT_AT = 3.3 // brand period pop
 const RING_AT = 3.42 // ripple ring around the period
+const SWEEP_AT = 3.62 // light sweep passes across the landed title
 const TAG_AT = 3.55 // serif brand line
 const EXIT_AT = 4.75 // curtains begin
 
@@ -72,9 +74,10 @@ const labelV: Variants = {
 
 // Each headline letter rises out of its own overflow mask on a snappy spring.
 const letterV: Variants = {
-  hidden: { y: '118%' },
+  hidden: { y: '118%', filter: 'blur(5px)' },
   show: (delay: number) => ({
     y: '0%',
+    filter: 'blur(0px)',
     transition: { type: 'spring', stiffness: 120, damping: 16, mass: 0.95, delay },
   }),
 }
@@ -94,6 +97,27 @@ const ringV: Variants = {
     scale: [0.4, 1.6, 2.6],
     opacity: [0, 0.65, 0],
     transition: { duration: 0.9, ease: 'easeOut', delay: RING_AT, times: [0, 0.3, 1] },
+  },
+}
+
+// Sun-glow behind the headline — blooms in as the letters begin to rise.
+const glowV: Variants = {
+  hidden: { opacity: 0, scale: 0.74 },
+  show: {
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 1.7, ease: EASE, delay: TITLE_AT - 0.55 },
+  },
+}
+
+// One-shot light sweep across the landed title — reads as light passing over
+// the type, the "advanced" flourish that closes the sequence.
+const sweepV: Variants = {
+  hidden: { x: '-170%', opacity: 0 },
+  show: {
+    x: '330%',
+    opacity: [0, 1, 1, 0],
+    transition: { duration: 1.15, ease: 'easeInOut', delay: SWEEP_AT, times: [0, 0.18, 0.82, 1] },
   },
 }
 
@@ -181,7 +205,8 @@ export default function Intro({ onReveal }: { onReveal: () => void }) {
 
   return (
     <div className="intro" role="presentation" onClick={() => setExiting(true)}>
-      {/* Curtain 2 — warm tan, identical to the hero background: the match-cut. */}
+      {/* Curtain 2 — cream-to-tan gradient; its bottom edge equals the hero tile
+          exactly, so the lift reads as the hero arriving. */}
       <motion.div
         className="intro-panel intro-panel-tan"
         initial={false}
@@ -192,13 +217,16 @@ export default function Intro({ onReveal }: { onReveal: () => void }) {
         }}
       />
 
-      {/* Curtain 1 — the ink title card itself. */}
+      {/* Curtain 1 — the warm dawn card itself. */}
       <motion.div
-        className="intro-panel intro-panel-ink"
+        className="intro-panel intro-panel-cream"
         initial={false}
         animate={exiting ? { y: '-100%' } : { y: '0%' }}
         transition={{ duration: 0.9, ease: EASE, delay: 0.1 }}
       >
+        {/* Sun-glow — blooms behind the headline as the letters land. */}
+        <motion.div className="intro-glow" variants={glowV} initial="hidden" animate={seq} />
+
         <motion.div
           className="intro-stage"
           animate={exiting ? { opacity: 0, y: -30, filter: 'blur(10px)' } : {}}
@@ -263,6 +291,7 @@ export default function Intro({ onReveal }: { onReveal: () => void }) {
                 </span>
               ))}
             </h1>
+            <motion.div className="intro-sweep" variants={sweepV} initial="hidden" animate={seq} aria-hidden="true" />
             <motion.p className="intro-tagline" variants={tagV} initial="hidden" animate={seq}>
               We don&rsquo;t chase leads. We book them.
             </motion.p>

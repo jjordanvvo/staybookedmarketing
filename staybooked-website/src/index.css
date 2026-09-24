@@ -2091,9 +2091,11 @@ ul { list-style: none; }
 
 /* ============================================================
    OPENING TITLE SEQUENCE — cinematic intro over the landing page
-   Ink title card → stamped process beats → masked "STAY BOOKED."
-   → double-curtain exit whose tan layer match-cuts into the hero.
-   (Mounted once per page load; see ui/Intro.tsx for the timeline.)
+   Warm dawn card: soft cream light, editorial hairline frame,
+   stamped process beats in gradient ink, masked "STAY BOOKED."
+   with a blooming sun-glow and a passing light sweep, then a
+   double-curtain exit whose cream-to-tan gradient match-cuts
+   into the hero. (Mounted once per page load; see ui/Intro.tsx.)
    ============================================================ */
 .intro {
   position: fixed;
@@ -2108,24 +2110,49 @@ ul { list-style: none; }
   will-change: transform;
 }
 
-/* Curtain 2 — identical to the hero tile, so its lift reads as the hero
-   arriving rather than a second wipe. */
-.intro-panel-tan { background: var(--logo-fill); }
+/* Curtain 2 — warm cream-to-tan gradient. The bottom edge equals the hero
+   tile exactly, so its lift reads as the hero arriving, not a second wipe. */
+.intro-panel-tan {
+  background: linear-gradient(180deg, #FBF7EE 0%, #E9DCC1 60%, var(--logo-fill) 100%);
+}
 
-/* Curtain 1 — the title card. Faint radial lift behind the wordmark gives the
-   ink some depth; the ::after grain ties it to the site's matte paper. */
-.intro-panel-ink {
-  background: radial-gradient(120% 90% at 50% 44%, #201E1A 0%, #141414 62%);
+/* Curtain 1 — the warm dawn card. Soft cream with a gentle light bloom high
+   in the frame; the ::after grain ties it to the site's matte paper. */
+.intro-panel-cream {
+  background: radial-gradient(120% 85% at 50% 36%, #FDFAF2 0%, #F4EEE1 48%, #EDE3D0 100%);
   overflow: hidden;
 }
-.intro-panel-ink::after {
+/* Editorial hairline frame — the card reads like a fine print. */
+.intro-panel-cream::before {
+  content: "";
+  position: absolute;
+  inset: clamp(18px, 3.5vw, 40px);
+  border: 1px solid rgba(130, 104, 63, 0.26);
+  pointer-events: none;
+  z-index: 1;
+}
+.intro-panel-cream::after {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
-  opacity: 0.07;
-  mix-blend-mode: overlay;
+  opacity: 0.05;
+  mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Sun-glow behind the headline — blooms in as the letters begin to rise. */
+.intro-glow {
+  position: absolute;
+  inset: -20%;
+  background: radial-gradient(
+    52vmin 52vmin at 50% 46%,
+    rgba(233, 207, 164, 0.52) 0%,
+    rgba(233, 207, 164, 0.20) 46%,
+    rgba(233, 207, 164, 0) 72%
+  );
+  pointer-events: none;
+  will-change: transform, opacity;
 }
 
 .intro-stage {
@@ -2145,11 +2172,11 @@ ul { list-style: none; }
   font-weight: 500;
   font-size: 0.66rem;
   text-transform: uppercase;
-  color: rgba(240, 235, 224, 0.55);
+  color: rgba(130, 104, 63, 0.78);
   pointer-events: none;
 }
 .intro-label-top { top: clamp(28px, 7vh, 64px); }
-.intro-label-bottom { bottom: clamp(28px, 7vh, 64px); color: rgba(207, 180, 142, 0.75); }
+.intro-label-bottom { bottom: clamp(28px, 7vh, 64px); color: rgba(130, 104, 63, 0.58); }
 
 /* ---- Stamped process beats (01 ADVERTISE / 02 QUALIFY / 03 BOOK) ---- */
 .intro-stamps {
@@ -2171,7 +2198,7 @@ ul { list-style: none; }
   font-weight: 500;
   font-size: 0.66rem;
   letter-spacing: 0.32em;
-  color: var(--logo-fill);
+  color: rgba(130, 104, 63, 0.88);
 }
 .intro-stamp {
   font-family: var(--font-display);
@@ -2180,12 +2207,17 @@ ul { list-style: none; }
   line-height: 1;
   letter-spacing: -0.01em;
   text-transform: uppercase;
-  color: var(--hero-cream);
+  /* Gradient ink — deep warm espresso falling into the brand's deep tan. */
+  background: linear-gradient(180deg, #3A3226 0%, #82683F 118%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* ---- Masked headline ---- */
 .intro-titlewrap {
   grid-area: 1 / 1;
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -2204,7 +2236,7 @@ ul { list-style: none; }
   line-height: 0.95;
   letter-spacing: -0.02em;
   text-transform: uppercase;
-  color: var(--hero-cream);
+  color: #2A2419;   /* warm espresso — ink that sits comfortably in cream light */
 }
 .intro-word { display: flex; white-space: nowrap; }
 .intro-mask {
@@ -2221,7 +2253,7 @@ ul { list-style: none; }
 .intro-dotwrap { position: relative; display: inline-block; }
 .intro-dot {
   display: inline-block;
-  color: var(--logo-fill);
+  color: #82683F;
   will-change: transform;
 }
 .intro-ring {
@@ -2231,16 +2263,34 @@ ul { list-style: none; }
   width: 0.55em;
   height: 0.55em;
   margin: -0.275em 0 0 -0.275em;
-  border: 2px solid var(--logo-fill);
+  border: 2px solid #82683F;
   border-radius: 999px;
   pointer-events: none;
+}
+
+.intro-sweep {
+  position: absolute;
+  top: -18%;
+  left: 8%;
+  width: 42%;
+  height: 136%;
+  background: linear-gradient(
+    100deg,
+    rgba(255, 252, 244, 0) 0%,
+    rgba(255, 252, 244, 0.85) 50%,
+    rgba(240, 224, 196, 0) 100%
+  );
+  filter: blur(10px);
+  transform: rotate(9deg);
+  pointer-events: none;
+  will-change: transform, opacity;
 }
 
 .intro-tagline {
   font-family: 'DM Serif Display', serif;
   font-style: italic;
   font-size: clamp(1.05rem, 2.4vw, 1.5rem);
-  color: rgba(240, 235, 224, 0.72);
+  color: rgba(82, 66, 41, 0.82);
   letter-spacing: 0.01em;
 }
 
@@ -2251,20 +2301,20 @@ ul { list-style: none; }
   bottom: clamp(24px, 6vh, 56px);
   background: none;
   border: none;
-  border-bottom: 1px solid rgba(240, 235, 224, 0.35);
+  border-bottom: 1px solid rgba(130, 104, 63, 0.38);
   padding: 0 2px 4px;
   font-family: 'DM Sans', sans-serif;
   font-weight: 500;
   font-size: 0.66rem;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: rgba(240, 235, 224, 0.55);
+  color: rgba(130, 104, 63, 0.72);
   cursor: pointer;
   transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
 }
 .intro-skip:hover {
-  color: var(--hero-cream);
-  border-color: var(--hero-cream);
+  color: #2A2419;
+  border-color: #2A2419;
 }
 
 .intro-progress {
@@ -2273,7 +2323,7 @@ ul { list-style: none; }
   right: 0;
   bottom: 0;
   height: 2px;
-  background: var(--logo-fill);
+  background: rgba(130, 104, 63, 0.9);
   transform-origin: left;
 }
 
