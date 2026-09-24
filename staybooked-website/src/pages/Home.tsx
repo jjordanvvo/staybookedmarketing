@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import Intro, { claimIntro, consumeIntro } from '@/components/ui/Intro'
+import Throughline from '@/components/ui/Throughline'
 import Navbar from '@/components/sections/Navbar'
 import Hero from '@/components/sections/Hero'
 import HeroStatement from '@/components/sections/HeroStatement'
@@ -36,6 +37,7 @@ export default function Home() {
   return (
     <>
       {intro && <Intro onReveal={reveal} />}
+      <Throughline />
       <Navbar revealed={revealed} delay={intro ? 0.55 : 0.05} />
       <Hero revealed={revealed} intro={intro} />
       {revealed && (

@@ -2898,7 +2898,7 @@ html.lenis body {
    Act II the fill; scrubbed by scroll)
    ============================================================ */
 .wk {
-  height: 300vh;
+  height: 200vh;
   position: relative;
   background: var(--offwhite);
   border-bottom: 1px solid var(--rule);
@@ -3099,7 +3099,7 @@ html.lenis body {
 }
 
 @media (max-width: 900px) {
-  .wk { height: 280vh; }
+  .wk { height: 200vh; }
   .wk-stage {
     grid-template-columns: 1fr;
     gap: clamp(18px, 3vh, 28px);
@@ -3120,4 +3120,73 @@ html.lenis body {
 @media (prefers-reduced-motion: reduce) {
   .wk { height: auto; }
   .wk-sticky { position: static; height: auto; padding: 64px 20px; }
+}
+
+/* ============================================================
+   THROUGHLINE — the site's spine (fixed chapter rail)
+   ============================================================ */
+.throughline {
+  position: fixed;
+  left: 22px;
+  top: 22vh;
+  height: 56vh;
+  width: 1.5px;
+  z-index: 80;
+  pointer-events: none;
+}
+.tl-track,
+.tl-draw {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+.tl-track { height: 100%; background: var(--rule); }
+.tl-draw { background: var(--tan-ink); will-change: height; }
+.tl-node {
+  position: absolute;
+  left: -3.75px;
+  transform: translateY(-50%);
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  pointer-events: auto;
+}
+.tl-node-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--offwhite);
+  border: 1.5px solid var(--tan-ink);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.tl-node-core {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 3.5px;
+  height: 3.5px;
+  margin: -1.75px 0 0 -1.75px;
+  border-radius: 50%;
+  background: var(--tan-ink);
+}
+.tl-node-no {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  font-size: 0.52rem;
+  letter-spacing: 0.18em;
+  color: var(--tan-ink);
+  white-space: nowrap;
+}
+.tl-node:hover .tl-node-ring { transform: scale(1.4); }
+
+@media (max-width: 1099px) {
+  .throughline { display: none; }
 }

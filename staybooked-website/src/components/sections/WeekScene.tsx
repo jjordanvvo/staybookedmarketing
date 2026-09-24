@@ -10,7 +10,8 @@ import {
 /**
  * WeekScene — the pinned two-act centerpiece of the page.
  *
- * A tall scroll track (300vh) pins one stage: a week board, seven day
+ * A scroll track (200vh — long enough to tell it, short enough to never
+ * trap you) pins one stage: a week board, seven day
  * columns of slots. The scroll position IS the story:
  *
  *   ACT I — THE LEAKS. Ink-dark "missed" markers stamp across the week
@@ -131,6 +132,11 @@ export default function WeekScene() {
   const bookedNum = useTransform(bookedN, (v) => String(Math.round(v)))
   const bookedOp = useTransform(p, [0.47, 0.55], [0, 1])
 
+  // Drift — the two halves glide at their own pace across the track so the
+  // pinned stage never feels frozen; you're always moving through it.
+  const boardY = useTransform(p, [0, 1], [42, -42])
+  const leftY = useTransform(p, [0, 1], [-26, 26])
+
   // Labels + dawn wash + closing line.
   const act1Op = useTransform(p, [0.36, 0.46], [1, 0])
   const act2Op = useTransform(p, [0.5, 0.6], [0, 1])
@@ -142,7 +148,7 @@ export default function WeekScene() {
       <div className="wk-sticky">
         <motion.div className="wk-wash" aria-hidden="true" style={{ opacity: washOp }} />
         <div className="wk-stage">
-          <div className="wk-left">
+          <motion.div className="wk-left" style={{ y: leftY }}>
             <p className="wk-chapter">
               <span className="wk-chapter-no">01</span>The Week
             </p>
@@ -170,8 +176,8 @@ export default function WeekScene() {
               The same week on a Stay Booked system: ads catch, automation
               qualifies, the calendar fills.
             </motion.p>
-          </div>
-          <div className="wk-boardwrap">
+          </motion.div>
+          <motion.div className="wk-boardwrap" style={{ y: boardY }}>
             <div className="wk-board" aria-label="A week's calendar filling up">
               {DAYS.map((d) => (
                 <span key={d} className="wk-day">
@@ -185,7 +191,7 @@ export default function WeekScene() {
             <motion.p className="wk-endline" style={{ opacity: endOp }}>
               This is staying booked.
             </motion.p>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
