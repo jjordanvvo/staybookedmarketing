@@ -4,7 +4,8 @@ import Throughline from '@/components/ui/Throughline'
 import Navbar from '@/components/sections/Navbar'
 import Hero from '@/components/sections/Hero'
 import HeroStatement from '@/components/sections/HeroStatement'
-import WeekScene from '@/components/sections/WeekScene'
+import FlowSegment from '@/components/ui/FlowSegment'
+import WeekChapter from '@/components/sections/WeekChapter'
 import FeatureBand from '@/components/sections/FeatureBand'
 import HowWeWork from '@/components/sections/HowWeWork'
 import Services from '@/components/sections/Services'
@@ -43,17 +44,25 @@ export default function Home() {
       {revealed && (
         <>
           <HeroStatement />
-          <WeekScene />
+          {/* Flow segment A: the Week figure pins beside the story, then
+              becomes the System diagram while the real chapters scroll by */}
+          <FlowSegment variant="A">
+            <WeekChapter />
+            <HowWeWork />
+            <Services />
+          </FlowSegment>
           <FeatureBand />
-          <HowWeWork />
-          <Services />
+          {/* Interlude: full-width chapters that need the whole stage */}
           <Industries />
           <NicheExplorer />
           <WhyUs />
           <Founders />
           <HowToStart />
-          <Pricing />
-          <Faq />
+          {/* Flow segment B: the Ledger totals up, then becomes the Stamp */}
+          <FlowSegment variant="B">
+            <Pricing />
+            <Faq />
+          </FlowSegment>
           {/* Footer is nested inside the Contact section to match the original layout */}
           <Contact>
             <Footer />

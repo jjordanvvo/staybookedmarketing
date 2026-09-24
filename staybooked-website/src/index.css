@@ -2894,235 +2894,6 @@ html.lenis body {
 }
 
 /* ============================================================
-   WEEK SCENE — pinned two-act centerpiece (Act I the leak,
-   Act II the fill; scrubbed by scroll)
-   ============================================================ */
-.wk {
-  height: 200vh;
-  position: relative;
-  background: var(--offwhite);
-  border-bottom: 1px solid var(--rule);
-}
-.wk-sticky {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  height: 100svh;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-}
-/* Warm dawn — blooms over the stage through Act II */
-.wk-wash {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(120% 90% at 78% 16%, rgba(207, 180, 142, 0.28) 0%, rgba(207, 180, 142, 0) 55%),
-    radial-gradient(90% 70% at 15% 88%, rgba(130, 104, 63, 0.1) 0%, rgba(130, 104, 63, 0) 60%);
-  pointer-events: none;
-}
-.wk-stage {
-  position: relative;
-  display: grid;
-  grid-template-columns: minmax(300px, 40%) 1fr;
-  gap: clamp(32px, 5vw, 80px);
-  width: min(1240px, 100%);
-  margin: 0 auto;
-  padding: clamp(64px, 9vh, 110px) clamp(20px, 5vw, 64px) clamp(40px, 6vh, 72px);
-  align-items: center;
-}
-.wk-chapter {
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 600;
-  font-size: 0.62rem;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: rgba(130, 104, 63, 0.9);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: clamp(14px, 3vh, 26px);
-}
-.wk-chapter-no {
-  display: grid;
-  place-items: center;
-  width: 24px;
-  height: 24px;
-  border-radius: 7px;
-  background: var(--tan-ink);
-  color: #F5F0E6;
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 0.62rem;
-  letter-spacing: 0;
-}
-.wk-count {
-  position: relative;
-  height: 0.95em;
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: clamp(4.4rem, 12.5vw, 10.5rem);
-  line-height: 0.95;
-  letter-spacing: -0.02em;
-  font-variant-numeric: tabular-nums;
-}
-.wk-num {
-  position: absolute;
-  left: 0;
-  top: 0;
-  will-change: opacity;
-}
-.wk-num-ink { color: #2A2419; }
-.wk-num-tan { color: var(--tan-ink); }
-.wk-unitwrap {
-  position: relative;
-  height: 1.6em;
-  margin-top: 10px;
-}
-.wk-unit {
-  position: absolute;
-  left: 0;
-  top: 0;
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 600;
-  font-size: 0.72rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: rgba(130, 104, 63, 0.9);
-}
-.wk-acts {
-  position: relative;
-  min-height: 5.4em;
-  margin-top: clamp(16px, 3.4vh, 30px);
-}
-.wk-act {
-  position: absolute;
-  left: 0;
-  top: 0;
-  max-width: 36ch;
-  font-size: 0.95rem;
-  line-height: 1.7;
-  color: #5A5142;
-  will-change: opacity;
-}
-/* The board — the intro's calendar language, full size */
-.wk-boardwrap {
-  min-width: 0;
-}
-.wk-board {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: clamp(6px, 0.9vw, 12px);
-}
-.wk-day {
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 600;
-  font-size: 0.58rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(130, 104, 63, 0.85);
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--rule);
-  text-align: left;
-}
-.wk-cell {
-  position: relative;
-  height: clamp(52px, 12.5vh, 104px);
-  border-radius: 10px;
-  background: rgba(20, 20, 20, 0.035);
-  box-shadow: inset 0 0 0 1px rgba(20, 20, 20, 0.05);
-}
-.wk-missed {
-  position: absolute;
-  inset: 0;
-  border-radius: 10px;
-  background: rgba(42, 36, 25, 0.09);
-  border: 1px dashed rgba(42, 36, 25, 0.38);
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-end;
-  padding: 8px;
-  will-change: transform, opacity;
-}
-.wk-missed-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: rgba(42, 36, 25, 0.55);
-}
-.wk-booked {
-  position: absolute;
-  inset: 0;
-  border-radius: 10px;
-  background: linear-gradient(160deg, #DCC49D 0%, #CFB48E 80%);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
-  will-change: transform, opacity;
-}
-.wk-booked::before {
-  content: '';
-  position: absolute;
-  left: 6px;
-  top: 7px;
-  bottom: 7px;
-  width: 3px;
-  border-radius: 2px;
-  background: rgba(42, 36, 25, 0.28);
-}
-.wk-shade-1 { background: linear-gradient(160deg, #E0CBA6 0%, #D5BC96 80%); }
-.wk-shade-2 { background: linear-gradient(160deg, #D3B98F 0%, #C6A87E 80%); }
-.wk-open {
-  position: absolute;
-  inset: 0;
-  border-radius: 10px;
-  border: 1px dashed rgba(130, 104, 63, 0.35);
-}
-.wk-open-dot {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 7px;
-  height: 7px;
-  margin: -3.5px 0 0 -3.5px;
-  border-radius: 50%;
-  background: var(--tan-ink);
-}
-.wk-endline {
-  margin-top: clamp(14px, 2.6vh, 26px);
-  text-align: center;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(0.85rem, 1.6vw, 1.05rem);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: #2A2419;
-  will-change: opacity;
-}
-
-@media (max-width: 900px) {
-  .wk { height: 200vh; }
-  .wk-stage {
-    grid-template-columns: 1fr;
-    gap: clamp(18px, 3vh, 28px);
-    padding: clamp(76px, 11vh, 96px) 20px clamp(28px, 5vh, 48px);
-    align-content: center;
-  }
-  .wk-count { font-size: clamp(3.6rem, 17vw, 5.2rem); height: 1em; }
-  .wk-chapter { margin-bottom: 8px; }
-  .wk-acts { min-height: 4.6em; margin-top: 10px; }
-  .wk-act { font-size: 0.82rem; }
-  .wk-day { font-size: 0.46rem; padding-bottom: 5px; }
-  .wk-cell { height: clamp(40px, 8.2vh, 66px); border-radius: 8px; }
-  .wk-missed, .wk-booked, .wk-open { border-radius: 8px; }
-  .wk-unitwrap { height: 1.4em; margin-top: 4px; }
-  .wk-unit { font-size: 0.6rem; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .wk { height: auto; }
-  .wk-sticky { position: static; height: auto; padding: 64px 20px; }
-}
-
-/* ============================================================
    THROUGHLINE — the site's spine (fixed chapter rail)
    ============================================================ */
 .throughline {
@@ -3189,4 +2960,486 @@ html.lenis body {
 
 @media (max-width: 1099px) {
   .throughline { display: none; }
+}
+
+/* ============================================================
+   FLOW ARCHITECTURE — the site as one continuous experience.
+   Two pinned segments: the SystemStage figure morphs in the left
+   column while real content scrolls past in the right column.
+   ============================================================ */
+.flow {
+  position: relative;
+  display: grid;
+  grid-template-columns: 46% 54%;
+  background: var(--offwhite);
+}
+.flow-content {
+  border-left: 1px solid var(--rule);
+  min-width: 0;
+}
+.flow-stagewrap {
+  height: 100%;
+}
+.flow-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10vh 2vw 6vh 4vw;
+  overflow: hidden;
+}
+
+/* The figure itself */
+.stage {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  height: min(78vh, 720px);
+  will-change: transform;
+}
+.st-layer {
+  position: absolute;
+  inset: 0;
+  will-change: opacity, transform;
+}
+.st-view {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 2.2vh, 20px);
+}
+.st-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  font-size: 0.62rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(130, 104, 63, 0.9);
+  margin: 0;
+  will-change: opacity;
+}
+.st-badge-no {
+  display: grid;
+  place-items: center;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 4px;
+  border-radius: 7px;
+  background: var(--tan-ink);
+  color: #F5F0E6;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.62rem;
+  letter-spacing: 0.02em;
+}
+
+/* ---- Week view (reuses the board system; sized for the stage) ---- */
+.st-week { justify-content: center; }
+.wk-wash {
+  position: absolute;
+  inset: -20% -10%;
+  background:
+    radial-gradient(120% 90% at 70% 12%, rgba(207, 180, 142, 0.28) 0%, rgba(207, 180, 142, 0) 55%),
+    radial-gradient(90% 70% at 15% 90%, rgba(130, 104, 63, 0.1) 0%, rgba(130, 104, 63, 0) 60%);
+  pointer-events: none;
+}
+.wk-count {
+  position: relative;
+  height: 0.95em;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(3.6rem, 7vw, 7rem);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+.wk-num { position: absolute; left: 0; top: 0; will-change: opacity; }
+.wk-num-ink { color: #2A2419; }
+.wk-num-tan { color: var(--tan-ink); }
+.wk-unitwrap { position: relative; height: 1.6em; }
+.wk-unit {
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(130, 104, 63, 0.9);
+}
+.wk-board {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: clamp(5px, 0.8vw, 10px);
+  margin-top: clamp(8px, 1.6vh, 14px);
+}
+.wk-day {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  font-size: 0.55rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(130, 104, 63, 0.85);
+  padding-bottom: 7px;
+  border-bottom: 1px solid var(--rule);
+}
+.wk-cell {
+  position: relative;
+  height: clamp(44px, 8.8vh, 84px);
+  border-radius: 9px;
+  background: rgba(20, 20, 20, 0.035);
+  box-shadow: inset 0 0 0 1px rgba(20, 20, 20, 0.05);
+  will-change: opacity, transform;
+}
+.wk-missed {
+  position: absolute;
+  inset: 0;
+  border-radius: 9px;
+  background: rgba(42, 36, 25, 0.09);
+  border: 1px dashed rgba(42, 36, 25, 0.38);
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 7px;
+  will-change: transform, opacity;
+}
+.wk-missed-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(42, 36, 25, 0.55); }
+.wk-booked {
+  position: absolute;
+  inset: 0;
+  border-radius: 9px;
+  background: linear-gradient(160deg, #DCC49D 0%, #CFB48E 80%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  will-change: transform, opacity;
+}
+.wk-booked::before {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 6px;
+  bottom: 6px;
+  width: 3px;
+  border-radius: 2px;
+  background: rgba(42, 36, 25, 0.28);
+}
+.wk-shade-1 { background: linear-gradient(160deg, #E0CBA6 0%, #D5BC96 80%); }
+.wk-shade-2 { background: linear-gradient(160deg, #D3B98F 0%, #C6A87E 80%); }
+.wk-open {
+  position: absolute;
+  inset: 0;
+  border-radius: 9px;
+  border: 1px dashed rgba(130, 104, 63, 0.35);
+}
+
+/* ---- System view: the machine diagram ---- */
+.st-system { justify-content: center; gap: clamp(14px, 2.6vh, 24px); }
+.sys-chain {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(8px, 1.6vh, 14px);
+}
+.sys-node {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: clamp(12px, 1.8vh, 18px) clamp(14px, 1.6vw, 20px);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid var(--rule);
+  box-shadow: 0 14px 30px rgba(42, 36, 25, 0.07);
+  will-change: opacity, transform;
+}
+.sys-node-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.02rem;
+  letter-spacing: 0.02em;
+  color: #2A2419;
+  margin: 0;
+}
+.sys-node-sub {
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: rgba(90, 81, 66, 0.9);
+  margin: 2px 0 0;
+}
+.sys-glyph {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--logo-fill);
+  position: relative;
+}
+/* glyph 1: signal / ads */
+.sys-glyph-ads::before, .sys-glyph-ads::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  border: 1.5px solid rgba(42, 36, 25, 0.5);
+  animation: sys-ring 2.6s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+.sys-glyph-ads::after { animation-delay: 1.3s; }
+@keyframes sys-ring {
+  0% { transform: scale(0.7); opacity: 0; }
+  35% { opacity: 0.8; }
+  100% { transform: scale(1.25); opacity: 0; }
+}
+/* glyph 2: filter */
+.sys-glyph-filter::before {
+  content: '';
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(42, 36, 25, 0.55);
+}
+.sys-glyph-filter::after {
+  content: '';
+  position: absolute;
+  bottom: 10px;
+  width: 1.5px;
+  height: 14px;
+  background: rgba(42, 36, 25, 0.45);
+}
+/* the links between nodes: the lead pulses travel down them */
+.sys-link {
+  position: relative;
+  height: clamp(20px, 3.6vh, 34px);
+  margin-left: 36px;
+  width: 1.5px;
+  background: var(--rule);
+  overflow: hidden;
+}
+.sys-pulse {
+  position: absolute;
+  left: -2.25px;
+  top: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--tan-ink);
+  animation: sys-pulse 2.8s cubic-bezier(0.5, 0, 0.7, 1) infinite;
+}
+.sys-pulse-2 { animation-delay: 1.4s; }
+@keyframes sys-pulse {
+  0% { transform: translateY(0); opacity: 0; }
+  12% { opacity: 1; }
+  88% { opacity: 1; }
+  100% { transform: translateY(calc(var(--sys-link-h, 28px))) ; opacity: 0; }
+}
+/* mini calendar that books itself, on loop */
+.sys-minical {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+  width: 44px;
+  padding: 5px;
+  border-radius: 10px;
+  background: rgba(42, 36, 25, 0.06);
+  border: 1px solid var(--rule);
+}
+.sys-minical-block {
+  height: 7px;
+  border-radius: 3px;
+  background: var(--logo-fill);
+  opacity: 0;
+  animation: sys-block 6.6s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+@keyframes sys-block {
+  0% { opacity: 0; transform: scale(0.5); }
+  6% { opacity: 1; transform: scale(1); }
+  82% { opacity: 1; }
+  94%, 100% { opacity: 0; }
+}
+
+/* ---- Ledger view: the receipt ---- */
+.st-ledger { justify-content: center; }
+.ledger-card {
+  position: relative;
+  padding: clamp(20px, 2.6vh, 30px) clamp(18px, 1.8vw, 26px);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid var(--rule);
+  box-shadow: 0 18px 40px rgba(42, 36, 25, 0.08);
+  overflow: hidden;
+}
+.ledger-head {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #2A2419;
+  margin: 0;
+}
+.ledger-sub {
+  font-size: 0.66rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(130, 104, 63, 0.85);
+  margin: 4px 0 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px dashed var(--rule);
+}
+.ledger-line {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: #4A4234;
+  padding: 5px 0;
+  will-change: opacity;
+}
+.ledger-item { white-space: nowrap; }
+.ledger-dots {
+  flex: 1;
+  border-bottom: 1.5px dotted var(--rule);
+  transform: translateY(-3px);
+}
+.ledger-price { white-space: nowrap; font-weight: 600; }
+.ledger-total {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-top: 10px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--rule);
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: #2A2419;
+}
+.ledger-total-price {
+  color: var(--tan-ink);
+  font-size: 1.2rem;
+}
+.ledger-sweep {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, rgba(207, 180, 142, 0) 30%, rgba(207, 180, 142, 0.35) 50%, rgba(207, 180, 142, 0) 70%);
+  animation: ledger-sweep 3.4s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes ledger-sweep {
+  0% { transform: translateX(-110%); }
+  55%, 100% { transform: translateX(110%); }
+}
+.ledger-foot {
+  margin: 12px 0 0;
+  font-size: 0.7rem;
+  color: rgba(90, 81, 66, 0.85);
+}
+
+/* ---- Stamp view: the booked card ---- */
+.st-stamp { justify-content: center; }
+.stamp-card {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 2vh, 18px);
+  padding: clamp(18px, 2.4vh, 28px);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid var(--rule);
+  box-shadow: 0 18px 44px rgba(42, 36, 25, 0.09);
+}
+.stamp-board .wk-cell { height: clamp(30px, 5.4vh, 52px); }
+.stamp-word {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.5rem, 3vw, 2.3rem);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #2A2419;
+}
+.stamp-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 26px;
+  border-radius: 999px;
+  background: var(--tan-ink);
+  color: #F5F0E6;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  animation: stamp-breathe 3.6s ease-in-out infinite;
+}
+@keyframes stamp-breathe {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 0 rgba(130, 104, 63, 0); }
+  50% { transform: scale(1.035); box-shadow: 0 10px 26px rgba(130, 104, 63, 0.25); }
+}
+
+/* ---- WeekChapter captions (content column of segment A) ---- */
+.wkchapter {
+  padding: clamp(72px, 12vh, 140px) clamp(20px, 4vw, 64px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(120px, 26vh, 300px);
+}
+.wkchapter-block {
+  max-width: 34ch;
+}
+.wkchapter-no {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  font-size: 0.6rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(130, 104, 63, 0.8);
+  margin: 0 0 14px !important;
+}
+.wkchapter-text {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.4rem, 2.4vw, 2rem);
+  line-height: 1.35;
+  color: #2A2419;
+  margin: 0 !important;
+}
+/* mobile payoff board */
+.wkchapter-static {
+  display: none;
+}
+
+/* ---- responsive: the stage is desktop theater ---- */
+@media (max-width: 1099px) {
+  .flow { display: block; }
+  .flow-stagewrap { display: none; }
+  .flow-content { border-left: none; }
+  .wkchapter-static {
+    display: block;
+    padding-top: 8px;
+  }
+  .wkchapter-static .wk-cell { height: 40px; }
+  .wkchapter-static-line {
+    margin: 14px 0 0;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #2A2419;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sys-pulse, .sys-minical-block, .ledger-sweep, .stamp-cta, .sys-glyph-ads::before, .sys-glyph-ads::after {
+    animation: none !important;
+  }
+  .sys-minical-block { opacity: 1; }
 }

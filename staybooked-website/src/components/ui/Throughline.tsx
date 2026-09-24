@@ -19,13 +19,17 @@ import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion
 
 const CHAPTERS = [
   { id: 'week', no: '01', label: 'The Week' },
-  { id: 'feature', no: '02', label: 'What We Do' },
-  { id: 'how', no: '03', label: 'How It Works' },
-  { id: 'services', no: '04', label: 'Services' },
+  { id: 'how', no: '02', label: 'How It Works' },
+  { id: 'services', no: '03', label: 'Services' },
+  { id: 'feature', no: '04', label: 'Choose SBM' },
   { id: 'industries', no: '05', label: 'Who We Help' },
-  { id: 'why', no: '06', label: 'Why Us' },
-  { id: 'pricing', no: '07', label: 'Pricing' },
-  { id: 'contact', no: '08', label: 'Contact' },
+  { id: 'explorer', no: '06', label: 'The Explorer' },
+  { id: 'why', no: '07', label: 'Why Us' },
+  { id: 'founders', no: '08', label: 'Founders' },
+  { id: 'start', no: '09', label: 'Getting Started' },
+  { id: 'pricing', no: '10', label: 'Pricing' },
+  { id: 'faq', no: '11', label: 'FAQ' },
+  { id: 'contact', no: '12', label: 'Contact' },
 ]
 
 type Tick = { id: string; no: string; label: string; at: number }
