@@ -9,11 +9,11 @@ import { BOOKING_URL } from '@/lib/booking'
 export const INDUSTRIES = NICHES.map((n) => ({ name: n.name, desc: n.desc }))
 
 /**
- * INDUSTRIES — "Who we help." The eight niches from the sales one-pagers,
- * each row clickable: it opens an editorial detail overlay carrying the
- * important info from that niche's one-pager (what we do, what we book, who
- * gets the AI summary, speed-to-lead, investment, and the performance
- * guarantee). Medical & Health also links onward to the dedicated
+ * INDUSTRIES — "Who we help." A clean name-only index: one niche per row,
+ * nothing else on it (Kolby: the descriptions made it look busy). All the
+ * one-pager detail lives behind the click: each row opens an editorial
+ * overlay (what we do, what we book, who gets the AI summary,
+ * speed-to-lead, investment, and the performance guarantee). Medical & Health also links onward to the dedicated
  * /healthcare page. Header and rows reveal independently; the overlay is
  * skippable at any moment via click / Esc and locks page scroll while up.
  */
@@ -144,17 +144,16 @@ export default function Industries() {
         <Reveal as="ul" className="lp-points ind-list" amount={0.15}>
           {NICHES.map((niche) => (
             <RevealItem as="li" className="lp-point ind-row" key={niche.id}>
-              <button type="button" className="ind-link ind-link-btn" onClick={() => setOpen(niche)}>
+              <button
+                type="button"
+                className="ind-link ind-link-btn"
+                onClick={() => setOpen(niche)}
+                aria-label={`Open ${niche.name}`}
+              >
                 <span className="ind-name">{niche.name}</span>
-                <span className="ind-desc">
-                  {niche.desc}{' '}
-                  <span className="ind-more">
-                    See how we book it
-                    <svg className="ind-arrow" width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                      <path d="M2 8h11M9 3.5 13.5 8 9 12.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </span>
-                </span>
+                <svg className="ind-arrow" width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M2 8h11M9 3.5 13.5 8 9 12.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
               </button>
             </RevealItem>
           ))}

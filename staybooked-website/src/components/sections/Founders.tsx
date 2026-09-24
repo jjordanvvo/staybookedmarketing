@@ -29,9 +29,9 @@ type Founder = {
 export const FOUNDERS: Founder[] = [
   {
     name: 'Trevor Mayberry',
-    title: 'CEO & CFO',
+    title: 'CFO',
     degree: 'Graduated from Stanford University with a degree in Science, Technology, and Society.',
-    bio: "Trevor Mayberry is the CEO and CFO of Stay Booked Marketing, where he sets the company's vision, drives strategic direction, and oversees every facet of the business from finance to daily operations. He built the company's entity structure, financial systems, and operational framework, and now leads a high-performing team, setting priorities and driving seamless execution across every department. Trevor also leads new business, meeting directly with prospective clients and closing every deal himself. He combines big-picture leadership with hands-on execution, keeping the company running at full strength while positioning it for sustained growth.",
+    bio: "Trevor Mayberry is the CFO of Stay Booked Marketing, where he owns the company's finances, from budgeting and cash flow to the systems that keep every account profitable. He built the company's entity structure and financial framework and keeps a close watch on the numbers across the business, making sure every dollar, from ad spend to payroll, is tracked and working. He pairs big-picture planning with hands-on financial management, keeping the company's foundation solid as it scales.",
     email: 'trevor@staybookedmarketing.com',
     phone: '+1 (813) 480-5818',
     photo: trevorPhoto,
