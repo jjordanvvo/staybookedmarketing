@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 import { motion, type Variants } from 'framer-motion'
 import { EASE } from '@/components/ui/Reveal'
 
@@ -12,10 +12,11 @@ import { EASE } from '@/components/ui/Reveal'
  * "becomes" the hero: a match-cut, not a wipe.
  *
  *   1. Small tracked location label + filmic progress line.
- *   2. The promise, visualized: a week's calendar stamps full of booked
- *      appointments — blocks pop in slot by slot while a counter ticks up
+ *   2. The promise, visualized: a spiral-bound paper calendar card (rings,
+ *      month header, today badge, weekday/date chips, time labels) fills up
+ *      slot by slot with booked-appointment events while a counter ticks up
  *      "24 appointments booked this week". A few dashed slots stay open,
- *      the way a real calendar looks.
+ *      the way a real week looks.
  *   3. No dead air, and no second "intro": as the last block lands, the
  *      calendar blooms away WHILE the tan demand-curve (the same rising
  *      line language as the comparison chart, no graph chrome) draws itself
@@ -53,6 +54,9 @@ export function consumeIntro() {
 
 /* ---- The week that fills up ---- */
 const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+const DATE_START = 21 // the real week: Mon Sep 21 - Sun Sep 27, 2026
+const TODAY_COL = 2 // Wed Sep 23
+const TIMES = ['9 AM', '11 AM', '1 PM', '3 PM']
 const ROWS = 4
 // The slots that stay open, "col-row" 1-indexed — a real calendar has gaps.
 const OPEN_SLOTS = new Set(['2-4', '5-2', '6-1', '4-3'])
@@ -387,37 +391,57 @@ export default function Intro({ onReveal }: { onReveal: () => void }) {
 
           {/* Beat 2 — the week books up: a real calendar, filling in. */}
           <motion.div className="intro-calwrap" aria-hidden="true" variants={calV} initial="hidden" animate={seq}>
-            <div className="cal-board">
-              {DAYS.map((d, i) => (
-                <motion.span key={d + i} className="cal-day" variants={dayV} custom={CAL_START + i * 0.04}>
-                  {d}
-                </motion.span>
-              ))}
-              {Array.from({ length: ROWS * DAYS.length }, (_, i) => {
-                const col = (i % DAYS.length) + 1
-                const row = Math.floor(i / DAYS.length) + 1
-                const key = `${col}-${row}`
-                if (OPEN_SLOTS.has(key)) {
-                  return (
-                    <motion.span
-                      key={key}
-                      className="cal-slot cal-slot-open"
-                      variants={dayV}
-                      custom={CAL_START + 0.1}
-                    />
-                  )
-                }
-                const fillIndex = FILLED.findIndex((f) => f.key === key)
-                const slot = FILLED[fillIndex]
-                return (
+            <div className="cal-card">
+              <span className="cal-ring cal-ring-l" />
+              <span className="cal-ring cal-ring-r" />
+              <div className="cal-head">
+                <span className="cal-badge">23</span>
+                <span className="cal-month">September 2026</span>
+              </div>
+              <div className="cal-board">
+                <span className="cal-corner" />
+                {DAYS.map((d, i) => (
                   <motion.span
-                    key={key}
-                    className={`cal-slot cal-slot-booked cal-slot-${slot.shade}`}
-                    variants={cellV}
-                    custom={CAL_START + fillIndex * CELL_STAG}
-                  />
-                )
-              })}
+                    key={d + i}
+                    className={`cal-day${i === TODAY_COL ? ' cal-day-today' : ''}`}
+                    variants={dayV}
+                    custom={CAL_START + i * 0.04}
+                  >
+                    {d}
+                    <em className="cal-date">{DATE_START + i}</em>
+                  </motion.span>
+                ))}
+                {TIMES.map((t, r) => (
+                  <Fragment key={t}>
+                    <span className="cal-time">{t}</span>
+                    {DAYS.map((_, ci) => {
+                      const col = ci + 1
+                      const row = r + 1
+                      const key = `${col}-${row}`
+                      if (OPEN_SLOTS.has(key)) {
+                        return (
+                          <motion.span
+                            key={key}
+                            className="cal-slot cal-slot-open"
+                            variants={dayV}
+                            custom={CAL_START + 0.1}
+                          />
+                        )
+                      }
+                      const fillIndex = FILLED.findIndex((f) => f.key === key)
+                      const slot = FILLED[fillIndex]
+                      return (
+                        <motion.span
+                          key={key}
+                          className={`cal-slot cal-slot-booked cal-slot-${slot.shade}`}
+                          variants={cellV}
+                          custom={CAL_START + fillIndex * CELL_STAG}
+                        />
+                      )
+                    })}
+                  </Fragment>
+                ))}
+              </div>
             </div>
             <motion.p className="cal-count" variants={counterV} custom={CAL_START + COUNTER_HOLD}>
               <span className="cal-count-num">{count}</span> appointments booked this week

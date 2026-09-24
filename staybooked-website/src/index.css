@@ -2189,31 +2189,127 @@ ul { list-style: none; }
   pointer-events: none;
   will-change: transform, opacity, filter;
 }
+/* The paper calendar card: rings, month header, badge, week grid. */
+.cal-card {
+  position: relative;
+  width: min(560px, 86vw);
+  background: linear-gradient(180deg, #FCF8F0 0%, #F7F1E5 100%);
+  border: 1px solid rgba(130, 104, 63, 0.24);
+  border-radius: 16px;
+  box-shadow:
+    0 20px 48px rgba(74, 60, 37, 0.16),
+    0 2px 6px rgba(74, 60, 37, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65);
+  padding: clamp(16px, 2.8vh, 22px) clamp(14px, 2.6vw, 20px) clamp(14px, 2.2vh, 18px);
+}
+/* Spiral-binding rings punched through the card's top edge. */
+.cal-ring {
+  position: absolute;
+  top: -7px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  border: 2.5px solid #82683F;
+  background: #F2EFE8;
+  box-shadow: 0 2px 4px rgba(74, 60, 37, 0.22);
+}
+.cal-ring-l { left: 24%; }
+.cal-ring-r { right: 24%; }
+.cal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: clamp(10px, 1.8vh, 16px);
+}
+.cal-badge {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: #82683F;
+  color: #F5F0E6;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.8rem;
+  box-shadow: 0 4px 10px rgba(130, 104, 63, 0.35);
+}
+.cal-month {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  font-size: 0.62rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(130, 104, 63, 0.9);
+}
 .cal-board {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 7px;
-  width: min(500px, 76vw);
+  grid-template-columns: 30px repeat(7, 1fr);
+  gap: 5px 5px;
 }
+.cal-corner { }
 .cal-day {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 3px 0;
+  border-radius: 7px;
   font-family: 'DM Sans', sans-serif;
-  font-weight: 500;
-  font-size: 0.6rem;
-  letter-spacing: 0.18em;
+  font-weight: 600;
+  font-size: 0.52rem;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: rgba(130, 104, 63, 0.85);
 }
+.cal-date {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 0.62rem;
+  letter-spacing: 0;
+  color: #2A2419;
+  font-variant-numeric: tabular-nums;
+}
+/* Today's column header — filled tan chip, the calendar's "you are here". */
+.cal-day-today {
+  background: #82683F;
+  color: #F5F0E6;
+}
+.cal-day-today .cal-date { color: #F5F0E6; }
+.cal-time {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 7px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 0.48rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(130, 104, 63, 0.5);
+  font-variant-numeric: tabular-nums;
+}
 .cal-slot {
-  height: clamp(30px, 5vh, 42px);
-  border-radius: 7px;
+  height: clamp(26px, 4.6vh, 38px);
+  border-radius: 6px;
   will-change: transform, opacity;
 }
-/* Booked slots — three near-identical warm tan shades so the grid feels
-   alive rather than stamped from one mold. */
+/* Booked slots — calendar events: warm tan fills with a darker spine on the
+   left edge, the way a booked appointment reads on a real calendar. */
 .cal-slot-booked {
+  position: relative;
   background: linear-gradient(160deg, #DCC49D 0%, #CFB48E 80%);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+.cal-slot-booked::before {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  bottom: 4px;
+  width: 3px;
+  border-radius: 2px;
+  background: rgba(42, 36, 25, 0.28);
 }
 .cal-slot-b { background: linear-gradient(160deg, #E0CBA6 0%, #D5BC96 80%); }
 .cal-slot-c { background: linear-gradient(160deg, #D3B98F 0%, #C6A87E 80%); }
