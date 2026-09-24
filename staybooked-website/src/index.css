@@ -3418,23 +3418,60 @@ html.lenis body {
 
 /* ---- responsive: the stage is desktop theater ---- */
 @media (max-width: 1099px) {
+  /* The figure comes to mobile as a pinned strip: it rides under the nav
+     at condensed scale while every section scrolls beneath it. Same story,
+     same morphs, small stage. */
   .flow { display: block; }
-  .flow-stagewrap { display: none; }
   .flow-content { border-left: none; }
-  .wkchapter-static {
-    display: block;
-    padding-top: 8px;
+  .flow-stagewrap {
+    position: sticky;
+    top: 76px;
+    height: clamp(240px, 34svh, 320px);
+    z-index: 6;
+    background: var(--offwhite);
+    border-bottom: 1px solid var(--rule);
   }
-  .wkchapter-static .wk-cell { height: 40px; }
-  .wkchapter-static-line {
-    margin: 14px 0 0;
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 0.8rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: #2A2419;
+  .flow-sticky {
+    position: static;
+    height: 100%;
+    padding: 10px 16px 12px;
+    overflow: hidden;
   }
+  .stage { height: 100%; max-width: 520px; margin: 0 auto; }
+
+  /* condensed figure internals */
+  .st-view { gap: 6px; }
+  .st-badge { font-size: 0.52rem; gap: 8px; }
+  .st-badge-no { min-width: 18px; height: 18px; font-size: 0.52rem; border-radius: 6px; }
+  .wk-count { font-size: 1.9rem; }
+  .wk-unit { font-size: 0.55rem; }
+  .wk-board { gap: 4px; margin-top: 4px; }
+  .wk-day { font-size: 0.42rem; padding-bottom: 4px; letter-spacing: 0.14em; }
+  .wk-cell { height: clamp(20px, 3.4svh, 30px); border-radius: 6px; }
+  .wk-missed, .wk-booked, .wk-open { border-radius: 6px; }
+  .wk-missed { padding: 4px; }
+  .wk-missed-dot { width: 4px; height: 4px; }
+  .wk-booked::before { left: 3px; top: 4px; bottom: 4px; width: 2px; }
+  .sys-node { padding: 7px 11px; gap: 10px; }
+  .sys-node-title { font-size: 0.8rem; }
+  .sys-node-sub { font-size: 0.6rem; }
+  .sys-glyph { width: 34px; height: 34px; border-radius: 9px; }
+  .sys-glyph-filter::before { width: 12px; height: 12px; }
+  .sys-glyph-filter::after { height: 10px; bottom: 7px; }
+  .sys-link { height: 13px; margin-left: 27px; }
+  .sys-minical { width: 34px; gap: 3px; padding: 4px; border-radius: 7px; }
+  .sys-minical-block { height: 5px; border-radius: 2px; }
+  .ledger-card { padding: 12px 14px; border-radius: 12px; }
+  .ledger-head { font-size: 0.8rem; }
+  .ledger-sub { font-size: 0.52rem; margin: 2px 0 8px; padding-bottom: 8px; }
+  .ledger-line { font-size: 0.64rem; padding: 3px 0; }
+  .ledger-total { margin-top: 6px; padding-top: 8px; }
+  .ledger-total-price { font-size: 0.9rem; }
+  .ledger-foot { font-size: 0.55rem; margin-top: 8px; }
+  .stamp-card { padding: 10px 12px; gap: 8px; border-radius: 12px; }
+  .stamp-board .wk-cell { height: clamp(14px, 2.2svh, 22px); border-radius: 4px; }
+  .stamp-word { font-size: 1.05rem; }
+  .stamp-cta { padding: 8px 18px; font-size: 0.62rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
