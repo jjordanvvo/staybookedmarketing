@@ -5,12 +5,16 @@ import { NICHES, SPEED_STATS } from '@/lib/niches'
 import { BOOKING_URL } from '@/lib/booking'
 
 /**
- * NICHE EXPLORER — the interactive graph. Pick your niche; the demand curve
- * morphs to that market's seasonality with a spring, the stat cards flip to
- * the one-pager's details, and the speed-to-lead counters re-run. Everything
- * on screen is the same story the sales one-pager tells, just alive.
+ * NICHE EXPLORER — the interactive comparison graph. Pick your niche and the
+ * same market renders twice: what bookings look like WITHOUT a system (grey,
+ * dashed, leaking demand to slow follow-up and missed inquiries) versus WITH
+ * Stay Booked (tan, higher, smooth — the captured version of the same
+ * demand). Both curves morph with a spring on every niche switch, the legend
+ * toggles each series on and off, the stat cards flip to the one-pager's
+ * details, and the speed-to-lead counters re-run (the 100x / 21x stats ARE
+ * the comparison: our 5-minute AI contact vs. a reply 30 minutes later).
  *
- * The curve is an illustrative seasonal pattern (labeled as such), not client
+ * The curves are illustrative seasonal patterns (labeled as such), not client
  * data. Reduced-motion visitors get the same section with instant swaps.
  */
 
@@ -22,6 +26,15 @@ const MONTHS = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', '
 
 const xAt = (i: number) => PAD_X + (i * (W - 2 * PAD_X)) / (MONTHS.length - 1)
 const yAt = (v: number) => H - PAD_Y - (v / 100) * (H - 2 * PAD_Y)
+
+/** The "without us" version of a niche's demand: the same market, but a
+ *  portion of every month's bookings leaks to slow replies, missed calls,
+ *  and competitors. Deterministic wobble so it never looks mechanical. */
+function without(vals: number[]): number[] {
+  return vals.map((v, i) =>
+    Math.max(8, Math.round(v * (0.52 + 0.09 * Math.sin(i * 1.9 + 2))))
+  )
+}
 
 /** Smooth cubic-bezier curve through all 12 points (same command count
  *  every time, so framer-motion can morph d values directly). */
@@ -77,8 +90,11 @@ function StatCounter({ value, suffix, label, trigger }: { value: number; suffix:
 export default function NicheExplorer() {
   const [activeId, setActiveId] = useState(NICHES[0].id)
   const [hover, setHover] = useState<number | null>(null)
+  const [showWith, setShowWith] = useState(true)
+  const [showWithout, setShowWithout] = useState(true)
   const reduce = useReducedMotion()
   const niche = NICHES.find((n) => n.id === activeId) ?? NICHES[0]
+  const withoutVals = without(niche.demand)
   // Under reduced motion the curve swaps instantly instead of flowing.
   const spring = reduce
     ? ({ duration: 0 } as const)
@@ -88,10 +104,12 @@ export default function NicheExplorer() {
     <section className="section section-deep nx-section" id="explorer">
       <div className="wrap">
         <Reveal>
-          <RevealItem as="p" className="label">The numbers</RevealItem>
-          <RevealItem as="h2" className="title">See what booked looks like.</RevealItem>
+          <RevealItem as="p" className="label">The comparison</RevealItem>
+          <RevealItem as="h2" className="title">Same market. Two very different calendars.</RevealItem>
           <RevealItem as="p" className="body why-body">
-            Pick your niche. Every system is tuned to how your market books, month by month.
+            Pick your niche. The grey line is your market without a system: demand that slow
+            follow-up and missed inquiries quietly leak away. The tan line is the same demand
+            with Stay Booked, qualified and booked within 5 minutes.
           </RevealItem>
         </Reveal>
 
@@ -128,12 +146,33 @@ export default function NicheExplorer() {
                     transition={{ duration: 0.3, ease: EASE }}
                   >
                     <p className="nx-chart-title">{niche.name}</p>
-                    <p className="nx-chart-sub">When your market books, month by month</p>
+                    <p className="nx-chart-sub">With Stay Booked vs. without a system</p>
                   </motion.div>
                 </AnimatePresence>
               </div>
 
-              <svg className="nx-chart" viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`Illustrative monthly demand pattern for ${niche.name}`}>
+              <div className="nx-legend">
+                <button
+                  type="button"
+                  className={`nx-legend-chip${showWithout ? '' : ' nx-legend-off'}`}
+                  onClick={() => setShowWithout((v) => !v)}
+                  aria-pressed={showWithout}
+                >
+                  <span className="nx-legend-swatch nx-legend-swatch-without" aria-hidden="true" />
+                  Without a system
+                </button>
+                <button
+                  type="button"
+                  className={`nx-legend-chip${showWith ? '' : ' nx-legend-off'}`}
+                  onClick={() => setShowWith((v) => !v)}
+                  aria-pressed={showWith}
+                >
+                  <span className="nx-legend-swatch nx-legend-swatch-with" aria-hidden="true" />
+                  With Stay Booked
+                </button>
+              </div>
+
+              <svg className="nx-chart" viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`Illustrative comparison for ${niche.name}: bookings without a system versus with Stay Booked`}>
                 <defs>
                   <linearGradient id="nx-area" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="0%" stopColor="#CFB48E" stopOpacity="0.55" />
@@ -146,37 +185,61 @@ export default function NicheExplorer() {
                   <line key={g} className="nx-gridline" x1={PAD_X} x2={W - PAD_X} y1={yAt(g)} y2={yAt(g)} />
                 ))}
 
-                {/* area + line morph to the active niche */}
+                {/* WITHOUT — grey dashed leak of the same demand */}
+                <motion.path
+                  className="nx-line nx-line-without"
+                  style={{ opacity: showWithout ? 1 : 0 }}
+                  initial={false}
+                  animate={{ d: curveD(withoutVals) }}
+                  transition={spring}
+                />
+
+                {/* WITH — the captured demand: gradient area + line */}
                 <motion.path
                   fill="url(#nx-area)"
+                  style={{ opacity: showWith ? 1 : 0 }}
                   initial={false}
                   animate={{ d: areaD(niche.demand) }}
                   transition={spring}
                 />
                 <motion.path
                   className="nx-line"
+                  style={{ opacity: showWith ? 1 : 0 }}
                   initial={false}
                   animate={{ d: curveD(niche.demand) }}
                   transition={spring}
                 />
 
-                {/* month points + hover bubbles */}
+                {/* month points + hover bubbles (both series) */}
                 {MONTHS.map((m, i) => (
                   <g key={m}>
-                    <motion.circle
-                      className="nx-dot"
-                      r={hover === i ? 6 : 3.5}
-                      initial={false}
-                      animate={{ cy: yAt(niche.demand[i]), cx: xAt(i) }}
-                      transition={spring}
-                      onMouseEnter={() => setHover(i)}
-                      onMouseLeave={() => setHover(null)}
-                    />
+                    {showWithout && (
+                      <motion.circle
+                        className="nx-dot nx-dot-without"
+                        r={hover === i ? 5 : 3}
+                        initial={false}
+                        animate={{ cy: yAt(withoutVals[i]), cx: xAt(i) }}
+                        transition={spring}
+                        onMouseEnter={() => setHover(i)}
+                        onMouseLeave={() => setHover(null)}
+                      />
+                    )}
+                    {showWith && (
+                      <motion.circle
+                        className="nx-dot"
+                        r={hover === i ? 6 : 3.5}
+                        initial={false}
+                        animate={{ cy: yAt(niche.demand[i]), cx: xAt(i) }}
+                        transition={spring}
+                        onMouseEnter={() => setHover(i)}
+                        onMouseLeave={() => setHover(null)}
+                      />
+                    )}
                     {hover === i && (
                       <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                        <rect className="nx-bubble-box" x={xAt(i) - 44} y={yAt(niche.demand[i]) - 42} width="88" height="30" rx="15" />
-                        <text className="nx-bubble-text" x={xAt(i)} y={yAt(niche.demand[i]) - 22} textAnchor="middle">
-                          {MONTHS[i]} · {niche.demand[i]}
+                        <rect className="nx-bubble-box" x={xAt(i) - 72} y={yAt(niche.demand[i]) - 46} width="144" height="32" rx="16" />
+                        <text className="nx-bubble-text" x={xAt(i)} y={yAt(niche.demand[i]) - 25} textAnchor="middle">
+                          {MONTHS[i]}: {withoutVals[i]} → {niche.demand[i]}
                         </text>
                       </motion.g>
                     )}
@@ -189,7 +252,10 @@ export default function NicheExplorer() {
                   <span key={m}>{m}</span>
                 ))}
               </div>
-              <p className="nx-note">Illustrative seasonal demand pattern for {niche.name.toLowerCase()}.</p>
+              <p className="nx-note">
+                Illustrative comparison for {niche.name.toLowerCase()}: the same seasonal demand,
+                with and without 5-minute AI follow-up and booking.
+              </p>
             </div>
 
             {/* The one-pager details, animated per niche */}

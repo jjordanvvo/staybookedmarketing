@@ -2724,3 +2724,43 @@ ul { list-style: none; }
   .nx-stats { grid-template-columns: 1fr; gap: 10px; }
   .nx-invest-row { grid-template-columns: 64px 1fr 82px; }
 }
+
+/* ---- Niche Explorer: comparison styling ---- */
+.nx-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 16px 0 12px;
+}
+.nx-legend-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 14px;
+  border: 1px solid var(--card-border);
+  border-radius: 999px;
+  background: var(--page-bg);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text);
+  cursor: pointer;
+  transition: opacity 0.25s var(--ease), border-color 0.25s var(--ease);
+}
+.nx-legend-chip:hover { border-color: var(--tan-ink); }
+.nx-legend-off { opacity: 0.42; }
+.nx-legend-swatch {
+  width: 22px;
+  height: 0;
+  border-top: 2.5px solid var(--tan-ink);
+  border-radius: 2px;
+}
+.nx-legend-swatch-without { border-top: 2.5px dashed rgba(58, 58, 58, 0.65); }
+.nx-line-without {
+  stroke: rgba(58, 58, 58, 0.55);
+  stroke-width: 2;
+  stroke-dasharray: 5 6;
+}
+.nx-dot-without { fill: rgba(58, 58, 58, 0.55); }

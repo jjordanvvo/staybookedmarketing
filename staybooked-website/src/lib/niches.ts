@@ -154,11 +154,12 @@ export const NICHES: Niche[] = [
   },
 ]
 
-/** The universal speed-to-lead stats every one-pager leads with. */
+/** The universal speed-to-lead stats every one-pager leads with — the
+ *  comparison itself: our 5-minute AI contact vs. a reply 30 minutes later. */
 export const SPEED_STATS = [
-  { value: 5, suffix: ' min', label: 'every inquiry contacted within' },
-  { value: 100, suffix: 'x', label: 'more likely to be reached' },
-  { value: 21, suffix: 'x', label: 'more likely to be qualified' },
+  { value: 5, suffix: ' min', label: 'every inquiry contacted within — versus the 30-minute-later industry norm' },
+  { value: 100, suffix: 'x', label: 'more likely to be reached than a lead contacted 30 minutes later' },
+  { value: 21, suffix: 'x', label: 'more likely to be qualified than a lead contacted 30 minutes later' },
 ]
 
 /** Investment, identical structure in every one-pager. */
