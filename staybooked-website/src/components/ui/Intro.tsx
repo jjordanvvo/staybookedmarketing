@@ -17,10 +17,11 @@ import { EASE } from '@/components/ui/Reveal'
  *      slot by slot with booked-appointment events while a counter ticks up
  *      "24 appointments booked this week". A few dashed slots stay open,
  *      the way a real week looks.
- *   3. No dead air, and no second "intro": as the last block lands, the
- *      calendar blooms away WHILE the tan demand-curve (the same rising
- *      line language as the comparison chart, no graph chrome) draws itself
- *      upward through the stage, its gradient wash blooming behind it.
+ *   3. No dead air, and no second "intro": the tan demand-curve (the same
+ *      rising line language as the comparison chart, no graph chrome) starts
+ *      drawing through the calendar card BEFORE it blooms away — the line
+ *      emerges from the card's own position, so calendar, curve, and type
+ *      are one continuous upward motion with no empty stage between beats.
  *      Mid-draw, "STAY BOOKED." letters start rising through line masks in
  *      the curve's wake; the curve dissolves upward into the landed title
  *      — one continuous upward motion from fill to bloom to curve to type.
@@ -76,18 +77,18 @@ const FILL_COUNT = FILLED.length // 24
 const CAL_START = 0.5 // day headers + first block land
 const CELL_STAG = 0.046 // booking blocks stamp in, one after another
 const COUNTER_HOLD = 0.3 // counter line fades in as the fills begin
-const CAL_BLOOM_AT = 1.86 // last blocks still settling → bloom already starts
-const CAL_OUT_AT = 2.3 // calendar fully gone (curve is mid-draw by then)
-const LINE_AT = 1.86 // the rising curve begins drawing through the bloom
-const LINE_DUR = 0.95 // draw time; the curve completes as the letters rise
-const LINE_OUT_AT = 2.92 // curve dissolves upward into the landed title
-const TITLE_AT = 2.66 // letters rise in the curve's wake, mid-draw
+const CAL_BLOOM_AT = 1.78 // last blocks still settling → bloom already starts
+const CAL_OUT_AT = 2.16 // calendar fully gone (curve is already crossing it)
+const LINE_AT = 1.7 // curve starts drawing BEFORE the bloom — through the card
+const LINE_DUR = 1.0 // draw time; the curve completes as the letters rise
+const LINE_OUT_AT = 2.85 // curve dissolves upward into the landed title
+const TITLE_AT = 2.5 // letters rise in the curve's wake, still mid-draw
 const LETTER_STAGGER = 0.045
-const DOT_AT = 3.28 // brand period pop
-const RING_AT = 3.4 // ripple ring around the period
-const SWEEP_AT = 3.62 // light sweep passes across the landed title
-const TAG_AT = 3.74 // serif brand line
-const EXIT_AT = 4.9 // curtains begin
+const DOT_AT = 3.15 // brand period pop
+const RING_AT = 3.27 // ripple ring around the period
+const SWEEP_AT = 3.49 // light sweep passes across the landed title
+const TAG_AT = 3.61 // serif brand line
+const EXIT_AT = 4.8 // curtains begin
 
 const WORDS = ['STAY', 'BOOKED']
 
@@ -162,7 +163,7 @@ const calV: Variants = {
 // its gradient wash blooming in behind near completion, then the whole curve
 // dissolves upward into the landing title — one motion, no held beat.
 const LINE_PATH =
-  'M 70 300 C 130 292, 150 270, 190 262 C 240 252, 250 236, 300 210 C 350 184, 370 172, 430 130 C 480 95, 510 80, 570 56'
+  'M 260 302 C 200 296, 170 282, 150 250 C 125 214, 165 180, 230 158 C 300 136, 360 120, 430 94 C 490 73, 545 60, 585 48'
 const LINE_AREA =
   LINE_PATH + ' L 570 320 L 70 320 Z'
 const curveV: Variants = {
@@ -174,7 +175,7 @@ const curveV: Variants = {
       pathLength: { duration: LINE_DUR, ease: EASE, delay: LINE_AT },
       opacity: {
         duration: LINE_OUT_AT + 0.35 - LINE_AT,
-        times: [0, 0.12, 0.72, 1],
+        times: [0, 0.07, 0.72, 1],
         ease: EASE,
         delay: LINE_AT,
       },
@@ -468,7 +469,7 @@ export default function Intro({ onReveal }: { onReveal: () => void }) {
                 d={LINE_PATH}
                 fill="none"
                 stroke="url(#introLineInk)"
-                strokeWidth="7"
+                strokeWidth="8"
                 strokeLinecap="round"
                 variants={curveV}
                 initial="hidden"
