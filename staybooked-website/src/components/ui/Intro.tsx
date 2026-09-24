@@ -16,10 +16,12 @@ import { EASE } from '@/components/ui/Reveal'
  *      appointments — blocks pop in slot by slot while a counter ticks up
  *      "24 appointments booked this week". A few dashed slots stay open,
  *      the way a real calendar looks.
- *   3. The calendar blooms away in a soft blur as "STAY BOOKED." rises
- *      letter-by-letter through line masks; the tan brand period spring-pops
- *      with a ripple ring; a light sweep passes across the landed title and
- *      the brand line settles underneath in serif italic.
+ *   3. No dead air: as the calendar blooms away, a bold gradient arrow
+ *      scales upward out of it — demand rising — then rockets out of frame
+ *      as "STAY BOOKED." rises letter-by-letter through line masks; the tan
+ *      brand period spring-pops with a ripple ring; a light sweep passes
+ *      across the landed title and the brand line settles below in serif
+ *      italic. The whole beat chain overlaps: fill → bloom → arrow → title.
  *   4. Curtain exit, hero settles in beneath (choreographed via onReveal).
  *
  * Plays once per full page load (router navigation back to "/" never replays
@@ -67,12 +69,16 @@ const FILL_COUNT = FILLED.length // 24
 const CAL_START = 0.55 // day headers + first block land
 const CELL_STAG = 0.052 // booking blocks stamp in, one after another
 const COUNTER_HOLD = 0.35 // counter line fades in as the fills begin
-const TITLE_AT = 3.05 // calendar blooms away, first letter rises
+const CAL_BLOOM_AT = 2.28 // fills done → calendar immediately blooms away
+const CAL_OUT_AT = 2.72 // calendar fully gone
+const ARROW_AT = 2.42 // arrow scales upward while the calendar blooms out
+const ARROW_LAUNCH = 3.03 // arrow rockets up, handing off to the letters
+const TITLE_AT = 3.1 // first letter rises as the arrow exits
 const LETTER_STAGGER = 0.045
-const DOT_AT = 3.68 // brand period pop
-const RING_AT = 3.8 // ripple ring around the period
-const SWEEP_AT = 4.02 // light sweep passes across the landed title
-const TAG_AT = 4.14 // serif brand line
+const DOT_AT = 3.72 // brand period pop
+const RING_AT = 3.84 // ripple ring around the period
+const SWEEP_AT = 4.06 // light sweep passes across the landed title
+const TAG_AT = 4.18 // serif brand line
 const EXIT_AT = 5.4 // curtains begin
 
 const WORDS = ['STAY', 'BOOKED']
@@ -118,8 +124,10 @@ const counterV: Variants = {
 }
 
 // The whole calendar: rises in as the fills begin, holds while the week books
-// up, then blooms away (scale + blur) exactly as the headline takes over.
+// up, then blooms away (scale + blur) the instant the fills finish — no dead
+// air before the arrow/title chain takes over.
 const CAL_LAND = 0.32 // seconds from CAL_START to fully landed
+const CAL_DUR = CAL_OUT_AT - (CAL_START - 0.15)
 const calV: Variants = {
   hidden: { opacity: 0, y: 26, scale: 0.96, filter: 'blur(8px)' },
   show: {
@@ -128,10 +136,33 @@ const calV: Variants = {
     scale: [0.96, 1, 1, 1.07],
     filter: ['blur(8px)', 'blur(0px)', 'blur(0px)', 'blur(14px)'],
     transition: {
-      duration: TITLE_AT + 0.25 - (CAL_START - 0.15),
-      times: [0, CAL_LAND / 3, 0.79, 1],
+      duration: CAL_DUR,
+      times: [
+        0,
+        CAL_LAND / CAL_DUR,
+        (CAL_BLOOM_AT - (CAL_START - 0.15)) / CAL_DUR,
+        1,
+      ],
       ease: EASE,
       delay: CAL_START - 0.15,
+    },
+  },
+}
+
+// The arrow: scales upward out of the blooming calendar — demand rising —
+// holds a beat, then stretches and rockets out of frame as the letters take
+// over. One keyframed variant so the whole life cycle runs itself.
+const arrowV: Variants = {
+  hidden: { opacity: 0, y: 44, scaleY: 0.2 },
+  show: {
+    opacity: [0, 1, 1, 0],
+    y: [44, 0, 0, -160],
+    scaleY: [0.2, 1.05, 1, 1.18],
+    transition: {
+      duration: ARROW_LAUNCH + 0.45 - ARROW_AT,
+      times: [0, 0.36, 0.58, 1],
+      ease: EASE,
+      delay: ARROW_AT,
     },
   },
 }
@@ -358,7 +389,22 @@ export default function Intro({ onReveal }: { onReveal: () => void }) {
             </motion.p>
           </motion.div>
 
-          {/* Beat 3 — the masked headline, period pop, and brand line. */}
+          {/* Beat 3 — the rising arrow: scales up out of the blooming calendar,
+              then launches upward as the headline takes over. */}
+          <motion.div className="intro-arrowwrap" aria-hidden="true" variants={arrowV} initial="hidden" animate={seq}>
+            <svg className="intro-arrow" viewBox="0 0 90 130" style={{ transformOrigin: '50% 100%' }}>
+              <defs>
+                <linearGradient id="introArrowInk" x1="0" y1="130" x2="0" y2="40" gradientUnits="userSpaceOnUse">
+                  <stop offset="0" stopColor="#3A3226" />
+                  <stop offset="1" stopColor="#82683F" />
+                </linearGradient>
+              </defs>
+              <path d="M45 128 V52" stroke="url(#introArrowInk)" strokeWidth="13" strokeLinecap="round" fill="none" />
+              <path d="M17 80 45 52 73 80" stroke="url(#introArrowInk)" strokeWidth="13" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+            </svg>
+          </motion.div>
+
+          {/* Beat 4 — the masked headline, period pop, and brand line. */}
           <div className="intro-titlewrap">
             <h1 className="intro-title" aria-label="Stay Booked.">
               {WORDS.map((word, wi) => (
