@@ -17,16 +17,12 @@ import { EASE } from '@/components/ui/Reveal'
  *      slot by slot with booked-appointment events while a counter ticks up
  *      "24 appointments booked this week". A few dashed slots stay open,
  *      the way a real week looks.
- *   3. No dead air, and no second "intro": the tan demand-curve (the same
- *      rising line language as the comparison chart, no graph chrome) starts
- *      drawing through the calendar card BEFORE it blooms away — the line
- *      emerges from the card's own position, so calendar, curve, and type
- *      are one continuous upward motion with no empty stage between beats.
- *      Mid-draw, "STAY BOOKED." letters start rising through line masks in
- *      the curve's wake; the curve dissolves upward into the landed title
- *      — one continuous upward motion from fill to bloom to curve to type.
- *      The tan brand period spring-pops with a ripple ring, a light sweep
- *      passes across the title, and the brand line settles below.
+ *   3. Clean handoff, no middle beat: as the last blocks settle, the
+ *      calendar blooms away WHILE "STAY BOOKED." letters rise through line
+ *      masks in its place — the two motions overlap, so the calendar hands
+ *      the stage straight to the type with nothing in between. The tan
+ *      brand period spring-pops with a ripple ring, a light sweep passes
+ *      across the landed title, and the brand line settles below.
  *   4. Curtain exit, hero settles in beneath (choreographed via onReveal).
  *
  * Plays once per full page load (router navigation back to "/" never replays
@@ -78,17 +74,14 @@ const CAL_START = 0.5 // day headers + first block land
 const CELL_STAG = 0.046 // booking blocks stamp in, one after another
 const COUNTER_HOLD = 0.3 // counter line fades in as the fills begin
 const CAL_BLOOM_AT = 1.78 // last blocks still settling → bloom already starts
-const CAL_OUT_AT = 2.16 // calendar fully gone (curve is already crossing it)
-const LINE_AT = 1.7 // curve starts drawing BEFORE the bloom — through the card
-const LINE_DUR = 1.0 // draw time; the curve completes as the letters rise
-const LINE_OUT_AT = 2.85 // curve dissolves upward into the landed title
-const TITLE_AT = 2.5 // letters rise in the curve's wake, still mid-draw
+const CAL_OUT_AT = 2.2 // calendar fully gone
+const TITLE_AT = 1.9 // letters rise as the calendar blooms — direct handoff
 const LETTER_STAGGER = 0.045
-const DOT_AT = 3.15 // brand period pop
-const RING_AT = 3.27 // ripple ring around the period
-const SWEEP_AT = 3.49 // light sweep passes across the landed title
-const TAG_AT = 3.61 // serif brand line
-const EXIT_AT = 4.8 // curtains begin
+const DOT_AT = 2.95 // brand period pop
+const RING_AT = 3.07 // ripple ring around the period
+const SWEEP_AT = 3.29 // light sweep passes across the landed title
+const TAG_AT = 3.41 // serif brand line
+const EXIT_AT = 4.7 // curtains begin
 
 const WORDS = ['STAY', 'BOOKED']
 
@@ -154,55 +147,6 @@ const calV: Variants = {
       ],
       ease: EASE,
       delay: CAL_START - 0.15,
-    },
-  },
-}
-
-// The rising curve: the comparison chart's tan with-line, freed of its graph
-// chrome. It draws itself upward through the blooming calendar (pathLength),
-// its gradient wash blooming in behind near completion, then the whole curve
-// dissolves upward into the landing title — one motion, no held beat.
-const LINE_PATH =
-  'M 260 302 C 200 296, 170 282, 150 250 C 125 214, 165 180, 230 158 C 300 136, 360 120, 430 94 C 490 73, 545 60, 585 48'
-const LINE_AREA =
-  LINE_PATH + ' L 570 320 L 70 320 Z'
-const curveV: Variants = {
-  hidden: { pathLength: 0, opacity: 0 },
-  show: {
-    pathLength: 1,
-    opacity: [0, 1, 1, 0],
-    transition: {
-      pathLength: { duration: LINE_DUR, ease: EASE, delay: LINE_AT },
-      opacity: {
-        duration: LINE_OUT_AT + 0.35 - LINE_AT,
-        times: [0, 0.07, 0.72, 1],
-        ease: EASE,
-        delay: LINE_AT,
-      },
-    },
-  },
-}
-const curveWrapV: Variants = {
-  hidden: { y: 0 },
-  show: {
-    y: [0, 0, -46],
-    transition: {
-      duration: LINE_OUT_AT + 0.35 - LINE_AT,
-      times: [0, 0.7, 1],
-      ease: EASE,
-      delay: LINE_AT,
-    },
-  },
-}
-const areaV: Variants = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: [0, 0.16, 0.16, 0],
-    transition: {
-      duration: LINE_OUT_AT + 0.35 - (LINE_AT + 0.55),
-      times: [0, 0.45, 0.75, 1],
-      ease: EASE,
-      delay: LINE_AT + 0.55,
     },
   },
 }
@@ -449,36 +393,7 @@ export default function Intro({ onReveal }: { onReveal: () => void }) {
             </motion.p>
           </motion.div>
 
-          {/* Beat 3 — the rising curve: draws itself up through the blooming
-              calendar (no graph chrome), wash blooming behind, then dissolves
-              upward into the landing headline. One motion, no held beat. */}
-          <motion.div className="intro-curvewrap" aria-hidden="true" variants={curveWrapV} initial="hidden" animate={seq}>
-            <svg className="intro-curve" viewBox="0 0 640 360">
-              <defs>
-                <linearGradient id="introLineInk" x1="70" y1="300" x2="570" y2="56" gradientUnits="userSpaceOnUse">
-                  <stop offset="0" stopColor="#82683F" />
-                  <stop offset="1" stopColor="#CFB48E" />
-                </linearGradient>
-                <linearGradient id="introLineWash" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0" stopColor="#CFB48E" stopOpacity="0.7" />
-                  <stop offset="1" stopColor="#CFB48E" stopOpacity="0" />
-                </linearGradient>
-              </defs>
-              <motion.path d={LINE_AREA} fill="url(#introLineWash)" variants={areaV} initial="hidden" animate={seq} />
-              <motion.path
-                d={LINE_PATH}
-                fill="none"
-                stroke="url(#introLineInk)"
-                strokeWidth="8"
-                strokeLinecap="round"
-                variants={curveV}
-                initial="hidden"
-                animate={seq}
-              />
-            </svg>
-          </motion.div>
-
-          {/* Beat 4 — the masked headline, period pop, and brand line. */}
+          {/* Beat 3 — the masked headline, period pop, and brand line. */}
           <div className="intro-titlewrap">
             <h1 className="intro-title" aria-label="Stay Booked.">
               {WORDS.map((word, wi) => (
