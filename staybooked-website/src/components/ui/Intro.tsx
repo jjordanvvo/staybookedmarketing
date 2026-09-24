@@ -71,17 +71,17 @@ const FILL_COUNT = FILLED.length // 24
 
 /* ---- Timeline (seconds, relative to "armed" = fonts ready) ---- */
 const CAL_START = 0.5 // day headers + first block land
-const CELL_STAG = 0.065 // slower, breathier fills — the week books up calmly
+const CELL_STAG = 0.055 // calm but tight — the week fills in ~1.8s
 const COUNTER_HOLD = 0.3 // counter line fades in as the fills begin
-const CAL_BLOOM_AT = 2.0 // last blocks still landing → bloom already starts
-const CAL_OUT_AT = 2.6 // calendar fades out WHILE the title is rising over it
-const TITLE_AT = 2.1 // letters rise as the calendar blooms — one motion
-const LETTER_STAGGER = 0.045
-const DOT_AT = 2.95 // brand period pop
-const RING_AT = 3.07 // ripple ring around the period
-const SWEEP_AT = 3.35 // light sweep passes across the landed title
-const TAG_AT = 3.5 // serif brand line
-const EXIT_AT = 4.95 // curtains begin
+const CAL_BLOOM_AT = 1.85 // fills done + counter hits 24 → bloom immediately
+const CAL_OUT_AT = 2.35 // calendar fades out under the rising title
+const TITLE_AT = 1.85 // letters rise the SAME instant the bloom starts
+const LETTER_STAGGER = 0.03 // tighter stagger — the title reads as one mass
+const DOT_AT = 2.55 // brand period pop
+const RING_AT = 2.67 // ripple ring around the period
+const SWEEP_AT = 2.95 // light sweep passes across the landed title
+const TAG_AT = 3.05 // serif brand line
+const EXIT_AT = 4.55 // curtains begin
 
 const WORDS = ['STAY', 'BOOKED']
 
@@ -157,7 +157,7 @@ const letterV: Variants = {
   show: (delay: number) => ({
     y: '0%',
     filter: 'blur(0px)',
-    transition: { type: 'spring', stiffness: 120, damping: 16, mass: 0.95, delay },
+    transition: { type: 'spring', stiffness: 150, damping: 17, mass: 0.9, delay },
   }),
 }
 
