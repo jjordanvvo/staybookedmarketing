@@ -3428,8 +3428,14 @@ html.lenis body {
     top: 76px;
     height: clamp(240px, 34svh, 320px);
     z-index: 6;
-    background: var(--offwhite);
-    border-bottom: 1px solid var(--rule);
+    background: transparent;
+    /* Frosted glass, not a panel: content scrolling beneath blurs softly
+       instead of being blocked, and the strip fades out at its bottom edge
+       so sections emerge smoothly. */
+    -webkit-backdrop-filter: blur(18px) saturate(1.05);
+    backdrop-filter: blur(18px) saturate(1.05);
+    -webkit-mask-image: linear-gradient(to bottom, #000 80%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 80%, transparent 100%);
   }
   .flow-sticky {
     position: static;
