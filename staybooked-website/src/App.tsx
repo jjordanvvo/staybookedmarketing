@@ -1,5 +1,7 @@
 import { useEffect } from 'react'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import SmoothScroll from '@/components/ui/SmoothScroll'
+import ScrollProgress from '@/components/ui/ScrollProgress'
 import Home from '@/pages/Home'
 import Privacy from '@/pages/Privacy'
 import Terms from '@/pages/Terms'
@@ -33,6 +35,8 @@ function ScrollToTop() {
 export default function App() {
   return (
     <BrowserRouter>
+      <SmoothScroll />
+      <ScrollProgress />
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />

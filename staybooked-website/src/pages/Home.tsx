@@ -3,6 +3,7 @@ import Intro, { claimIntro, consumeIntro } from '@/components/ui/Intro'
 import Navbar from '@/components/sections/Navbar'
 import Hero from '@/components/sections/Hero'
 import HeroStatement from '@/components/sections/HeroStatement'
+import WeekScene from '@/components/sections/WeekScene'
 import FeatureBand from '@/components/sections/FeatureBand'
 import HowWeWork from '@/components/sections/HowWeWork'
 import Services from '@/components/sections/Services'
@@ -40,6 +41,7 @@ export default function Home() {
       {revealed && (
         <>
           <HeroStatement />
+          <WeekScene />
           <FeatureBand />
           <HowWeWork />
           <Services />

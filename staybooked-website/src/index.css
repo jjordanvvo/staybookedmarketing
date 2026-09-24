@@ -2870,3 +2870,254 @@ ul { list-style: none; }
 }
 .nx-endlabel-with { fill: var(--tan-ink); }
 .nx-endlabel-without { fill: rgba(58, 58, 58, 0.6); font-size: 11.5px; }
+
+/* ============================================================
+   SMOOTH SCROLL + PROGRESS HAIRLINE
+   ============================================================ */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--tan-ink);
+  z-index: 90;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* ============================================================
+   WEEK SCENE — pinned two-act centerpiece (Act I the leak,
+   Act II the fill; scrubbed by scroll)
+   ============================================================ */
+.wk {
+  height: 300vh;
+  position: relative;
+  background: var(--offwhite);
+  border-bottom: 1px solid var(--rule);
+}
+.wk-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+/* Warm dawn — blooms over the stage through Act II */
+.wk-wash {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(120% 90% at 78% 16%, rgba(207, 180, 142, 0.28) 0%, rgba(207, 180, 142, 0) 55%),
+    radial-gradient(90% 70% at 15% 88%, rgba(130, 104, 63, 0.1) 0%, rgba(130, 104, 63, 0) 60%);
+  pointer-events: none;
+}
+.wk-stage {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(300px, 40%) 1fr;
+  gap: clamp(32px, 5vw, 80px);
+  width: min(1240px, 100%);
+  margin: 0 auto;
+  padding: clamp(64px, 9vh, 110px) clamp(20px, 5vw, 64px) clamp(40px, 6vh, 72px);
+  align-items: center;
+}
+.wk-chapter {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  font-size: 0.62rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(130, 104, 63, 0.9);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: clamp(14px, 3vh, 26px);
+}
+.wk-chapter-no {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 7px;
+  background: var(--tan-ink);
+  color: #F5F0E6;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.62rem;
+  letter-spacing: 0;
+}
+.wk-count {
+  position: relative;
+  height: 0.95em;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(4.4rem, 12.5vw, 10.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+.wk-num {
+  position: absolute;
+  left: 0;
+  top: 0;
+  will-change: opacity;
+}
+.wk-num-ink { color: #2A2419; }
+.wk-num-tan { color: var(--tan-ink); }
+.wk-unitwrap {
+  position: relative;
+  height: 1.6em;
+  margin-top: 10px;
+}
+.wk-unit {
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(130, 104, 63, 0.9);
+}
+.wk-acts {
+  position: relative;
+  min-height: 5.4em;
+  margin-top: clamp(16px, 3.4vh, 30px);
+}
+.wk-act {
+  position: absolute;
+  left: 0;
+  top: 0;
+  max-width: 36ch;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #5A5142;
+  will-change: opacity;
+}
+/* The board — the intro's calendar language, full size */
+.wk-boardwrap {
+  min-width: 0;
+}
+.wk-board {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: clamp(6px, 0.9vw, 12px);
+}
+.wk-day {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(130, 104, 63, 0.85);
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--rule);
+  text-align: left;
+}
+.wk-cell {
+  position: relative;
+  height: clamp(52px, 12.5vh, 104px);
+  border-radius: 10px;
+  background: rgba(20, 20, 20, 0.035);
+  box-shadow: inset 0 0 0 1px rgba(20, 20, 20, 0.05);
+}
+.wk-missed {
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  background: rgba(42, 36, 25, 0.09);
+  border: 1px dashed rgba(42, 36, 25, 0.38);
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 8px;
+  will-change: transform, opacity;
+}
+.wk-missed-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(42, 36, 25, 0.55);
+}
+.wk-booked {
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  background: linear-gradient(160deg, #DCC49D 0%, #CFB48E 80%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  will-change: transform, opacity;
+}
+.wk-booked::before {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 7px;
+  bottom: 7px;
+  width: 3px;
+  border-radius: 2px;
+  background: rgba(42, 36, 25, 0.28);
+}
+.wk-shade-1 { background: linear-gradient(160deg, #E0CBA6 0%, #D5BC96 80%); }
+.wk-shade-2 { background: linear-gradient(160deg, #D3B98F 0%, #C6A87E 80%); }
+.wk-open {
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  border: 1px dashed rgba(130, 104, 63, 0.35);
+}
+.wk-open-dot {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  margin: -3.5px 0 0 -3.5px;
+  border-radius: 50%;
+  background: var(--tan-ink);
+}
+.wk-endline {
+  margin-top: clamp(14px, 2.6vh, 26px);
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(0.85rem, 1.6vw, 1.05rem);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #2A2419;
+  will-change: opacity;
+}
+
+@media (max-width: 900px) {
+  .wk { height: 280vh; }
+  .wk-stage {
+    grid-template-columns: 1fr;
+    gap: clamp(18px, 3vh, 28px);
+    padding: clamp(76px, 11vh, 96px) 20px clamp(28px, 5vh, 48px);
+    align-content: center;
+  }
+  .wk-count { font-size: clamp(3.6rem, 17vw, 5.2rem); height: 1em; }
+  .wk-chapter { margin-bottom: 8px; }
+  .wk-acts { min-height: 4.6em; margin-top: 10px; }
+  .wk-act { font-size: 0.82rem; }
+  .wk-day { font-size: 0.46rem; padding-bottom: 5px; }
+  .wk-cell { height: clamp(40px, 8.2vh, 66px); border-radius: 8px; }
+  .wk-missed, .wk-booked, .wk-open { border-radius: 8px; }
+  .wk-unitwrap { height: 1.4em; margin-top: 4px; }
+  .wk-unit { font-size: 0.6rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wk { height: auto; }
+  .wk-sticky { position: static; height: auto; padding: 64px 20px; }
+}
