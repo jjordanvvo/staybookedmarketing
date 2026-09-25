@@ -1,5 +1,5 @@
 /**
- * The eight niches Stay Booked serves — one per sales one-pager — and the
+ * The niches Stay Booked serves — one per sales one-pager — and the
  * canonical data behind both the "Who we help" list (Industries.tsx), the
  * niche detail overlays, the site search, and the interactive Niche Explorer.
  *
@@ -151,6 +151,20 @@ export const NICHES: Niche[] = [
     tuned: 'launches, drops, and promo windows',
     varies: 'campaign & season',
     demand: [66, 60, 56, 62, 72, 66, 60, 66, 76, 84, 100, 100],
+  },
+  {
+    id: 'real-estate',
+    name: 'Real Estate',
+    desc: 'Realtors and listing agents turning buyer and seller interest into booked showings and consults.',
+    examples: 'Realtors, listing agents, and brokerages',
+    whatWeDo:
+      'We run high-converting campaigns across Google, Instagram, and Facebook that put your listings in front of buyers the moment they start searching. You already live on Zillow, and we build on that: our ads catch buyers early, route them to your listings and your calendar, and our AI answers every inquiry in real time. The result: showing requests and buyer consults booked automatically, flowing straight into the pipeline you already run.',
+    books: ['Showing requests', 'Buyer consults', 'Listing appointments'],
+    handoff: 'your phone',
+    guarantee: 'qualified showing requests',
+    tuned: 'your listings, neighborhoods, and price bands',
+    varies: 'market & listing volume',
+    demand: [46, 52, 72, 82, 92, 96, 100, 92, 76, 68, 58, 48],
   },
 ]
 
