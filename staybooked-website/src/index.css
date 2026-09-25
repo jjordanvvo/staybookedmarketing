@@ -3639,3 +3639,10 @@ html.lenis body {
   .cc-row-2 { grid-template-columns: 1fr; }
   .cc-line-value { font-size: 34px; }
 }
+
+/* Mobile: no pinned figure strip at all (Kolby, Sept 24) — the calendar-fill
+   and ledger/stamp animations stay desktop-only. Later rule wins over the
+   frosted-strip styles above. */
+@media (max-width: 1100px) {
+  .flow-stagewrap { display: none; }
+}
