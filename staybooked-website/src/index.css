@@ -14,23 +14,23 @@
 /* ---- Tokens ---- */
 /* Matte cream / rich black / textured warm-white palette */
 :root {
-  --page-bg:    #8B6C42;   /* matte cream        (was skyLight)      */
-  --alt-bg:     #94744A;   /* soft warm white    (was skyAlt)        */
-  --deep-bg:    #9E7E52;   /* elevated shiny white (was skyDeep)     */
-  --nav-bg:     rgba(139,108,66,0.85);
+  --page-bg:    #6B4E2E;   /* matte cream        (was skyLight)      */
+  --alt-bg:     #755634;   /* soft warm white    (was skyAlt)        */
+  --deep-bg:    #7F5F3A;   /* elevated shiny white (was skyDeep)     */
+  --nav-bg:     rgba(107,78,46,0.85);
   --logo-blue:  #F7F4EE;   /* rich black         (was logoBlue)      */
   --accent:     #F7F4EE;   /* rich black accents (was logoBlue)      */
   --text:       #FBF9F2;   /* rich black         (was textPrimary)   */
   --text-2:     #EFE8D8;   /* soft charcoal      (was textSecondary) */
-  --border:     #A98F68;   /* warm mid grey                          */
+  --border:     #B4976A;   /* warm mid grey                          */
   --white-surface: rgba(255,252,246,0.10);
   --footer-bg:  #F0EBE0;   /* near black         (was footerDark)    */
 
   /* Editorial additions */
   --ink:        #F7F4EE;   /* rich black for statement type */
-  --offwhite:   #7C5E38;   /* soft warm white surface */
-  --rule:       #A98F68;   /* warm mid grey hairline separators */
-  --card-border: #A98F68;  /* warm mid grey card borders */
+  --offwhite:   #5C4226;   /* soft warm white surface */
+  --rule:       #B4976A;   /* warm mid grey hairline separators */
+  --card-border: #B4976A;  /* warm mid grey card borders */
   /* Soft sheen for elevated surfaces: lighter top-left, warmer bottom-right */
   --sheen: linear-gradient(135deg, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0) 42%, rgba(20,20,20,0.12) 100%);
   --font-display: 'Archivo', sans-serif;
@@ -189,7 +189,7 @@ ul { list-style: none; }
   right: 0;
   grid-template-rows: 0fr;
   visibility: hidden;
-  background: rgba(139, 108, 66, 0.97);
+  background: rgba(107, 78, 46, 0.97);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid transparent;
@@ -364,7 +364,7 @@ ul { list-style: none; }
   display: flex;
   flex-direction: column;
   padding: 14px 16px 24px;
-  background: rgba(139, 108, 66, 0.98);
+  background: rgba(107, 78, 46, 0.98);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   overflow-y: auto;
