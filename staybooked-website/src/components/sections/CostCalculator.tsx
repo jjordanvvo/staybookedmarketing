@@ -339,14 +339,13 @@ export default function CostCalculator() {
               {/* Lead capture: the estimate lands in their pocket, the lead lands in GHL */}
               {sent ? (
                 <p className="cc-sent">
-                  On its way{bizName ? `, ${bizName}` : ''}. Check your phone in the next minute — and
-                  grab a time on the calendar whenever you're ready to talk.
+                  Got it{bizName ? `, ${bizName}` : ''}. We'll reach out to talk through your numbers. Want to skip the wait? Book a time on the calendar whenever you're ready.
                 </p>
               ) : (
                 <div className="cc-lead">
-                  <p className="cc-lead-title">Want this estimate on your phone?</p>
+                  <p className="cc-lead-title">Want us to reach out?</p>
                   <p className="cc-lead-sub">
-                    We'll text you the numbers. No spam, no newsletter — the estimate and that's it.
+                    Drop your number and we'll get in touch to walk through these numbers and how the system would run for a business like yours. No spam, no newsletter, no hard sell.
                   </p>
                   <input
                     type="text" value={honeypot} onChange={(e) => setHoneypot(e.target.value)}
@@ -375,7 +374,7 @@ export default function CostCalculator() {
                     type="button" className="cc-lead-btn" onClick={submitLead}
                     disabled={!canSend || sending}
                   >
-                    {sending ? 'Sending…' : 'Text me my estimate'}
+                    {sending ? 'Sending…' : 'Get in touch'}
                   </button>
                   {leadError && (
                     <p className="cc-lead-error">
