@@ -1,5 +1,4 @@
 import { motion, useMotionValue, useReducedMotion, useTransform, type MotionValue } from 'framer-motion'
-import { BOOKING_URL } from '@/lib/booking'
 
 /**
  * SystemStage — the site's persistent graphic figure.
@@ -267,7 +266,7 @@ function StampView({ p }: { p: MotionValue<number> }) {
         </div>
         <p className="stamp-word">Stay Booked.</p>
         <motion.div style={{ opacity: ctaIn }}>
-          <a className="stamp-cta" href={BOOKING_URL} target="_blank" rel="noopener noreferrer">
+          <a className="stamp-cta" href="/book">
             Book a Call
           </a>
         </motion.div>

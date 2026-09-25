@@ -1,7 +1,20 @@
 import { useEffect } from 'react'
 import { Reveal, RevealItem } from '@/components/ui/Reveal'
 import Navbar from '@/components/sections/Navbar'
-import { FOUNDERS } from '@/components/sections/Founders'
+import kolbyPhoto from '@/assets/kolby.webp'
+import jordanPhoto from '@/assets/jordan.webp'
+import austinPhoto from '@/assets/austin.webp'
+import trevorPhoto from '@/assets/trevor.webp'
+import nilesPhoto from '@/assets/niles.webp'
+import { FOUNDERS } from '@/lib/founders'
+
+const PHOTOS: Record<string, string> = {
+  trevor: trevorPhoto,
+  jordan: jordanPhoto,
+  kolby: kolbyPhoto,
+  austin: austinPhoto,
+  niles: nilesPhoto,
+}
 import Footer from '@/components/sections/Footer'
 
 /**
@@ -40,8 +53,8 @@ export default function Team() {
             {FOUNDERS.map((f) => (
               <Reveal as="article" className="founder-card" key={f.name} amount={0.15}>
                 <RevealItem className="founder-photo-frame">
-                  {f.photo ? (
-                    <img className="founder-photo" src={f.photo} alt={f.name} />
+                  {f.photo && PHOTOS[f.photo] ? (
+                    <img className="founder-photo" src={PHOTOS[f.photo]} alt={f.name} />
                   ) : (
                     <span className="founder-monogram" aria-hidden="true">{f.initials}</span>
                   )}

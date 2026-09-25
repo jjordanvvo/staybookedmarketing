@@ -11,7 +11,6 @@ import {
 } from 'react'
 import { createPortal } from 'react-dom'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { BOOKING_URL } from '@/lib/booking'
 import { search, type SearchEntry } from '@/lib/search'
 import { getSearchIndex } from '@/lib/searchIndex'
 
@@ -153,7 +152,7 @@ export default function SiteSearch() {
   const openBooking = () => {
     setOverlay(false)
     closeAll()
-    window.open(BOOKING_URL, '_blank', 'noopener,noreferrer')
+    navigate('/book')
   }
 
   const choose = (i: number) => {
@@ -277,9 +276,7 @@ export default function SiteSearch() {
           onMouseEnter={() => setActive(0)}
         >
           <a
-            href={BOOKING_URL}
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/book"
             tabIndex={-1}
             onClick={() => {
               setOverlay(false)

@@ -7,6 +7,9 @@ import Terms from '@/pages/Terms'
 import FreeCall from '@/pages/FreeCall'
 import Healthcare from '@/pages/Healthcare'
 import NicheDetail from '@/pages/NicheDetail'
+import Book from '@/pages/Book'
+import Analytics from '@/components/Analytics'
+import ChatWidget from '@/components/ChatWidget'
 import Team from '@/pages/Team'
 
 /** Route changes land at the top of the new page (browsers only restore
@@ -38,6 +41,8 @@ export default function App() {
     <BrowserRouter>
       <ScrollProgress />
       <ScrollToTop />
+      <Analytics />
+      <ChatWidget />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/privacy" element={<Privacy />} />
@@ -46,6 +51,7 @@ export default function App() {
         <Route path="/healthcare" element={<Healthcare />} />
       <Route path="/niches/:id" element={<NicheDetail />} />
       <Route path="/team" element={<Team />} />
+      <Route path="/book" element={<Book />} />
       </Routes>
     </BrowserRouter>
   )

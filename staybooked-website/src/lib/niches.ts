@@ -28,6 +28,8 @@ export type Niche = {
   guarantee: string
   /** Targeting/creative/messaging is tuned around... */
   tuned: string
+  /** Keyword-targeted page title + meta description (search intent, per niche). */
+  seo: { title: string; description: string }
   /** Retainer varies by... */
   varies: string
   /** Illustrative monthly demand, Jan → Dec, 0–100. */
@@ -51,6 +53,7 @@ export const NICHES: Niche[] = [
     tuned: 'your busy season, storm spikes, and slower weeks',
     varies: 'trade & season',
     demand: [55, 55, 62, 72, 86, 96, 100, 99, 92, 86, 84, 88],
+    seo: { title: 'Home Services Marketing & Lead Generation for HVAC, Roofing, Plumbing & More | Stay Booked', description: "Lead generation for home service contractors: ads, automated follow-up, and booking for HVAC, roofing, plumbing, electrical, pool, pest control and remodeling companies." },
   },
   {
     id: 'clubs',
@@ -65,6 +68,7 @@ export const NICHES: Niche[] = [
     tuned: 'your big nights, slow midweeks, and featured events',
     varies: 'venue, nights & season',
     demand: [72, 70, 74, 74, 80, 90, 96, 100, 84, 80, 70, 95],
+    seo: { title: 'Nightclub & Lounge Marketing: Packs the Room | Stay Booked', description: "Event promotion, guest-list automation and follow-up systems for nightclubs and lounges that want packed rooms every week." },
   },
   {
     id: 'legal',
@@ -79,6 +83,7 @@ export const NICHES: Niche[] = [
     tuned: 'your practice areas and intake capacity',
     varies: 'practice area & market',
     demand: [88, 72, 78, 76, 80, 74, 78, 76, 80, 78, 74, 70],
+    seo: { title: 'Law Firm Marketing: Intake That Books More Cases | Stay Booked', description: "Lead generation for personal injury, family law, criminal defense, estate planning, immigration and business law firms." },
   },
   {
     id: 'lifestyle',
@@ -93,6 +98,7 @@ export const NICHES: Niche[] = [
     tuned: 'your launch calendar and high-intent buying windows',
     varies: 'category & season',
     demand: [62, 58, 64, 70, 76, 82, 84, 88, 78, 84, 100, 100],
+    seo: { title: 'Big-Ticket Lifestyle Marketing: Weddings, Venues & Charters | Stay Booked', description: "Marketing for wedding venues, event venues, yacht charters and premium experiences: reach high-intent buyers, follow up in minutes, book the date." },
   },
   {
     id: 'medical',
@@ -109,6 +115,7 @@ export const NICHES: Niche[] = [
     demand: [96, 82, 84, 80, 78, 74, 78, 80, 84, 82, 80, 78],
     to: '/healthcare',
     linkLabel: 'See how we work with healthcare',
+    seo: { title: 'Healthcare & Med Spa Marketing That Books Patients | Stay Booked', description: "Compliance-aware lead generation for dentists, orthodontists, med spas, chiropractors, physical therapy, dermatology, plastic surgery and concierge practices." },
   },
   {
     id: 'rentals',
@@ -123,6 +130,7 @@ export const NICHES: Niche[] = [
     tuned: 'availability, peak demand, and slower windows',
     varies: 'market & season',
     demand: [58, 56, 62, 70, 80, 92, 98, 96, 90, 88, 95, 100],
+    seo: { title: 'Marketing for Movers, Rentals & Transactional Services | Stay Booked', description: "Lead generation for movers, equipment rental, vacation rentals and car rental businesses: instant follow-up that turns inquiries into bookings." },
   },
   {
     id: 'restaurants',
@@ -137,6 +145,7 @@ export const NICHES: Niche[] = [
     tuned: 'your slow nights, peak service, and private events',
     varies: 'service & season',
     demand: [86, 74, 80, 76, 82, 88, 92, 94, 84, 82, 88, 100],
+    seo: { title: 'Restaurant Marketing & Private Dining Bookings | Stay Booked', description: "Marketing systems for restaurants and private dining: fill tables weeknights, book events and private dining with automated follow-up." },
   },
   {
     id: 'brand',
@@ -151,6 +160,7 @@ export const NICHES: Niche[] = [
     tuned: 'launches, drops, and promo windows',
     varies: 'campaign & season',
     demand: [66, 60, 56, 62, 72, 66, 60, 66, 76, 84, 100, 100],
+    seo: { title: 'Brand & Product Promotion Campaigns | Stay Booked', description: "Launch and promotion campaigns for brands and products: multi-platform advertising, creative and automated follow-up that converts." },
   },
   {
     id: 'real-estate',
@@ -165,6 +175,7 @@ export const NICHES: Niche[] = [
     tuned: 'your listings, neighborhoods, and price bands',
     varies: 'market & listing volume',
     demand: [46, 52, 72, 82, 92, 96, 100, 92, 76, 68, 58, 48],
+    seo: { title: 'Real Estate Marketing That Books Listings & Buyers | Stay Booked', description: "Lead generation for residential, luxury and brokerage real estate: seller and buyer campaigns with five-minute follow-up." },
   },
 ]
 

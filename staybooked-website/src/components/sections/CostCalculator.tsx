@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { BOOKING_URL } from '@/lib/booking'
+import { track } from '@/lib/tracking'
 
 /**
  * CostCalculator — the pricing section's live estimator ("Estimate the
@@ -87,6 +87,11 @@ export default function CostCalculator() {
   const [worth, setWorth] = useState('')
   const [count, setCount] = useState('')
   const [speed, setSpeed] = useState('')
+  const [phone, setPhone] = useState('')
+  const [email, setEmail] = useState('')
+  const [sending, setSending] = useState(false)
+  const [sent, setSent] = useState(false)
+  const [leadError, setLeadError] = useState(false)
 
   const selected = useMemo(() => {
     for (const g of NICHE_GROUPS) if (g.options.includes(niche)) return g
@@ -104,6 +109,45 @@ export default function CostCalculator() {
 
   const intro = name.trim() ? `${name.trim()}, h` : 'H'
   const bizName = biz.trim()
+
+  const digits = phone.replace(/\D/g, '')
+  const canSend = digits.length >= 10 || /.+@.+\..+/.test(email.trim())
+
+  const submitLead = async () => {
+    if (!canSend || sending) return
+    setSending(true)
+    setLeadError(false)
+    try {
+      const r = await fetch('/api/lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name,
+          business: biz,
+          phone: digits.length >= 10 ? digits : '',
+          email: email.trim(),
+          niche,
+          avgWorth: worthN,
+          jobsPerMonth: countN,
+          responseSpeed: speed,
+          monthlyTotal: total,
+          monthlyNewBusiness: revenue,
+          monthlyLeak: leak,
+        }),
+      })
+      if (!r.ok) throw new Error('send failed')
+      setSent(true)
+      track('lead_captured', {
+        niche,
+        monthly_total: total ?? 0,
+        response_speed: speed,
+      })
+    } catch {
+      setLeadError(true)
+    } finally {
+      setSending(false)
+    }
+  }
 
   return (
     <div className="cc">
@@ -218,9 +262,53 @@ export default function CostCalculator() {
                 ? `${intro}ere's the picture: ${usd(total)}/mo to run the system, against roughly ${usd(leak)}/mo currently walking out the door.`
                 : `${intro}ere's your estimate — rough numbers, honest math.`}
             </p>
-            <a className="contact-book-btn" href={BOOKING_URL} target="_blank" rel="noopener noreferrer">
+            <a className="contact-book-btn" href="/book">
               Book a Call
             </a>
+
+            {/* Lead capture: the estimate lands in their pocket, the lead lands in GHL */}
+            {sent ? (
+              <p className="cc-sent">
+                On its way{bizName ? `, ${bizName}` : ''}. Check your phone in the next minute — and
+                grab a time on the calendar above whenever you're ready to talk.
+              </p>
+            ) : (
+              <div className="cc-lead">
+                <p className="cc-lead-title">Want this estimate on your phone?</p>
+                <p className="cc-lead-sub">
+                  We'll text you the numbers. No spam, no newsletter — the estimate and that's it.
+                </p>
+                <div className="cc-lead-fields">
+                  <label className="cc-lead-field">
+                    <span>Phone</span>
+                    <input
+                      type="tel" inputMode="tel" value={phone}
+                      onChange={(e) => setPhone(e.target.value)} placeholder="(555) 123-4567"
+                      autoComplete="tel"
+                    />
+                  </label>
+                  <label className="cc-lead-field">
+                    <span>Email (optional)</span>
+                    <input
+                      type="email" value={email}
+                      onChange={(e) => setEmail(e.target.value)} placeholder="you@business.com"
+                      autoComplete="email"
+                    />
+                  </label>
+                </div>
+                <button
+                  type="button" className="cc-lead-btn" onClick={submitLead}
+                  disabled={!canSend || sending}
+                >
+                  {sending ? 'Sending…' : 'Text me my estimate'}
+                </button>
+                {leadError && (
+                  <p className="cc-lead-error">
+                    Couldn't send right now — Book a Call above works meanwhile.
+                  </p>
+                )}
+              </div>
+            )}
           </>
         )}
       </div>

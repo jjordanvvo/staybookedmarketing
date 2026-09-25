@@ -5,7 +5,6 @@ import { Reveal, RevealItem, EASE } from '@/components/ui/Reveal'
 import Navbar from '@/components/sections/Navbar'
 import logoTile from '@/assets/logo.webp'
 import logo from '@/assets/logo-nav.webp'
-import { BOOKING_URL } from '@/lib/booking'
 
 export const STEPS = [
   {
@@ -215,9 +214,7 @@ export default function FreeCall() {
 
           <motion.a
             className="contact-book-btn lp-cta-hero"
-            href={BOOKING_URL}
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/book"
             initial={reduce ? false : { opacity: 0, y: 20, scale: 0.94 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{
@@ -322,9 +319,7 @@ export default function FreeCall() {
           <RevealItem
             as="a"
             className="contact-book-btn lp-cta-large"
-            href={BOOKING_URL}
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/book"
             delay={0.2}
           >
             Book a Free Call

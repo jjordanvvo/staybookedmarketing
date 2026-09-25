@@ -4,7 +4,6 @@ import { Reveal, RevealItem } from '@/components/ui/Reveal'
 import Navbar from '@/components/sections/Navbar'
 import Faq, { type FaqEntry } from '@/components/sections/Faq'
 import logo from '@/assets/logo-nav.webp'
-import { BOOKING_URL } from '@/lib/booking'
 
 // The compliance pillars — short versions; the full detail lives in the FAQ
 // accordion below, moved verbatim from the old main-site FAQ.
@@ -79,8 +78,23 @@ export const HEALTHCARE_FAQS: FaqEntry[] = [
 export default function Healthcare() {
   useEffect(() => {
     document.title = 'Healthcare Marketing | Stay Booked Marketing'
+    // FAQPage schema for AI Overviews / answer engines (client-rendered page)
+    const ld = document.createElement('script')
+    ld.type = 'application/ld+json'
+    ld.id = 'hc-faq-schema'
+    ld.textContent = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: HEALTHCARE_FAQS.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    })
+    document.head.appendChild(ld)
     return () => {
       document.title = 'Stay Booked Marketing | Lead Generation for Local Businesses'
+      document.getElementById('hc-faq-schema')?.remove()
     }
   }, [])
 
@@ -130,12 +144,7 @@ export default function Healthcare() {
           </RevealItem>
           <RevealItem as="div" className="hc-ctas" delay={0.2}>
             <Link className="contact-book-btn" to="/free-call">See the program</Link>
-            <a
-              className="contact-book-btn"
-              href={BOOKING_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a className="contact-book-btn" href="/book">
               Book a Call
             </a>
           </RevealItem>

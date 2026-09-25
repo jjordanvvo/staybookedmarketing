@@ -1,7 +1,6 @@
 import type { ReactNode } from 'react'
 import { useReducedMotion } from 'framer-motion'
 import { Reveal, RevealItem } from '@/components/ui/Reveal'
-import { BOOKING_URL } from '@/lib/booking'
 
 /**
  * Contact is the final section. The Footer is rendered as `children`
@@ -24,9 +23,7 @@ export default function Contact({ children }: { children?: ReactNode }) {
           <RevealItem
             as="a"
             className="contact-book-btn"
-            href={BOOKING_URL}
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/book"
             whileTap={reduce ? undefined : { scale: 0.98 }}
           >
             Book a 15-Minute Call

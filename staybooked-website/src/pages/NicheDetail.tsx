@@ -3,7 +3,6 @@ import { Link, useParams } from 'react-router-dom'
 import { Reveal, RevealItem } from '@/components/ui/Reveal'
 import Navbar from '@/components/sections/Navbar'
 import { NICHES, SPEED_STATS, INVESTMENT } from '@/lib/niches'
-import { BOOKING_URL } from '@/lib/booking'
 
 /**
  * NicheDetail — the one-pager for a single niche, as its own page.
@@ -17,9 +16,9 @@ export default function NicheDetail() {
   const niche = NICHES.find((n) => n.id === id)
 
   useEffect(() => {
-    document.title = niche
-      ? `${niche.name} Marketing | Stay Booked Marketing`
-      : 'Stay Booked Marketing'
+    document.title = niche?.seo?.title ?? 'Stay Booked Marketing'
+    const meta = document.querySelector('meta[name="description"]')
+    if (niche?.seo?.description && meta) meta.setAttribute('content', niche.seo.description)
     return () => {
       document.title = 'Stay Booked Marketing | Lead Generation for Local Businesses'
     }
@@ -135,7 +134,7 @@ export default function NicheDetail() {
             Book a free strategy call and we&apos;ll show you exactly how this system books {niche.books[0].toLowerCase()} for {niche.examples.toLowerCase()}.
           </RevealItem>
           <RevealItem as="div" className="hc-ctas" delay={0.2}>
-            <a className="contact-book-btn" href={BOOKING_URL} target="_blank" rel="noopener noreferrer">
+            <a className="contact-book-btn" href="/book">
               Book a Call
             </a>
             <Link className="contact-book-btn" to="/#industries">See every niche</Link>

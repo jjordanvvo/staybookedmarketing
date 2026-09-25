@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Reveal, RevealItem } from '@/components/ui/Reveal'
 import { NICHES, type Niche } from '@/lib/niches'
-import { BOOKING_URL } from '@/lib/booking'
 
 // Kept for the site search (searchIndex maps { name, desc } entries).
 export const INDUSTRIES = NICHES.map((n) => ({ name: n.name, desc: n.desc }))
@@ -109,7 +108,7 @@ function NicheOverlay({ niche, onClose }: { niche: Niche; onClose: () => void })
         </dl>
 
         <div className="niche-card-cta">
-          <a className="contact-book-btn" href={BOOKING_URL} target="_blank" rel="noopener noreferrer">
+          <a className="contact-book-btn" href="/book">
             Book a Free Strategy Call
           </a>
           {niche.to && (

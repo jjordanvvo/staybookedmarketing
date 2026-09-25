@@ -4,7 +4,6 @@ import { motion, useReducedMotion } from 'framer-motion'
 import logo from '@/assets/logo-nav.webp'
 import { EASE } from '@/components/ui/Reveal'
 import SiteSearch from '@/components/ui/SiteSearch'
-import { BOOKING_URL } from '@/lib/booking'
 
 type NavbarProps = {
   /** Held offscreen until the intro curtains start lifting. */
@@ -88,7 +87,7 @@ export default function Navbar({ revealed = true, delay = 0 }: NavbarProps) {
         <SiteSearch />
         {/* The nav CTA goes straight to the booking calendar — same link as
             every other Book a Call button on the site. */}
-        <a className="nav-cta" href={BOOKING_URL} target="_blank" rel="noopener noreferrer">Book a Call</a>
+        <a className="nav-cta" href="/book">Book a Call</a>
         <button
           type="button"
           className={`nav-burger${open ? ' nav-burger-open' : ''}`}
