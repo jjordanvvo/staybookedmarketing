@@ -14,25 +14,25 @@
 /* ---- Tokens ---- */
 /* Matte cream / rich black / textured warm-white palette */
 :root {
-  --page-bg:    #F0EBE0;   /* matte cream        (was skyLight)      */
-  --alt-bg:     #F7F4EE;   /* soft warm white    (was skyAlt)        */
-  --deep-bg:    #FBFAF6;   /* elevated shiny white (was skyDeep)     */
-  --nav-bg:     rgba(240,235,224,0.85);
-  --logo-blue:  #141414;   /* rich black         (was logoBlue)      */
-  --accent:     #141414;   /* rich black accents (was logoBlue)      */
-  --text:       #141414;   /* rich black         (was textPrimary)   */
-  --text-2:     #3A3A3A;   /* soft charcoal      (was textSecondary) */
-  --border:     #C9C2B4;   /* warm mid grey                          */
-  --white-surface: rgba(251,250,246,0.85);
-  --footer-bg:  #141414;   /* near black         (was footerDark)    */
+  --page-bg:    #8B6C42;   /* matte cream        (was skyLight)      */
+  --alt-bg:     #94744A;   /* soft warm white    (was skyAlt)        */
+  --deep-bg:    #9E7E52;   /* elevated shiny white (was skyDeep)     */
+  --nav-bg:     rgba(139,108,66,0.85);
+  --logo-blue:  #F7F4EE;   /* rich black         (was logoBlue)      */
+  --accent:     #F7F4EE;   /* rich black accents (was logoBlue)      */
+  --text:       #FBF9F2;   /* rich black         (was textPrimary)   */
+  --text-2:     #EFE8D8;   /* soft charcoal      (was textSecondary) */
+  --border:     #A98F68;   /* warm mid grey                          */
+  --white-surface: rgba(255,252,246,0.10);
+  --footer-bg:  #F0EBE0;   /* near black         (was footerDark)    */
 
   /* Editorial additions */
-  --ink:        #141414;   /* rich black for statement type */
-  --offwhite:   #F7F4EE;   /* soft warm white surface */
-  --rule:       #C9C2B4;   /* warm mid grey hairline separators */
-  --card-border: #C9C2B4;  /* warm mid grey card borders */
+  --ink:        #F7F4EE;   /* rich black for statement type */
+  --offwhite:   #7C5E38;   /* soft warm white surface */
+  --rule:       #A98F68;   /* warm mid grey hairline separators */
+  --card-border: #A98F68;  /* warm mid grey card borders */
   /* Soft sheen for elevated surfaces: lighter top-left, warmer bottom-right */
-  --sheen: linear-gradient(135deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0) 42%, rgba(201,194,180,0.10) 100%);
+  --sheen: linear-gradient(135deg, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0) 42%, rgba(20,20,20,0.12) 100%);
   --font-display: 'Archivo', sans-serif;
   /* Global premium easing — every transition and entrance settles with this voice */
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
@@ -189,7 +189,7 @@ ul { list-style: none; }
   right: 0;
   grid-template-rows: 0fr;
   visibility: hidden;
-  background: rgba(240, 235, 224, 0.97);
+  background: rgba(139, 108, 66, 0.97);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid transparent;
@@ -252,7 +252,7 @@ ul { list-style: none; }
   padding: 0 12px 0 32px;
   border: 1px solid var(--border);
   border-radius: 999px;
-  background: rgba(251, 250, 246, 0.6);
+  background: rgba(255, 252, 246, 0.10);
   font-family: 'DM Sans', sans-serif;
   font-weight: 400;
   font-size: 0.8rem;
@@ -364,7 +364,7 @@ ul { list-style: none; }
   display: flex;
   flex-direction: column;
   padding: 14px 16px 24px;
-  background: rgba(240, 235, 224, 0.98);
+  background: rgba(139, 108, 66, 0.98);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   overflow-y: auto;
@@ -1379,14 +1379,14 @@ ul { list-style: none; }
   font-family: 'Baloo 2', sans-serif;
   font-weight: 500;
   font-size: 0.95rem;
-  color: rgba(240,235,224,0.55);   /* cream text on near-black footer */
+  color: rgba(20,20,20,0.60);   /* cream text on near-black footer */
 }
 
 .footer-phone {
   font-family: 'DM Sans', sans-serif;
   font-weight: 300;
   font-size: 0.78rem;
-  color: rgba(240,235,224,0.5);    /* cream text on near-black footer */
+  color: rgba(20,20,20,0.55);    /* cream text on near-black footer */
 }
 
 /* Social icons — matched pair, cream footer tone, brighten to full cream on hover */
@@ -1400,11 +1400,11 @@ ul { list-style: none; }
 .footer-instagram {
   display: inline-flex;
   align-items: center;
-  color: rgba(240,235,224,0.55);
+  color: rgba(20,20,20,0.60);
   transition: color 0.3s var(--ease);
 }
 .footer-linkedin:hover,
-.footer-instagram:hover { color: rgba(240,235,224,1); }
+.footer-instagram:hover { color: rgba(20,20,20,1); }
 .footer-linkedin svg,
 .footer-instagram svg { display: block; }
 
@@ -1670,7 +1670,7 @@ ul { list-style: none; }
 /* Guarantee band — the trust anchor. Ink surface, cream serif headline, tan
    label: the same palette inversion as the footer, set as a centered statement. */
 .lp-guarantee {
-  background: var(--footer-bg);
+  background: #141414;
   padding: clamp(80px, 12vh, 140px) 48px;
   text-align: center;
 }
@@ -1742,12 +1742,12 @@ ul { list-style: none; }
   font-family: 'DM Sans', sans-serif;
   font-weight: 300;
   font-size: 0.78rem;
-  color: rgba(240,235,224,0.5);
-  border-bottom: 1px solid rgba(240,235,224,0.25);
+  color: rgba(20,20,20,0.55);
+  border-bottom: 1px solid rgba(20,20,20,0.25);
   padding-bottom: 1px;
   transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
 }
-.footer-privacy:hover { color: rgba(240,235,224,1); border-color: rgba(240,235,224,0.6); }
+.footer-privacy:hover { color: rgba(20,20,20,1); border-color: rgba(20,20,20,0.6); }
 
 /* ============================================================
    BLUR-TO-CLEAR SCROLL CHOREOGRAPHY (legacy CSS reveal — kept)
