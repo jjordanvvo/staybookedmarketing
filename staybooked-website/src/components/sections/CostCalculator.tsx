@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { track } from '@/lib/tracking'
+import { LEAD_ENDPOINT } from '@/lib/leads'
 
 /**
  * CostCalculator — the pricing section's live estimator ("Estimate the
@@ -112,18 +113,22 @@ export default function CostCalculator() {
 
   const digits = phone.replace(/\D/g, '')
   const canSend = digits.length >= 10 || /.+@.+\..+/.test(email.trim())
+  /** Honeypot: hidden input spam bots love to fill; the relay silently
+   *  drops those submissions. */
+  const [honeypot, setHoneypot] = useState('')
 
   const submitLead = async () => {
     if (!canSend || sending) return
     setSending(true)
     setLeadError(false)
     try {
-      const r = await fetch('/api/lead', {
+      const r = await fetch(LEAD_ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name,
           business: biz,
+          company_website: honeypot,
           phone: digits.length >= 10 ? digits : '',
           email: email.trim(),
           niche,
@@ -278,6 +283,11 @@ export default function CostCalculator() {
                 <p className="cc-lead-sub">
                   We'll text you the numbers. No spam, no newsletter — the estimate and that's it.
                 </p>
+                <input
+                  type="text" value={honeypot} onChange={(e) => setHoneypot(e.target.value)}
+                  name="company_website" tabIndex={-1} autoComplete="off"
+                  aria-hidden="true" style={{ position: 'absolute', left: '-9999px', height: 0, width: 0, opacity: 0 }}
+                />
                 <div className="cc-lead-fields">
                   <label className="cc-lead-field">
                     <span>Phone</span>
