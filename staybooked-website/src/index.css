@@ -3472,3 +3472,68 @@ html.lenis body {
   }
   .sys-minical-block { opacity: 1; }
 }
+
+/* ═════════════════════════════════════════════════════════════════════════
+   Mobile simplification (Kolby, Sept 24) — the phone stays lean: no Choose
+   SBM video band, no demand chart in the Niche Explorer. The niche "Learn
+   more" links, the guarantee expander, and the founders CTA live here too.
+   ═════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 1100px) {
+  .feature-band { display: none; }
+  .nx-chartcard { display: none; }
+}
+
+/* Guarantee expander (mobile pattern, Niche Explorer side panel) */
+.nx-guarantee { display: grid; gap: 4px; }
+.nx-learnmore {
+  justify-self: start;
+  border: none;
+  background: none;
+  padding: 2px 0;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--accent, #C0562E);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.nx-guarantee-detail { margin-top: 2px; }
+
+/* "Learn more" link on every niche row in Who we help */
+.ind-row { display: grid; gap: 2px; }
+.ind-learnmore {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--accent, #C0562E);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  padding-left: 20px;
+}
+.ind-learnmore:active { opacity: 0.6; }
+
+/* Founders home section CTA */
+.founders-cta { margin-top: 20px; }
+.founders-cta .contact-book-btn { display: inline-block; }
+
+/* Niche detail page */
+.nd-examples { margin-top: 10px; color: #5A4A38; }
+.nd-whatwedo { font-size: 19px; line-height: 1.6; }
+.nd-books { margin-top: 28px; }
+.nd-row { grid-template-columns: 1fr; align-items: start; }
+.nd-row .ind-name { font-weight: 700; }
+.nd-stats {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin: 8px 0 36px;
+}
+.nd-stat { display: grid; gap: 6px; }
+.nd-stat-value { font-size: 44px; font-weight: 800; letter-spacing: -1px; line-height: 1; }
+.nd-stat-label { font-size: 13px; line-height: 1.45; color: rgba(242,235,221,0.75); }
+.nd-invest { display: grid; gap: 8px; }
+@media (max-width: 1100px) {
+  .nd-stats { grid-template-columns: 1fr; gap: 16px; }
+}

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { Reveal, RevealItem } from '@/components/ui/Reveal'
 import kolbyPhoto from '@/assets/kolby.webp'
 import jordanPhoto from '@/assets/jordan.webp'
@@ -74,43 +75,19 @@ export const FOUNDERS: Founder[] = [
 ]
 
 export default function Founders() {
-  // The header and each card reveal INDEPENDENTLY. One Reveal around the whole
-  // grid looks tidy but breaks: with five tall cards the wrap grows past
-  // ~3000px, `amount: 0.25` of it can never fit a normal viewport at once, so
-  // whileInView never fires and the section renders empty (once: true means it
-  // never recovers). Per-card observers always trigger as each card scrolls in.
   return (
     <section className="section section-offwhite" id="founders">
       <div className="wrap">
-        <Reveal amount={0.5}>
+        <Reveal amount={0.4}>
           <RevealItem as="p" className="label">Meet the founders</RevealItem>
           <RevealItem as="h2" className="title">Our Founders</RevealItem>
+          <RevealItem as="p" className="body why-body">
+            Five founders running every account hands-on. No account managers, no ticket systems.
+          </RevealItem>
+          <RevealItem as="div" className="founders-cta" delay={0.15}>
+            <Link className="contact-book-btn" to="/team">Meet our team</Link>
+          </RevealItem>
         </Reveal>
-        <div className="founders-grid">
-          {FOUNDERS.map((f) => (
-            <Reveal as="article" className="founder-card" key={f.name} amount={0.15}>
-              {/* Frame clips the photo so its slow hover scale stays inside the rounded slot */}
-              <RevealItem className="founder-photo-frame">
-                {f.photo ? (
-                  <img className="founder-photo" src={f.photo} alt={f.name} />
-                ) : (
-                  // Branded monogram tile until a headshot is supplied
-                  <span className="founder-monogram" aria-hidden="true">{f.initials}</span>
-                )}
-              </RevealItem>
-              <RevealItem as="h3" className="founder-name">{f.name}</RevealItem>
-              <RevealItem as="p" className="founder-title">{f.title}</RevealItem>
-              {f.degree && <RevealItem as="p" className="founder-degree">{f.degree}</RevealItem>}
-              <RevealItem as="p" className="founder-bio">{f.bio}</RevealItem>
-              {(f.email || f.phone) && (
-                <RevealItem className="founder-contact">
-                  {f.email && <a className="founder-email" href={`mailto:${f.email}`}>{f.email}</a>}
-                  {f.phone && <p className="founder-phone">{f.phone}</p>}
-                </RevealItem>
-              )}
-            </Reveal>
-          ))}
-        </div>
       </div>
     </section>
   )

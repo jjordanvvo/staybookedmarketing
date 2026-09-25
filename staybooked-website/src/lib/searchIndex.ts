@@ -1,4 +1,5 @@
 import { INDUSTRIES } from '@/components/sections/Industries'
+import { NICHES } from '@/lib/niches'
 import { SERVICES } from '@/components/sections/Services'
 import { FAQS } from '@/components/sections/Faq'
 import { STEPS as HOW_STEPS } from '@/components/sections/HowWeWork'
@@ -90,10 +91,18 @@ function build(): SearchEntry[] {
     ...FOUNDERS.map((f) => ({
       title: f.name,
       section: 'Founders',
-      page: home,
-      path: '/#founders',
+      page: 'Team',
+      path: '/team',
       text: `${f.title}. ${f.degree ?? ''} ${f.bio}`,
       keywords: 'team founder',
+    })),
+    ...NICHES.map((n) => ({
+      title: n.name,
+      section: 'Niches',
+      page: 'Niche',
+      path: `/niches/${n.id}`,
+      text: `${n.desc} ${n.whatWeDo} What we book: ${n.books.join(', ')}. Tuned around ${n.tuned}. Performance guarantee: if we haven't delivered ${n.guarantee} by the end of the guarantee window, your retainer pauses until we do.`,
+      keywords: 'industry niche one pager learn more',
     })),
     ...PLAN_STEPS.map((s) => ({
       title: s.name,

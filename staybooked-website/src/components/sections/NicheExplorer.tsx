@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { EASE, Reveal, RevealItem } from '@/components/ui/Reveal'
 import { NICHES, SPEED_STATS } from '@/lib/niches'
+import { useIsMobile } from '@/hooks/useIsMobile'
 import { BOOKING_URL } from '@/lib/booking'
 
 /**
@@ -95,6 +96,36 @@ function StatCounter({ value, suffix, label, trigger }: { value: number; suffix:
         {suffix}
       </span>
       <span className="nx-stat-label">{label}</span>
+    </div>
+  )
+}
+
+/**
+ * GuaranteeBlock — "Performance guarantee" as a title with a short line.
+ * On mobile the detail is collapsed behind a Learn more toggle; on desktop
+ * the full sentence stays visible as before.
+ */
+function GuaranteeBlock({ text }: { text: string }) {
+  const isMobile = useIsMobile()
+  const [open, setOpen] = useState(false)
+
+  if (!isMobile) {
+    return (
+      <>
+        <p className="nx-side-label">Performance guarantee</p>
+        <p className="nx-side-text">{text}</p>
+      </>
+    )
+  }
+
+  return (
+    <div className="nx-guarantee">
+      <p className="nx-side-label">Performance guarantee</p>
+      <p className="nx-side-text">No results, no retainer — it pauses until we deliver.</p>
+      <button type="button" className="nx-learnmore" aria-expanded={open} onClick={() => setOpen(!open)}>
+        {open ? 'Show less' : 'Learn more'}
+      </button>
+      {open && <p className="nx-side-text nx-guarantee-detail">{text}</p>}
     </div>
   )
 }
@@ -325,11 +356,7 @@ export default function NicheExplorer() {
                   <p className="nx-side-label">Your AI books in real time and reports to</p>
                   <p className="nx-side-text">{niche.handoff}.</p>
 
-                  <p className="nx-side-label">Performance guarantee</p>
-                  <p className="nx-side-text">
-                    If we haven&apos;t delivered {niche.guarantee} by the end of the guarantee
-                    window, your retainer pauses until we do.
-                  </p>
+                  <GuaranteeBlock text={`If we haven't delivered ${niche.guarantee} by the end of the guarantee window, your retainer pauses until we do.`} />
                 </motion.div>
               </AnimatePresence>
 

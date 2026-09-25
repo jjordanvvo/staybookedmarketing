@@ -155,6 +155,7 @@ export default function Industries() {
                   <path d="M2 8h11M9 3.5 13.5 8 9 12.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </button>
+              <Link className="ind-learnmore" to={`/niches/${niche.id}`}>Learn more</Link>
             </RevealItem>
           ))}
         </Reveal>
