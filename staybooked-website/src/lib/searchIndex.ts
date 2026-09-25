@@ -117,8 +117,8 @@ function build(): SearchEntry[] {
       section: 'Pricing',
       page: home,
       path: '/#pricing',
-      text: "Great marketing shouldn't cost a fortune. $2,000 per month, plus ad spend. No startup fee. Just simple monthly pricing. Everything included: campaign creation and management, lead follow-up, qualification, and booking, all handled end to end. Ad spend is billed separately by the ad platforms and always stays yours. Flexible terms: month to month or longer, your choice.",
-      keywords: 'price cost rate fee monthly plan budget',
+      text: "Great marketing shouldn't cost a fortune. Estimate the monthly total for your niche with the cost calculator: tell us what you do, what an average job is worth, and how fast you respond, and see your flat retainer, ad spend, and what slow follow-up may be costing you. No startup fee, month to month.",
+      keywords: 'price cost rate fee monthly plan budget calculator estimate',
     },
     ...FAQS.map((f) => ({
       title: f.q,

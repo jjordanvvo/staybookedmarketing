@@ -1,0 +1,229 @@
+import { useMemo, useState } from 'react'
+import { BOOKING_URL } from '@/lib/booking'
+
+/**
+ * CostCalculator — the pricing section's live estimator ("Estimate the
+ * monthly total for your niche"). Fully client-side, no email wall: the
+ * estimate builds as the visitor fills in what they know.
+ *
+ * The inputs mirror the sales one-pagers:
+ *  - What do you do → niche (drives the recommended ad spend tier)
+ *  - Average job/contract worth + contracts per month → their monthly
+ *    new-business revenue, the number the system works to grow
+ *  - Response speed → how much of that revenue slow follow-up likely leaks
+ *
+ * Every output is labeled a rough estimate, not a promise.
+ */
+
+/** Niche dropdown: the categories SBM serves, each with its specialties. */
+const NICHE_GROUPS: { group: string; adSpend: number; options: string[] }[] = [
+  {
+    group: 'Medical & Health',
+    adSpend: 2000,
+    options: ['Dentist', 'Orthodontist', 'Med spa / aesthetics', 'Chiropractor', 'Physical therapy', 'Dermatology', 'Plastic surgery', 'Primary or concierge care'],
+  },
+  {
+    group: 'Home Services',
+    adSpend: 1500,
+    options: ['Turf installation', 'Landscaping', 'Roofing', 'HVAC', 'Plumbing', 'Electrical', 'Pool service', 'Pest control', 'Remodeling', 'Solar'],
+  },
+  {
+    group: 'Legal',
+    adSpend: 2500,
+    options: ['Personal injury', 'Family law', 'Criminal defense', 'Estate planning', 'Immigration', 'Business law'],
+  },
+  {
+    group: 'Financial Services',
+    adSpend: 2000,
+    options: ['Life insurance agent', 'Financial advisor', 'Mortgage broker'],
+  },
+  {
+    group: 'Real Estate',
+    adSpend: 1500,
+    options: ['Residential real estate agent', 'Luxury real estate agent', 'Real estate team or brokerage'],
+  },
+  {
+    group: 'Lifestyle & Big-Ticket',
+    adSpend: 1500,
+    options: ['Wedding venue', 'Event venue', 'Boat or yacht charter', 'Premium experiences'],
+  },
+  {
+    group: 'Rentals & Transactional',
+    adSpend: 1000,
+    options: ['Movers', 'Equipment rental', 'Vacation rental', 'Car or exotic rental'],
+  },
+  {
+    group: 'Clubs',
+    adSpend: 1000,
+    options: ['Nightclub', 'Lounge'],
+  },
+  {
+    group: 'Restaurants',
+    adSpend: 1000,
+    options: ['Restaurant', 'Private dining & events'],
+  },
+  { group: 'Other', adSpend: 1500, options: ['Something else'] },
+]
+
+/** Rough share of inquiries a business likely loses at each response speed.
+ *  Anchored to the same speed-to-lead research the one-pagers cite. */
+const RESPONSE_SPEEDS = [
+  { label: 'Under 5 minutes', leak: 0.05 },
+  { label: 'Within an hour', leak: 0.2 },
+  { label: 'Same day', leak: 0.35 },
+  { label: 'Next day or later', leak: 0.5 },
+  { label: 'Not sure', leak: 0.35 },
+]
+
+const RETAINER = 2000
+
+const usd = (n: number) =>
+  '$' + Math.round(n).toLocaleString('en-US')
+
+export default function CostCalculator() {
+  const [name, setName] = useState('')
+  const [biz, setBiz] = useState('')
+  const [niche, setNiche] = useState('')
+  const [worth, setWorth] = useState('')
+  const [count, setCount] = useState('')
+  const [speed, setSpeed] = useState('')
+
+  const selected = useMemo(() => {
+    for (const g of NICHE_GROUPS) if (g.options.includes(niche)) return g
+    return null
+  }, [niche])
+
+  const worthN = parseFloat(worth) || 0
+  const countN = parseFloat(count) || 0
+  const speedObj = RESPONSE_SPEEDS.find((s) => s.label === speed) ?? null
+
+  const adSpend = selected?.adSpend ?? null
+  const total = adSpend !== null ? RETAINER + adSpend : null
+  const revenue = worthN > 0 && countN > 0 ? worthN * countN : null
+  const leak = revenue !== null && speedObj ? revenue * speedObj.leak : null
+
+  const intro = name.trim() ? `${name.trim()}, h` : 'H'
+  const bizName = biz.trim()
+
+  return (
+    <div className="cc">
+      <div className="cc-form">
+        <p className="cc-lede">
+          Estimate the monthly total for your niche. Fill in what you know — rough numbers
+          are fine, and your estimate builds as you go.
+        </p>
+
+        <div className="cc-row cc-row-2">
+          <label className="cc-field">
+            <span className="cc-q">Your name</span>
+            <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="First name" autoComplete="given-name" />
+          </label>
+          <label className="cc-field">
+            <span className="cc-q">Business name</span>
+            <input type="text" value={biz} onChange={(e) => setBiz(e.target.value)} placeholder="Your business" autoComplete="organization" />
+          </label>
+        </div>
+
+        <label className="cc-field">
+          <span className="cc-q">What do you do?</span>
+          <select value={niche} onChange={(e) => setNiche(e.target.value)}>
+            <option value="">Pick your specialty</option>
+            {NICHE_GROUPS.map((g) => (
+              <optgroup key={g.group} label={g.group}>
+                {g.options.map((o) => (
+                  <option key={o} value={o}>{o}</option>
+                ))}
+              </optgroup>
+            ))}
+          </select>
+        </label>
+
+        <div className="cc-row cc-row-2">
+          <label className="cc-field">
+            <span className="cc-q">What's an average new job or contract worth?</span>
+            <span className="cc-hint">One project, or a year of maintenance on a contract. An average or rough estimate is fine.</span>
+            <input
+              type="number" min="0" inputMode="decimal" value={worth}
+              onChange={(e) => setWorth(e.target.value)} placeholder="e.g. 2500"
+            />
+          </label>
+          <label className="cc-field">
+            <span className="cc-q">How many new jobs or contracts do you sign in a typical month?</span>
+            <span className="cc-hint">A typical month is fine. It doesn't need to be exact.</span>
+            <input
+              type="number" min="0" inputMode="numeric" value={count}
+              onChange={(e) => setCount(e.target.value)} placeholder="e.g. 8"
+            />
+          </label>
+        </div>
+
+        <div className="cc-field">
+          <span className="cc-q">When a new inquiry comes in, on average, how fast does someone usually respond?</span>
+          <div className="nx-chips cc-chips" role="radiogroup" aria-label="Response speed">
+            {RESPONSE_SPEEDS.map((s) => (
+              <button
+                key={s.label}
+                type="button"
+                role="radio"
+                aria-checked={speed === s.label}
+                className={`nx-chip${speed === s.label ? ' nx-chip-active' : ''}`}
+                onClick={() => setSpeed(speed === s.label ? '' : s.label)}
+              >
+                {s.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="cc-result">
+        {total === null && revenue === null && leak === null ? (
+          <p className="cc-empty">
+            Answer above and your estimate builds here. No email required.
+          </p>
+        ) : (
+          <>
+            {bizName && <p className="cc-for">{bizName}, by the numbers:</p>}
+            {total !== null && (
+              <div className="cc-line cc-line-total">
+                <span className="cc-line-label">Your estimated monthly total with Stay Booked</span>
+                <span className="cc-line-value">{usd(total)}</span>
+                <span className="cc-breakdown">
+                  {usd(RETAINER)} flat retainer + {usd(adSpend!)} ad spend{selected!.group === 'Other' ? '' : ` for ${selected!.group.toLowerCase()}`}. Ad spend goes
+                  to the platforms, not to us. No startup fee, month to month.
+                </span>
+              </div>
+            )}
+            {revenue !== null && (
+              <div className="cc-line">
+                <span className="cc-line-label">Your typical month in signed new business</span>
+                <span className="cc-line-value">{usd(revenue)}</span>
+              </div>
+            )}
+            {leak !== null && (
+              <div className="cc-line cc-line-leak">
+                <span className="cc-line-label">
+                  What {speed === 'Under 5 minutes' ? 'a slower team' : 'your current response time'} may be leaving on the table
+                </span>
+                <span className="cc-line-value">{usd(leak)}<span className="cc-per"> /mo</span></span>
+                <span className="cc-breakdown">
+                  {speed === 'Under 5 minutes'
+                    ? 'Your response time is already elite — the system keeps it there around the clock, weekends included.'
+                    : `Inquiries contacted within 5 minutes are dramatically more likely to book. At your response speed, roughly ${Math.round((speedObj!.leak) * 100)}% of interested buyers sign with someone else first. Rough estimate, not a promise.`}
+                </span>
+              </div>
+            )}
+            <p className="cc-verdict">
+              {leak !== null && total !== null && leak > total
+                ? `${intro}ere's the picture: ${usd(total)}/mo to run the system, against roughly ${usd(leak)}/mo currently walking out the door.`
+                : `${intro}ere's your estimate — rough numbers, honest math.`}
+            </p>
+            <a className="contact-book-btn" href={BOOKING_URL} target="_blank" rel="noopener noreferrer">
+              Book a Call
+            </a>
+          </>
+        )}
+      </div>
+    </div>
+  )
+}
