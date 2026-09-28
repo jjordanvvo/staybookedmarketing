@@ -25,8 +25,9 @@ export const still: Variants = { hidden: { opacity: 1 }, show: { opacity: 1 } }
 const COARSE =
   typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches
 
-const TRAVEL = COARSE ? 24 : 36
-const BLUR = COARSE ? 6 : 12
+// Kolby, Sept 28, 2026: entrances dialed way down — a gentle fade with a
+// tiny rise, no blur sharpening. Blocks ease in rather than "arrive".
+const TRAVEL = COARSE ? 6 : 10
 
 // Motion-enabled tags we actually use, kept in a typed map so `as` stays safe.
 const TAGS = {
@@ -61,16 +62,14 @@ function itemFor(delay: number): Variants {
   let v = itemCache.get(delay)
   if (!v) {
     v = {
-      hidden: { opacity: 0, y: TRAVEL, filter: `blur(${BLUR}px)` },
+      hidden: { opacity: 0, y: TRAVEL },
       show: {
         opacity: 1,
         y: 0,
-        filter: 'blur(0px)',
         transition: {
-          // Spring on the travel, gentle tweens on opacity/blur — feels alive, not bouncy.
-          y: { type: 'spring', stiffness: 64, damping: 16, mass: 1, delay },
-          opacity: { duration: 0.7, ease: EASE, delay },
-          filter: { duration: 0.8, ease: EASE, delay },
+          // Gentle fade with a whisper of rise — calm, not bouncy.
+          y: { type: 'spring', stiffness: 64, damping: 20, mass: 1, delay },
+          opacity: { duration: 0.9, ease: EASE, delay },
         },
       },
     }

@@ -453,9 +453,11 @@ ul { list-style: none; }
 }
 
 .hero-logo {
+  /* Banner wordmark: cropped wide asset spans the hero like a banner */
   width: 100%;
-  height: 100%;
-  object-fit: contain;   /* show the full SBM. wordmark; hero fill matches the tile's tan */
+  max-width: 1180px;
+  height: auto;
+  object-fit: contain;
   object-position: center;
   /* Barely-perceptible idle breath once the intro settles — transform-only */
   animation: heroBreath 9s ease-in-out 2.4s infinite;
@@ -1871,10 +1873,10 @@ ul { list-style: none; }
     max-height: 620px;
   }
   .hero-logo {
-    flex: none;          /* .hero is a flex row — without this the 108% is shrunk back to 100% */
-    max-width: none;     /* base reset caps images at 100%; opt this one out */
-    width: 108%;
-    height: 100%;
+    flex: none;
+    max-width: none;
+    width: 100%;
+    height: auto;
     object-fit: contain;
     object-position: center;
   }
@@ -2983,12 +2985,9 @@ html.lenis body {
    ============================================================ */
 .flow {
   position: relative;
-  display: grid;
-  grid-template-columns: 46% 54%;
   background: var(--offwhite);
 }
 .flow-content {
-  border-left: 1px solid var(--rule);
   min-width: 0;
 }
 .flow-stagewrap {
@@ -3408,7 +3407,6 @@ html.lenis body {
      at condensed scale while every section scrolls beneath it. Same story,
      same morphs, small stage. */
   .flow { display: block; }
-  .flow-content { border-left: none; }
   .flow-stagewrap {
     position: sticky;
     top: 76px;
