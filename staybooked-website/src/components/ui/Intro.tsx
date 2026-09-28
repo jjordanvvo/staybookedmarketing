@@ -31,10 +31,6 @@ import { EASE } from '@/components/ui/Reveal'
  * card is up.
  */
 
-const REDUCE =
-  typeof window !== 'undefined' &&
-  window.matchMedia('(prefers-reduced-motion: reduce)').matches
-
 // Consumed on the first Home mount of this page load — later mounts (router
 // back-navigation) skip straight to the settled page.
 let consumed = false
@@ -49,9 +45,9 @@ export function claimIntro(): boolean {
   return false
 }
 
-/** Called from Home's mount effect so remounts never replay the sequence. */
 export function consumeIntro() {
   consumed = true
+  return consumed
 }
 
 /* ---- The week that fills up ---- */
