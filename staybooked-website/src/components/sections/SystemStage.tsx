@@ -8,8 +8,8 @@ import { motion, useMotionValue, useReducedMotion, useTransform, type MotionValu
  * it is ALWAYS alive: scrubbed states while you move, ambient loops
  * (pulses, sweeps, breath) when you pause. It never pauses YOU.
  *
- * Segment A: THE WEEK board assembles, fills (24 booked),
- *           then crossfades into THE SYSTEM diagram, whose lead pulses
+ * Segment A: THE WEEK board arrives already settled (24 booked, no
+ *           count-up, no cell pops), then crossfades into THE SYSTEM diagram, whose lead pulses
  *           travel from ads to qualification to a calendar that books itself.
  * Segment B: THE LEDGER receipt stamps its line items and sweeps its total,
  *           then folds into THE STAMP, the fully booked card with the
@@ -60,25 +60,17 @@ const BOOKABLE = 24
 /* Segment-A scrub windows */
 const W = {
   assemble: [0.0, 0.06],
-  flip: [0.08, 0.28],
   weekOut: [0.44, 0.52],
   sysIn: [0.46, 0.54],
 }
 
 function WeekCell({ p, data }: { p: MotionValue<number>; data: CellData }) {
-  const flipT = W.flip[0] + (data.bookIndex / BOOKABLE) * (W.flip[1] - W.flip[0] - 0.04)
-  const fIn = win(p, flipT, flipT + 0.04)
-  const bScale = useTransform(fIn, (v) => 0.45 + 0.55 * v)
   const shellIn = win(p, W.assemble[0], W.assemble[1])
 
   return (
     <motion.span className="wk-cell" style={{ opacity: shellIn }}>
       {data.bookable ? (
-        <motion.span
-          className={`wk-booked wk-shade-${data.bookIndex % 3}`}
-          aria-hidden="true"
-          style={{ opacity: fIn, scale: bScale }}
-        />
+        <span className={`wk-booked wk-shade-${data.bookIndex % 3}`} aria-hidden="true" />
       ) : (
         <span className="wk-open" aria-hidden="true" />
       )}
@@ -87,20 +79,18 @@ function WeekCell({ p, data }: { p: MotionValue<number>; data: CellData }) {
 }
 
 function WeekView({ p }: { p: MotionValue<number> }) {
-  const bookedN = useTransform(p, [W.flip[0], W.flip[1]], [0, BOOKABLE], { clamp: true })
-  const bookedNum = useTransform(bookedN, (v) => String(Math.round(v)))
-  const bookedOp = useTransform(p, [W.assemble[1], W.assemble[1] + 0.03], [0, 1])
+  const shellIn = win(p, W.assemble[0], W.assemble[1])
 
   return (
     <div className="st-view st-week">
       <Badge lit={win(p, 0.0, 0.03)} no="01" label="The Week" />
       <div className="wk-count">
-        <motion.span className="wk-num wk-num-tan" style={{ opacity: bookedOp }}>
-          {bookedNum}
+        <motion.span className="wk-num wk-num-tan" style={{ opacity: shellIn }}>
+          {BOOKABLE}
         </motion.span>
       </div>
       <div className="wk-unitwrap">
-        <motion.p className="wk-unit" style={{ opacity: bookedOp }}>
+        <motion.p className="wk-unit" style={{ opacity: shellIn }}>
           appointments booked
         </motion.p>
       </div>
