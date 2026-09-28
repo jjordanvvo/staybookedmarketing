@@ -1,29 +1,16 @@
-import { Fragment, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion, type Variants } from 'framer-motion'
 import { EASE } from '@/components/ui/Reveal'
 
 /**
- * Intro — cinematic opening title sequence for the landing page.
+ * Intro — short, clean opening title pop for the landing page.
  *
- * A warm dawn title card (soft cream light, editorial hairline frame, the
- * site's paper grain) runs a four-beat sequence, then exits as a double
- * curtain: the cream panel lifts first, a cream-to-tan gradient panel follows,
- * and its bottom edge equals the hero tile exactly, so the second curtain
- * "becomes" the hero: a match-cut, not a wipe.
- *
- *   1. Small tracked location label + filmic progress line.
- *   2. The promise, visualized: a spiral-bound paper calendar card (rings,
- *      month header, today badge, weekday/date chips, time labels) fills up
- *      slot by slot with booked-appointment events while a counter ticks up
- *      "24 appointments booked this week". A few dashed slots stay open,
- *      the way a real week looks.
- *   3. Clean handoff, no middle beat: as the last blocks settle, the
- *      calendar blooms away WHILE "STAY BOOKED." letters rise through line
- *      masks in its place — the two motions overlap, so the calendar hands
- *      the stage straight to the type with nothing in between. The tan
- *      brand period spring-pops with a ripple ring, a light sweep passes
- *      across the landed title, and the brand line settles below.
- *   4. Curtain exit, hero settles in beneath (choreographed via onReveal).
+ * Per Kolby's Sept 28, 2026 direction: no calendar beat. "STAY BOOKED."
+ * letters rise through line masks right away, the tan brand period
+ * spring-pops with a ripple ring, a light sweep passes across the landed
+ * title, and the brand line settles below. Then the curtain exits and the
+ * hero settles in beneath (choreographed via onReveal). Short and simple —
+ * done in under two seconds.
  *
  * Plays once per full page load (router navigation back to "/" never replays
  * it), never under prefers-reduced-motion, and is skippable at any moment via
@@ -49,39 +36,15 @@ export function consumeIntro() {
   consumed = true
 }
 
-/* ---- The week that fills up ---- */
-const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-const DATE_START = 21 // the real week: Mon Sep 21 - Sun Sep 27, 2026
-const TODAY_COL = 2 // Wed Sep 23
-const TIMES = ['9 AM', '11 AM', '1 PM', '3 PM']
-const ROWS = 4
-// The slots that stay open, "col-row" 1-indexed — a real calendar has gaps.
-const OPEN_SLOTS = new Set(['2-4', '5-2', '6-1', '4-3'])
-
-type Slot = { key: string; shade: 'a' | 'b' | 'c' }
-const FILLED: Slot[] = []
-for (let r = 1; r <= ROWS; r++) {
-  for (let c = 1; c <= DAYS.length; c++) {
-    if (!OPEN_SLOTS.has(`${c}-${r}`)) {
-      FILLED.push({ key: `${c}-${r}`, shade: (['a', 'b', 'c'] as const)[(r + c) % 3] })
-    }
-  }
-}
-const FILL_COUNT = FILLED.length // 24
 
 /* ---- Timeline (seconds, relative to "armed" = fonts ready) ---- */
-const CAL_START = 0.5 // day headers + first block land
-const CELL_STAG = 0.055 // calm but tight — the week fills in ~1.8s
-const COUNTER_HOLD = 0.3 // counter line fades in as the fills begin
-const CAL_BLOOM_AT = 1.85 // fills done + counter hits 24 → bloom immediately
-const CAL_OUT_AT = 2.35 // calendar fades out under the rising title
-const TITLE_AT = 1.85 // letters rise the SAME instant the bloom starts
-const LETTER_STAGGER = 0.03 // tighter stagger — the title reads as one mass
-const DOT_AT = 2.55 // brand period pop
-const RING_AT = 2.67 // ripple ring around the period
-const SWEEP_AT = 2.95 // light sweep passes across the landed title
-const TAG_AT = 3.05 // serif brand line
-const EXIT_AT = 4.55 // curtains begin
+const TITLE_AT = 0.35 // letters rise almost immediately — no calendar beat
+const LETTER_STAGGER = 0.03 // tight stagger — the title reads as one mass
+const DOT_AT = 1.05 // brand period pop
+const RING_AT = 1.17 // ripple ring around the period
+const SWEEP_AT = 1.45 // light sweep passes across the landed title
+const TAG_AT = 1.55 // serif brand line
+const EXIT_AT = 2.4 // curtains begin — short and simple
 
 const WORDS = ['STAY', 'BOOKED']
 
@@ -95,62 +58,6 @@ const labelV: Variants = {
     transition: { duration: 1.1, ease: EASE, delay },
   }),
 }
-
-// Day headers fade in as one row.
-const dayV: Variants = {
-  hidden: { opacity: 0, y: 6 },
-  show: (delay: number) => ({
-    opacity: 0.85,
-    y: 0,
-    transition: { duration: 0.5, ease: EASE, delay },
-  }),
-}
-
-// Each booked slot stamps in with a snappy spring pop.
-const cellV: Variants = {
-  hidden: { opacity: 0, scale: 0.3 },
-  show: (delay: number) => ({
-    opacity: 1,
-    scale: 1,
-    transition: { type: 'spring', stiffness: 260, damping: 17, delay },
-  }),
-}
-
-const counterV: Variants = {
-  hidden: { opacity: 0, y: 8 },
-  show: (delay: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: EASE, delay },
-  }),
-}
-
-// The whole calendar: rises in as the fills begin, holds while the week books
-// up, then blooms away (scale + blur) the instant the fills finish — no dead
-// air before the arrow/title chain takes over.
-const CAL_LAND = 0.32 // seconds from CAL_START to fully landed
-const CAL_DUR = CAL_OUT_AT - (CAL_START - 0.15)
-const calV: Variants = {
-  hidden: { opacity: 0, y: 26, scale: 0.96, filter: 'blur(8px)' },
-  show: {
-    opacity: [0, 1, 1, 0],
-    y: [26, 0, 0, -18],
-    scale: [0.96, 1, 1, 1.07],
-    filter: ['blur(8px)', 'blur(0px)', 'blur(0px)', 'blur(14px)'],
-    transition: {
-      duration: CAL_DUR,
-      times: [
-        0,
-        CAL_LAND / CAL_DUR,
-        (CAL_BLOOM_AT - (CAL_START - 0.15)) / CAL_DUR,
-        1,
-      ],
-      ease: EASE,
-      delay: CAL_START - 0.15,
-    },
-  },
-}
-
 // Each headline letter rises out of its own overflow mask on a snappy spring.
 const letterV: Variants = {
   hidden: { y: '118%', filter: 'blur(5px)' },
@@ -219,7 +126,6 @@ export default function Intro({ onReveal }: { onReveal: () => void }) {
   const [armed, setArmed] = useState(false) // fonts ready → sequence starts
   const [exiting, setExiting] = useState(false) // curtains lifting
   const [done, setDone] = useState(false) // overlay fully gone
-  const [count, setCount] = useState(0) // appointments booked this week
   const revealedRef = useRef(false)
 
   // Hold the sequence (briefly) until the display font is ready so the big
@@ -250,23 +156,6 @@ export default function Intro({ onReveal }: { onReveal: () => void }) {
     return () => clearTimeout(t)
   }, [armed])
 
-  // Counter ticks up in lockstep with the booking blocks stamping in.
-  useEffect(() => {
-    if (!armed) return
-    let n = 0
-    let interval = 0
-    const start = window.setTimeout(() => {
-      interval = window.setInterval(() => {
-        n += 1
-        setCount(n)
-        if (n >= FILL_COUNT) window.clearInterval(interval)
-      }, CELL_STAG * 1000)
-    }, CAL_START * 1000)
-    return () => {
-      clearTimeout(start)
-      window.clearInterval(interval)
-    }
-  }, [armed])
 
   // Skippable at any moment.
   useEffect(() => {
@@ -322,7 +211,7 @@ export default function Intro({ onReveal }: { onReveal: () => void }) {
         animate={exiting ? { y: '-100%' } : { y: '0%' }}
         transition={{ duration: 0.9, ease: EASE, delay: 0.1 }}
       >
-        {/* Sun-glow — blooms behind the calendar and headline as they land. */}
+        {/* Sun-glow — blooms behind the headline as it lands. */}
         <motion.div className="intro-glow" variants={glowV} initial="hidden" animate={seq} />
 
         <motion.div
@@ -334,66 +223,7 @@ export default function Intro({ onReveal }: { onReveal: () => void }) {
             Lead generation for local businesses
           </motion.span>
 
-          {/* Beat 2 — the week books up: a real calendar, filling in. */}
-          <motion.div className="intro-calwrap" aria-hidden="true" variants={calV} initial="hidden" animate={seq}>
-            <div className="cal-card">
-              <span className="cal-ring cal-ring-l" />
-              <span className="cal-ring cal-ring-r" />
-              <div className="cal-head">
-                <span className="cal-badge">23</span>
-                <span className="cal-month">September 2026</span>
-              </div>
-              <div className="cal-board">
-                <span className="cal-corner" />
-                {DAYS.map((d, i) => (
-                  <motion.span
-                    key={d + i}
-                    className={`cal-day${i === TODAY_COL ? ' cal-day-today' : ''}`}
-                    variants={dayV}
-                    custom={CAL_START + i * 0.04}
-                  >
-                    {d}
-                    <em className="cal-date">{DATE_START + i}</em>
-                  </motion.span>
-                ))}
-                {TIMES.map((t, r) => (
-                  <Fragment key={t}>
-                    <span className="cal-time">{t}</span>
-                    {DAYS.map((_, ci) => {
-                      const col = ci + 1
-                      const row = r + 1
-                      const key = `${col}-${row}`
-                      if (OPEN_SLOTS.has(key)) {
-                        return (
-                          <motion.span
-                            key={key}
-                            className="cal-slot cal-slot-open"
-                            variants={dayV}
-                            custom={CAL_START + 0.1}
-                          />
-                        )
-                      }
-                      const fillIndex = FILLED.findIndex((f) => f.key === key)
-                      const slot = FILLED[fillIndex]
-                      return (
-                        <motion.span
-                          key={key}
-                          className={`cal-slot cal-slot-booked cal-slot-${slot.shade}`}
-                          variants={cellV}
-                          custom={CAL_START + fillIndex * CELL_STAG}
-                        />
-                      )
-                    })}
-                  </Fragment>
-                ))}
-              </div>
-            </div>
-            <motion.p className="cal-count" variants={counterV} custom={CAL_START + COUNTER_HOLD}>
-              <span className="cal-count-num">{count}</span> appointments booked this week
-            </motion.p>
-          </motion.div>
-
-          {/* Beat 3 — the masked headline, period pop, and brand line. */}
+          {/* The masked headline, period pop, and brand line. */}
           <div className="intro-titlewrap">
             <h1 className="intro-title" aria-label="Stay Booked.">
               {WORDS.map((word, wi) => (
