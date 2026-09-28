@@ -7,6 +7,8 @@ import { motion, useReducedMotion, useScroll, useSpring } from 'framer-motion'
  */
 export default function ScrollProgress() {
   const reduce = useReducedMotion()
+  const coarse =
+    typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches
   const { scrollYProgress } = useScroll()
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 90,
@@ -15,7 +17,7 @@ export default function ScrollProgress() {
     restDelta: 0.001,
   })
 
-  if (reduce) return null
+  if (reduce || coarse) return null
   return (
     <motion.div
       className="scroll-progress"

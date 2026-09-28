@@ -19,6 +19,10 @@ export default function SmoothScroll() {
   useEffect(() => {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (reduce) return
+    // Phones/tablets: native scrolling. The Lenis glide only runs for
+    // desktop wheel users (Kolby, Sept 28, 2026: the touch glide read as
+    // a distracting "scroll animation").
+    if (window.matchMedia('(pointer: coarse)').matches) return
 
     const lenis = new Lenis({
       duration: 1.15,

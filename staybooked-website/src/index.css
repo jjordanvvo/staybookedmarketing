@@ -3909,3 +3909,11 @@ html.lenis body {
   .book-layout { grid-template-columns: 1fr; gap: 28px; }
   .book-calendar iframe { height: 640px; }
 }
+
+/* ---- Kolby Sept 28, 2026: no ambient loops in the stage ---- */
+.stage .sys-pulse,
+.stage .sys-minical-block,
+.stage .ledger-sweep,
+.stage .stamp-cta {
+  animation: none !important;
+}
