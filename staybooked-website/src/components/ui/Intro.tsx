@@ -39,9 +39,14 @@ const REDUCE =
 // back-navigation) skip straight to the settled page.
 let consumed = false
 
-/** Should this page load open with the intro? Decided once, in Home. */
+/** Should this page load open with the intro? Decided once, in Home.
+ *
+ * DISABLED Sept 28, 2026: the intro's beat-2 calendar (slots stamping in one
+ * by one while the "appointments booked" counter ticks up) is the exact
+ * counting animation Kolby wants off the site. No intro plays at all now;
+ * every load opens straight to the hero. */
 export function claimIntro(): boolean {
-  return typeof window !== 'undefined' && !REDUCE && !consumed
+  return false
 }
 
 /** Called from Home's mount effect so remounts never replay the sequence. */
