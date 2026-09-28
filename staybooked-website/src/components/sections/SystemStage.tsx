@@ -8,7 +8,7 @@ import { motion, useMotionValue, useReducedMotion, useTransform, type MotionValu
  * it is ALWAYS alive: scrubbed states while you move, ambient loops
  * (pulses, sweeps, breath) when you pause. It never pauses YOU.
  *
- * Segment A: THE WEEK board assembles, leaks (13 missed), fills (24 booked),
+ * Segment A: THE WEEK board assembles, fills (24 booked),
  *           then crossfades into THE SYSTEM diagram, whose lead pulses
  *           travel from ads to qualification to a calendar that books itself.
  * Segment B: THE LEDGER receipt stamps its line items and sweeps its total,
@@ -42,52 +42,37 @@ function Badge({ lit, no, label }: { lit: MotionValue<number>; no: string; label
 const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 const OPEN_SLOTS = new Set(['2-4', '5-2', '6-1', '4-3'])
 
-type CellData = { key: string; bookable: boolean; bookIndex: number; missed: boolean; missIndex: number }
+type CellData = { key: string; bookable: boolean; bookIndex: number }
 const CELLS: CellData[] = []
 {
   let bi = 0
-  let mi = 0
   for (let r = 1; r <= 4; r++) {
     for (let c = 1; c <= 7; c++) {
       const key = `${c}-${r}`
       const bookable = !OPEN_SLOTS.has(key)
-      const missed = bookable && (bi * 7) % 24 < 13
-      CELLS.push({ key, bookable, bookIndex: bi, missed, missIndex: mi })
-      if (missed) mi++
+      CELLS.push({ key, bookable, bookIndex: bi })
       if (bookable) bi++
     }
   }
 }
 const BOOKABLE = 24
-const MISSED_N = 13
 
 /* Segment-A scrub windows */
 const W = {
   assemble: [0.0, 0.06],
-  act1: [0.06, 0.22],
-  flip: [0.24, 0.38],
+  flip: [0.08, 0.28],
   weekOut: [0.44, 0.52],
   sysIn: [0.46, 0.54],
 }
 
 function WeekCell({ p, data }: { p: MotionValue<number>; data: CellData }) {
-  const flipT = 0.24 + (data.bookIndex / BOOKABLE) * 0.13
+  const flipT = W.flip[0] + (data.bookIndex / BOOKABLE) * (W.flip[1] - W.flip[0] - 0.04)
   const fIn = win(p, flipT, flipT + 0.04)
-  const mStart = 0.06 + (data.missIndex / MISSED_N) * 0.12
-  const mIn = win(p, mStart, mStart + 0.05)
-  const mOut = win(p, flipT - 0.04, flipT)
-  const mOp = useTransform([mIn, mOut], (v: number[]) => v[0] * v[1])
-  const mScale = useTransform(mIn, (v) => 0.55 + 0.45 * v)
   const bScale = useTransform(fIn, (v) => 0.45 + 0.55 * v)
   const shellIn = win(p, W.assemble[0], W.assemble[1])
 
   return (
     <motion.span className="wk-cell" style={{ opacity: shellIn }}>
-      {data.missed && (
-        <motion.span className="wk-missed" aria-hidden="true" style={{ opacity: mOp, scale: mScale }}>
-          <i className="wk-missed-dot" />
-        </motion.span>
-      )}
       {data.bookable ? (
         <motion.span
           className={`wk-booked wk-shade-${data.bookIndex % 3}`}
@@ -102,30 +87,19 @@ function WeekCell({ p, data }: { p: MotionValue<number>; data: CellData }) {
 }
 
 function WeekView({ p }: { p: MotionValue<number> }) {
-  const missedN = useTransform(p, [W.act1[0], W.act1[1]], [0, MISSED_N], { clamp: true })
-  const missedNum = useTransform(missedN, (v) => String(Math.round(v)))
   const bookedN = useTransform(p, [W.flip[0], W.flip[1]], [0, BOOKABLE], { clamp: true })
   const bookedNum = useTransform(bookedN, (v) => String(Math.round(v)))
-  const missedOp = useTransform(p, [0.2, 0.24], [1, 0])
-  const bookedOp = useTransform(p, [0.22, 0.26], [0, 1])
-  const washOp = useTransform(p, [0.22, 0.34], [0, 1])
+  const bookedOp = useTransform(p, [W.assemble[1], W.assemble[1] + 0.03], [0, 1])
 
   return (
     <div className="st-view st-week">
-      <motion.div className="wk-wash" data-wash aria-hidden="true" style={{ opacity: washOp }} />
       <Badge lit={win(p, 0.0, 0.03)} no="01" label="The Week" />
       <div className="wk-count">
-        <motion.span className="wk-num wk-num-ink" style={{ opacity: missedOp }}>
-          {missedNum}
-        </motion.span>
         <motion.span className="wk-num wk-num-tan" style={{ opacity: bookedOp }}>
           {bookedNum}
         </motion.span>
       </div>
       <div className="wk-unitwrap">
-        <motion.p className="wk-unit" style={{ opacity: missedOp }}>
-          leads slipped away
-        </motion.p>
         <motion.p className="wk-unit" style={{ opacity: bookedOp }}>
           appointments booked
         </motion.p>
