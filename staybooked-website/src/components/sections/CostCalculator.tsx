@@ -410,7 +410,7 @@ export default function CostCalculator() {
               <h4>How this model is built</h4>
               <ul>
                 <li><strong>Your numbers</strong> — {fmtUSD(priceN)} average {u} value, {fmtUSD(p.profitPerClient)} profit per {u}, {fmtClients(clientsNow)} {plural(u, clientsNow)} a month.</li>
-                <li><strong>Lead volume</strong> — {fmtUSD(PROGRAM.adSpend)} a month buys {fmtClients(p.leads)} leads at {fmtUSD(p.group.cpl)} per lead ({trade.group} benchmark).</li>
+                <li><strong>Lead volume</strong> — {fmtUSD(PROGRAM.adSpend)} a month buys {fmtClients(p.leads)} leads at ${p.group.cpl % 1 ? p.group.cpl.toFixed(2) : p.group.cpl} per lead ({trade.group} benchmark).</li>
                 <li><strong>Close rate</strong> — {fastPct}% of leads become clients when every lead gets a 5-minute response.</li>
                 <li><strong>Your current follow-up</strong> — {speed.toLowerCase()}.</li>
                 <li><strong>Additional clients</strong> — stacked on top of the {plural(u, clientsNow)} you already sign. We never touch your referral base.</li>
