@@ -1,6 +1,6 @@
 import type { MouseEvent } from 'react'
 import { motion, useReducedMotion, useSpring } from 'framer-motion'
-import logo from '@/assets/logo.webp'
+import GlassMark from '@/components/ui/GlassMark'
 import { EASE } from '@/components/ui/Reveal'
 
 // Cursor parallax only makes sense with a real pointer (decided once at load).
@@ -10,7 +10,7 @@ const FINE_POINTER =
 
 type HeroProps = {
   /** False while the intro title card is still up — the entrance holds until
-   *  the curtains start lifting, so the logo settles in mid-reveal. */
+   *  the curtains start lifting, so the mark settles in mid-reveal. */
   revealed?: boolean
   /** Whether this page load opened with the intro (pushes the idle breath back
    *  so it never runs during the entrance). */
@@ -18,11 +18,12 @@ type HeroProps = {
 }
 
 /**
- * Hero — cinematic logo intro.
- * 1. The mark settles in with a slow scale-and-blur entrance (global easing),
- *    cued by the intro curtain when the title sequence plays.
- * 2. A barely-perceptible idle breath keeps it alive (CSS keyframes on the img).
- * 3. On desktop, the mark drifts a few pixels toward the cursor via lazy
+ * Hero — cinematic glass-mark intro.
+ * 1. The glass mark settles in with a slow scale-and-blur entrance (global
+ *    easing), cued by the intro curtain when the title sequence plays.
+ * 2. The Originkit glass torus slowly turns behind the STAY BOOKED lettering —
+ *    the lettering stays the focal point; the glass is the accent.
+ * 3. On desktop, the scene drifts a few pixels toward the cursor via lazy
  *    springs — disabled on touch devices and under prefers-reduced-motion.
  */
 export default function Hero({ revealed = true, intro = false }: HeroProps) {
@@ -54,11 +55,10 @@ export default function Hero({ revealed = true, intro = false }: HeroProps) {
         animate={show ? { opacity: 1, scale: 1, filter: 'blur(0px)' } : undefined}
         transition={{ duration: 1.6, ease: EASE, delay: intro ? 0.35 : 0 }}
       >
-        <img
-          className="hero-logo"
-          src={logo}
-          alt="Stay Booked Marketing"
-          style={intro ? { animationDelay: '7.3s' } : undefined}
+        <GlassMark
+          background="#CFB48E"
+          text="STAY BOOKED"
+          textColor="#141414"
         />
       </motion.div>
     </header>

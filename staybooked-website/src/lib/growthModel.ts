@@ -187,7 +187,7 @@ export const TRADES: Trade[] = [
     q4: 'What is your average revenue per job?',
     q5: 'On average, what does a job cost you in parts and labor?',
     q6: 'How many jobs do you book in a typical month?',
-    repeat: { perYear: 2, note: 'a customer who finds a plumber they trust calls again and adds work in year one' },
+    repeat: { perYear: 2.2, note: 'a customer who finds a plumber they trust calls back for water heaters, re-pipes and add-on work in year one' },
   },
   { label: 'Electrical', group: 'Home Services', unit: 'job',
     q4: 'What is your average revenue per job?',

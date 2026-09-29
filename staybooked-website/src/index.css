@@ -452,21 +452,16 @@ ul { list-style: none; }
   will-change: transform;
 }
 
-.hero-logo {
-  /* Banner wordmark: cropped wide asset spans the hero like a banner */
+.glass-mark {
+  /* Full-bleed refractive banner — the glass torus turns behind the
+     STAY BOOKED lettering, sized by the hero itself. */
   width: 100%;
-  max-width: 1180px;
-  height: auto;
-  object-fit: contain;
-  object-position: center;
-  /* Barely-perceptible idle breath once the intro settles — transform-only */
-  animation: heroBreath 9s ease-in-out 2.4s infinite;
-  will-change: transform;
+  height: 100%;
 }
 
-@keyframes heroBreath {
-  0%, 100% { transform: translateY(0) scale(1); }
-  50%      { transform: translateY(-6px) scale(1.005); }
+.glass-mark > div {
+  width: 100%;
+  height: 100%;
 }
 
 /* ============================================================
@@ -1872,14 +1867,7 @@ ul { list-style: none; }
     min-height: 340px;
     max-height: 620px;
   }
-  .hero-logo {
-    flex: none;
-    max-width: none;
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    object-position: center;
-  }
+
 
   /* HERO STATEMENT — supporting text follows the headline closely */
   .statement-inner {
@@ -2081,7 +2069,6 @@ ul { list-style: none; }
   html {
     scroll-behavior: auto;
   }
-  .hero-logo { animation: none !important; opacity: 1 !important; }
   /* /free-call intro: React skips mounting it, but belt-and-suspenders */
   .lp-intro { display: none !important; }
   .lp-cta-hero::after { animation: none !important; }
