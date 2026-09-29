@@ -204,7 +204,9 @@ export default function CostCalculator() {
   const downloadPdf = async () => {
     track('projection_pdf_download', { trade: tradeLabel })
     try {
-      const mod = await (Function('return import("https://unpkg.com/jspdf@2.5.2/dist/jspdf.es.min.js")')() as Promise<{ jsPDF: new () => any }>)
+      // Vendored jspdf — no runtime fetch from unpkg (supply-chain risk).
+      // Dynamic import keeps it out of the main bundle; loads on first PDF.
+      const mod = await import('jspdf')
       const doc = new mod.jsPDF()
       const p = projection!
       const u = trade!.unit
