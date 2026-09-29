@@ -78,7 +78,11 @@ export default function GlassMark({
     <div className="glass-mark" role="img" aria-label="Stay Booked Marketing">
       <Suspense fallback={null}>
         <GlassIcon
-          style={{ minWidth: 0, minHeight: 0 }}
+          /* pan-y: vertical swipes scroll the page straight through the
+             canvas instead of getting eaten by the glass drag gesture.
+             Horizontal touch drag still spins the coin; mouse drag on
+             desktop is unaffected by touch-action. */
+          style={{ minWidth: 0, minHeight: 0, touchAction: 'pan-y' }}
           background={background}
           shape={shape}
           size={coinSize}

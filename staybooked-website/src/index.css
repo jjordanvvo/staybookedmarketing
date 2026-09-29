@@ -1863,9 +1863,9 @@ ul { list-style: none; }
      and is scaled so the wordmark spans ~70% of the screen. The tile's own tan
      matches --logo-fill, so the slight horizontal overflow is invisible. */
   .hero {
-    height: 72vh;
-    min-height: 340px;
-    max-height: 620px;
+    height: 54vh;
+    min-height: 300px;
+    max-height: 460px;
   }
 
 
