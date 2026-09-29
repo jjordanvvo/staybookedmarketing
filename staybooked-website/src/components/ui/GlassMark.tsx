@@ -70,6 +70,10 @@ export default function GlassMark({
   // Lettering fits the plate: large on desktop, scaled down on phones.
   const fontSize = vw < 480 ? '44px' : vw < 768 ? '72px' : '140px'
 
+  // Mobile frames are short and wide, so the glass reads much bigger there.
+  // Drop its size so the lettering, not the coin, stays the focal point.
+  const coinSize = vw < 768 ? 36 : size
+
   return (
     <div className="glass-mark" role="img" aria-label="Stay Booked Marketing">
       <Suspense fallback={null}>
@@ -77,7 +81,7 @@ export default function GlassMark({
           style={{ minWidth: 0, minHeight: 0 }}
           background={background}
           shape={shape}
-          size={size}
+          size={coinSize}
           speed={reduce ? 0 : speed}
           direction="Counterclockwise"
           backdrop={{
