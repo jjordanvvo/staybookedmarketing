@@ -111,6 +111,11 @@ export interface Trade {
   q6: string
   /** Commission trades are asked what they take home, not what they pay out */
   commission?: boolean
+  /** Repeat trades: a new client is worth more than one transaction. The
+   *  perYear factor is the new client's average transactions (or months of
+   *  service) in their first year — the projection counts that first-year
+   *  value, never just the first job. Disclosed on the results page. */
+  repeat?: { perYear: number; note: string }
   /** Optional variance note appended under the money questions */
   varies?: string
   /** Real estate trades think in annual closings */
@@ -130,7 +135,9 @@ export const TRADES: Trade[] = [
   { label: 'Med spa / aesthetics', group: 'Medical & Health', unit: 'client',
     q4: 'What is your average ticket for a new client?',
     q5: 'On average, what does it cost you to deliver a new client\u2019s treatments?',
-    q6: 'How many new clients do you sign in a typical month?' },
+    q6: 'How many new clients do you sign in a typical month?',
+    repeat: { perYear: 2, note: 'aesthetic clients typically re-book treatments through their first year' },
+  },
   { label: 'Chiropractor', group: 'Medical & Health', unit: 'patient',
     q4: 'What is your average revenue from a new patient?',
     q5: 'On average, what does it cost you to serve a new patient\u2019s care plan?',
@@ -142,7 +149,9 @@ export const TRADES: Trade[] = [
   { label: 'Dermatology', group: 'Medical & Health', unit: 'patient',
     q4: 'What is your average revenue from a new patient?',
     q5: 'On average, what does it cost your practice to treat a new patient?',
-    q6: 'How many new patients do you see in a typical month?' },
+    q6: 'How many new patients do you see in a typical month?',
+    repeat: { perYear: 1.8, note: 'cosmetic and follow-up visits bring patients back several times in year one' },
+  },
   { label: 'Plastic surgery', group: 'Medical & Health', unit: 'procedure',
     q4: 'What is your average fee for a procedure?',
     q5: 'On average, what does it cost your practice to perform a procedure?',
@@ -161,7 +170,9 @@ export const TRADES: Trade[] = [
   { label: 'Landscaping', group: 'Home Services', unit: 'project',
     q4: 'What is your average revenue per project or contract?',
     q5: 'On average, what does a project cost you in crew, materials and equipment?',
-    q6: 'How many projects do you sign in a typical month?' },
+    q6: 'How many projects do you sign in a typical month?',
+    repeat: { perYear: 1.5, note: 'install clients usually add maintenance work through the year' },
+  },
   { label: 'Roofing', group: 'Home Services', unit: 'job',
     q4: 'What is your average revenue per roof?',
     q5: 'On average, what does a roof cost you in materials and labor?',
@@ -169,23 +180,33 @@ export const TRADES: Trade[] = [
   { label: 'HVAC', group: 'Home Services', unit: 'system',
     q4: 'What is your average revenue per system or service job?',
     q5: 'On average, what does a job cost you in parts and labor?',
-    q6: 'How many jobs do you book in a typical month?' },
+    q6: 'How many jobs do you book in a typical month?',
+    repeat: { perYear: 1.5, note: 'new customers typically add maintenance visits or a service plan in year one' },
+  },
   { label: 'Plumbing', group: 'Home Services', unit: 'job',
     q4: 'What is your average revenue per job?',
     q5: 'On average, what does a job cost you in parts and labor?',
-    q6: 'How many jobs do you book in a typical month?' },
+    q6: 'How many jobs do you book in a typical month?',
+    repeat: { perYear: 2, note: 'a customer who finds a plumber they trust calls again and adds work in year one' },
+  },
   { label: 'Electrical', group: 'Home Services', unit: 'job',
     q4: 'What is your average revenue per job?',
     q5: 'On average, what does a job cost you in materials and labor?',
-    q6: 'How many jobs do you book in a typical month?' },
+    q6: 'How many jobs do you book in a typical month?',
+    repeat: { perYear: 2, note: 'new customers commonly call back for panels, fixtures and upgrades within the first year' },
+  },
   { label: 'Pool service', group: 'Home Services', unit: 'customer',
     q4: 'What is your average revenue per customer, per month?',
     q5: 'On average, what does each customer cost you per month to service?',
-    q6: 'How many customers do you sign in a typical month?' },
+    q6: 'How many customers do you sign in a typical month?',
+    repeat: { perYear: 12, note: 'a new pool customer is a recurring monthly account, twelve months a year' },
+  },
   { label: 'Pest control', group: 'Home Services', unit: 'customer',
     q4: 'What is your average revenue per customer, per year?',
     q5: 'On average, what does each customer cost you per year to service?',
-    q6: 'How many customers do you sign in a typical month?' },
+    q6: 'How many customers do you sign in a typical month?',
+    repeat: { perYear: 2.2, note: 'the first year includes the initial treatment, recurring service and common yard add-ons' },
+  },
   { label: 'Remodeling', group: 'Home Services', unit: 'project',
     q4: 'What is your average revenue per project?',
     q5: 'On average, what does a project cost you in materials and labor?',
@@ -228,11 +249,13 @@ export const TRADES: Trade[] = [
     q4: 'What is your average commission per policy?',
     q5: 'After your upline or agency split, how much do you take home per policy, on average?',
     q6: 'How many policies do you write in a typical month?',
-    commission: true },
+    commission: true,
+    repeat: { perYear: 2, note: 'households commonly add policies for a spouse or kids, plus riders, in the first year' } },
   { label: 'Financial advisor', group: 'Financial Services', unit: 'client',
     q4: 'What is your average first-year revenue from a new client?',
     q5: 'On average, what does it cost you to acquire and onboard a new client?',
-    q6: 'How many new clients do you sign in a typical month?' },
+    q6: 'How many new clients do you sign in a typical month?',
+  },
   { label: 'Mortgage broker', group: 'Financial Services', unit: 'loan',
     q4: 'What is your average commission per loan?',
     q5: 'After your branch or broker split, how much do you take home per loan, on average?',
@@ -277,7 +300,9 @@ export const TRADES: Trade[] = [
     q4: 'What is your average revenue per booking?',
     q5: 'On average, what does a booking cost you to deliver?',
     q6: 'How many bookings do you take in a typical month?',
-    varies: 'Totals vary by experience; a typical booking is fine.' },
+    varies: 'Totals vary by experience; a typical booking is fine.',
+    repeat: { perYear: 1.6, note: 'experience buyers commonly rebook or gift again within the year' },
+  },
 
   // Rentals & Transactional
   { label: 'Movers', group: 'Rentals & Transactional', unit: 'move',
@@ -288,7 +313,9 @@ export const TRADES: Trade[] = [
     q4: 'What is your average revenue per rental?',
     q5: 'On average, what does each rental cost you?',
     q6: 'How many rentals do you book in a typical month?',
-    varies: 'Totals vary by equipment and days; a typical rental is fine.' },
+    varies: 'Totals vary by equipment and days; a typical rental is fine.',
+    repeat: { perYear: 2, note: 'renters come back for the next project, repeat rental business is the norm' },
+  },
   { label: 'Vacation rental', group: 'Rentals & Transactional', unit: 'stay',
     q4: 'What is your average revenue per stay?',
     q5: 'On average, what does each stay cost you in cleaning, fees and upkeep?',
@@ -297,23 +324,31 @@ export const TRADES: Trade[] = [
     q4: 'What is the average value of a rental?',
     q5: 'On average, how much does each rental cost you?',
     q6: 'How many rentals do you book in a typical month?',
-    varies: 'Totals vary by vehicle and number of days; a typical rental is fine.' },
+    varies: 'Totals vary by vehicle and number of days; a typical rental is fine.',
+    repeat: { perYear: 1.5, note: 'specialty renters commonly rebook within the year' },
+  },
 
   // Clubs
   { label: 'Nightclub', group: 'Clubs', unit: 'table booking',
     q4: 'What is your average spend per table booking?',
     q5: 'On average, what does a table booking cost you to host?',
-    q6: 'How many table bookings do you take in a typical month?' },
+    q6: 'How many table bookings do you take in a typical month?',
+    repeat: { perYear: 2, note: 'table guests who have a great night rebook through the year' },
+  },
   { label: 'Lounge', group: 'Clubs', unit: 'table booking',
     q4: 'What is your average spend per table booking?',
     q5: 'On average, what does a table booking cost you to host?',
-    q6: 'How many table bookings do you take in a typical month?' },
+    q6: 'How many table bookings do you take in a typical month?',
+    repeat: { perYear: 2, note: 'bottle-service regulars rebook through the year' },
+  },
 
   // Restaurants
   { label: 'Restaurant', group: 'Restaurants', unit: 'reservation',
     q4: 'What is the average check for a reservation?',
     q5: 'On average, what does it cost to serve a reservation?',
-    q6: 'How many reservations do you receive in a typical month?' },
+    q6: 'How many reservations do you receive in a typical month?',
+    repeat: { perYear: 2.4, note: 'new guests who like you come back, year-one repeat visits are the industry norm' },
+  },
   { label: 'Private dining & events', group: 'Restaurants', unit: 'private event',
     q4: 'What is your average revenue per private event?',
     q5: 'On average, what does a private event cost you to host?',
@@ -359,6 +394,8 @@ export interface Projection {
   group: Benchmarks
   /** price − cost (for commission trades, the take-home entered) */
   profitPerClient: number
+  /** first-year value of one NEW client (profit per client × repeat factor) */
+  newValue: number
   profitToday: number
   leads: number
   newClients: number
@@ -386,21 +423,27 @@ export function computeProjection(input: CalcInput): Projection {
   const profitPerClient = trade.commission ? q5Value : price - q5Value
   const profitToday = clientsPerMonth * profitPerClient
 
+  // New clients are valued across their first year where the trade repeats:
+  // a returning diner, a service plan, a rebooked table. The prospect's own
+  // existing clients keep the plain per-unit basis — we never touch those.
+  const repeat = trade.repeat?.perYear ?? 1
+  const newValue = profitPerClient * repeat
+
   const leads = PROGRAM.adSpend / group.cpl
   const newClients = leads * group.fastRate
   const clientsFull = clientsPerMonth + newClients
-  const profitFull = clientsFull * profitPerClient - PROGRAM.costMonthly
+  const profitFull = profitToday + newClients * newValue - PROGRAM.costMonthly
   const addedProfit = profitFull - profitToday
 
   const ramp6 = group.ramp.slice(0, 6).reduce((a, b) => a + b, 0)
   const newClients6 = newClients * ramp6
-  const addedProfit6 = newClients6 * profitPerClient - 6 * PROGRAM.costMonthly
+  const addedProfit6 = newClients6 * newValue - 6 * PROGRAM.costMonthly
 
   const newClients12 = newClients * group.yearMultiplier
-  const profit12 = newClients12 * profitPerClient
+  const profit12 = newClients12 * newValue
   const leftAfter12 = profit12 - PROGRAM.costYearly
   const backPerDollar = profit12 / PROGRAM.costYearly
-  const breakEven = PROGRAM.costMonthly / profitPerClient
+  const breakEven = PROGRAM.costMonthly / newValue
 
   // Chart: cumulative profit, months 1–12
   const greyLine: number[] = []
@@ -409,7 +452,7 @@ export function computeProjection(input: CalcInput): Projection {
   for (let m = 1; m <= 12; m++) {
     greyLine.push(m * profitToday)
     const rampM = group.ramp[m - 1] ?? 1
-    emeraldCum += newClients * rampM * profitPerClient - PROGRAM.costMonthly
+    emeraldCum += newClients * rampM * newValue - PROGRAM.costMonthly
     emeraldLine.push(m * profitToday + emeraldCum)
   }
   const multiple = greyLine[11] > 0 ? emeraldLine[11] / greyLine[11] : emeraldLine[11] > 0 ? Infinity : 0
@@ -418,7 +461,7 @@ export function computeProjection(input: CalcInput): Projection {
     speed === 'Under 5 minutes' ? null : leads * group.avgRate
 
   return {
-    group, profitPerClient, profitToday, leads, newClients, clientsFull,
+    group, profitPerClient, newValue, profitToday, leads, newClients, clientsFull,
     profitFull, addedProfit, newClients6, addedProfit6, newClients12,
     profit12, leftAfter12, backPerDollar, breakEven,
     greyLine, emeraldLine, multiple, currentSpeedClients,

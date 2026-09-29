@@ -85,8 +85,7 @@ export default function CostCalculator() {
   const priceN = parseFloat(price) || 0
   const costN = parseFloat(cost) || 0
   const volumeN = parseFloat(volume) || 0
-  const clientsNow = trade?.perYear ? volumeN / 12 : Math.min(volumeN, 500)
-  const capped = trade && !trade.perYear && volumeN > 500
+  const clientsNow = trade?.perYear ? volumeN / 12 : volumeN
 
   /** Live line under question 5 — profit per unit (or the split, for
    *  commission trades). Shows the moment both numbers exist. */
@@ -331,7 +330,6 @@ export default function CostCalculator() {
                 <input className="gc-input" type="number" min="0" inputMode="numeric" value={volume} autoFocus
                   onChange={(e) => setVolume(e.target.value)} onKeyDown={enterNext}
                   placeholder={trade.perYear ? 'e.g. 24' : 'e.g. 8'} />
-                {capped && <span className="gc-live">We cap the model at 500 a month — 500 it is.</span>}
               </>
             )}
             {step === 6 && (
@@ -416,6 +414,9 @@ export default function CostCalculator() {
                 <li><strong>Close rate</strong> — {fastPct}% of leads become clients when every lead gets a 5-minute response.</li>
                 <li><strong>Your current follow-up</strong> — {speed.toLowerCase()}.</li>
                 <li><strong>Additional clients</strong> — stacked on top of the {plural(u, clientsNow)} you already sign. We never touch your referral base.</li>
+                {trade.repeat && (
+                  <li><strong>New-client value</strong> — the first year of a new {u} is worth about {fmtUSD(p.newValue)} to you: {trade.repeat.note}.</li>
+                )}
               </ul>
             </section>
 
