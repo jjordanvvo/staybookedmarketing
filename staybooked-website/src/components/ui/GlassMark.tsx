@@ -70,9 +70,15 @@ export default function GlassMark({
   // Lettering fits the plate: large on desktop, scaled down on phones.
   const fontSize = vw < 480 ? '44px' : vw < 768 ? '72px' : '140px'
 
-  // Mobile frames are short and wide, so the glass reads much bigger there.
-  // Drop its size so the lettering, not the coin, stays the focal point.
-  const coinSize = vw < 768 ? 36 : size
+  // On mobile the glass WebGL canvas is more cost than craft — a static
+  // lettering panel reads cleaner, loads faster, and can't trap a scroll.
+  if (vw < 768) {
+    return (
+      <div className="glass-mark glass-mark-static" role="img" aria-label="Stay Booked Marketing">
+        <span>{text}</span>
+      </div>
+    )
+  }
 
   return (
     <div className="glass-mark" role="img" aria-label="Stay Booked Marketing">
@@ -85,7 +91,7 @@ export default function GlassMark({
           style={{ minWidth: 0, minHeight: 0, touchAction: 'pan-y' }}
           background={background}
           shape={shape}
-          size={coinSize}
+          size={size}
           speed={reduce ? 0 : speed}
           direction="Counterclockwise"
           backdrop={{

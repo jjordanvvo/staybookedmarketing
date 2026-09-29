@@ -464,6 +464,23 @@ ul { list-style: none; }
   height: 100%;
 }
 
+/* MOBILE — no glass: static lettering panel, nothing to load, nothing to trap */
+.glass-mark-static {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.glass-mark-static span {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.4rem, 11vw, 3.2rem);
+  letter-spacing: 0.02em;
+  color: #141414;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
 /* ============================================================
    EDITORIAL STATEMENT BAND — big headline left, support right
    ============================================================ */
