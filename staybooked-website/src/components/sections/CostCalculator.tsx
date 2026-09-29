@@ -110,7 +110,7 @@ export default function CostCalculator() {
     })
   }, [trade, step, priceN, costN, volumeN, speed, clientsNow])
 
-  const next = () => {
+  const next = (speedOverride?: string) => {
     setErr('')
     // Validate the current question before moving on.
     if (step === 2 && !tradeLabel) return
@@ -137,7 +137,7 @@ export default function CostCalculator() {
       // Give each result its unique link.
       const payload: ShareData = {
         n: name.trim(), b: biz.trim(), t: tradeLabel, o: otherText.trim(),
-        p: priceN, c: costN, v: volumeN, s: speed,
+        p: priceN, c: costN, v: volumeN, s: speedOverride ?? speed,
       }
       window.history.replaceState(null, '', `#growth=${encodeShare(payload)}`)
     }
@@ -339,7 +339,7 @@ export default function CostCalculator() {
                   {SPEED_OPTIONS.map((s) => (
                     <button key={s} type="button" role="radio" aria-checked={speed === s}
                       className={`gc-chip${speed === s ? ' gc-chip-on' : ''}`}
-                      onClick={() => { setSpeed(s); setErr(''); setTimeout(next, 300) }}>
+                      onClick={() => { setSpeed(s); setErr(''); setTimeout(() => next(s), 300) }}>
                       {s}
                     </button>
                   ))}
@@ -350,7 +350,7 @@ export default function CostCalculator() {
             {err && <span className="gc-error">{err}</span>}
             <div className="gc-nav">
               <button type="button" className="gc-back" onClick={back} disabled={step === 0}>Back</button>
-              <button type="button" className="gc-next" onClick={next}>
+              <button type="button" className="gc-next" onClick={() => next()}>
                 {step === Q_COUNT - 1 ? 'See my projection' : 'Next'}
               </button>
             </div>
