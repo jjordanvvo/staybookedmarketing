@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Reveal, RevealItem } from '@/components/ui/Reveal'
@@ -9,124 +9,60 @@ export const INDUSTRIES = NICHES.map((n) => ({ name: n.name, desc: n.desc }))
 
 /**
  * INDUSTRIES — "Who we help." A clean name-only index: one niche per row,
- * nothing else on it (Kolby: the descriptions made it look busy). All the
- * one-pager detail lives behind the click: each row opens an editorial
- * overlay (what we do, what we book, who gets the AI summary,
- * speed-to-lead, investment, and the performance guarantee). Medical & Health also links onward to the dedicated
- * /healthcare page. Header and rows reveal independently; the overlay is
- * skippable at any moment via click / Esc and locks page scroll while up.
+ * nothing else on it. Clicking a row expands a brief summary in place (the
+ * most important things from the one-pager: what we do, what we book, the
+ * guarantee) with the "Learn more" button inside it — that opens the niche's
+ * full info page (/niches/:id) with everything. Header and rows reveal
+ * independently; only one row is expanded at a time.
  */
 
-const overlayV = {
-  hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { duration: 0.3, ease: 'easeOut' } },
-  exit: { opacity: 0, transition: { duration: 0.25, ease: 'easeIn' } },
+const panelV = {
+  hidden: { height: 0, opacity: 0 },
+  show: {
+    height: 'auto',
+    opacity: 1,
+    transition: { height: { duration: 0.35, ease: [0.16, 1, 0.3, 1] }, opacity: { duration: 0.25 } },
+  },
+  exit: { height: 0, opacity: 0, transition: { duration: 0.22, ease: 'easeIn' } },
 }
 
-const cardV = {
-  hidden: { opacity: 0, y: 34, scale: 0.985 },
-  show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.45, ease: [0.16, 1, 0.3, 1] } },
-  exit: { opacity: 0, y: 20, scale: 0.99, transition: { duration: 0.22, ease: 'easeIn' } },
-}
-
-function NicheOverlay({ niche, onClose }: { niche: Niche; onClose: () => void }) {
-  // Esc closes; scroll stays locked while the overlay is up.
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose()
-    }
-    window.addEventListener('keydown', onKey)
-    const prev = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-    return () => {
-      window.removeEventListener('keydown', onKey)
-      document.body.style.overflow = prev
-    }
-  }, [onClose])
-
+function NichePanel({ niche }: { niche: Niche }) {
   return (
-    <motion.div
-      className="niche-overlay"
-      variants={overlayV}
-      initial="hidden"
-      animate="show"
-      exit="exit"
-      onClick={onClose}
-      role="dialog"
-      aria-modal="true"
-      aria-label={niche.name}
-    >
-      <motion.div className="niche-card" variants={cardV} onClick={(e) => e.stopPropagation()}>
-        <button type="button" className="niche-close" onClick={onClose} aria-label="Close">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-            <path d="M3 3l10 10M13 3 3 13" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-          </svg>
-        </button>
+    <motion.div className="ind-panel" variants={panelV} initial="hidden" animate="show" exit="exit">
+      <div className="ind-panel-inner">
+        <p className="ind-summary">{niche.summary}</p>
 
-        <p className="niche-kicker">Who we help</p>
-        <h3 className="niche-name">{niche.name}</h3>
-        <p className="niche-examples">{niche.examples}</p>
-
-        <p className="niche-what">{niche.whatWeDo}</p>
-
-        <div className="niche-books" aria-label="What we book">
+        <div className="ind-books" aria-label="What we book">
           {niche.books.map((b) => (
-            <span className="niche-book-chip" key={b}>{b}</span>
+            <span className="ind-chip" key={b}>{b}</span>
           ))}
         </div>
 
-        <dl className="niche-facts">
-          <div className="niche-fact">
-            <dt>Speed to lead</dt>
-            <dd>
-              Every inquiry is contacted within <strong>5 minutes</strong> by our AI. It books in
-              real time and sends a full summary to {niche.handoff}, so nothing is missed.
-            </dd>
-          </div>
-          <div className="niche-fact">
-            <dt>Investment</dt>
-            <dd>
-              No startup fee. No long-term contract. Ad spend ~$1,500/mo (billed by the platforms,
-              never by us). Retainer ~$2,000/mo, varies by {niche.varies}.
-            </dd>
-          </div>
-          <div className="niche-fact">
-            <dt>Our guarantee</dt>
-            <dd>
-              Every partnership includes a performance guarantee period. If we haven&apos;t
-              delivered {niche.guarantee} by the end of that window, your retainer pauses until we
-              do.
-            </dd>
-          </div>
-          <div className="niche-fact">
-            <dt>How we work together</dt>
-            <dd>
-              Optional weekly review calls, two direct points of contact, no ticket systems. We
-              adjust targeting, creative, and messaging around {niche.tuned}.
-            </dd>
-          </div>
-        </dl>
+        <p className="ind-guarantee">
+          <strong>Our guarantee:</strong> if we haven&apos;t delivered {niche.guarantee} by the
+          end of the guarantee window, your retainer pauses until we do.
+        </p>
 
-        <div className="niche-card-cta">
-          <a className="contact-book-btn" href="/book">
-            Book a Free Strategy Call
-          </a>
+        <div className="ind-panel-ctas">
+          <Link className="ind-learnmore" to={`/niches/${niche.id}`}>
+            Learn more
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M2 8h11M9 3.5 13.5 8 9 12.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </Link>
           {niche.to && (
-            <Link className="niche-page-link" to={niche.to} onClick={onClose}>
+            <Link className="ind-learnmore ind-learnmore-alt" to={niche.to}>
               {niche.linkLabel}
-              <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <path d="M2 8h11M9 3.5 13.5 8 9 12.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
             </Link>
           )}
         </div>
-      </motion.div>
+      </div>
     </motion.div>
   )
 }
 
 export default function Industries() {
-  const [open, setOpen] = useState<Niche | null>(null)
+  const [open, setOpen] = useState<string | null>(null)
 
   return (
     <section className="section section-offwhite" id="industries">
@@ -135,34 +71,36 @@ export default function Industries() {
           <RevealItem as="p" className="label">Industries</RevealItem>
           <RevealItem as="h2" className="title">Who we help.</RevealItem>
           <RevealItem as="p" className="body why-body">
-            If your business serves local customers, we can build for it. Tap any niche to see
-            exactly how we book it.
+            If your business serves local customers, we can build for it. Tap any niche for the
+            quick version — Learn more opens the full page.
           </RevealItem>
         </Reveal>
 
         <Reveal as="ul" className="lp-points ind-list" amount={0.15}>
-          {NICHES.map((niche) => (
-            <RevealItem as="li" className="lp-point ind-row" key={niche.id}>
-              <button
-                type="button"
-                className="ind-link ind-link-btn"
-                onClick={() => setOpen(niche)}
-                aria-label={`Open ${niche.name}`}
-              >
-                <span className="ind-name">{niche.name}</span>
-                <svg className="ind-arrow" width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                  <path d="M2 8h11M9 3.5 13.5 8 9 12.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </button>
-              <Link className="ind-learnmore" to={`/niches/${niche.id}`}>Learn more</Link>
-            </RevealItem>
-          ))}
+          {NICHES.map((niche) => {
+            const isOpen = open === niche.id
+            return (
+              <RevealItem as="li" className={`lp-point ind-row${isOpen ? ' is-open' : ''}`} key={niche.id}>
+                <button
+                  type="button"
+                  className="ind-link ind-link-btn"
+                  onClick={() => setOpen(isOpen ? null : niche.id)}
+                  aria-expanded={isOpen}
+                  aria-label={`${isOpen ? 'Close' : 'Open'} ${niche.name}`}
+                >
+                  <span className="ind-name">{niche.name}</span>
+                  <svg className="ind-arrow" width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M2 8h11M9 3.5 13.5 8 9 12.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </button>
+                <AnimatePresence initial={false}>
+                  {isOpen && <NichePanel niche={niche} />}
+                </AnimatePresence>
+              </RevealItem>
+            )
+          })}
         </Reveal>
       </div>
-
-      <AnimatePresence>
-        {open && <NicheOverlay niche={open} onClose={() => setOpen(null)} />}
-      </AnimatePresence>
     </section>
   )
 }
