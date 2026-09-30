@@ -473,7 +473,7 @@ th{font-size:12px; font-weight:600; color:var(--muted-2); letter-spacing:.04em}
   var GROUPS = {
     dental:{label:"Dental", cpl:66.80, fast:0.50, avg:0.25, appt:0.70, apptLabel:"visits",
       sources:"LocaliQ 2026 search and Facebook lead ad benchmarks for dentists, Scheduling Institute new-patient call data, and " + OLDROYD + "."},
-    aesthetics:{label:"Aesthetics", cpl:37.5, fast:0.51, avg:0.255, appt:0.65, apptLabel:"consultations",
+    aesthetics:{label:"Aesthetics", cpl:37.5, fast:0.39, avg:0.195, appt:0.65, apptLabel:"consultations",
       sources:"LocaliQ and WordStream 2025\u20132026 search and Facebook ad benchmarks, Terri Ross Consulting, Pronk Medspa Marketing, and " + OLDROYD + "."},
     medtherapy:{label:"Medical & Therapy", cpl:35.65, fast:0.40, avg:0.25, appt:0.60, apptLabel:"appointments",
       sources:"LocaliQ 2026 search and Facebook lead ad benchmarks for physicians, The Leading Practice chiropractic conversion benchmarks, and " + OLDROYD + "."},
@@ -712,6 +712,18 @@ th{font-size:12px; font-weight:600; color:var(--muted-2); letter-spacing:.04em}
       "What is the average value of a sale or client?", "Use your typical revenue from one sale." + EST,
       "On average, how much does it cost to deliver that sale?", "Include materials, labor, and any other direct costs." + EST,
       "How many new clients or jobs do you gain in a typical month?");
+
+  /* Where each step's rate comes from; null = no published source, shown as "based on typical results". */
+  var SRC = {
+    dental:{appt:null, close:null}, aesthetics:{appt:null, close:"Pronk Medspa Marketing"}, medtherapy:{appt:null, close:null},
+    homerepair:{appt:"SubcontractorHub", close:null}, homeprojects:{appt:"SubcontractorHub", close:"SubcontractorHub"},
+    legal:{appt:"LEXGRO", close:"LEXGRO"}, financial:{appt:null, close:"Kitces"},
+    realestate:{appt:"Jamil Academy", close:"Real Geeks and Ylopo agent data", overall:true},
+    venues:{appt:null, close:"EverBridal"}, moving:{appt:null, close:null},
+    charters:{rate:"Rework booking benchmarks"}, rentals:{rate:"Rework booking benchmarks"},
+    clubs:{rate:"Sway venue booking benchmarks"}, restaurants:{rate:null}, other:{rate:null}
+  };
+  function per(src){ return src ? "according to " + src : "based on typical results"; }
 
   /* ---------- helpers ---------- */
   function $(id){ return document.getElementById(id); }
@@ -993,24 +1005,29 @@ th{font-size:12px; font-weight:600; color:var(--muted-2); letter-spacing:.04em}
     var totJobs = a.clients + nJobsNum, totTxt = totJobs % 1 === 0 ? commas(totJobs) : totJobs.toFixed(1);
     setText("eq-note", "per month, at full ramp (month " + fullMonth + " on)");
     setText("e-leads", count(r.leads));
-    setText("e-leads-sub", "$1,500 ad spend at about " + exact(g.cpl) + " per lead");
+    var src = SRC[a.groupKey] || {};
+    setText("e-leads-sub", "Your $1,500 monthly ad spend brings in about " + count(r.leads) + " leads, at roughly " + exact(g.cpl) + " per lead, according to LocaliQ and WordStream ad benchmarks.");
     if (g.appt){
       var apptN = r.leads * g.appt, apptClose = g.fast / g.appt;
       setText("e-op1", "→"); setText("e-op2", "→");
       setText("e-rate-label", "Qualified " + g.apptLabel + " booked");
       setText("e-rate", count(apptN));
-      setText("e-rate-sub", "about " + pct(g.appt) + " of leads, after our AI follows up within 5 minutes and qualifies them");
+      setText("e-rate-sub", "Of those " + count(r.leads) + " leads, about " + count(apptN) + " book " + g.apptLabel.replace(/s$/, "") + "s, roughly " + pct(g.appt) + ", " + per(src.appt) +
+        ". Our AI follows up within 5 minutes and qualifies each lead against the criteria you set, so the people who reach your calendar are the ones you actually want to see.");
       setText("e-add-label", "New " + g.many + " a month");
       setText("e-add", "+" + nJobs);
-      setText("e-add-sub", "about " + Math.round(apptClose * 100) + "% of those " + g.apptLabel + (g.tierLabel ? " for homes " + g.tierLabel : "") + ", on top of the " + count(a.clients) + " you get today");
+      setText("e-add-sub", "Of those " + count(apptN) + " " + g.apptLabel + ", about " + nJobs + " become " + g.many + ", roughly " + Math.round(apptClose * 100) + "%" +
+        (g.tierLabel ? " for homes " + g.tierLabel : "") +
+        (src.overall ? " (" + pct(g.fast) + " of all leads, " + per(src.close) + ")" : ", " + per(src.close)) +
+        ". That's on top of the " + count(a.clients) + " you get today.");
     } else {
       setText("e-op1", "×"); setText("e-op2", "=");
       setText("e-rate-label", "Answered in under 5 minutes, become " + g.many);
       setText("e-rate", pct(g.fast));
-      setText("e-rate-sub", g.tierLabel ? "for homes " + g.tierLabel : (a.groupKey === "other" ? "all-industry" : g.label) + " benchmark");
+      setText("e-rate-sub", "Of those " + count(r.leads) + " leads, about " + nJobs + " become " + g.many + ", roughly " + pct(g.fast) + ", " + per(src.rate) + ".");
       setText("e-add-label", "New " + g.many + " a month");
       setText("e-add", "+" + nJobs);
-      setText("e-add-sub", "on top of the " + count(a.clients) + " you get today");
+      setText("e-add-sub", "That's on top of the " + count(a.clients) + " you get today.");
     }
     setText("e-profit", money(r.N * r.P)); $("e-profit").classList.toggle("neg", r.N * r.P < 0);
     setText("e-profit-sub", "a month, at " + exact(r.P) + " profit per " + g.one);
@@ -1033,11 +1050,7 @@ th{font-size:12px; font-weight:600; color:var(--muted-2); letter-spacing:.04em}
       commas(a.volume) + " " + noun(g, a.volume) + " a " + a.per + ".");
     setText("a2", "$1,500 a month in ad spend at about " + exact(g.cpl) + " per lead brings in about " + count(r.leads) + " leads a month. " +
       (g.rampText || "Additional " + g.many + " ramp up over the first three months (30%, 60%, 90%, then 100%)."));
-    var apptTxt = g.appt ? " Of every 100 leads, about " + Math.round(g.appt * 100) + " book a qualified " + g.apptLabel.replace(/s$/, "") +
-      " after our AI follows up and screens them, and about " + Math.round(g.fast / g.appt * 100) + "% of those become " + g.many + ". You only spend time on people who are already qualified." : "";
-    setText("a3", (g.tierLabel
-      ? "For homes " + g.tierLabel + ", about " + pct(g.fast) + " of online leads contacted within 5 minutes become closings. Lower-priced homes sell faster, so they close at a higher rate: about 4% under $300,000, 3% from $300,000 to $700,000, and 2% above that. The average agent closes about 2% to 2.5% of online leads; strong agents with fast follow-up reach about 5%."
-      : (a.groupKey === "other" ? "Across industries" : "In " + g.label) + ", leads contacted within 5 minutes become " + g.many + " at about " + pct(g.fast) + ".") + apptTxt);
+    setText("a3", "A study led by Professor James Oldroyd found that contacting a lead within 5 minutes makes you 100 times more likely to actually reach them, and about 21 times more likely to qualify them, than waiting even just 30 minutes.");
     setText("a5", "Additional " + g.many + " are added on top of the ones you already get. Your existing business and referrals are not counted as ours." +
       (r.exp ? " Walk-ins from people who see your ads are estimated at " + expRate + " per 1,000 ad views and included in the totals." : ""));
 
