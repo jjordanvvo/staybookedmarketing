@@ -111,6 +111,23 @@ export const NICHES: Niche[] = [
     seo: { title: 'Big-Ticket Lifestyle Marketing: Weddings, Venues & Charters | Stay Booked', description: "Marketing for wedding venues, event venues, yacht charters and premium experiences: reach high-intent buyers, follow up in minutes, book the date." },
   },
   {
+    id: 'finance',
+    name: 'Financial Firms',
+    desc: 'Advisors, planners, CPAs, and firms who want a calendar of qualified consults, with a compliance-first process.',
+    summary:
+      'Campaigns reach people the moment they need financial help — tax deadlines, retirement questions, new money — and AI books the discovery call in under 5 minutes, before they find the firm down the street.',
+    examples: 'Financial advisors, planners, CPAs, and insurance agencies',
+    whatWeDo:
+      'We run high-converting campaigns across Google, Instagram, and Facebook, driving discovery calls and consult requests to your firm. We target the exact people searching for financial guidance, right when they need it. Our AI qualifies, contacts, and books the consult, turning clicks into booked appointments.',
+    books: ['Consult requests', 'Discovery calls', 'Portfolio reviews'],
+    handoff: 'your advisor team',
+    guarantee: 'qualified consults',
+    tuned: 'tax season, year-end planning, and your consult capacity',
+    varies: 'practice & market',
+    demand: [78, 88, 94, 96, 80, 66, 62, 60, 64, 70, 82, 90],
+    seo: { title: 'Financial Advisor & CPA Marketing That Books Consults | Stay Booked', description: 'Compliance-aware lead generation for financial advisors, planners, CPAs and insurance agencies: ads, automated follow-up, and consult booking that fills your calendar.' },
+  },
+  {
     id: 'medical',
     name: 'Medical & Health',
     desc: 'Practices and clinics, with a compliance-first process built for regulated healthcare.',
