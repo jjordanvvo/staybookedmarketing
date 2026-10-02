@@ -273,10 +273,19 @@ for (const r of routes) writeRoute(r)
 /* ---------- sitemap ---------- */
 
 const today = new Date().toISOString().slice(0, 10)
+/* /answers/ AI-answer pages are built as static files by build-answers.ts —
+   they aren't React routes, so they're appended to the sitemap here. */
+const ANSWER_PATHS = [
+  '/growth-calculator/',
+  '/answers/',
+  '/answers/best-advertising-agency-san-diego',
+  ...NICHES.map((n) => `/answers/${n.id}-san-diego`),
+]
+
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${routes
-  .map((r) => `  <url><loc>${SITE}${r.path === '/' ? '/' : r.path}</loc><lastmod>${today}</lastmod></url>`)
+${[...routes.map((r) => (r.path === '/' ? '/' : r.path)), ...ANSWER_PATHS]
+  .map((p) => `  <url><loc>${SITE}${p}</loc><lastmod>${today}</lastmod></url>`)
   .join('\n')}
 </urlset>
 `
