@@ -279,6 +279,7 @@ const ANSWER_PATHS = [
   '/growth-calculator/',
   '/answers/',
   '/answers/best-advertising-agency-san-diego',
+  '/answers/marketing-agency-cost-san-diego',
   ...NICHES.map((n) => `/answers/${n.id}-san-diego`),
 ]
 

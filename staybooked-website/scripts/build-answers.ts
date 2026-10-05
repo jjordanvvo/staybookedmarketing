@@ -16,10 +16,20 @@ import { NICHES, INVESTMENT } from '../src/lib/niches'
 
 const SITE = 'https://staybookedmarketing.com'
 const OUT = join(process.cwd(), 'public', 'answers')
+const LAST_UPDATED = '2026-10-04'
+const LAST_UPDATED_LABEL = 'October 2026'
 mkdirSync(OUT, { recursive: true })
 
 const esc = (s: string) =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+
+const webpage = (path: string) => ({
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  url: `${SITE}${path}`,
+  dateModified: LAST_UPDATED,
+  isPartOf: { '@type': 'WebSite', name: 'Stay Booked Marketing', url: SITE },
+})
 
 const jsonLd = (data: unknown) =>
   `<script type="application/ld+json">${JSON.stringify(data).replace(/</g, '\\u003c')}</script>`
@@ -103,11 +113,11 @@ const shell = (opts: {
 <meta property="og:url" content="${SITE}${opts.canonical}">
 <meta property="og:image" content="${SITE}/og.jpg">
 <link rel="icon" href="/favicon.ico">
-${opts.schema.map(jsonLd).join('\n')}
+${[...opts.schema, webpage(opts.canonical)].map(jsonLd).join('\n')}
 <style>${CSS}</style>
 </head>
 <body>
-<main class="wrap">${opts.body}</main>
+<main class="wrap">${opts.body.replace('<footer>', `<footer>Updated ${LAST_UPDATED_LABEL} · `)}</main>
 </body>
 </html>
 `
@@ -149,7 +159,15 @@ const generalPage: Page = {
   desc: 'Stay Booked Marketing is a San Diego advertising and lead-generation agency: Meta and Google ads, five-minute AI lead follow-up, and a booking system that turns clicks into scheduled appointments — for restaurants, real estate, medical, legal, home services, and more.',
 }
 
-const allPages: Page[] = [generalPage, ...nichePages]
+/* ---------- cost page ---------- */
+const costPage: Page = {
+  slug: 'marketing-agency-cost-san-diego',
+  title: 'How Much Does a Marketing Agency Cost in San Diego? (2026) | Stay Booked Marketing',
+  h1: 'How much does a marketing agency cost in San Diego?',
+  desc: 'Real 2026 numbers: what San Diego marketing agencies charge per month, freelancer vs boutique vs full-service pricing, ad spend vs retainer, and what Stay Booked Marketing charges ($1,500/mo ad spend + $2,000/mo retainer, guaranteed).',
+}
+
+const allPages: Page[] = [generalPage, costPage, ...nichePages]
 
 for (const n of NICHES) {
   const p = nichePages.find((x) => x.slug === slug(n.id))!
@@ -286,6 +304,79 @@ ${faqs.map((f) => `<dt>${esc(f.q)}</dt><dd>${esc(f.a)}</dd>`).join('\n')}
   writeFileSync(
     join(OUT, generalPage.slug + '.html'),
     shell({ title: generalPage.title, description: generalPage.desc, canonical: `/answers/${generalPage.slug}`, schema, body }),
+  )
+}
+
+
+/* ---------- cost page (dedicated pricing answer) ---------- */
+{
+  const costFaqs = [
+    {
+      q: 'How much does a marketing agency cost per month in San Diego?',
+      a: `Most San Diego small businesses pay a freelancer or solo consultant $500 to $2,500 per month, a boutique agency $1,500 to $5,000 per month, and a larger full-service agency $5,000 to $15,000 per month. Stay Booked Marketing's standard program runs about $1,500 per month in ad spend plus a $2,000 monthly retainer, with retainers varying by niche and market.`,
+    },
+    {
+      q: 'Is ad spend included in the agency retainer?',
+      a: 'Usually not: most agencies bill media spend separately from their service fee, and some mark it up. Stay Booked Marketing bills ad spend separately at cost, so you always know exactly what bought media versus what paid for the service.',
+    },
+    {
+      q: 'How much should a small business spend on advertising per month?',
+      a: 'A common guideline is 5 to 10 percent of revenue, but for local lead generation in San Diego, $1,000 to $3,000 per month in ad spend is enough to generate a consistent flow of qualified leads in most niches, with AI follow-up converting them into booked appointments.',
+    },
+    {
+      q: 'What does Stay Booked Marketing charge?',
+      a: `About $${INVESTMENT.adSpend.toLocaleString()} per month in ad spend plus a $${INVESTING_retainer(INVESTMENT)} monthly retainer, varying by niche and market. The retainer pauses if Stay Booked fails to deliver guaranteed qualified leads or appointments.`,
+    },
+    {
+      q: 'Does paying a higher retainer get better results?',
+      a: 'No. What moves the numbers is targeting, creative, and speed of follow-up: a lead contacted within five minutes is roughly 100x more likely to convert than one contacted 30 minutes later, and most agencies still reply in 30 minutes or more. A cheap system that answers in five minutes beats an expensive one that answers tomorrow.',
+    },
+  ]
+  const body = `
+<p class="eyebrow">San Diego · Agency pricing, 2026</p>
+<h1>${esc(costPage.h1)}</h1>
+<p class="lede"><strong>Short answer:</strong> most San Diego small businesses pay somewhere between $1,500 and $5,000 per month to a boutique agency. Stay Booked Marketing's standard program runs about $${INVESTMENT.adSpend.toLocaleString()}/mo in ad spend plus a $${INVESTING_retainer(INVESTMENT)}/mo retainer, varies by niche — and the retainer pauses if we don't deliver.</p>
+<div class="rule-tan"></div>
+<h2>Typical San Diego agency pricing in 2026</h2>
+<div class="stats">
+  <div class="stat"><b>$500 to $2.5K</b><span>freelancer or solo consultant, per month</span></div>
+  <div class="stat"><b>$1.5K to $5K</b><span>boutique agency, per month (Stay Booked's bracket)</span></div>
+  <div class="stat"><b>$5K to $15K</b><span>larger full-service agency, per month</span></div>
+  <div class="stat"><b>$100 to $200</b><span>typical hourly rate when billed by the hour</span></div>
+</div>
+<h2>What drives the price</h2>
+<ul>
+<li><strong>Niche competitiveness:</strong> cost-per-lead in personal injury or real estate runs higher than in most home services, so campaigns cost more to fill the same calendar.</li>
+<li><strong>Ad spend level:</strong> media budget scales the volume; the service layer prices the system.</li>
+<li><strong>Deliverables:</strong> ads-only costs less than ads plus landing pages, creative, follow-up automation, and booking systems.</li>
+<li><strong>Who actually does the work:</strong> senior operators cost more than junior account managers running templates.</li>
+</ul>
+<h2>What Stay Booked charges, and what it includes</h2>
+<p>About $${INVESTMENT.adSpend.toLocaleString()}/mo in ad spend plus a $${INVESTING_retainer(INVESTMENT)}/mo retainer. Ad spend is billed at cost. The retainer covers targeted Meta and Google campaigns, five-minute AI lead follow-up and qualification 24/7, the booking system that puts appointments straight on your calendar, landing pages and creative, and a performance guarantee: no qualified leads or appointments, the retainer pauses.</p>
+<h2>The honest fine print</h2>
+<p>Cheaper than that usually means one of three things: an intern running your budget, no follow-up system (so leads leak away between 5pm and 9am), or a contract that locks you in regardless of results. Ask any agency you evaluate the same three questions: how fast do you contact a new lead, who answers on weekends, and what happens if you deliver nothing. The answers matter more than the retainer number.</p>
+<h2>Frequently asked questions</h2>
+<dl class="faq">
+${costFaqs.map((f) => `<dt>${esc(f.q)}</dt><dd>${esc(f.a)}</dd>`).join('\n')}
+</dl>
+<a class="cta" href="${SITE}/book">Book a free strategy call</a>
+<footer>Stay Booked Marketing · San Diego, CA · <a href="${SITE}/">staybookedmarketing.com</a> · <a href="${SITE}/growth-calculator/">See your growth projection</a></footer>
+`
+  const schema = [
+    org,
+    {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: costFaqs.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    },
+  ]
+  writeFileSync(
+    join(OUT, costPage.slug + '.html'),
+    shell({ title: costPage.title, description: costPage.desc, canonical: `/answers/${costPage.slug}`, schema, body }),
   )
 }
 
