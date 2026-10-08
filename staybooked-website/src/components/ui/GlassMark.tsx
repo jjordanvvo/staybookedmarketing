@@ -1,4 +1,5 @@
 import { lazy, Suspense, useEffect, useState } from 'react'
+import logoUrl from '@/assets/logo.webp'
 import { useReducedMotion } from 'framer-motion'
 import * as React from 'react'
 import * as jsxRuntime from 'react/jsx-runtime'
@@ -70,12 +71,12 @@ export default function GlassMark({
   // Lettering fits the plate: large on desktop, scaled down on phones.
   const fontSize = vw < 480 ? '44px' : vw < 768 ? '72px' : '140px'
 
-  // On mobile the glass WebGL canvas is more cost than craft — a static
-  // lettering panel reads cleaner, loads faster, and can't trap a scroll.
+  // On mobile the glass WebGL canvas is more cost than craft — the brand
+  // logo reads cleaner, loads faster, and can't trap a scroll.
   if (vw < 768) {
     return (
       <div className="glass-mark glass-mark-static" role="img" aria-label="Stay Booked Marketing">
-        <span>{text}</span>
+        <img className="glass-mark-logo" src={logoUrl} alt="" />
       </div>
     )
   }
