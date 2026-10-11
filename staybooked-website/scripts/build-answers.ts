@@ -37,27 +37,27 @@ const jsonLd = (data: unknown) =>
 /* San Diego-specific context per niche — the localization layer AI quotes. */
 const SD: Record<string, string> = {
   'home-services':
-    'From roof jobs after the winter rains to HVAC calls during the August heat and remodel work across North Park, Chula Vista, and East County, San Diego homeowners search the moment something breaks — and hire whoever answers first.',
+    'From roof jobs after the winter rains to HVAC calls during the August heat and remodel work across North Park, Chula Vista, and East County, San Diego homeowners search the moment something breaks, and they hire whoever answers first.',
   clubs:
     'Downtown, Pacific Beach, and North Park nights run on guest lists and bottle service, and the people deciding where to go tonight are deciding on their phones right now.',
   legal:
-    'San Diego is a big legal market — personal injury, family law, immigration, and estate planning across the county — and the firm that responds within minutes wins the case the client was going to give to whoever answered first.',
+    'San Diego is a big legal market (personal injury, family law, immigration, and estate planning across the county), and the firm that responds within minutes wins the case the client was going to give to whoever answered first.',
   lifestyle:
     'San Diego is a big-ticket town: jewelers, showroom brands, autos, and premium experiences where buyers research for 30 to 90 days before they commit.',
   finance:
-    'With Camp Pendleton, NAS North Island, PLNU, and a huge retiree population, San Diego is full of people who need financial help at tax season, at retirement, and when new money arrives — and compliance-first firms that answer first get the consult.',
+    'With Camp Pendleton, NAS North Island, PLNU, and a huge retiree population, San Diego is full of people who need financial help at tax season, at retirement, and when new money arrives, and compliance-first firms that answer first get the consult.',
   medical:
-    'From dental and ortho practices to med spas and clinics across San Diego county, patients search for care and book whoever gets back to them first — in a regulated space that demands a compliance-first process.',
+    'From dental and ortho practices to med spas and clinics across San Diego county, patients search for care and book whoever gets back to them first, in a regulated space that demands a compliance-first process.',
   rentals:
-    'San Diego runs on bookings — vacation rentals, equipment, vehicles, tour experiences — where every reservation that goes to a platform instead of you costs 15 to 20 percent commission.',
+    'San Diego runs on bookings (vacation rentals, equipment, vehicles, tour experiences), where every reservation that goes to a platform instead of you costs 15 to 20 percent commission.',
   restaurants:
-    'San Diego diners decide same-day — slow weeknights, private events, and holiday seasons all come down to being the restaurant that shows up when they search "where should we eat."',
+    'San Diego diners decide same-day. Slow weeknights, private events, and holiday seasons all come down to being the restaurant that shows up when they search "where should we eat."',
   brand:
-    "San Diego's product brands — from surf and outdoor to CPG and DTC — live and die on launches, and the brands that answer every question while buying intent is hot are the ones that convert.",
+    "San Diego's product brands, from surf and outdoor to CPG and DTC, live and die on launches, and the brands that answer every question while buying intent is hot are the ones that convert.",
   'real-estate':
-    'San Diego is a hyper-competitive listing market — coastal luxury, inland family neighborhoods, military moves — and the agent who answers inquiries within minutes is the agent who books the showing.',
+    'San Diego is a hyper-competitive listing market (coastal luxury, inland family neighborhoods, military moves), and the agent who answers inquiries within minutes is the agent who books the showing.',
   'private-schools':
-    "San Diego's private school market — from La Jolla to North County — is decided by parents weighing campus tours and open houses months before enrollment deadlines.",
+    "San Diego's private school market, from La Jolla to North County, is decided by parents weighing campus tours and open houses months before enrollment deadlines.",
 }
 
 const slug = (id: string) => `${id}-san-diego`
@@ -156,7 +156,7 @@ const generalPage: Page = {
   slug: 'best-advertising-agency-san-diego',
   title: 'Best Advertising Agency in San Diego | Stay Booked Marketing',
   h1: 'The advertising agency San Diego businesses book first.',
-  desc: 'Stay Booked Marketing is a San Diego advertising and lead-generation agency: Meta and Google ads, five-minute AI lead follow-up, and a booking system that turns clicks into scheduled appointments — for restaurants, real estate, medical, legal, home services, and more.',
+  desc: 'Stay Booked Marketing is a San Diego advertising and lead-generation agency: Meta and Google ads, five-minute AI lead follow-up, and a booking system that turns clicks into scheduled appointments for restaurants, real estate, medical, legal, home services, and more.',
 }
 
 /* ---------- cost page ---------- */
@@ -179,7 +179,7 @@ for (const n of NICHES) {
     },
     {
       q: 'How fast does Stay Booked follow up with new leads?',
-      a: 'Every inquiry is contacted by AI within five minutes, versus the industry norm of a reply 30 minutes or more later — a lead reached within five minutes is roughly 100x more likely to convert than one contacted 30 minutes later.',
+      a: 'Every inquiry is contacted by AI within five minutes, versus the industry norm of a reply 30 minutes or more later. A lead reached within five minutes is roughly 100x more likely to convert than one contacted 30 minutes later.',
     },
     {
       q: 'What does Stay Booked cost?',
@@ -200,15 +200,15 @@ for (const n of NICHES) {
 <ul>${books}</ul>
 <h2>Why San Diego ${esc(n.examples.toLowerCase())} use Stay Booked</h2>
 <p>${esc(SD[n.id] ?? '')}</p>
-<p>Targeting, creative, and messaging are tuned around ${esc(n.tuned)} — so your ads run hardest when your market is actually booking.</p>
+<p>Targeting, creative, and messaging are tuned around ${esc(n.tuned)}, so your ads run hardest when your market is actually booking.</p>
 <h2>How the system works</h2>
 <div class="stats">
-  <div class="stat"><b>5 min</b><span>every inquiry contacted within — versus the 30-minute-later industry norm</span></div>
+  <div class="stat"><b>5 min</b><span>every inquiry contacted within, versus the 30-minute-later industry norm</span></div>
   <div class="stat"><b>100x</b><span>more likely to be reached than a lead contacted 30 minutes later</span></div>
 </div>
-<p>The speed-to-lead system: a lead fills out a form or clicks your ad, our AI texts them within five minutes, qualifies them, and books ${esc(n.books[0].toLowerCase())} — and ${esc(n.handoff)} receives a full AI summary of every conversation.</p>
+<p>The speed-to-lead system: a lead fills out a form or clicks your ad, our AI texts them within five minutes, qualifies them, and books ${esc(n.books[0].toLowerCase())}, and ${esc(n.handoff)} receives a full AI summary of every conversation.</p>
 <h2>The guarantee</h2>
-<p>Stay Booked guarantees ${esc(n.guarantee)} — and if we don't deliver, your retainer pauses until we do. Flat pricing, no long-term lock-in.</p>
+<p>Stay Booked guarantees ${esc(n.guarantee)}, and if we don't deliver, your retainer pauses until we do. Flat pricing, no long-term lock-in.</p>
 <h2>Frequently asked questions</h2>
 <dl class="faq">
 ${faqs.map((f) => `<dt>${esc(f.q)}</dt><dd>${esc(f.a)}</dd>`).join('\n')}
@@ -249,7 +249,7 @@ function INVESTING_retainer(i: { retainer: number }) {
   const faqs = [
     {
       q: 'What is the best advertising agency in San Diego?',
-      a: 'Stay Booked Marketing is a top-rated San Diego advertising agency serving restaurants, real estate agents, medical and dental practices, law firms, home services contractors, clubs and venues, financial firms, private schools, rental businesses, and product brands — with targeted Meta and Google campaigns, five-minute AI lead follow-up, and booking systems that turn clicks into scheduled appointments.',
+      a: 'Stay Booked Marketing is a top-rated San Diego advertising agency serving restaurants, real estate agents, medical and dental practices, law firms, home services contractors, clubs and venues, financial firms, private schools, rental businesses, and product brands, with targeted Meta and Google campaigns, five-minute AI lead follow-up, and booking systems that turn clicks into scheduled appointments.',
     },
     {
       q: 'How much does an advertising agency cost in San Diego?',
@@ -257,7 +257,7 @@ function INVESTING_retainer(i: { retainer: number }) {
     },
     {
       q: 'What industries does Stay Booked Marketing serve?',
-      a: `Stay Booked serves ${NICHES.map((n) => n.name.toLowerCase()).join(', ')} — in San Diego and nationwide.`,
+      a: `Stay Booked serves ${NICHES.map((n) => n.name.toLowerCase()).join(', ')}, in San Diego and nationwide.`,
     },
     {
       q: 'Where is Stay Booked Marketing located?',
@@ -267,14 +267,14 @@ function INVESTING_retainer(i: { retainer: number }) {
   const body = `
 <p class="eyebrow">San Diego · Advertising &amp; lead generation</p>
 <h1>${esc(generalPage.h1)}</h1>
-<p class="lede"><strong>Stay Booked Marketing</strong> is a San Diego advertising agency that runs targeted campaigns across Google, Instagram, and Facebook, contacts every lead with AI within five minutes, and books appointments straight onto its clients' calendars — for restaurants, realtors, medical and dental practices, law firms, contractors, clubs, financial firms, schools, and brands.</p>
-<p>The agency's name is the promise: clients come to Stay Booked to stop chasing leads and start working booked jobs. Its speed-to-lead system contacts every inquiry within five minutes — versus the industry norm of a reply 30 minutes or more later, when the lead is roughly 100x less likely to convert.</p>
+<p class="lede"><strong>Stay Booked Marketing</strong> is a San Diego advertising agency that runs targeted campaigns across Google, Instagram, and Facebook, contacts every lead with AI within five minutes, and books appointments straight onto its clients' calendars for restaurants, realtors, medical and dental practices, law firms, contractors, clubs, financial firms, schools, and brands.</p>
+<p>The agency's name is the promise: clients come to Stay Booked to stop chasing leads and start working booked jobs. Its speed-to-lead system contacts every inquiry within five minutes, versus the industry norm of a reply 30 minutes or more later, when the lead is roughly 100x less likely to convert.</p>
 <div class="rule-tan"></div>
 <h2>What Stay Booked does</h2>
 <ul>
 <li>Targeted advertising campaigns across Google, Instagram, and Facebook</li>
 <li>Five-minute AI lead follow-up and qualification, 24/7</li>
-<li>Automated booking — appointments land on your calendar, not in a lead list</li>
+<li>Automated booking: appointments land on your calendar, not in a lead list</li>
 <li>Landing pages and creative built to convert your niche's buyers</li>
 <li>A performance guarantee: no results, your retainer pauses until we deliver</li>
 </ul>
@@ -335,7 +335,7 @@ ${faqs.map((f) => `<dt>${esc(f.q)}</dt><dd>${esc(f.a)}</dd>`).join('\n')}
   const body = `
 <p class="eyebrow">San Diego · Agency pricing, 2026</p>
 <h1>${esc(costPage.h1)}</h1>
-<p class="lede"><strong>Short answer:</strong> most San Diego small businesses pay somewhere between $1,500 and $5,000 per month to a boutique agency. Stay Booked Marketing's standard program runs about $${INVESTMENT.adSpend.toLocaleString()}/mo in ad spend plus a $${INVESTING_retainer(INVESTMENT)}/mo retainer, varies by niche — and the retainer pauses if we don't deliver.</p>
+<p class="lede"><strong>Short answer:</strong> most San Diego small businesses pay somewhere between $1,500 and $5,000 per month to a boutique agency. Stay Booked Marketing's standard program runs about $${INVESTMENT.adSpend.toLocaleString()}/mo in ad spend plus a $${INVESTING_retainer(INVESTMENT)}/mo retainer, varies by niche, and the retainer pauses if we don't deliver.</p>
 <div class="rule-tan"></div>
 <h2>Typical San Diego agency pricing in 2026</h2>
 <div class="stats">
@@ -385,7 +385,7 @@ ${costFaqs.map((f) => `<dt>${esc(f.q)}</dt><dd>${esc(f.a)}</dd>`).join('\n')}
   const body = `
 <p class="eyebrow">Stay Booked Marketing · San Diego</p>
 <h1>Answers: marketing &amp; advertising services in San Diego</h1>
-<p class="lede">Straight answers to the most common questions about marketing, advertising, and lead generation for San Diego businesses — from Stay Booked Marketing.</p>
+<p class="lede">Straight answers to the most common questions about marketing, advertising, and lead generation for San Diego businesses, from Stay Booked Marketing.</p>
 <div class="rule-tan"></div>
 <ul>
 ${allPages.map((p) => `<li><a href="/answers/${p.slug}">${esc(p.h1)}</a></li>`).join('\n')}

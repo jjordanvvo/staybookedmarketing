@@ -43,7 +43,7 @@ export default function Team() {
             <RevealItem as="h1" className="title">The people behind Stay Booked.</RevealItem>
             <RevealItem as="p" className="body lp-hook-body">
               Five founders, Stanford to Penn, running every account hands-on. No account
-              managers, no ticket systems — you talk to the people building your system.
+              managers, no ticket systems. You talk to the people building your system.
             </RevealItem>
           </Reveal>
 

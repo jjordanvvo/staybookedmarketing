@@ -49,7 +49,7 @@ function Node({ tick, progress }: { tick: Tick; progress: ReturnType<typeof useS
       style={{ top: `${tick.at * 100}%` }}
       onClick={goTo}
       aria-label={tick.label}
-      title={`${tick.no} — ${tick.label}`}
+      title={`${tick.no} · ${tick.label}`}
     >
       <span className="tl-node-ring" />
       <motion.span className="tl-node-core" style={{ opacity: lit }} />

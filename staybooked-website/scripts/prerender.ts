@@ -130,7 +130,7 @@ const homeContent = [
       `<p class="body">Every partnership includes a performance guarantee period: if we haven't delivered by the end of that window, your retainer pauses until we do.</p>` +
       NICHES.map(
         (n) =>
-          `<p class="body"><a href="/niches/${n.id}"><strong>${esc(n.name)}</strong></a> — ${esc(n.desc)}</p>`,
+          `<p class="body"><a href="/niches/${n.id}"><strong>${esc(n.name)}</strong></a>: ${esc(n.desc)}</p>`,
       ).join(''),
     'industries',
   ),
@@ -176,7 +176,7 @@ const routes: Route[] = [
             `<article><h3>${esc(f.name)}</h3><p><strong>${esc(f.title)}</strong></p>${
               f.degree ? `<p>${esc(f.degree)}</p>` : ''
             }<p class="body">${esc(f.bio)}</p>${
-              f.email ? `<p><a href="mailto:${esc(f.email!)}">${esc(f.email)}</a>${f.phone ? ` — ${esc(f.phone)}` : ''}</p>` : ''
+              f.email ? `<p><a href="mailto:${esc(f.email!)}">${esc(f.email)}</a>${f.phone ? ` · ${esc(f.phone)}` : ''}</p>` : ''
             }</article>`,
         ).join(''),
       'team',
@@ -221,11 +221,11 @@ const routes: Route[] = [
     path: '/book',
     title: 'Book a Strategy Call | Stay Booked Marketing',
     description:
-      'Book a free 30-minute strategy call: we audit your setup, tell you what we would do to book more jobs, and give you a clear number. You leave with a plan either way.',
+      'Book a free 15-minute strategy call: we audit your setup, tell you what we would do to book more jobs, and give you a clear number. You leave with a plan either way.',
     content: section(
       label('Book a Call') + h1('Grab a time that works.') +
-        `<p class="body">The calendar books instantly — no back and forth, no forms.</p>` +
-        `<p class="body"><strong>30 minutes, straight answers.</strong> We audit your current setup, look at your market, and tell you exactly what we'd do to book more jobs. You leave with a plan whether or not you hire us.</p>` +
+        `<p class="body">The calendar books instantly. No back and forth, no forms.</p>` +
+        `<p class="body"><strong>15 minutes, straight answers.</strong> We audit your current setup, look at your market, and tell you exactly what we'd do to book more jobs. You leave with a plan whether or not you hire us.</p>` +
         `<p class="body"><strong>A clear number.</strong> Flat retainer, ad spend estimate for your niche, and the guarantee: no results, your retainer pauses until we deliver.</p>`,
       'book',
       'section-offwhite',
@@ -249,7 +249,7 @@ const routes: Route[] = [
     description: 'A free strategy call: your business, your market, and a plan to book more jobs.',
     content: section(
       label('Free call') + h1('The free strategy call.') +
-        `<p class="body">A real conversation about your business — not a pitch deck. <a href="/book">Book a time</a>.</p>`,
+        `<p class="body">A real conversation about your business, not a pitch deck. <a href="/book">Book a time</a>.</p>`,
       'freecall',
       'section-offwhite',
     ),

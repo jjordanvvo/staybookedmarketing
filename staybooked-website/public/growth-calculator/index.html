@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Stay Booked Growth Calculator — see what 5-minute follow-up is worth</title>
+<title>Stay Booked Growth Calculator: see what 5-minute follow-up is worth</title>
 <meta name="description" content="Six short questions. See what 5-minute AI follow-up could add to your business, with your own numbers and published industry benchmarks.">
 <meta name="robots" content="index, follow">
 <link rel="icon" href="/favicon.ico">
@@ -923,11 +923,11 @@ th{font-size:12px; font-weight:600; color:var(--muted-2); letter-spacing:.04em}
     }).then(function(res){
       if (!res.ok) throw new Error("relay failed");
       trackEvent("projection_lead_captured", { trade: a.trade || "" });
-      done.textContent = "On its way — check your inbox shortly.";
+      done.textContent = "On its way. Check your inbox shortly.";
       done.hidden = false;
     }).catch(function(){
       done.hidden = true;
-      err.textContent = "Couldn't send right now — text " + SMS_CTA + " and we'll get it to you.";
+      err.textContent = "Couldn't send right now. Text " + SMS_CTA + " and we'll get it to you.";
       err.hidden = false;
     }).finally(function(){ submitBusy = false; if (btn) btn.disabled = false; });
   });

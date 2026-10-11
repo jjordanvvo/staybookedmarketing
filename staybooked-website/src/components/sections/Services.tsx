@@ -4,7 +4,7 @@ export const SERVICES = [
   {
     num: '01',
     name: 'Lead Generation Systems',
-    desc: 'Our core offering. We build the entire path from first click to booked appointment — campaigns, landing pages, automated qualification, and follow-up that runs without you. Every lead is screened before it reaches you, so what lands on your calendar is ready to talk.',
+    desc: 'Our core offering. We build the entire path from first click to booked appointment: campaigns, landing pages, automated qualification, and follow-up that runs without you. Every lead is screened before it reaches you, so what lands on your calendar is ready to talk.',
   },
   {
     num: '02',
@@ -14,7 +14,7 @@ export const SERVICES = [
   {
     num: '03',
     name: 'Software Development',
-    desc: 'Websites, web applications, and custom software built in-house. Fast, clean, and built to convert — whether that is a site your ads can actually send traffic to or an internal tool that runs a piece of your business.',
+    desc: 'Websites, web applications, and custom software built in-house. Fast, clean, and built to convert, whether that is a site your ads can actually send traffic to or an internal tool that runs a piece of your business.',
   },
 ]
 

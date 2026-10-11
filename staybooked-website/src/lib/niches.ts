@@ -45,7 +45,7 @@ export const NICHES: Niche[] = [
   {
     id: 'home-services',
     name: 'Home Services & Contractors',
-    desc: 'Contractors, roofers, plumbers, electricians, HVAC, remodelers — every trade that keeps homes running.',
+    desc: 'Contractors, roofers, plumbers, electricians, HVAC, and remodelers: every trade that keeps homes running.',
     summary:
       'Targeted campaigns catch homeowners the moment something needs fixing, and our AI texts every lead within 5 minutes and books the estimate straight onto your crew\'s calendar.',
     examples: 'Contractors, trades, and home-service businesses',
@@ -64,7 +64,7 @@ export const NICHES: Niche[] = [
     name: 'Clubs & Nightlife',
     desc: 'Nightclubs and venues filling guest lists, VIP tables, and bottle service.',
     summary:
-      'Ads in front of people deciding where to go out tonight, plus an AI that confirms guest-list signups and VIP tables in minutes — turning clicks into packed rooms.',
+      'Ads in front of people deciding where to go out tonight, plus an AI that confirms guest-list signups and VIP tables in minutes, turning clicks into packed rooms.',
     examples: 'Nightclubs, lounges, and event venues',
     whatWeDo:
       'We run high-converting campaigns across Google, Instagram, and Facebook, driving guest-list signups, VIP table reservations, and bottle-service bookings to your nightclub. We target the exact people looking for a night out, right when they are deciding where to go. Our AI qualifies, contacts, and books the table, turning clicks into packed rooms.',
@@ -81,7 +81,7 @@ export const NICHES: Niche[] = [
     name: 'Law Firms',
     desc: 'Firms and solo attorneys who want a calendar of qualified consultations.',
     summary:
-      'Case-type campaigns reach people the moment they need counsel, and AI intake qualifies and books the consult in under 5 minutes — before they call the firm down the street.',
+      'Case-type campaigns reach people the moment they need counsel, and AI intake qualifies and books the consult in under 5 minutes, before they call the firm down the street.',
     examples: 'Law firms and solo practitioners',
     whatWeDo:
       'We run high-converting campaigns across Google, Instagram, and Facebook, driving case evaluations and consult requests to your firm. We target the exact people searching for counsel, right when they need an attorney. Our AI qualifies, contacts, and books the consult, turning clicks into intake appointments.',
@@ -115,7 +115,7 @@ export const NICHES: Niche[] = [
     name: 'Financial Firms',
     desc: 'Advisors, planners, CPAs, and firms who want a calendar of qualified consults, with a compliance-first process.',
     summary:
-      'Campaigns reach people the moment they need financial help — tax deadlines, retirement questions, new money — and AI books the discovery call in under 5 minutes, before they find the firm down the street.',
+      'Campaigns reach people the moment they need financial help (tax deadlines, retirement questions, new money), and AI books the discovery call in under 5 minutes, before they find the firm down the street.',
     examples: 'Financial advisors, planners, CPAs, and insurance agencies',
     whatWeDo:
       'We run high-converting campaigns across Google, Instagram, and Facebook, driving discovery calls and consult requests to your firm. We target the exact people searching for financial guidance, right when they need it. Our AI qualifies, contacts, and books the consult, turning clicks into booked appointments.',
@@ -151,7 +151,7 @@ export const NICHES: Niche[] = [
     name: 'Rentals & Transactional',
     desc: 'Businesses that book and get paid online: tours, reservations, and checkout.',
     summary:
-      'Ads catch people ready to reserve and drive direct bookings instead of paying 15-20% platform commissions — with AI answering quote requests 24/7.',
+      'Ads catch people ready to reserve and drive direct bookings instead of paying 15-20% platform commissions, with AI answering quote requests 24/7.',
     examples: 'Property rentals, equipment, vehicles, and bookable services',
     whatWeDo:
       'We run high-converting campaigns across Google, Instagram, and Facebook, driving tours, bookings, and rental inquiries to your team. We target the exact people searching for a unit, vehicle, or time slot, right when they are ready to reserve. Our AI qualifies, contacts, and books the appointment, turning clicks into confirmed reservations.',
@@ -202,7 +202,7 @@ export const NICHES: Niche[] = [
     name: 'Real Estate',
     desc: 'Realtors and listing agents turning buyer and seller interest into booked showings and consults.',
     summary:
-      'Neighborhood farming and listing campaigns catch buyers early and route them to your listings, and our AI answers every inquiry in real time — booking showings and consults straight into your pipeline.',
+      'Neighborhood farming and listing campaigns catch buyers early and route them to your listings, and our AI answers every inquiry in real time, booking showings and consults straight into your pipeline.',
     examples: 'Realtors, listing agents, and brokerages',
     whatWeDo:
       'We run high-converting campaigns across Google, Instagram, and Facebook that put your listings in front of buyers the moment they start searching. You already live on Zillow, and we build on that: our ads catch buyers early, route them to your listings and your calendar, and our AI answers every inquiry in real time. The result: showing requests and buyer consults booked automatically, flowing straight into the pipeline you already run.',
@@ -219,7 +219,7 @@ export const NICHES: Niche[] = [
     name: 'Private Schools',
     desc: 'Private elementary, middle, and high schools filling campus tours, open houses, and admissions inquiries.',
     summary:
-      'Campaigns that reach parents deciding where to enroll, right when they are weighing schools — our AI books the campus tour and sends admissions a full summary, so no family slips away.',
+      'Campaigns that reach parents deciding where to enroll, right when they are weighing schools. Our AI books the campus tour and sends admissions a full summary, so no family slips away.',
     examples: 'Private elementary, middle, and high schools',
     whatWeDo:
       'We run high-converting campaigns across Google, Instagram, and Facebook, driving campus tours, open-house RSVPs, and admissions inquiries to your school. We target parents looking for elementary, middle, and high school options, right when they are deciding where to enroll. Our AI qualifies, contacts, and books the tour, turning clicks into families on campus.',
@@ -236,7 +236,7 @@ export const NICHES: Niche[] = [
 /** The universal speed-to-lead stats every one-pager leads with — the
  *  comparison itself: our 5-minute AI contact vs. a reply 30 minutes later. */
 export const SPEED_STATS = [
-  { value: 5, suffix: ' min', label: 'every inquiry contacted within — versus the 30-minute-later industry norm' },
+  { value: 5, suffix: ' min', label: 'every inquiry contacted within, versus the 30-minute-later industry norm' },
   { value: 100, suffix: 'x', label: 'more likely to be reached than a lead contacted 30 minutes later' },
   { value: 21, suffix: 'x', label: 'more likely to be qualified than a lead contacted 30 minutes later' },
 ]

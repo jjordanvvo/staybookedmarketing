@@ -72,7 +72,7 @@ export default function Industries() {
           <RevealItem as="h2" className="title">Who we help.</RevealItem>
           <RevealItem as="p" className="body why-body">
             If your business serves local customers, we can build for it. Tap any niche for the
-            quick version — Learn more opens the full page.
+            quick version. Learn more opens the full page.
           </RevealItem>
         </Reveal>
 

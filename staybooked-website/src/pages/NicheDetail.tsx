@@ -118,7 +118,7 @@ export default function NicheDetail() {
           <Reveal className="nd-invest" amount={0.15}>
             <RevealItem as="p" className="label">Investment</RevealItem>
             <RevealItem as="p" className="body nd-whatwedo">
-              No startup fee. No long-term contract. Ad spend: ~${INVESTMENT.adSpend}/mo — it goes
+              No startup fee. No long-term contract. Ad spend: ~${INVESTMENT.adSpend}/mo, and it goes
               directly to the ad platforms, not to us. Retainer varies by {niche.varies}.
               Month-to-month, and it&apos;s backed by the guarantee above.
             </RevealItem>

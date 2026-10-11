@@ -25,7 +25,7 @@ export const FAQS: FaqEntry[] = [
   },
   {
     q: 'Can you guarantee results?',
-    a: "No agency honestly can, and we won't pretend to. What we can promise is a complete system, fast follow-up on every lead, and a team that reviews performance every month and keeps improving what works.",
+    a: "Yes. Every partnership includes a performance guarantee: if we haven't delivered the qualified leads or appointments we agreed on by the end of the guarantee window, your retainer pauses until we do. On top of that, you get fast follow-up on every lead and a team that reviews performance every month and keeps improving what works.",
   },
   {
     q: 'How is this different from other agencies?',

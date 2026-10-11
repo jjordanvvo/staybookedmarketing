@@ -17,7 +17,7 @@ const EMBED_URL = (import.meta.env.VITE_BOOKING_EMBED_URL as string | undefined)
 
 const AGENDA = [
   {
-    head: '30 minutes, straight answers',
+    head: '15 minutes, straight answers',
     body: "We audit your current setup, look at your market, and tell you exactly what we'd do to book more jobs. You leave with a plan whether or not you hire us.",
   },
   {
@@ -49,7 +49,7 @@ export default function Book() {
             <RevealItem as="p" className="label">Book a Call</RevealItem>
             <RevealItem as="h1" className="title">Grab a time that works.</RevealItem>
             <RevealItem as="p" className="body lp-hook-body">
-              The calendar below books instantly — no back and forth, no forms.
+              The calendar below books instantly. No back and forth, no forms.
             </RevealItem>
           </Reveal>
 

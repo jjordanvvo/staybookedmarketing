@@ -48,8 +48,7 @@ export default function HeroStatement() {
           </motion.span>
         </h1>
         <div className="statement-support">
-          <motion.p variants={v} custom={3.1}>We build complete lead generation systems for local businesses. Targeted ads bring in the right local customers, our automated system qualifies them, and ready-to-book customers land straight on your calendar.</motion.p>
-          <motion.p variants={v} custom={3.8}>Stay Booked Marketing builds lead generation systems for local businesses that want more customers. We run the ads, qualify every lead, and handle the digital side so you can focus on running your business.</motion.p>
+          <motion.p variants={v} custom={3.1}>Stay Booked Marketing builds lead generation systems for local businesses that want more customers. We run the ads, qualify every lead, and handle the digital side so you can focus on running your business.</motion.p>
           {/* Learn More — cascades in one slot after the copy, scrolls to the
               Industries section so visitors self-identify. Shimmer/hover/arrow
               motion lives in CSS (.statement-cta); press feedback here. */}
@@ -57,7 +56,7 @@ export default function HeroStatement() {
             href="#industries"
             className="statement-cta"
             variants={v}
-            custom={4.5}
+            custom={3.8}
             whileTap={reduce ? undefined : { scale: 0.97 }}
           >
             Learn More

@@ -41,7 +41,7 @@ export const HEALTHCARE_FAQS: FaqEntry[] = [
   },
   {
     q: 'Can you guarantee more patients?',
-    a: "No agency honestly can, and we won't pretend to. What we focus on is a compliant, professional presence and a process built specifically for regulated healthcare marketing, which most agencies simply aren't equipped to do.",
+    a: "Yes. Our healthcare program comes with a guarantee: 10 booked appointments in 90 days, or we work for free until you get them. It all runs on a compliant, professional process built specifically for regulated healthcare marketing, which most agencies simply aren't equipped to do.",
   },
   {
     q: 'I have a delegating physician or collaborative practice agreement. Does that affect my marketing?',

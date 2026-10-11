@@ -20,7 +20,7 @@ export default function Pricing() {
               <h3>See what it's worth to you.</h3>
               <p>
                 Six short questions about your business. You'll get a personalized
-                12-month projection built from your own numbers — what new leads
+                12-month projection built from your own numbers: what new leads
                 are worth, what 5-minute follow-up adds, and what's left after the
                 program cost.
               </p>
