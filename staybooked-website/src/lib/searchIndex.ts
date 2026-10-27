@@ -133,7 +133,7 @@ function build(): SearchEntry[] {
       section: 'Contact',
       page: home,
       path: '/#contact',
-      text: 'Send us an email, give us a direct call, or schedule a 15-minute meeting with our team. Book a 15-Minute Call. Email us staybookedmarketing@gmail.com. Call direct (408) 712-0017.',
+      text: 'Send us an email, give us a direct call, or schedule a 15-minute meeting with our team. Book a 15-Minute Call. Email us kolby@staybookedmarketing.com. Call direct (813) 480-5818.',
       keywords: 'contact email phone call book a call schedule get in touch',
     },
 

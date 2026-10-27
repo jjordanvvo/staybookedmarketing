@@ -134,7 +134,7 @@ export const TERMS_SECTIONS: LegalSection[] = [
     paras: ['If you have questions about these Terms, please contact us at:'],
     contact: {
       lines: ['Stay Booked Marketing LLC', '1645 Abyss Drive, Odessa, FL 33556'],
-      email: 'staybookedmarketing@gmail.com',
+      email: 'kolby@staybookedmarketing.com',
     },
   },
 ]

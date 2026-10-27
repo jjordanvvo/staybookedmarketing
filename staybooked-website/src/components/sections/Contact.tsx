@@ -33,11 +33,11 @@ export default function Contact({ children }: { children?: ReactNode }) {
           <RevealItem as="div" className="contact-alts">
             <div className="contact-alt">
               <span className="contact-alt-label">Email us</span>
-              <a className="contact-alt-value" href="mailto:staybookedmarketing@gmail.com">staybookedmarketing@gmail.com</a>
+              <a className="contact-alt-value" href="mailto:kolby@staybookedmarketing.com">kolby@staybookedmarketing.com</a>
             </div>
             <div className="contact-alt">
               <span className="contact-alt-label">Call direct</span>
-              <a className="contact-alt-value" href="tel:+14087120017">(408) 712-0017</a>
+              <a className="contact-alt-value" href="tel:+18134805818">(813) 480-5818</a>
             </div>
           </RevealItem>
         </Reveal>
