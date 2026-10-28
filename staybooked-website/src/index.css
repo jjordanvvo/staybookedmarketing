@@ -153,7 +153,6 @@ ul { list-style: none; }
   transition: background 0.3s var(--ease), color 0.3s var(--ease);
   white-space: nowrap;
 }
-.nav-cta:hover { background: var(--logo-blue); color: var(--page-bg); }
 
 /* Hamburger + drop-down menu — mobile only (desktop hides both below) */
 .nav-burger {
@@ -493,10 +492,6 @@ ul { list-style: none; }
   margin-top: 0;
   padding: 16px 34px;
 }
-.hero-pitch-btn.contact-book-btn:hover {
-  background: var(--page-bg);
-  color: var(--text);
-}
 
 .glass-mark {
   /* Full-bleed refractive banner — the glass torus turns behind the
@@ -647,27 +642,9 @@ ul { list-style: none; }
   100% { transform: translateX(430%) skewX(-18deg); }
 }
 
-.statement-cta-arrow { display: block; transition: transform 0.3s var(--ease); }
-
-/* Hover — gentle lift, deepening shadow, tan bloom at the edges, faster
-   sheen, arrow nudge. Real pointers only so taps never stick. */
-@media (hover: hover) and (pointer: fine) {
-  .statement-cta:hover {
-    transform: translateY(-3px) scale(1.03);
-    box-shadow:
-      0 18px 38px -16px rgba(20, 20, 20, 0.45),
-      0 0 0 1px rgba(196, 168, 124, 0.4),
-      0 0 26px rgba(196, 168, 124, 0.28);
-  }
-  .statement-cta:hover::after { animation-duration: 3s; }
-  .statement-cta:hover .statement-cta-arrow { transform: translateX(4px); }
-}
-
+/* Hover is the shared .anim-btn arrow swap + fill (see below). */
 @media (prefers-reduced-motion: reduce) {
-  .statement-cta { transition: box-shadow 0.3s var(--ease); }
   .statement-cta::after { animation: none !important; }
-  .statement-cta:hover { transform: none !important; }
-  .statement-cta:hover .statement-cta-arrow { transform: none !important; }
 }
 
 .statement-support {
@@ -1277,10 +1254,116 @@ ul { list-style: none; }
 }
 /* Premium press: fill inverts, the button lifts and grows a hair — expensive,
    confident, colors unchanged. (whileTap in Contact.tsx adds the press-down.) */
-.contact-book-btn:hover {
+.contact-book-btn:not(.anim-btn):hover {
   background: transparent;
   color: var(--text);
   transform: translateY(-2px) scale(1.02);
+}
+
+/* Animated CTA — on hover the arrow slides out right, a second arrow slides
+   in left, the label shifts across, and a circle floods the pill while it
+   eases to a rounded rectangle. Markup comes from <AnimatedLabel>. Resting
+   colors are each button's own; --ab-fill / --ab-ink are the hover inversion
+   it already had. Transform/opacity only, so it stays smooth on phones. */
+.anim-btn {
+  --ab-fill: var(--page-bg);   /* the circle that floods in */
+  --ab-ink: var(--text);       /* label + arrow color once flooded */
+  --ab-ring: var(--text);      /* ripple ring that fades out on hover */
+  --ab-arrow: 18px;
+  --ab-inset: 16px;
+  --ab-shift: 12px;
+  --ab-ease: cubic-bezier(0.23, 1, 0.32, 1);
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: 30px;         /* a full pill at these heights; animates cleanly to 12px */
+  box-shadow: 0 0 0 0 var(--ab-ring);
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    color 0.6s var(--ab-ease),
+    border-radius 0.6s var(--ab-ease),
+    box-shadow 0.6s var(--ab-ease),
+    scale 0.2s var(--ab-ease);
+}
+.ab-text {
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  transform: translateX(calc(-1 * var(--ab-shift)));
+  transition: transform 0.8s var(--ab-ease);
+}
+.ab-arr {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  width: var(--ab-arrow);
+  height: var(--ab-arrow);
+  fill: currentColor;
+  pointer-events: none;
+  transition: transform 0.8s var(--ab-ease);
+}
+.ab-arr-1 { right: var(--ab-inset); transform: translate(0, -50%); }
+.ab-arr-2 {
+  left: var(--ab-inset);
+  transform: translate(calc(-1 * (var(--ab-inset) + var(--ab-arrow) + 4px)), -50%);
+}
+.ab-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 0;
+  width: 150%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--ab-fill);
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0);
+  pointer-events: none;
+  transition: transform 0.8s var(--ab-ease), opacity 0.8s var(--ab-ease);
+}
+
+/* Hover for real pointers only (taps never stick); keyboard focus matches. */
+@media (hover: hover) and (pointer: fine) {
+  .anim-btn:hover { color: var(--ab-ink); border-radius: 12px; box-shadow: 0 0 0 12px transparent; }
+  .anim-btn:hover .ab-text { transform: translateX(var(--ab-shift)); }
+  .anim-btn:hover .ab-arr-1 { transform: translate(calc(var(--ab-inset) + var(--ab-arrow) + 4px), -50%); }
+  .anim-btn:hover .ab-arr-2 { transform: translate(0, -50%); }
+  .anim-btn:hover .ab-circle { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+.anim-btn:focus-visible { color: var(--ab-ink); border-radius: 12px; }
+.anim-btn:focus-visible .ab-text { transform: translateX(var(--ab-shift)); }
+.anim-btn:focus-visible .ab-arr-1 { transform: translate(calc(var(--ab-inset) + var(--ab-arrow) + 4px), -50%); }
+.anim-btn:focus-visible .ab-arr-2 { transform: translate(0, -50%); }
+.anim-btn:focus-visible .ab-circle { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+
+/* Press: a quick squeeze everywhere; on touch screens the fill also floods
+   in fast, so a tap gets the same feedback a hover does. */
+.anim-btn:active { scale: 0.96; }
+@media (hover: none) {
+  .anim-btn:active { color: var(--ab-ink); }
+  .anim-btn:active .ab-circle {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    transition-duration: 0.3s;
+  }
+}
+
+/* Outlined nav pill: rests transparent with ink text, floods ink on hover. */
+.nav-cta.anim-btn {
+  --ab-fill: var(--logo-blue);
+  --ab-ink: var(--page-bg);
+  --ab-ring: var(--logo-blue);
+  --ab-arrow: 12px;
+  --ab-inset: 10px;
+  --ab-shift: 9px;
+  padding-inline: 22px;
+}
+.statement-cta.anim-btn { --ab-arrow: 16px; --ab-shift: 10px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-btn, .anim-btn .ab-text, .anim-btn .ab-arr, .anim-btn .ab-circle {
+    transition-duration: 0.01s !important;
+  }
 }
 
 .contact-alts {
@@ -1926,6 +2009,10 @@ ul { list-style: none; }
   .nav-menu { display: grid; }
   .nav-right { gap: 10px; }
   .nav-cta { padding: 8px 14px; font-size: 0.66rem; }
+  /* No room for arrows in the phone bar: keep the pill its current size. */
+  .nav-cta.anim-btn { padding-inline: 14px; }
+  .nav-cta.anim-btn .ab-arr { display: none; }
+  .nav-cta.anim-btn .ab-text { transform: none; }
   .search-trigger { width: 34px; height: 34px; }
 
   /* ---- Global mobile spacing: tighter section padding + label→heading gap ---- */
@@ -1983,6 +2070,7 @@ ul { list-style: none; }
   }
   .hero-pitch-line { font-size: 1rem; max-width: 340px; }
   .hero-pitch-btn.contact-book-btn { padding: 15px 28px; font-size: 0.82rem; }
+  .hero-pitch-btn.anim-btn { --ab-arrow: 16px; --ab-inset: 14px; }
 
 
   /* HERO STATEMENT — supporting text follows the headline closely */
@@ -3974,5 +4062,7 @@ html.lenis body {
   flex-shrink: 0;
 }
 @media (max-width: 720px) {
-  .gc-launch-btn { width: 100%; }
+  /* Full-width on phones: one line at the hero size, with room for the arrow. */
+  .gc-launch-btn { width: 100%; padding-inline: 22px; font-size: 0.82rem; white-space: nowrap; }
+  .gc-launch-btn.anim-btn { --ab-arrow: 16px; --ab-inset: 14px; }
 }

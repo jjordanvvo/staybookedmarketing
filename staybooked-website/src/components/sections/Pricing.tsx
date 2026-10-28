@@ -1,4 +1,5 @@
 import { Reveal, RevealItem } from '@/components/ui/Reveal'
+import AnimatedLabel from '@/components/ui/AnimatedLabel'
 
 /**
  * Pricing — every program is quoted per business after a free strategy call,
@@ -29,8 +30,8 @@ export default function Pricing() {
                 <li><a href="mailto:kolby@staybookedmarketing.com?subject=Pricing%20question">Email kolby@staybookedmarketing.com</a></li>
               </ul>
             </div>
-            <a className="contact-book-btn gc-launch-btn" href="/book">
-              Book a Free Strategy Call
+            <a className="contact-book-btn gc-launch-btn anim-btn" href="/book">
+              <AnimatedLabel>Book a Free Strategy Call</AnimatedLabel>
             </a>
           </div>
         </Reveal>

@@ -4,6 +4,7 @@ import { Reveal, RevealItem } from '@/components/ui/Reveal'
 import Navbar from '@/components/sections/Navbar'
 import { NICHES } from '@/lib/niches'
 import { SPEED_EVIDENCE } from '@/lib/evidence'
+import AnimatedLabel from '@/components/ui/AnimatedLabel'
 
 /**
  * NicheDetail — the one-pager for a single niche, as its own page.
@@ -132,8 +133,8 @@ export default function NicheDetail() {
             Book a free strategy call and we&apos;ll show you exactly how this system books {niche.books[0].toLowerCase()} for {niche.examples.toLowerCase()}.
           </RevealItem>
           <RevealItem as="div" className="hc-ctas" delay={0.2}>
-            <a className="contact-book-btn" href="/book">
-              Book a Call
+            <a className="contact-book-btn anim-btn" href="/book">
+              <AnimatedLabel>Book a Call</AnimatedLabel>
             </a>
             <Link className="contact-book-btn" to="/#industries">See every niche</Link>
           </RevealItem>

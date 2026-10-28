@@ -4,6 +4,7 @@ import { Reveal, RevealItem } from '@/components/ui/Reveal'
 import Navbar from '@/components/sections/Navbar'
 import Faq, { type FaqEntry } from '@/components/sections/Faq'
 import logo from '@/assets/logo-nav.webp'
+import AnimatedLabel from '@/components/ui/AnimatedLabel'
 
 // The compliance pillars — short versions; the full detail lives in the FAQ
 // accordion below, moved verbatim from the old main-site FAQ.
@@ -143,9 +144,9 @@ export default function Healthcare() {
             We have a dedicated program for you: targeted ads, instant follow-up, and booked patient appointments, built around the rules your practice has to follow.
           </RevealItem>
           <RevealItem as="div" className="hc-ctas" delay={0.2}>
-            <Link className="contact-book-btn" to="/free-call">See the program</Link>
-            <a className="contact-book-btn" href="/book">
-              Book a Call
+            <Link className="contact-book-btn anim-btn" to="/free-call"><AnimatedLabel>See the program</AnimatedLabel></Link>
+            <a className="contact-book-btn anim-btn" href="/book">
+              <AnimatedLabel>Book a Call</AnimatedLabel>
             </a>
           </RevealItem>
         </Reveal>

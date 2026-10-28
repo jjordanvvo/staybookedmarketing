@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Reveal, RevealItem } from '@/components/ui/Reveal'
 import type { Founder } from '@/lib/founders'
+import AnimatedLabel from '@/components/ui/AnimatedLabel'
 
 export type { Founder }
 
@@ -26,7 +27,7 @@ export default function Founders() {
             Five founders running every account hands-on. No account managers, no ticket systems.
           </RevealItem>
           <RevealItem as="div" className="founders-cta" delay={0.15}>
-            <Link className="contact-book-btn" to="/team">Meet our team</Link>
+            <Link className="contact-book-btn anim-btn" to="/team"><AnimatedLabel>Meet our team</AnimatedLabel></Link>
           </RevealItem>
         </Reveal>
       </div>

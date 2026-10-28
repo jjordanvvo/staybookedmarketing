@@ -2,6 +2,7 @@ import type { MouseEvent } from 'react'
 import { motion, useReducedMotion, useSpring } from 'framer-motion'
 import GlassMark from '@/components/ui/GlassMark'
 import { EASE } from '@/components/ui/Reveal'
+import AnimatedLabel from '@/components/ui/AnimatedLabel'
 
 // Cursor parallax only makes sense with a real pointer (decided once at load).
 const FINE_POINTER =
@@ -72,8 +73,8 @@ export default function Hero({ revealed = true, intro = false }: HeroProps) {
         <p className="hero-pitch-line">
           We run your ads, follow up with every lead in minutes, and book the appointments onto your calendar.
         </p>
-        <a className="contact-book-btn hero-pitch-btn" href="/book">
-          Book a Free Strategy Call
+        <a className="contact-book-btn hero-pitch-btn anim-btn" href="/book">
+          <AnimatedLabel>Book a Free Strategy Call</AnimatedLabel>
         </a>
       </motion.div>
     </header>

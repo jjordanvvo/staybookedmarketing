@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import { useReducedMotion } from 'framer-motion'
 import { Reveal, RevealItem } from '@/components/ui/Reveal'
+import AnimatedLabel from '@/components/ui/AnimatedLabel'
 
 /**
  * Contact is the final section. The Footer is rendered as `children`
@@ -22,11 +23,11 @@ export default function Contact({ children }: { children?: ReactNode }) {
               whileTap gives a confident press; hover lift + fill live in CSS. */}
           <RevealItem
             as="a"
-            className="contact-book-btn"
+            className="contact-book-btn anim-btn"
             href="/book"
             whileTap={reduce ? undefined : { scale: 0.98 }}
           >
-            Book a 15-Minute Call
+            <AnimatedLabel>Book a 15-Minute Call</AnimatedLabel>
           </RevealItem>
 
           {/* Alternatives */}

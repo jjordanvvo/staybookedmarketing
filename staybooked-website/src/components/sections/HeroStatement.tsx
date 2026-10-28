@@ -1,5 +1,6 @@
 import { motion, useReducedMotion, type Variants } from 'framer-motion'
 import { EASE, still } from '@/components/ui/Reveal'
+import AnimatedLabel from '@/components/ui/AnimatedLabel'
 
 /**
  * Editorial statement band directly under the logo hero.
@@ -54,28 +55,12 @@ export default function HeroStatement() {
               motion lives in CSS (.statement-cta); press feedback here. */}
           <motion.a
             href="#industries"
-            className="statement-cta"
+            className="statement-cta anim-btn"
             variants={v}
             custom={3.8}
             whileTap={reduce ? undefined : { scale: 0.97 }}
           >
-            Learn More
-            <svg
-              className="statement-cta-arrow"
-              width="14"
-              height="14"
-              viewBox="0 0 16 16"
-              fill="none"
-              aria-hidden="true"
-            >
-              <path
-                d="M2 8h11M9 3.5 13.5 8 9 12.5"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <AnimatedLabel>Learn More</AnimatedLabel>
           </motion.a>
         </div>
       </motion.div>
