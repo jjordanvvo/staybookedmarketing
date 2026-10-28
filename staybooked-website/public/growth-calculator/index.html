@@ -215,6 +215,8 @@ th{font-size:12px; font-weight:600; color:var(--muted-2); letter-spacing:.04em}
 .sendcopy-row{display:flex; gap:12px; flex-wrap:wrap}
 .sendcopy-row .field{flex:1 1 260px; width:auto}
 .sendcopy-row .btn{flex:0 0 auto}
+.sendcopy-consent{text-align:left; margin:0}
+.sendcopy-consent a{color:inherit; text-decoration:underline}
 .visually-hidden{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0}
 .label-note{font-size:13px; line-height:1.55; color:var(--muted); border-top:1px solid var(--axis); padding-top:16px}
 .cta{background:var(--cta-bg); border:1px solid var(--cta-line); border-radius:16px; padding:24px 28px; display:flex; justify-content:space-between; align-items:center; gap:18px 24px; flex-wrap:wrap; color:var(--cta-ink)}
@@ -436,6 +438,7 @@ th{font-size:12px; font-weight:600; color:var(--muted-2); letter-spacing:.04em}
         <input id="f-hp" name="company_website" type="text" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;top:-9999px" aria-hidden="true">
         <button type="submit" class="btn primary" id="copySubmit">Email me my projection</button>
       </div>
+      <p class="fine sendcopy-consent">By submitting, you agree that Stay Booked Marketing LLC may email you this projection and follow up about it. Unsubscribe anytime. See our <a href="/privacy">Privacy Policy</a>.</p>
       <p class="err" id="err-copy" hidden></p>
       <p class="live" id="copyDone" hidden></p>
     </form>

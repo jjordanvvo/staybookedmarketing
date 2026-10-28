@@ -49,7 +49,9 @@ export default function Book() {
             <RevealItem as="p" className="label">Book a Call</RevealItem>
             <RevealItem as="h1" className="title">Grab a time that works.</RevealItem>
             <RevealItem as="p" className="body lp-hook-body">
-              The calendar below books instantly. No back and forth, no forms.
+              {EMBED_URL
+                ? 'The calendar below books instantly. No back and forth, no forms.'
+                : 'Pick a time on our calendar and it books instantly. No back and forth.'}
             </RevealItem>
           </Reveal>
 
@@ -78,10 +80,10 @@ export default function Book() {
               ) : (
                 <div className="book-fallback">
                   <p className="book-fallback-body">
-                    Prefer to open the calendar in a new tab? Here it is.
+                    Our calendar opens in a new tab. Choose any open time.
                   </p>
                   <a className="contact-book-btn" href={BOOKING_URL} target="_blank" rel="noopener noreferrer">
-                    Open the calendar
+                    See open times
                   </a>
                 </div>
               )}

@@ -19,6 +19,11 @@ import { EASE } from '@/components/ui/Reveal'
  *  • Band height → `height` on .feature-band.
  * ───────────────────────────────────────────────────────────────────────────
  */
+// The band is hidden under 1100px (see .feature-band in index.css). Only give
+// the video a source on wide screens, so phones and tablets don't download it.
+const WIDE =
+  typeof window !== 'undefined' && window.matchMedia('(min-width: 1101px)').matches
+
 export default function FeatureBand() {
   const videoRef = useRef<HTMLVideoElement>(null)
   const sectionRef = useRef<HTMLElement>(null)
@@ -43,7 +48,7 @@ export default function FeatureBand() {
       <video
         ref={videoRef}
         className="feature-band-video"
-        src={bgVideo}
+        src={WIDE ? bgVideo : undefined}
         autoPlay
         muted
         loop

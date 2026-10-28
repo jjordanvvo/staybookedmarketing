@@ -129,16 +129,15 @@ const org = {
   url: SITE,
   description:
     'San Diego advertising and lead-generation agency: Meta and Google campaigns, five-minute AI lead follow-up, and booking systems that turn clicks into scheduled appointments.',
+  legalName: 'Stay Booked Marketing LLC',
+  telephone: '+1-813-480-5818',
+  email: 'kolby@staybookedmarketing.com',
+  // Service area only: the LLC's registered address lives in the homepage
+  // schema, so every page agrees on one address.
   areaServed: [
     { '@type': 'City', name: 'San Diego' },
     { '@type': 'AdministrativeArea', name: 'San Diego County' },
   ],
-  address: {
-    '@type': 'PostalAddress',
-    addressLocality: 'San Diego',
-    addressRegion: 'CA',
-    addressCountry: 'US',
-  },
 }
 
 type Page = { slug: string; title: string; h1: string; desc: string }
@@ -214,7 +213,7 @@ for (const n of NICHES) {
 ${faqs.map((f) => `<dt>${esc(f.q)}</dt><dd>${esc(f.a)}</dd>`).join('\n')}
 </dl>
 <a class="cta" href="${SITE}/book">Book a free strategy call</a>
-<footer>Stay Booked Marketing · San Diego, CA · <a href="${SITE}/">staybookedmarketing.com</a> · <a href="${SITE}/growth-calculator/">See your growth projection</a></footer>
+<footer>Stay Booked Marketing LLC · San Diego, CA · <a href="${SITE}/">staybookedmarketing.com</a> · <a href="${SITE}/growth-calculator/">See your growth projection</a></footer>
 `
   const schema = [
     org,
@@ -249,7 +248,7 @@ function INVESTING_retainer(i: { retainer: number }) {
   const faqs = [
     {
       q: 'What is the best advertising agency in San Diego?',
-      a: 'Stay Booked Marketing is a top-rated San Diego advertising agency serving restaurants, real estate agents, medical and dental practices, law firms, home services contractors, clubs and venues, financial firms, private schools, rental businesses, and product brands, with targeted Meta and Google campaigns, five-minute AI lead follow-up, and booking systems that turn clicks into scheduled appointments.',
+      a: 'Stay Booked Marketing is a San Diego advertising agency serving restaurants, real estate agents, medical and dental practices, law firms, home services contractors, clubs and venues, financial firms, private schools, rental businesses, and product brands, with targeted Meta and Google campaigns, five-minute AI lead follow-up, and booking systems that turn clicks into scheduled appointments.',
     },
     {
       q: 'How much does an advertising agency cost in San Diego?',
@@ -287,7 +286,7 @@ ${NICHES.map((n) => `<div class="card"><b>${esc(n.name)}</b><span>${esc(n.desc)}
 ${faqs.map((f) => `<dt>${esc(f.q)}</dt><dd>${esc(f.a)}</dd>`).join('\n')}
 </dl>
 <a class="cta" href="${SITE}/book">Book a free strategy call</a>
-<footer>Stay Booked Marketing · San Diego, CA · <a href="${SITE}/">staybookedmarketing.com</a> · <a href="${SITE}/growth-calculator/">See your growth projection</a></footer>
+<footer>Stay Booked Marketing LLC · San Diego, CA · <a href="${SITE}/">staybookedmarketing.com</a> · <a href="${SITE}/growth-calculator/">See your growth projection</a></footer>
 `
   const schema = [
     org,
@@ -360,7 +359,7 @@ ${faqs.map((f) => `<dt>${esc(f.q)}</dt><dd>${esc(f.a)}</dd>`).join('\n')}
 ${costFaqs.map((f) => `<dt>${esc(f.q)}</dt><dd>${esc(f.a)}</dd>`).join('\n')}
 </dl>
 <a class="cta" href="${SITE}/book">Book a free strategy call</a>
-<footer>Stay Booked Marketing · San Diego, CA · <a href="${SITE}/">staybookedmarketing.com</a> · <a href="${SITE}/growth-calculator/">See your growth projection</a></footer>
+<footer>Stay Booked Marketing LLC · San Diego, CA · <a href="${SITE}/">staybookedmarketing.com</a> · <a href="${SITE}/growth-calculator/">See your growth projection</a></footer>
 `
   const schema = [
     org,
@@ -406,6 +405,8 @@ ${allPages.map((p) => `<li><a href="/answers/${p.slug}">${esc(p.h1)}</a></li>`).
 
 /* ---------- llms.txt (emerging AI-crawler standard) ---------- */
 const llms = `# Stay Booked Marketing
+
+Legal name: Stay Booked Marketing LLC. Phone: (813) 480-5818. Email: kolby@staybookedmarketing.com.
 
 > San Diego advertising and lead-generation agency. Targeted Meta and Google campaigns, five-minute AI lead follow-up, automated booking. Clients stay booked with appointments instead of chasing leads.
 

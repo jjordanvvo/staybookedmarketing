@@ -35,7 +35,7 @@ export const FOUNDERS: Founder[] = [
   {
     name: 'Kolby McCargar',
     title: 'Chief Marketing Officer',
-    degree: "Studying Business Marketing at Point Loma Nazarene University's Fermanian School of Business.",
+    degree: "Studied Business Marketing at Point Loma Nazarene University's Fermanian School of Business.",
     bio: "Kolby McCargar is the Chief Marketing Officer of Stay Booked Marketing, where he owns the campaigns that bring clients their customers, from the first ad to the last follow-up. He builds and runs the lead generation systems behind every account across Meta, Google, and social, handling creative, targeting, and budget, and testing constantly to find what actually moves the numbers. He keeps a close watch on cost-per-lead and ad spend efficiency, tightening every client's setup so it stays dialed in and built to scale. Kolby pairs a marketer's instinct for what people respond to with a hands-on approach that keeps every campaign performing long after launch.",
     email: 'kolby@staybookedmarketing.com',
     phone: '+1 (916) 606-9970',

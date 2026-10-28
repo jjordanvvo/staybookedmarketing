@@ -26,9 +26,15 @@ const REDUCE =
 // back-navigation) skip straight to the settled page.
 let consumed = false
 
+// Visitors from an ad or tracked campaign link skip the intro: they clicked
+// for the offer, so the page opens on it instead of a 2-second title card.
+const FROM_CAMPAIGN =
+  typeof window !== 'undefined' &&
+  /[?&](utm_[a-z]+|fbclid|gclid|gbraid|wbraid|ttclid|msclkid)=/i.test(window.location.search)
+
 /** Should this page load open with the intro? Decided once, in Home. */
 export function claimIntro(): boolean {
-  return typeof window !== 'undefined' && !REDUCE && !consumed
+  return typeof window !== 'undefined' && !REDUCE && !FROM_CAMPAIGN && !consumed
 }
 
 /** Called from Home's mount effect so remounts never replay the sequence. */

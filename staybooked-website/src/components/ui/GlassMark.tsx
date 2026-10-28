@@ -69,11 +69,15 @@ export default function GlassMark({
   const reduce = useReducedMotion()
 
   // Lettering fits the plate: large on desktop, scaled down on phones.
-  const fontSize = vw < 480 ? '44px' : vw < 768 ? '72px' : '140px'
+  // Above 768px the lettering scales with the viewport (about 7em wide), so
+  // STAY BOOKED never crops on smaller laptops; it caps at 140px.
+  const fontSize =
+    vw < 480 ? '44px' : vw < 768 ? '72px' : `${Math.min(140, Math.round(vw * 0.11))}px`
 
   // On mobile the glass WebGL canvas is more cost than craft — the brand
   // logo reads cleaner, loads faster, and can't trap a scroll.
-  if (vw < 768) {
+  // <= 768 matches the CSS phone/tablet breakpoint (max-width: 768px).
+  if (vw <= 768) {
     return (
       <div className="glass-mark glass-mark-static" role="img" aria-label="Stay Booked Marketing">
         <img className="glass-mark-logo" src={logoUrl} alt="" />

@@ -11,6 +11,7 @@ import Book from '@/pages/Book'
 import Analytics from '@/components/Analytics'
 import ChatWidget from '@/components/ChatWidget'
 import Team from '@/pages/Team'
+import NotFound from '@/pages/NotFound'
 
 /** Route changes land at the top of the new page (browsers only restore
  *  scroll on history navigation, not on pushed links). A /#section hash keeps
@@ -52,6 +53,7 @@ export default function App() {
       <Route path="/niches/:id" element={<NicheDetail />} />
       <Route path="/team" element={<Team />} />
       <Route path="/book" element={<Book />} />
+      <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   )

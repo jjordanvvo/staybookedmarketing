@@ -452,6 +452,52 @@ ul { list-style: none; }
   will-change: transform;
 }
 
+/* Hero pitch: the promise + Book button under the wordmark, inside the tan
+   panel, so the offer is visible before any scroll. The panel stacks the
+   glass scene over the pitch so the torus never crosses the text. */
+.hero {
+  position: relative;
+  flex-direction: column;
+  height: 80vh;
+  min-height: 600px;
+}
+.hero > .hero-motion {
+  flex: 1 1 auto;
+  min-height: 0;
+  height: auto;
+}
+.hero-pitch {
+  flex: 0 0 auto;
+  padding-bottom: clamp(28px, 5vh, 56px);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding-left: 24px;
+  padding-right: 24px;
+  text-align: center;
+  pointer-events: none;
+}
+.hero-pitch > * { pointer-events: auto; }
+.hero-pitch-line {
+  margin: 0;
+  max-width: 620px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: clamp(1rem, 1.35vw, 1.2rem);
+  line-height: 1.5;
+  color: var(--text);
+}
+.hero-pitch-btn.contact-book-btn {
+  margin-top: 0;
+  padding: 16px 34px;
+}
+.hero-pitch-btn.contact-book-btn:hover {
+  background: var(--page-bg);
+  color: var(--text);
+}
+
 .glass-mark {
   /* Full-bleed refractive banner — the glass torus turns behind the
      STAY BOOKED lettering, sized by the hero itself. */
@@ -475,6 +521,22 @@ ul { list-style: none; }
   width: min(78vw, 420px);
   height: auto;
   display: block;
+}
+
+/* 404 page */
+.notfound-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 28px;
+}
+.notfound-home {
+  margin-top: 40px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  color: var(--text);
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 2px;
 }
 
 /* ============================================================
@@ -1880,6 +1942,25 @@ ul { list-style: none; }
     min-height: 300px;
     max-height: 460px;
   }
+  /* Phones: logo on top, pitch stacked under it inside the tan panel */
+  .hero {
+    flex-direction: column;
+    height: auto;
+    min-height: 0;
+    max-height: none;
+    padding: 100px 0 0; /* clears the fixed nav bar */
+    gap: 8px;
+  }
+  .hero > .hero-motion { flex: 0 0 auto; height: auto; }
+  .glass-mark { height: auto; }
+  .glass-mark-static { padding: 12px 24px; }
+  .glass-mark-logo { width: min(62vw, 320px); }
+  .hero-pitch {
+    gap: 16px;
+    padding-bottom: 32px;
+  }
+  .hero-pitch-line { font-size: 1rem; max-width: 340px; }
+  .hero-pitch-btn.contact-book-btn { padding: 15px 28px; font-size: 0.82rem; }
 
 
   /* HERO STATEMENT — supporting text follows the headline closely */

@@ -61,6 +61,21 @@ export default function Hero({ revealed = true, intro = false }: HeroProps) {
           textColor="#141414"
         />
       </motion.div>
+      {/* The promise and the one action, visible before any scroll. Lands with
+          the wordmark so ad traffic sees the offer in the first seconds. */}
+      <motion.div
+        className="hero-pitch"
+        initial={reduce ? { opacity: 1 } : { opacity: 0, y: 12 }}
+        animate={show ? { opacity: 1, y: 0 } : undefined}
+        transition={{ duration: 1.1, ease: EASE, delay: intro ? 0.75 : 0.2 }}
+      >
+        <p className="hero-pitch-line">
+          We run your ads, follow up with every lead in minutes, and book the appointments onto your calendar.
+        </p>
+        <a className="contact-book-btn hero-pitch-btn" href="/book">
+          Book a Free Strategy Call
+        </a>
+      </motion.div>
     </header>
   )
 }
