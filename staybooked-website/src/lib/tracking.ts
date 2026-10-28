@@ -29,8 +29,11 @@ export function initTracking() {
   window.dataLayer = window.dataLayer || []
   window.gtag =
     window.gtag ||
-    function (...args: unknown[]) {
-      window.dataLayer!.push(args)
+    function () {
+      // gtag.js only processes the real `arguments` object. Pushing a plain
+      // array (e.g. from ...rest args) is silently ignored and no hits are sent.
+      // eslint-disable-next-line prefer-rest-params
+      window.dataLayer!.push(arguments)
     }
 
   // GA4
