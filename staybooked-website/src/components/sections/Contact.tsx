@@ -2,12 +2,14 @@ import type { ReactNode } from 'react'
 import { useReducedMotion } from 'framer-motion'
 import { Reveal, RevealItem } from '@/components/ui/Reveal'
 import AnimatedLabel from '@/components/ui/AnimatedLabel'
+import { CONTACT_FORM_URL } from '@/lib/booking'
 
 /**
  * Contact is the final section. The Footer is rendered as `children`
  * INSIDE this section (pinned to the bottom of the contact screen).
  *
- * Three ways to start: schedule (primary button), email, and call.
+ * Four ways to start: schedule (primary button), a short message form (GHL),
+ * email, and call.
  */
 export default function Contact({ children }: { children?: ReactNode }) {
   const reduce = useReducedMotion()
@@ -28,6 +30,18 @@ export default function Contact({ children }: { children?: ReactNode }) {
             whileTap={reduce ? undefined : { scale: 0.98 }}
           >
             <AnimatedLabel>Book a 15-Minute Call</AnimatedLabel>
+          </RevealItem>
+
+          {/* Not ready to book? A short GHL form: creates the contact in GHL,
+              alerts Kolby by email, and auto-replies to the lead. */}
+          <RevealItem as="div" className="contact-form">
+            <p className="contact-alt-label">Or send a quick message</p>
+            <iframe
+              src={CONTACT_FORM_URL}
+              title="Contact Stay Booked Marketing"
+              loading="lazy"
+              className="contact-form-frame"
+            />
           </RevealItem>
 
           {/* Alternatives */}
