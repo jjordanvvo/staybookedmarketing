@@ -9,11 +9,11 @@ export const FAQS: FaqEntry[] = [
   },
   {
     q: 'How fast will I see results?',
-    a: "Most clients see results within the first 30 days. Ads can start running within days of your strategy call, and our follow-up system goes to work on the very first lead. Timelines vary by industry and budget, so we'll give you an honest read on yours during the call.",
+    a: "Ads can start running within days of your strategy call, and our follow-up system goes to work on the very first lead. Timelines vary by industry and budget, so we'll give you an honest read on yours during the call.",
   },
   {
-    q: "What's included in the monthly price?",
-    a: "Everything: campaign creation and management, landing pages, automated lead follow-up, qualification, and booking, all handled end to end for $2,000 per month. There's no startup fee. Ad spend is billed separately by the ad platforms and always stays yours.",
+    q: 'How much does it cost?',
+    a: "Every business has a different market, budget, and goal, so we quote each program after a free 15-minute strategy call. Your program covers campaign creation and management, landing pages, automated lead follow-up, qualification, and booking, handled end to end. There's no startup fee. Ad spend is billed separately by the ad platforms and always stays yours. Call or text (813) 480-5818, email kolby@staybookedmarketing.com, or book a call to get your number.",
   },
   {
     q: 'Do you require a long-term contract?',
@@ -24,8 +24,8 @@ export const FAQS: FaqEntry[] = [
     a: 'You do. Ad accounts, audiences, and every lead we generate belong to you. If we ever part ways, all of it stays with you.',
   },
   {
-    q: 'Can you guarantee results?',
-    a: "Yes. Every partnership includes a performance guarantee: if we haven't delivered the qualified leads or appointments we agreed on by the end of the guarantee window, your retainer pauses until we do. On top of that, you get fast follow-up on every lead and a team that reviews performance every month and keeps improving what works.",
+    q: "How will I know it's working?",
+    a: "You'll see the numbers. We review performance with you every month, including leads, booked appointments, and cost per lead, and we keep improving what works. The ad accounts are yours, so you can check them any time.",
   },
   {
     q: 'How is this different from other agencies?',

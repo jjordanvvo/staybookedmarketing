@@ -10,8 +10,8 @@ export const INDUSTRIES = NICHES.map((n) => ({ name: n.name, desc: n.desc }))
 /**
  * INDUSTRIES — "Who we help." A clean name-only index: one niche per row,
  * nothing else on it. Clicking a row expands a brief summary in place (the
- * most important things from the one-pager: what we do, what we book, the
- * guarantee) with the "Learn more" button inside it — that opens the niche's
+ * most important things from the one-pager: what we do and what we book)
+ * with the "Learn more" button inside it — that opens the niche's
  * full info page (/niches/:id) with everything. Header and rows reveal
  * independently; only one row is expanded at a time.
  */
@@ -37,11 +37,6 @@ function NichePanel({ niche }: { niche: Niche }) {
             <span className="ind-chip" key={b}>{b}</span>
           ))}
         </div>
-
-        <p className="ind-guarantee">
-          <strong>Our guarantee:</strong> if we haven&apos;t delivered {niche.guarantee} by the
-          end of the guarantee window, your retainer pauses until we do.
-        </p>
 
         <div className="ind-panel-ctas">
           <Link className="ind-learnmore" to={`/niches/${niche.id}`}>

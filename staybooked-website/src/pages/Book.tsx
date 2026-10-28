@@ -2,18 +2,19 @@ import { useEffect } from 'react'
 import { Reveal, RevealItem } from '@/components/ui/Reveal'
 import Navbar from '@/components/sections/Navbar'
 import Footer from '@/components/sections/Footer'
-import { BOOKING_URL } from '@/lib/booking'
+import { BOOKING_URL, BOOKING_EMBED_URL } from '@/lib/booking'
 
 /**
  * Book — the on-site booking page. "Book a Call" CTAs land here instead of
  * bouncing visitors to an external calendar page: the calendar is embedded
  * directly (Vercel env: VITE_BOOKING_EMBED_URL — the GHL calendar widget
- * embed URL), with the agenda and guarantees beside it. Until the embed URL
+ * embed URL), with the agenda beside it. Until the embed URL
  * is configured, the page falls back to the external calendar link so the
  * funnel never breaks.
  */
 
-const EMBED_URL = (import.meta.env.VITE_BOOKING_EMBED_URL as string | undefined)?.trim() || ''
+const EMBED_URL =
+  (import.meta.env.VITE_BOOKING_EMBED_URL as string | undefined)?.trim() || BOOKING_EMBED_URL
 
 const AGENDA = [
   {
@@ -25,8 +26,8 @@ const AGENDA = [
     body: 'A real conversation about your business. If your money is better spent elsewhere, we say so.',
   },
   {
-    head: 'A clear number',
-    body: 'Flat retainer, ad spend estimate for your niche, and the guarantee: no results, your retainer pauses until we deliver.',
+    head: 'A clear quote',
+    body: "What we'd build for your business, the ad budget we'd recommend, and your price. No surprises.",
   },
 ]
 
@@ -50,7 +51,7 @@ export default function Book() {
             <RevealItem as="h1" className="title">Grab a time that works.</RevealItem>
             <RevealItem as="p" className="body lp-hook-body">
               {EMBED_URL
-                ? 'The calendar below books instantly. No back and forth, no forms.'
+                ? 'Pick a time below and it books instantly. No back and forth.'
                 : 'Pick a time on our calendar and it books instantly. No back and forth.'}
             </RevealItem>
           </Reveal>
@@ -71,12 +72,19 @@ export default function Book() {
 
             <Reveal as="div" className="book-calendar" amount={0.2}>
               {EMBED_URL ? (
-                <iframe
-                  src={EMBED_URL}
-                  title="Book a strategy call with Stay Booked Marketing"
-                  loading="lazy"
-                  allow="clipboard-write; fullscreen"
-                />
+                <>
+                  <iframe
+                    src={EMBED_URL}
+                    title="Book a strategy call with Stay Booked Marketing"
+                    loading="lazy"
+                    allow="clipboard-write; fullscreen"
+                  />
+                  <p className="book-newtab">
+                    Calendar not loading?{' '}
+                    <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer">Open it in a new tab</a>,
+                    or call or text <a href="tel:+18134805818">(813) 480-5818</a>.
+                  </p>
+                </>
               ) : (
                 <div className="book-fallback">
                   <p className="book-fallback-body">

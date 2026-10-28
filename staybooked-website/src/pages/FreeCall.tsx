@@ -5,6 +5,7 @@ import { Reveal, RevealItem, EASE } from '@/components/ui/Reveal'
 import Navbar from '@/components/sections/Navbar'
 import logoTile from '@/assets/logo.webp'
 import logo from '@/assets/logo-nav.webp'
+import { SPEED_EVIDENCE } from '@/lib/evidence'
 
 export const STEPS = [
   {
@@ -24,25 +25,9 @@ export const STEPS = [
   },
 ]
 
-// Real, sourced speed-to-lead research — the figures are pulled out as the big
-// editorial numbers; the sentences and sources render exactly as written.
-export const SPEED_STATS = [
-  {
-    figure: '21x',
-    text: 'Responding to a lead within 5 minutes makes you 21x more likely to qualify them than waiting 30 minutes.',
-    source: 'MIT / Harvard Business Review Lead Response Study',
-  },
-  {
-    figure: '78%',
-    text: '78% of patients book with the first practice that responds to them.',
-    source: 'Lead Response Management research',
-  },
-  {
-    figure: '7%',
-    text: 'The average business takes 42 hours to respond. Only 7% respond within 5 minutes.',
-    source: 'Lead Response Management Study',
-  },
-]
+// Sourced 2026 speed-to-lead research (see src/lib/evidence.ts). The figures
+// are pulled out as the big editorial numbers; sources link to the study.
+export const SPEED_STATS = SPEED_EVIDENCE
 
 export const WHY_POINTS = [
   'Flexible terms. Month to month or longer, whatever fits your practice. We earn your business either way.',
@@ -108,8 +93,8 @@ function Intro({ onDone }: { onDone: () => void }) {
 /**
  * /free-call — single-purpose ad landing page for psychiatric and mental
  * health practices. One job: convert ad traffic into a booked strategy call.
- * Carries the site-wide nav; every CTA is the booking calendar. The guarantee
- * band is the trust anchor, backed by sourced speed-to-lead research.
+ * Carries the site-wide nav; every CTA is the booking calendar. Sourced
+ * 2026 speed-to-lead research makes the case for fast follow-up.
  *
  * Hero choreography (starts while the curtain is still parting, so the page
  * feels continuous): headline lines swing up from behind masks (1.12s/1.30s),
@@ -229,20 +214,7 @@ export default function FreeCall() {
         </div>
       </section>
 
-      {/* 3. The guarantee — the trust anchor, set on its own ink band
-          (section ids from here down are search-result anchors) */}
-      <section className="lp-guarantee" id="guarantee">
-        <Reveal className="wrap" amount={0.35}>
-          <RevealItem as="p" className="label lp-guarantee-label">Our Guarantee</RevealItem>
-          <RevealItem as="h2" className="title lp-guarantee-headline">
-            10 booked appointments in 90 days. Or we work for free until you get them.
-          </RevealItem>
-          <RevealItem as="p" className="body lp-guarantee-body">
-            We put our own skin in the game. If we don't deliver at least 10 booked patient appointments within 90 days, we keep working at no cost until we do. That's how confident we are in the system, and how serious we are about your results.
-          </RevealItem>
-        </Reveal>
-      </section>
-
+      {/* 3. The problem (section ids from here down are search-result anchors) */}
       {/* 4. The problem / hook — short and punchy */}
       <section className="section section-offwhite lp-hook" id="gap">
         <Reveal className="wrap lp-narrow" amount={0.35}>
@@ -265,7 +237,9 @@ export default function FreeCall() {
               <span className="lp-stat-figure" aria-hidden="true">{s.figure}</span>
               <div>
                 <p className="lp-stat-text">{s.text}</p>
-                <p className="lp-stat-source">{s.source}</p>
+                <p className="lp-stat-source">
+                  <a href={s.url} target="_blank" rel="noopener noreferrer">{s.source}</a>
+                </p>
               </div>
             </RevealItem>
           ))}
@@ -300,7 +274,7 @@ export default function FreeCall() {
       {/* 7. Why us — practice-first promises, hairline editorial list */}
       <section className="section section-offwhite" id="why-practices">
         <Reveal className="wrap lp-narrow" amount={0.35}>
-          <RevealItem as="h2" className="title">Built for practices. Backed by a guarantee.</RevealItem>
+          <RevealItem as="h2" className="title">Built for practices. Run by the founders.</RevealItem>
           <RevealItem as="ul" className="lp-points">
             {WHY_POINTS.map((point) => (
               <li key={point} className="lp-point">{point}</li>
@@ -314,7 +288,7 @@ export default function FreeCall() {
         <Reveal className="wrap wrap-contact" amount={0.35}>
           <RevealItem as="h2" className="contact-headline lp-final-headline">Ready to fill your calendar?</RevealItem>
           <RevealItem as="p" className="body contact-body">
-            Book a free strategy call and we'll show you exactly what this would look like for your practice, guarantee included.
+            Book a free strategy call and we'll show you exactly what this would look like for your practice, and what it would cost.
           </RevealItem>
           <RevealItem
             as="a"
@@ -331,8 +305,9 @@ export default function FreeCall() {
       <footer className="footer lp-footer">
         <img className="footer-logo" src={logo} alt="Stay Booked Marketing" />
         <span className="footer-domain">staybookedmarketing.com</span>
-        <span className="footer-phone">(408) 712-0017</span>
+        <a className="footer-phone" href="tel:+18134805818">(813) 480-5818</a>
         <div className="footer-legal">
+          <span className="footer-phone">© {new Date().getFullYear()} Stay Booked Marketing LLC</span>
           <Link className="footer-privacy" to="/privacy">Privacy Policy</Link>
           <Link className="footer-privacy" to="/terms">Terms of Service</Link>
         </div>

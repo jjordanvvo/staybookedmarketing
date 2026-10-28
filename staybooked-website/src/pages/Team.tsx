@@ -65,8 +65,23 @@ export default function Team() {
                 <RevealItem as="p" className="founder-bio">{f.bio}</RevealItem>
                 {(f.email || f.phone) && (
                   <RevealItem className="founder-contact">
-                    {f.email && <a className="founder-email" href={`mailto:${f.email}`}>{f.email}</a>}
-                    {f.phone && <p className="founder-phone">{f.phone}</p>}
+                    <p className="founder-contact-who">
+                      Contact {f.name}, {f.title}
+                    </p>
+                    {f.email && (
+                      <p className="founder-contact-line">
+                        <span className="founder-contact-label">Email</span>
+                        <a className="founder-email" href={`mailto:${f.email}`}>{f.email}</a>
+                      </p>
+                    )}
+                    {f.phone && (
+                      <p className="founder-contact-line">
+                        <span className="founder-contact-label">Phone</span>
+                        <a className="founder-phone" href={`tel:${f.phone.replace(/[^\d+]/g, '')}`}>
+                          {f.phone}
+                        </a>
+                      </p>
+                    )}
                   </RevealItem>
                 )}
               </Reveal>

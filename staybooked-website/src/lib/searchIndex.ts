@@ -81,11 +81,19 @@ function build(): SearchEntry[] {
       keywords: 'industry niche who we help',
     })),
     {
+      title: "Most businesses answer too slowly. Yours won't.",
+      section: 'Why speed wins',
+      page: home,
+      path: '/#evidence',
+      text: SPEED_STATS.map((s) => `${s.text} ${s.source}`).join(' ') + " Our system replies to every new lead within minutes, day or night.",
+      keywords: 'speed to lead research stats response time',
+    },
+    {
       title: 'Results first. Terms that fit you.',
       section: 'Why Stay Booked',
       page: home,
       path: '/#why',
-      text: 'We earn your business every month, on terms that fit you: month to month or a longer partnership, your choice. Most clients see results in the first 30 days. 30 days to results. $2K flat monthly rate. 24/7 automated follow-up.',
+      text: 'We earn your business every month, on terms that fit you: month to month or a longer partnership, your choice. Every lead gets a fast reply, and you own everything we build. 5 minute lead follow-up. Your ads, leads and data. 24/7 automated follow-up.',
       keywords: 'why us results stats',
     },
     ...FOUNDERS.map((f) => ({
@@ -101,7 +109,7 @@ function build(): SearchEntry[] {
       section: 'Niches',
       page: 'Niche',
       path: `/niches/${n.id}`,
-      text: `${n.desc} ${n.whatWeDo} What we book: ${n.books.join(', ')}. Tuned around ${n.tuned}. Performance guarantee: if we haven't delivered ${n.guarantee} by the end of the guarantee window, your retainer pauses until we do.`,
+      text: `${n.desc} ${n.whatWeDo} What we book: ${n.books.join(', ')}. Tuned around ${n.tuned}.`,
       keywords: 'industry niche one pager learn more',
     })),
     ...PLAN_STEPS.map((s) => ({
@@ -117,7 +125,7 @@ function build(): SearchEntry[] {
       section: 'Pricing',
       page: home,
       path: '/#pricing',
-      text: "Great marketing shouldn't cost a fortune. Estimate the monthly total for your niche with the cost calculator: tell us what you do, what an average job is worth, and how fast you respond, and see your flat retainer, ad spend, and what slow follow-up may be costing you. No startup fee, month to month.",
+      text: 'Pricing built around your business. Every program is quoted after a free 15-minute strategy call. No startup fee, no long-term contract, and ad spend goes straight to the ad platforms. Call or text (813) 480-5818, email kolby@staybookedmarketing.com, or book a call. Run the growth calculator to see what more booked appointments could be worth.',
       keywords: 'price cost rate fee monthly plan budget calculator estimate',
     },
     ...FAQS.map((f) => ({
@@ -166,7 +174,7 @@ function build(): SearchEntry[] {
       section: 'Mental health program',
       page: 'Healthcare',
       path: '/healthcare#hc-program',
-      text: 'We have a dedicated program for you, with a guarantee: 10 booked appointments in 90 days, or we work for free until you get them.',
+      text: 'We have a dedicated program for you: targeted ads, instant follow-up, and booked patient appointments, built around the rules your practice has to follow.',
       keywords: 'psychiatry therapy',
     },
 
@@ -178,14 +186,6 @@ function build(): SearchEntry[] {
       path: '/free-call',
       text: 'We help psychiatric and mental health practices fill their calendars with qualified patients, using targeted ads and instant, automated follow-up. You focus on care. We keep the appointments coming. Book a Free Call.',
       keywords: 'psychiatric mental health program',
-    },
-    {
-      title: '10 booked appointments in 90 days. Or we work for free until you get them.',
-      section: 'Our guarantee',
-      page: 'Free Call',
-      path: '/free-call#guarantee',
-      text: 'We put our own skin in the game. If we don\'t deliver at least 10 booked patient appointments within 90 days, we keep working at no cost until we do.',
-      keywords: 'guarantee',
     },
     {
       title: "Getting interest is easy. Booking patients isn't.",
@@ -210,7 +210,7 @@ function build(): SearchEntry[] {
       text: s.desc,
     })),
     {
-      title: 'Built for practices. Backed by a guarantee.',
+      title: 'Built for practices. Run by the founders.',
       section: 'Why us',
       page: 'Free Call',
       path: '/free-call#why-practices',
@@ -221,7 +221,7 @@ function build(): SearchEntry[] {
       section: 'Book a free call',
       page: 'Free Call',
       path: '/free-call#ready',
-      text: "Book a free strategy call and we'll show you exactly what this would look like for your practice, guarantee included.",
+      text: "Book a free strategy call and we'll show you exactly what this would look like for your practice, and what it would cost.",
       keywords: 'book a call',
     },
 

@@ -18,7 +18,8 @@
 
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
 import { join, dirname } from 'node:path'
-import { NICHES, INVESTMENT } from '../src/lib/niches'
+import { NICHES } from '../src/lib/niches'
+import { SPEED_EVIDENCE } from '../src/lib/evidence'
 import { FAQS } from '../src/lib/faqs'
 import { FOUNDERS } from '../src/lib/founders'
 import { STEPS as HOW_STEPS } from '../src/components/sections/HowWeWork'
@@ -126,8 +127,14 @@ const homeContent = [
     'services',
   ),
   section(
+    label('Why speed wins') + title("Most businesses answer too slowly. Yours won't.") +
+      SPEED_EVIDENCE.map(
+        (s) => `<p class="body"><strong>${esc(s.figure)}.</strong> ${esc(s.text)} <a href="${esc(s.url)}">${esc(s.source)}</a></p>`,
+      ).join(''),
+    'evidence',
+  ),
+  section(
     label('Who we help') + title('Built for local businesses.') +
-      `<p class="body">Every partnership includes a performance guarantee period: if we haven't delivered by the end of that window, your retainer pauses until we do.</p>` +
       NICHES.map(
         (n) =>
           `<p class="body"><a href="/niches/${n.id}"><strong>${esc(n.name)}</strong></a>: ${esc(n.desc)}</p>`,
@@ -140,8 +147,8 @@ const homeContent = [
     'founders',
   ),
   section(
-    label('Pricing') + title("Great marketing shouldn't cost a fortune.") +
-      `<p class="body">Estimate the monthly total for your niche with the cost calculator: tell us what you do, what an average job is worth, and how fast you respond. Flat ${esc('$')}2,000 monthly retainer plus ad spend (about ${esc('$')}${INVESTMENT.adSpend}/mo, billed by the ad platforms and always yours). No startup fee, month to month, backed by the performance guarantee. <a href="/book">Book a strategy call</a>.</p>`,
+    label('Pricing') + title('Pricing built around your business.') +
+      `<p class="body">Every program is quoted after a free 15-minute strategy call. No startup fee, no long-term contract, and ad spend goes straight to the ad platforms, never through us. <a href="/book">Book a free strategy call</a>, call or text <a href="tel:+18134805818">(813) 480-5818</a>, or email <a href="mailto:kolby@staybookedmarketing.com">kolby@staybookedmarketing.com</a>.</p>`,
     'pricing',
     'section-deep',
   ),
@@ -176,7 +183,11 @@ const routes: Route[] = [
             `<article><h3>${esc(f.name)}</h3><p><strong>${esc(f.title)}</strong></p>${
               f.degree ? `<p>${esc(f.degree)}</p>` : ''
             }<p class="body">${esc(f.bio)}</p>${
-              f.email ? `<p><a href="mailto:${esc(f.email!)}">${esc(f.email)}</a>${f.phone ? ` · ${esc(f.phone)}` : ''}</p>` : ''
+              f.email
+                ? `<p><strong>Contact ${esc(f.name)}, ${esc(f.title)}</strong><br/>Email: <a href="mailto:${esc(f.email!)}">${esc(f.email)}</a>${
+                    f.phone ? `<br/>Phone: <a href="tel:${esc(f.phone.replace(/[^\d+]/g, ''))}">${esc(f.phone)}</a>` : ''
+                  }</p>`
+                : ''
             }</article>`,
         ).join(''),
       'team',
@@ -193,8 +204,7 @@ const routes: Route[] = [
         `<p class="body"><strong>What we book:</strong> ${n.books.map(esc).join(', ')}.</p>` +
         `<p class="body"><strong>The system is tuned around</strong> ${esc(n.tuned)}.</p>` +
         `<p class="body"><strong>Your AI books in real time and reports to</strong> ${esc(n.handoff)}.</p>` +
-        `<p class="body"><strong>Performance guarantee:</strong> if we haven't delivered ${esc(n.guarantee)} by the end of the guarantee window, your retainer pauses until we do.</p>` +
-        `<p class="body"><strong>Investment:</strong> flat ${esc('$')}2,000 monthly retainer plus about ${esc('$')}${INVESTMENT.adSpend}/mo ad spend, billed by the platforms and always yours. No startup fee, month to month. <a href="/book">Book a strategy call</a> or <a href="/#industries">see every niche</a>.</p>`,
+        `<p class="body"><strong>Pricing:</strong> every program is quoted for your business after a free strategy call. No startup fee, no long-term contract, and ad spend goes directly to the ad platforms. <a href="/book">Book a strategy call</a> or <a href="/#industries">see every niche</a>.</p>`,
       `nd-${n.id}`,
       'section-offwhite',
     )
@@ -221,12 +231,12 @@ const routes: Route[] = [
     path: '/book',
     title: 'Book a Strategy Call | Stay Booked Marketing',
     description:
-      'Book a free 15-minute strategy call: we audit your setup, tell you what we would do to book more jobs, and give you a clear number. You leave with a plan either way.',
+      'Book a free 15-minute strategy call: we audit your setup, tell you what we would do to book more jobs, and give you a clear quote. You leave with a plan either way.',
     content: section(
       label('Book a Call') + h1('Grab a time that works.') +
-        `<p class="body">The calendar books instantly. No back and forth, no forms.</p>` +
+        `<p class="body">Pick a time on our calendar and it books instantly. No back and forth.</p>` +
         `<p class="body"><strong>15 minutes, straight answers.</strong> We audit your current setup, look at your market, and tell you exactly what we'd do to book more jobs. You leave with a plan whether or not you hire us.</p>` +
-        `<p class="body"><strong>A clear number.</strong> Flat retainer, ad spend estimate for your niche, and the guarantee: no results, your retainer pauses until we deliver.</p>`,
+        `<p class="body"><strong>A clear quote.</strong> What we'd build for your business, the ad budget we'd recommend, and your price. No surprises.</p>`,
       'book',
       'section-offwhite',
     ),

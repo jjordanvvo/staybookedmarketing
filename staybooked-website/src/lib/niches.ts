@@ -4,7 +4,7 @@
  * niche detail overlays, the site search, and the interactive Niche Explorer.
  *
  * Content mirrors the one-pagers: what we do, what we book, who gets the AI's
- * booking summary, the investment structure, the performance guarantee, and
+ * booking summary, the investment structure, and
  * what targeting gets tuned around. The demand curves are illustrative
  * seasonal patterns, used only to visualize "when your market books."
  */
@@ -26,8 +26,6 @@ export type Niche = {
   books: [string, string, string]
   /** Who receives the AI's real-time booking summary. */
   handoff: string
-  /** The guaranteed deliverable from the one-pager guarantee. */
-  guarantee: string
   /** Targeting/creative/messaging is tuned around... */
   tuned: string
   /** Keyword-targeted page title + meta description (search intent, per niche). */
@@ -53,7 +51,6 @@ export const NICHES: Niche[] = [
       'We run high-converting campaigns across Google, Instagram, and Facebook, driving estimate requests and booked jobs to your crew. We target the exact homeowners searching for help, right when something needs to get done. Our AI qualifies, contacts, and books the estimate, turning clicks into scheduled work.',
     books: ['Estimate requests', 'Booked jobs', 'Service calls'],
     handoff: 'your office',
-    guarantee: 'qualified estimate requests',
     tuned: 'your busy season, storm spikes, and slower weeks',
     varies: 'trade & season',
     demand: [55, 55, 62, 72, 86, 96, 100, 99, 92, 86, 84, 88],
@@ -70,7 +67,6 @@ export const NICHES: Niche[] = [
       'We run high-converting campaigns across Google, Instagram, and Facebook, driving guest-list signups, VIP table reservations, and bottle-service bookings to your nightclub. We target the exact people looking for a night out, right when they are deciding where to go. Our AI qualifies, contacts, and books the table, turning clicks into packed rooms.',
     books: ['Guest-list signups', 'VIP tables', 'Bottle service'],
     handoff: 'your VIP host',
-    guarantee: 'qualified VIP and bottle-service bookings',
     tuned: 'your big nights, slow midweeks, and featured events',
     varies: 'venue, nights & season',
     demand: [72, 70, 74, 74, 80, 90, 96, 100, 84, 80, 70, 95],
@@ -87,7 +83,6 @@ export const NICHES: Niche[] = [
       'We run high-converting campaigns across Google, Instagram, and Facebook, driving case evaluations and consult requests to your firm. We target the exact people searching for counsel, right when they need an attorney. Our AI qualifies, contacts, and books the consult, turning clicks into intake appointments.',
     books: ['Case evaluations', 'Consult requests', 'Intake appointments'],
     handoff: 'intake',
-    guarantee: 'qualified consults',
     tuned: 'your practice areas and intake capacity',
     varies: 'practice area & market',
     demand: [88, 72, 78, 76, 80, 74, 78, 76, 80, 78, 74, 70],
@@ -104,7 +99,6 @@ export const NICHES: Niche[] = [
       'We run high-converting campaigns across Google, Instagram, and Facebook, driving showroom visits, demos, and consults for high-consideration purchases. We target the exact people researching the buy, right when they are deciding who to trust. Our AI qualifies, contacts, and books the appointment, turning clicks into in-person conversations.',
     books: ['Showroom visits', 'Demos', 'Consults'],
     handoff: 'your sales team',
-    guarantee: 'qualified appointments',
     tuned: 'your launch calendar and high-intent buying windows',
     varies: 'category & season',
     demand: [62, 58, 64, 70, 76, 82, 84, 88, 78, 84, 100, 100],
@@ -121,7 +115,6 @@ export const NICHES: Niche[] = [
       'We run high-converting campaigns across Google, Instagram, and Facebook, driving discovery calls and consult requests to your firm. We target the exact people searching for financial guidance, right when they need it. Our AI qualifies, contacts, and books the consult, turning clicks into booked appointments.',
     books: ['Consult requests', 'Discovery calls', 'Portfolio reviews'],
     handoff: 'your advisor team',
-    guarantee: 'qualified consults',
     tuned: 'tax season, year-end planning, and your consult capacity',
     varies: 'practice & market',
     demand: [78, 88, 94, 96, 80, 66, 62, 60, 64, 70, 82, 90],
@@ -138,7 +131,6 @@ export const NICHES: Niche[] = [
       'We run high-converting campaigns across Google, Instagram, and Facebook, driving new-patient appointments and consult requests to your practice. We target the exact people searching for care, right when they are deciding who to see. Our AI qualifies, contacts, and books the appointment, turning clicks into filled chairs.',
     books: ['New-patient appointments', 'Consult requests', 'Booked visits'],
     handoff: 'your front desk',
-    guarantee: 'qualified appointments',
     tuned: 'your clinic hours and high-demand appointment types',
     varies: 'specialty & market',
     demand: [96, 82, 84, 80, 78, 74, 78, 80, 84, 82, 80, 78],
@@ -157,7 +149,6 @@ export const NICHES: Niche[] = [
       'We run high-converting campaigns across Google, Instagram, and Facebook, driving tours, bookings, and rental inquiries to your team. We target the exact people searching for a unit, vehicle, or time slot, right when they are ready to reserve. Our AI qualifies, contacts, and books the appointment, turning clicks into confirmed reservations.',
     books: ['Tours', 'Bookings', 'Rental inquiries'],
     handoff: 'your desk',
-    guarantee: 'qualified booking requests',
     tuned: 'availability, peak demand, and slower windows',
     varies: 'market & season',
     demand: [58, 56, 62, 70, 80, 92, 98, 96, 90, 88, 95, 100],
@@ -174,7 +165,6 @@ export const NICHES: Niche[] = [
       'We run high-converting campaigns across Google, Instagram, and Facebook, driving reservations, private dining, and event bookings to your restaurant. We target the exact people deciding where to eat, right when they are ready to book. Our AI qualifies, contacts, and books the table, turning clicks into filled seats.',
     books: ['Reservations', 'Private dining', 'Event bookings'],
     handoff: 'your host stand',
-    guarantee: 'qualified reservations',
     tuned: 'your slow nights, peak service, and private events',
     varies: 'service & season',
     demand: [86, 74, 80, 76, 82, 88, 92, 94, 84, 82, 88, 100],
@@ -191,7 +181,6 @@ export const NICHES: Niche[] = [
       'We run high-converting campaigns across Google, Instagram, and Facebook, driving product trials, demo days, and in-store appointments. We target the exact people discovering the brand, right when they are deciding what to try next. Our AI qualifies, contacts, and books the visit, turning clicks into real product conversations.',
     books: ['Product trials', 'Demo days', 'In-store appointments'],
     handoff: 'your team',
-    guarantee: 'qualified product appointments',
     tuned: 'launches, drops, and promo windows',
     varies: 'campaign & season',
     demand: [66, 60, 56, 62, 72, 66, 60, 66, 76, 84, 100, 100],
@@ -208,7 +197,6 @@ export const NICHES: Niche[] = [
       'We run high-converting campaigns across Google, Instagram, and Facebook that put your listings in front of buyers the moment they start searching. You already live on Zillow, and we build on that: our ads catch buyers early, route them to your listings and your calendar, and our AI answers every inquiry in real time. The result: showing requests and buyer consults booked automatically, flowing straight into the pipeline you already run.',
     books: ['Showing requests', 'Buyer consults', 'Listing appointments'],
     handoff: 'your phone',
-    guarantee: 'qualified showing requests',
     tuned: 'your listings, neighborhoods, and price bands',
     varies: 'market & listing volume',
     demand: [46, 52, 72, 82, 92, 96, 100, 92, 76, 68, 58, 48],
@@ -225,24 +213,9 @@ export const NICHES: Niche[] = [
       'We run high-converting campaigns across Google, Instagram, and Facebook, driving campus tours, open-house RSVPs, and admissions inquiries to your school. We target parents looking for elementary, middle, and high school options, right when they are deciding where to enroll. Our AI qualifies, contacts, and books the tour, turning clicks into families on campus.',
     books: ['Campus tours', 'Open-house RSVPs', 'Admissions inquiries'],
     handoff: 'admissions',
-    guarantee: 'qualified campus tours',
     tuned: 'open houses, application deadlines, and grade-level openings',
     varies: 'school size & enrollment season',
     demand: [90, 86, 78, 68, 58, 48, 44, 76, 84, 82, 88, 72],
     seo: { title: 'Private School Marketing: More Campus Tours & Enrollments | Stay Booked', description: 'Lead generation for private elementary, middle and high schools: ads that reach parents deciding where to enroll, with AI follow-up that books the campus tour.' },
   },
 ]
-
-/** The universal speed-to-lead stats every one-pager leads with — the
- *  comparison itself: our 5-minute AI contact vs. a reply 30 minutes later. */
-export const SPEED_STATS = [
-  { value: 5, suffix: ' min', label: 'every inquiry contacted within, versus the 30-minute-later industry norm' },
-  { value: 100, suffix: 'x', label: 'more likely to be reached than a lead contacted 30 minutes later' },
-  { value: 21, suffix: 'x', label: 'more likely to be qualified than a lead contacted 30 minutes later' },
-]
-
-/** Investment, identical structure in every one-pager. */
-export const INVESTMENT = {
-  adSpend: 1500,
-  retainer: 2000,
-}

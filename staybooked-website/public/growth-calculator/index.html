@@ -362,7 +362,7 @@ th{font-size:12px; font-weight:600; color:var(--muted-2); letter-spacing:.04em}
         <div class="stack-row"><div><div class="mlabel">Your profit today</div><div class="msub" id="e-today-sub"></div></div><div class="mval" id="e-today"></div></div>
         <div class="stack-row"><div><div class="mlabel">Profit from your new leads</div><div class="msub" id="e-leadp-sub"></div></div><div class="mval" id="e-leadp"></div></div>
         <div class="stack-row" id="e-walk-row" hidden><div><div class="mlabel">Walk-ins from people who see your ads</div><div class="msub" id="e-walk-sub"></div></div><div class="mval" id="e-walk"></div></div>
-        <div class="stack-row"><div><div class="mlabel">Stay Booked program</div><div class="msub">$1,500 ad spend + $2,000 retainer</div></div><div class="mval">−$3,500</div></div>
+        <div class="stack-row"><div><div class="mlabel">Example ad budget</div><div class="msub">$1,500 a month, paid to the ad platforms. Our fee is quoted after a free call.</div></div><div class="mval">−$1,500</div></div>
         <div class="stack-row total"><div><div class="mlabel">Your total monthly profit</div><div class="msub" id="e-total-sub"></div></div><div class="mval" id="e-total"></div></div>
       </div>
       <p class="eq-foot" id="e-foot"></p>
@@ -420,9 +420,9 @@ th{font-size:12px; font-weight:600; color:var(--muted-2); letter-spacing:.04em}
     <div class="panel">
       <div class="panel-head"><h2>Year-one investment and return</h2><span class="ratio" id="r-ratio"></span></div>
       <div class="cards4">
-        <div class="mcard"><div class="mlabel">Program investment</div><div class="mval">$42,000</div><div class="msub">$1,500/mo ad spend + $2,000/mo retainer, 12 months</div></div>
+        <div class="mcard"><div class="mlabel">Ad spend (example)</div><div class="mval">$18,000</div><div class="msub">$1,500/mo for 12 months, paid to the ad platforms. Our fee is quoted after a free call.</div></div>
         <div class="mcard tint"><div class="mlabel" id="y-new-label">Profit from new clients</div><div class="mval" id="y-new"></div><div class="msub" id="y-new-sub"></div></div>
-        <div class="mcard tint strong"><div class="mlabel">Left after program cost</div><div class="mval" id="y-left"></div><div class="msub" id="y-left-sub">profit from new clients minus the $42,000 program cost</div></div>
+        <div class="mcard tint strong"><div class="mlabel">Left after ad spend</div><div class="mval" id="y-left"></div><div class="msub" id="y-left-sub">profit from new clients minus $18,000 in ad spend, before our fee</div></div>
         <div class="mcard tint"><div class="mlabel">Break-even</div><div class="mval" id="y-be"></div><div class="msub" id="y-be-sub"></div></div>
       </div>
     </div>
@@ -470,7 +470,9 @@ th{font-size:12px; font-weight:600; color:var(--muted-2); letter-spacing:.04em}
     } catch (e) {}
   }
   /* ---------- config: one place for every number the math uses ---------- */
-  var AD = 1500, RETAINER = 2000, PROGRAM = AD + RETAINER;
+  // Pricing is quoted per business, so the projection nets out only the
+  // example ad budget (paid to the platforms); our fee is quoted on a call.
+  var AD = 1500, PROGRAM = AD;
   var RAMP = [0.3,0.6,0.9,1,1,1,1,1,1,1,1,1];
   var OLDROYD = "Dr. James Oldroyd’s lead response study";
   var GROUPS = {
@@ -1042,12 +1044,12 @@ th{font-size:12px; font-weight:600; color:var(--muted-2); letter-spacing:.04em}
     setText("e-today-sub", count(a.clients) + " " + noun(g, a.clients) + " a month × " + exact(r.P) + " profit each");
     setText("e-total", money(r.afterM)); $("e-total").classList.toggle("neg", r.afterM < 0);
     setText("e-total-sub", r.exp
-      ? count(a.clients) + " today + " + nJobs + " from leads + " + count(r.walk) + " walk-ins, after the program cost"
-      : totTxt + " " + noun(g, totJobs) + " a month (" + count(a.clients) + " today + " + nJobs + " new), after the program cost");
+      ? count(a.clients) + " today + " + nJobs + " from leads + " + count(r.walk) + " walk-ins, after ad spend"
+      : totTxt + " " + noun(g, totJobs) + " a month (" + count(a.clients) + " today + " + nJobs + " new), after ad spend");
     var newTxt = r.exp ? count(r.N + r.walk) + " (" + nJobs + " from leads + " + count(r.walk) + " walk-ins)" : nJobs;
     setText("e-foot", r.addedM >= 0
-      ? "Each new " + g.one + " is worth " + exact(r.P) + " to you, so about " + count(r.breakEven) + " of them a month covers the program. Everything past that is added profit."
-      : "At " + exact(r.P) + " profit per " + g.one + ", it takes about " + count(r.breakEven) + " new " + g.many + " a month to cover the program. This projection brings about " + newTxt + ".");
+      ? "Each new " + g.one + " is worth " + exact(r.P) + " to you, so about " + count(r.breakEven) + " of them a month covers the ad spend. Everything past that is added profit before our fee."
+      : "At " + exact(r.P) + " profit per " + g.one + ", it takes about " + count(r.breakEven) + " new " + g.many + " a month to cover the ad spend. This projection brings about " + newTxt + ".");
 
     setText("a1", "Each " + g.one + " brings in about " + exact(a.price) + ", and you keep about " + exact(r.P) + " after costs. You currently average about " +
       commas(a.volume) + " " + noun(g, a.volume) + " a " + a.per + ".");
@@ -1061,9 +1063,9 @@ th{font-size:12px; font-weight:600; color:var(--muted-2); letter-spacing:.04em}
     var g12 = r.grey[11], e12 = r.em[11];
     var lede = $("r-chart-lede"); lede.innerHTML = "";
     var main = "", sub = " same leads, same budget, based on the assumptions at left";
-    if (r.left12 <= 0) { main = "At these numbers, the program costs more than it adds in year one."; sub = " raising price or profit per " + g.one + " changes this fastest"; }
+    if (r.left12 <= 0) { main = "At these numbers, the ad spend costs more than it adds in year one."; sub = " raising price or profit per " + g.one + " changes this fastest"; }
     else if (g12 > 0 && e12 / g12 >= 1.2) main = "About " + (Math.round(e12 / g12 * 10) / 10).toFixed(1) + "x your current profit in year one.";
-    else main = "About " + money(r.left12) + " in additional profit in year one, after program costs.";
+    else main = "About " + money(r.left12) + " in additional profit in year one, after ad spend and before our fee.";
     lede.appendChild(document.createTextNode(main + " "));
     var sp = document.createElement("span"); sp.textContent = "·" + sub; lede.appendChild(sp);
 
@@ -1084,11 +1086,11 @@ th{font-size:12px; font-weight:600; color:var(--muted-2); letter-spacing:.04em}
     setText("y-new-sub", r.exp
       ? "about " + count(r.new12) + " new " + g.many + " and walk-ins in year one × " + exact(r.P) + " each"
       : "about " + count(r.new12) + " additional " + noun(g, r.new12) + " in year one × " + exact(r.P) + " each");
-    setText("y-left-sub", "profit from additional " + g.many + " minus the $42,000 program cost");
+    setText("y-left-sub", "profit from additional " + g.many + " minus $18,000 in ad spend, before our fee");
     setText("y-left", money(r.left12)); $("y-left").classList.toggle("neg", r.left12 < 0);
     var be = r.breakEven;
     setText("y-be", be < 1 ? "Under 1" : (be < 10 ? (Math.round(be*10)/10).toFixed(1) : commas(Math.ceil(be))));
-    setText("y-be-sub", "additional " + (be <= 1 ? g.one : g.many) + " a month covers the full $3,500 program");
+    setText("y-be-sub", "additional " + (be <= 1 ? g.one : g.many) + " a month covers the $1,500 monthly ad spend");
 
     setText("r-sources", "Benchmark sources: " + g.sources);
 

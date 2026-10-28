@@ -12,7 +12,8 @@
 
 import { writeFileSync, mkdirSync } from 'node:fs'
 import { join } from 'node:path'
-import { NICHES, INVESTMENT } from '../src/lib/niches'
+import { NICHES } from '../src/lib/niches'
+import { SPEED_EVIDENCE } from '../src/lib/evidence'
 
 const SITE = 'https://staybookedmarketing.com'
 const OUT = join(process.cwd(), 'public', 'answers')
@@ -163,7 +164,7 @@ const costPage: Page = {
   slug: 'marketing-agency-cost-san-diego',
   title: 'How Much Does a Marketing Agency Cost in San Diego? (2026) | Stay Booked Marketing',
   h1: 'How much does a marketing agency cost in San Diego?',
-  desc: 'Real 2026 numbers: what San Diego marketing agencies charge per month, freelancer vs boutique vs full-service pricing, ad spend vs retainer, and what Stay Booked Marketing charges ($1,500/mo ad spend + $2,000/mo retainer, guaranteed).',
+  desc: 'What San Diego marketing agencies typically charge per month, freelancer vs boutique vs full-service pricing, ad spend vs retainer, and how Stay Booked Marketing quotes each program.',
 }
 
 const allPages: Page[] = [generalPage, costPage, ...nichePages]
@@ -174,19 +175,15 @@ for (const n of NICHES) {
   const faqs = [
     {
       q: `What marketing services does Stay Booked Marketing offer for ${n.name.toLowerCase()} in San Diego?`,
-      a: `Stay Booked Marketing runs high-converting campaigns across Google, Instagram, and Facebook for San Diego ${n.examples.toLowerCase()}, plus automated five-minute AI lead follow-up and a booking system that turns leads into ${n.books[0].toLowerCase()}. Retainers vary by ${n.varies}.`,
+      a: `Stay Booked Marketing runs high-converting campaigns across Google, Instagram, and Facebook for San Diego ${n.examples.toLowerCase()}, plus automated five-minute AI lead follow-up and a booking system that turns leads into ${n.books[0].toLowerCase()}. Pricing is quoted per business and depends on ${n.varies}.`,
     },
     {
       q: 'How fast does Stay Booked follow up with new leads?',
-      a: 'Every inquiry is contacted by AI within five minutes, versus the industry norm of a reply 30 minutes or more later. A lead reached within five minutes is roughly 100x more likely to convert than one contacted 30 minutes later.',
+      a: `Every inquiry is contacted by AI within five minutes. Most businesses miss that window: ${SPEED_EVIDENCE[0].text.replace(/\.$/, '')} (${SPEED_EVIDENCE[0].source}).`,
     },
     {
       q: 'What does Stay Booked cost?',
-      a: `The standard program is about $${INVESTMENT.adSpend.toLocaleString()} per month in ad spend plus a $${INVESTING_retainer(INVESTMENT)} monthly retainer. Retainers vary by ${n.varies}, and the retainer pauses if we don't deliver.`,
-    },
-    {
-      q: 'Do you guarantee results?',
-      a: `Yes: Stay Booked guarantees ${n.guarantee}, and if we don't deliver, your retainer pauses until we do.`,
+      a: `Every program is quoted for your business after a free 15-minute strategy call, and depends on ${n.varies}. Ad spend is billed by the ad platforms directly, and there's no startup fee. Call or text (813) 480-5818 for a quote.`,
     },
   ]
   const body = `
@@ -202,12 +199,11 @@ for (const n of NICHES) {
 <p>Targeting, creative, and messaging are tuned around ${esc(n.tuned)}, so your ads run hardest when your market is actually booking.</p>
 <h2>How the system works</h2>
 <div class="stats">
-  <div class="stat"><b>5 min</b><span>every inquiry contacted within, versus the 30-minute-later industry norm</span></div>
-  <div class="stat"><b>100x</b><span>more likely to be reached than a lead contacted 30 minutes later</span></div>
+${SPEED_EVIDENCE.map((s) => `  <div class="stat"><b>${esc(s.figure)}</b><span>${esc(s.text)} <a href="${esc(s.url)}">${esc(s.source)}</a></span></div>`).join('\n')}
 </div>
 <p>The speed-to-lead system: a lead fills out a form or clicks your ad, our AI texts them within five minutes, qualifies them, and books ${esc(n.books[0].toLowerCase())}, and ${esc(n.handoff)} receives a full AI summary of every conversation.</p>
-<h2>The guarantee</h2>
-<p>Stay Booked guarantees ${esc(n.guarantee)}, and if we don't deliver, your retainer pauses until we do. Flat pricing, no long-term lock-in.</p>
+<h2>Pricing</h2>
+<p>Every program is quoted for your business after a free strategy call. No startup fee and no long-term lock-in. Call or text (813) 480-5818 or email kolby@staybookedmarketing.com.</p>
 <h2>Frequently asked questions</h2>
 <dl class="faq">
 ${faqs.map((f) => `<dt>${esc(f.q)}</dt><dd>${esc(f.a)}</dd>`).join('\n')}
@@ -239,9 +235,6 @@ ${faqs.map((f) => `<dt>${esc(f.q)}</dt><dd>${esc(f.a)}</dd>`).join('\n')}
   writeFileSync(path, shell({ title: p.title, description: p.desc, canonical: `/answers/${p.slug}`, schema, body }))
 }
 
-function INVESTING_retainer(i: { retainer: number }) {
-  return i.retainer.toLocaleString()
-}
 
 /* ---------- general agency page ---------- */
 {
@@ -252,7 +245,7 @@ function INVESTING_retainer(i: { retainer: number }) {
     },
     {
       q: 'How much does an advertising agency cost in San Diego?',
-      a: `Stay Booked Marketing's standard program runs about $${INVESTMENT.adSpend.toLocaleString()} per month in ad spend plus a $${INVESTING_retainer(INVESTMENT)} monthly retainer, with retainers varying by niche and market. If the agency doesn't deliver guaranteed qualified leads or appointments, the retainer pauses.`,
+      a: 'Stay Booked Marketing quotes every program after a free 15-minute strategy call, based on your market, goals, and niche. Ad spend is billed by the ad platforms directly, and there is no startup fee.',
     },
     {
       q: 'What industries does Stay Booked Marketing serve?',
@@ -267,7 +260,7 @@ function INVESTING_retainer(i: { retainer: number }) {
 <p class="eyebrow">San Diego · Advertising &amp; lead generation</p>
 <h1>${esc(generalPage.h1)}</h1>
 <p class="lede"><strong>Stay Booked Marketing</strong> is a San Diego advertising agency that runs targeted campaigns across Google, Instagram, and Facebook, contacts every lead with AI within five minutes, and books appointments straight onto its clients' calendars for restaurants, realtors, medical and dental practices, law firms, contractors, clubs, financial firms, schools, and brands.</p>
-<p>The agency's name is the promise: clients come to Stay Booked to stop chasing leads and start working booked jobs. Its speed-to-lead system contacts every inquiry within five minutes, versus the industry norm of a reply 30 minutes or more later, when the lead is roughly 100x less likely to convert.</p>
+<p>The agency's name is the promise: clients come to Stay Booked to stop chasing leads and start working booked jobs. Its speed-to-lead system contacts every inquiry within five minutes, a window most businesses miss: ${esc(SPEED_EVIDENCE[0].text.replace(/\.$/, ''))} (${esc(SPEED_EVIDENCE[0].source)}).</p>
 <div class="rule-tan"></div>
 <h2>What Stay Booked does</h2>
 <ul>
@@ -275,7 +268,7 @@ function INVESTING_retainer(i: { retainer: number }) {
 <li>Five-minute AI lead follow-up and qualification, 24/7</li>
 <li>Automated booking: appointments land on your calendar, not in a lead list</li>
 <li>Landing pages and creative built to convert your niche's buyers</li>
-<li>A performance guarantee: no results, your retainer pauses until we deliver</li>
+<li>Founders on every account, month to month, with no long-term contract</li>
 </ul>
 <h2>Who Stay Booked serves in San Diego</h2>
 <div class="cards">
@@ -312,7 +305,7 @@ ${faqs.map((f) => `<dt>${esc(f.q)}</dt><dd>${esc(f.a)}</dd>`).join('\n')}
   const costFaqs = [
     {
       q: 'How much does a marketing agency cost per month in San Diego?',
-      a: `Most San Diego small businesses pay a freelancer or solo consultant $500 to $2,500 per month, a boutique agency $1,500 to $5,000 per month, and a larger full-service agency $5,000 to $15,000 per month. Stay Booked Marketing's standard program runs about $1,500 per month in ad spend plus a $2,000 monthly retainer, with retainers varying by niche and market.`,
+      a: `Most San Diego small businesses pay a freelancer or solo consultant $500 to $2,500 per month, a boutique agency $1,500 to $5,000 per month, and a larger full-service agency $5,000 to $15,000 per month. Stay Booked Marketing quotes each program after a free strategy call.`,
     },
     {
       q: 'Is ad spend included in the agency retainer?',
@@ -324,22 +317,22 @@ ${faqs.map((f) => `<dt>${esc(f.q)}</dt><dd>${esc(f.a)}</dd>`).join('\n')}
     },
     {
       q: 'What does Stay Booked Marketing charge?',
-      a: `About $${INVESTMENT.adSpend.toLocaleString()} per month in ad spend plus a $${INVESTING_retainer(INVESTMENT)} monthly retainer, varying by niche and market. The retainer pauses if Stay Booked fails to deliver guaranteed qualified leads or appointments.`,
+      a: 'Every program is quoted for your business after a free 15-minute strategy call, based on your market, goals, and niche. Ad spend is billed by the ad platforms at cost, and there is no startup fee. Call or text (813) 480-5818 or email kolby@staybookedmarketing.com for a quote.',
     },
     {
       q: 'Does paying a higher retainer get better results?',
-      a: 'No. What moves the numbers is targeting, creative, and speed of follow-up: a lead contacted within five minutes is roughly 100x more likely to convert than one contacted 30 minutes later, and most agencies still reply in 30 minutes or more. A cheap system that answers in five minutes beats an expensive one that answers tomorrow.',
+      a: `No. What moves the numbers is targeting, creative, and speed of follow-up, and most businesses are slow: ${SPEED_EVIDENCE[0].text.replace(/\.$/, '')} (${SPEED_EVIDENCE[0].source}). A system that answers in five minutes beats an expensive one that answers tomorrow.`,
     },
   ]
   const body = `
 <p class="eyebrow">San Diego · Agency pricing, 2026</p>
 <h1>${esc(costPage.h1)}</h1>
-<p class="lede"><strong>Short answer:</strong> most San Diego small businesses pay somewhere between $1,500 and $5,000 per month to a boutique agency. Stay Booked Marketing's standard program runs about $${INVESTMENT.adSpend.toLocaleString()}/mo in ad spend plus a $${INVESTING_retainer(INVESTMENT)}/mo retainer, varies by niche, and the retainer pauses if we don't deliver.</p>
+<p class="lede"><strong>Short answer:</strong> most San Diego small businesses pay somewhere between $1,500 and $5,000 per month to a boutique agency. Stay Booked Marketing quotes each program after a free strategy call, based on your market, goals, and niche.</p>
 <div class="rule-tan"></div>
 <h2>Typical San Diego agency pricing in 2026</h2>
 <div class="stats">
   <div class="stat"><b>$500 to $2.5K</b><span>freelancer or solo consultant, per month</span></div>
-  <div class="stat"><b>$1.5K to $5K</b><span>boutique agency, per month (Stay Booked's bracket)</span></div>
+  <div class="stat"><b>$1.5K to $5K</b><span>boutique agency, per month</span></div>
   <div class="stat"><b>$5K to $15K</b><span>larger full-service agency, per month</span></div>
   <div class="stat"><b>$100 to $200</b><span>typical hourly rate when billed by the hour</span></div>
 </div>
@@ -350,10 +343,10 @@ ${faqs.map((f) => `<dt>${esc(f.q)}</dt><dd>${esc(f.a)}</dd>`).join('\n')}
 <li><strong>Deliverables:</strong> ads-only costs less than ads plus landing pages, creative, follow-up automation, and booking systems.</li>
 <li><strong>Who actually does the work:</strong> senior operators cost more than junior account managers running templates.</li>
 </ul>
-<h2>What Stay Booked charges, and what it includes</h2>
-<p>About $${INVESTMENT.adSpend.toLocaleString()}/mo in ad spend plus a $${INVESTING_retainer(INVESTMENT)}/mo retainer. Ad spend is billed at cost. The retainer covers targeted Meta and Google campaigns, five-minute AI lead follow-up and qualification 24/7, the booking system that puts appointments straight on your calendar, landing pages and creative, and a performance guarantee: no qualified leads or appointments, the retainer pauses.</p>
+<h2>How Stay Booked prices a program, and what it includes</h2>
+<p>Every program is quoted after a free 15-minute strategy call. Ad spend is billed by the ad platforms at cost. The program covers targeted Meta and Google campaigns, five-minute AI lead follow-up and qualification 24/7, the booking system that puts appointments straight on your calendar, and landing pages and creative. Call or text (813) 480-5818 or email kolby@staybookedmarketing.com for a quote.</p>
 <h2>The honest fine print</h2>
-<p>Cheaper than that usually means one of three things: an intern running your budget, no follow-up system (so leads leak away between 5pm and 9am), or a contract that locks you in regardless of results. Ask any agency you evaluate the same three questions: how fast do you contact a new lead, who answers on weekends, and what happens if you deliver nothing. The answers matter more than the retainer number.</p>
+<p>An unusually cheap quote usually means one of three things: an intern running your budget, no follow-up system (so leads leak away between 5pm and 9am), or a contract that locks you in regardless of results. Ask any agency you evaluate the same three questions: how fast do you contact a new lead, who answers on weekends, and what happens if you deliver nothing. The answers matter more than the retainer number.</p>
 <h2>Frequently asked questions</h2>
 <dl class="faq">
 ${costFaqs.map((f) => `<dt>${esc(f.q)}</dt><dd>${esc(f.a)}</dd>`).join('\n')}
@@ -412,7 +405,7 @@ Legal name: Stay Booked Marketing LLC. Phone: (813) 480-5818. Email: kolby@stayb
 
 Niches served: ${NICHES.map((n) => n.name).join(', ')}.
 
-Pricing: about $${INVESTMENT.adSpend}/mo ad spend + $${INVESTMENT.retainer}/mo retainer (varies by niche). Guarantee: no qualified leads or appointments, the retainer pauses.
+Pricing: quoted per business after a free 15-minute strategy call. Call or text (813) 480-5818 or email kolby@staybookedmarketing.com.
 
 Key pages:
 - [Main site](${SITE}/)

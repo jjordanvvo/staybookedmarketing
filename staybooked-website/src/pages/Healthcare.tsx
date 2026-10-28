@@ -40,8 +40,8 @@ export const HEALTHCARE_FAQS: FaqEntry[] = [
     a: 'State medical advertising rules vary widely. Texas, for example, bans testimonials in medical advertising outright. We research your specific state and license type before any campaign goes live, not after.',
   },
   {
-    q: 'Can you guarantee more patients?',
-    a: "Yes. Our healthcare program comes with a guarantee: 10 booked appointments in 90 days, or we work for free until you get them. It all runs on a compliant, professional process built specifically for regulated healthcare marketing, which most agencies simply aren't equipped to do.",
+    q: 'How do you get more patients without breaking the rules?',
+    a: "We run targeted ads and fast, automated follow-up on a compliant, professional process built specifically for regulated healthcare marketing, which most agencies simply aren't equipped to do. You see the numbers every month, including leads, booked appointments, and cost per lead.",
   },
   {
     q: 'I have a delegating physician or collaborative practice agreement. Does that affect my marketing?',
@@ -140,7 +140,7 @@ export default function Healthcare() {
         <Reveal className="wrap wrap-contact" amount={0.35}>
           <RevealItem as="h2" className="contact-headline">Run a psychiatric or mental health practice?</RevealItem>
           <RevealItem as="p" className="body contact-body">
-            We have a dedicated program for you, with a guarantee: 10 booked appointments in 90 days, or we work for free until you get them.
+            We have a dedicated program for you: targeted ads, instant follow-up, and booked patient appointments, built around the rules your practice has to follow.
           </RevealItem>
           <RevealItem as="div" className="hc-ctas" delay={0.2}>
             <Link className="contact-book-btn" to="/free-call">See the program</Link>
@@ -155,8 +155,9 @@ export default function Healthcare() {
       <footer className="footer lp-footer">
         <img className="footer-logo" src={logo} alt="Stay Booked Marketing" />
         <span className="footer-domain">staybookedmarketing.com</span>
-        <span className="footer-phone">(408) 712-0017</span>
+        <a className="footer-phone" href="tel:+18134805818">(813) 480-5818</a>
         <div className="footer-legal">
+          <span className="footer-phone">© {new Date().getFullYear()} Stay Booked Marketing LLC</span>
           <Link className="footer-privacy" to="/privacy">Privacy Policy</Link>
           <Link className="footer-privacy" to="/terms">Terms of Service</Link>
         </div>

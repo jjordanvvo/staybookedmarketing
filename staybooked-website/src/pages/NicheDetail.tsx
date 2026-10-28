@@ -2,7 +2,8 @@ import { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { Reveal, RevealItem } from '@/components/ui/Reveal'
 import Navbar from '@/components/sections/Navbar'
-import { NICHES, SPEED_STATS, INVESTMENT } from '@/lib/niches'
+import { NICHES } from '@/lib/niches'
+import { SPEED_EVIDENCE } from '@/lib/evidence'
 
 /**
  * NicheDetail — the one-pager for a single niche, as its own page.
@@ -90,13 +91,6 @@ export default function NicheDetail() {
               <span className="ind-name">Your AI reports to</span>
               <span className="ind-desc">{niche.handoff}.</span>
             </RevealItem>
-            <RevealItem as="li" className="lp-point ind-row nd-row">
-              <span className="ind-name">Performance guarantee</span>
-              <span className="ind-desc">
-                If we haven&apos;t delivered {niche.guarantee} by the end of the guarantee
-                window, your retainer pauses until we do.
-              </span>
-            </RevealItem>
           </Reveal>
         </div>
       </section>
@@ -107,20 +101,24 @@ export default function NicheDetail() {
           <Reveal amount={0.2}>
             <RevealItem as="p" className="label">Speed to lead</RevealItem>
             <Reveal as="ul" className="nd-stats" amount={0.15}>
-              {SPEED_STATS.map((s) => (
-                <RevealItem as="li" className="nd-stat" key={s.label}>
-                  <span className="nd-stat-value">{s.value}{s.suffix}</span>
-                  <span className="nd-stat-label">{s.label}</span>
+              {SPEED_EVIDENCE.map((s) => (
+                <RevealItem as="li" className="nd-stat" key={s.figure}>
+                  <span className="nd-stat-value">{s.figure}</span>
+                  <span className="nd-stat-label">{s.text}</span>
+                  <a className="nd-stat-source" href={s.url} target="_blank" rel="noopener noreferrer">
+                    {s.source}
+                  </a>
                 </RevealItem>
               ))}
             </Reveal>
           </Reveal>
           <Reveal className="nd-invest" amount={0.15}>
-            <RevealItem as="p" className="label">Investment</RevealItem>
+            <RevealItem as="p" className="label">Pricing</RevealItem>
             <RevealItem as="p" className="body nd-whatwedo">
-              No startup fee. No long-term contract. Ad spend: ~${INVESTMENT.adSpend}/mo, and it goes
-              directly to the ad platforms, not to us. Retainer varies by {niche.varies}.
-              Month-to-month, and it&apos;s backed by the guarantee above.
+              Every program is quoted for your business after a free strategy call. No startup fee
+              and no long-term contract. Ad spend goes directly to the ad platforms, not to us.
+              Call or text <a href="tel:+18134805818">(813) 480-5818</a> or email{' '}
+              <a href="mailto:kolby@staybookedmarketing.com">kolby@staybookedmarketing.com</a> for a quote.
             </RevealItem>
           </Reveal>
         </div>

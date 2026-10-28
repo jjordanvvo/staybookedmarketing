@@ -225,7 +225,7 @@ ul { list-style: none; }
 
 /* Anchored sections settle just below the fixed bar instead of under it
    (the second line is the search-result anchors on the other pages) */
-#statement, #how, #services, #industries, #why, #founders, #start, #pricing, #faq, #contact,
+#statement, #how, #services, #evidence, #industries, #why, #founders, #start, #pricing, #faq, #contact,
 #hc-intro, #hc-compliance, #hc-program, #guarantee, #gap, #why-it-works, #how-it-works, #why-practices, #ready,
 .legal-section[id] {
   scroll-margin-top: 84px;
@@ -1177,6 +1177,27 @@ ul { list-style: none; }
   margin-top: 20px;
 }
 
+.founder-contact-who {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+.founder-contact-line {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 0;
+}
+.founder-contact-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  min-width: 48px;
+}
 .founder-email {
   font-family: 'DM Sans', sans-serif;
   font-weight: 400;
@@ -1788,6 +1809,7 @@ ul { list-style: none; }
   line-height: 1.6;
   color: var(--text);
 }
+.lp-stat-source a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
 .lp-stat-source {
   font-family: 'DM Sans', sans-serif;
   font-weight: 400;
@@ -3495,8 +3517,11 @@ html.lenis body {
 }
 .nd-stat { display: grid; gap: 6px; }
 .nd-stat-value { font-size: 44px; font-weight: 800; letter-spacing: -1px; line-height: 1; }
-.nd-stat-label { font-size: 13px; line-height: 1.45; color: rgba(242,235,221,0.75); }
+.nd-stat-label { font-size: 13px; line-height: 1.45; color: inherit; opacity: 0.85; }
+#pricing .gc-launch { margin-top: 36px; }
+.nd-stat-source { font-size: 12px; line-height: 1.4; color: inherit; opacity: 0.7; text-decoration: underline; text-underline-offset: 3px; }
 .nd-invest { display: grid; gap: 8px; }
+.nd-invest a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
 @media (max-width: 1100px) {
   .nd-stats { grid-template-columns: 1fr; gap: 16px; }
 }
@@ -3860,7 +3885,9 @@ html.lenis body {
   border-radius: 16px;
   overflow: hidden;
 }
-.book-calendar iframe { width: 100%; height: 680px; border: 0; display: block; }
+.book-calendar iframe { width: 100%; height: 760px; border: 0; display: block; background: #fff; }
+.book-newtab { margin: 0; padding: 14px 18px; font-size: 14px; color: var(--text-2); border-top: 1px solid var(--border); }
+.book-newtab a { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
 .book-fallback {
   padding: 56px 34px;
   display: grid;
@@ -3897,6 +3924,28 @@ html.lenis body {
   background: var(--deep-bg);
   box-shadow: var(--sheen), 0 8px 24px rgba(20, 20, 20, 0.06);
 }
+.pricing-contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 22px;
+  margin-top: 18px;
+}
+.pricing-contact a {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  color: var(--text);
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 2px;
+}
+.pricing-contact a:hover { border-color: var(--text); }
+.pricing-calc {
+  margin-top: 22px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.98rem;
+  color: var(--text);
+  opacity: 0.85;
+}
+.pricing-calc a { text-decoration: underline; text-underline-offset: 3px; }
 .gc-launch-text {
   max-width: 560px;
 }

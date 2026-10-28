@@ -68,7 +68,7 @@ export default function WhyUs() {
         <Reveal>
           <RevealItem as="p" className="label">Why Stay Booked</RevealItem>
           <RevealItem as="h2" className="title">Results first. Terms that fit you.</RevealItem>
-          <RevealItem as="p" className="body why-body">We earn your business every month, on terms that fit you: month to month or a longer partnership, your choice. Most clients see results in the first 30 days.</RevealItem>
+          <RevealItem as="p" className="body why-body">We earn your business every month, on terms that fit you: month to month or a longer partnership, your choice. Every lead gets a fast reply, and you own everything we build.</RevealItem>
         </Reveal>
 
         {/* Stats enter with the global stagger; the count-ups fire in the same
@@ -76,12 +76,12 @@ export default function WhyUs() {
             starts counting just after its neighbor. */}
         <Reveal className="stats-band" amount={0.3}>
           <RevealItem className="stat">
-            <div className="stat-num"><CountUp to={30} delayMs={0} /></div>
-            <div className="stat-label">Days to Results</div>
+            <div className="stat-num"><CountUp to={5} suffix=" min" delayMs={0} /></div>
+            <div className="stat-label">Lead Follow-Up</div>
           </RevealItem>
           <RevealItem className="stat">
-            <div className="stat-num"><CountUp to={2} prefix="$" suffix="K" delayMs={160} /></div>
-            <div className="stat-label">Flat Monthly Rate</div>
+            <div className="stat-num"><CountUp to={100} suffix="%" delayMs={160} /></div>
+            <div className="stat-label">Your Ads, Leads &amp; Data</div>
           </RevealItem>
           <RevealItem className="stat">
             <div className="stat-num"><CountUp to={24} suffix="/7" delayMs={320} /></div>
