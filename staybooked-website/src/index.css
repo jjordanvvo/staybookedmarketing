@@ -429,68 +429,255 @@ ul { list-style: none; }
   --tan-ink:    #82683F;   /* deep warm tan — the legible text shade of --logo-fill */
 }
 
+/* Hero — the client's week, filling up. Copy on the left, a Mon–Sat
+   appointment book on the right; pointing at a moment in the book moves
+   "now" there (see Hero.tsx). Same tan as the logo tile so the intro
+   curtain lifts straight into it. */
 .hero {
-  height: 70vh;
-  min-height: 460px;
+  position: relative;
+  min-height: min(100svh, 920px);
+  padding: 124px clamp(24px, 4.5vw, 72px) 56px;
   background: var(--logo-fill);
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(300px, 0.82fr) minmax(0, 1.5fr);
+  gap: clamp(32px, 5vw, 88px);
   align-items: center;
-  justify-content: center;
   overflow: hidden;
 }
 
-/* Motion wrapper — framer-motion drives the cinematic intro (scale + blur
-   settle) and the desktop cursor drift on this element. Sized to fill the
-   hero so the img inside lays out exactly as before. */
-.hero-motion {
-  width: 100%;
-  height: 100%;
+.hero-copy {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  will-change: transform;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+}
+.hero-title {
+  margin: 0 0 4px;
+  font-family: 'Archivo', sans-serif;
+  font-weight: 800;
+  font-stretch: 62%;
+  font-variation-settings: 'wdth' 62;
+  font-size: clamp(4.5rem, 9.6vw, 9.75rem);
+  line-height: 0.8;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+.hero-title span { display: block; }
+.hero-pitch-line {
+  margin: 0;
+  max-width: 30ch;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: clamp(1.05rem, 1.3vw, 1.2rem);
+  line-height: 1.5;
+  color: var(--ink);
+}
+.hero-pitch-btn.contact-book-btn {
+  margin-top: 4px;
+  padding: 16px 34px;
+}
+/* Live readout of the most recent booking at the planner's "now" */
+.hero-latest {
+  min-height: 5.6em;
+  max-width: 34ch;
+  padding-top: 18px;
+  border-top: 1px solid rgba(20, 20, 20, 0.22);
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+.hero-latest p { margin: 0; }
+.hero-latest-main { font-weight: 500; color: var(--ink); }
+.hero-latest .hero-latest-trail { margin-top: 4px; color: #4A3B22; }
+
+/* ---- Planner ---- */
+.planner {
+  --hours-w: 52px;
+  margin: 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.planner-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-left: var(--hours-w);
+  margin-bottom: 10px;
+  font-size: 0.88rem;
+  color: #4A3B22;
+}
+.planner-count { font-variant-numeric: tabular-nums; }
+.planner-count strong { font-weight: 600; color: var(--ink); }
+
+.planner-days {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  padding-left: var(--hours-w);
+  border-bottom: 2px solid var(--ink);
+}
+.planner-days span {
+  padding: 0 0 6px 10px;
+  font-family: 'Archivo', sans-serif;
+  font-weight: 700;
+  font-stretch: 75%;
+  font-variation-settings: 'wdth' 75;
+  font-size: clamp(1.15rem, 1.7vw, 1.6rem);
+  line-height: 1;
+  color: var(--ink);
+  transition: color 0.4s var(--ease);
+}
+.planner-days span.is-past { color: rgba(20, 20, 20, 0.42); }
+
+.planner-body {
+  display: flex;
+  height: clamp(380px, 58svh, 560px);
+}
+.planner-hours {
+  flex: 0 0 var(--hours-w);
+  display: grid;
+  grid-template-rows: repeat(10, 1fr);
+}
+.planner-hours span {
+  padding: 4px 10px 0 0;
+  text-align: right;
+  font-size: 0.72rem;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: #4A3B22;
 }
 
-/* Hero pitch: the promise + Book button under the wordmark, inside the tan
-   panel, so the offer is visible before any scroll. The panel stacks the
-   glass scene over the pitch so the torus never crosses the text. */
-.hero {
+.planner-grid {
   position: relative;
-  flex-direction: column;
-  height: 80vh;
-  min-height: 600px;
-}
-.hero > .hero-motion {
   flex: 1 1 auto;
-  min-height: 0;
-  height: auto;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  /* Hour rules drawn once across the whole grid */
+  background-image: linear-gradient(to bottom, rgba(20, 20, 20, 0.13) 1px, transparent 1px);
+  background-size: 100% 10%;
+  cursor: crosshair;
+  touch-action: pan-y;
+  outline: none;
 }
-.hero-pitch {
-  flex: 0 0 auto;
-  padding-bottom: clamp(28px, 5vh, 56px);
+.planner-grid:focus-visible { box-shadow: 0 0 0 2px var(--logo-fill), 0 0 0 4px var(--ink); }
+
+.planner-col {
+  position: relative;
+  border-left: 1px solid rgba(20, 20, 20, 0.13);
+}
+.planner-col:last-child { border-right: 1px solid rgba(20, 20, 20, 0.13); }
+.planner-past {
+  position: absolute;
+  inset: 0 0 auto 0;
+  background: rgba(130, 104, 63, 0.24);
+  pointer-events: none;
+}
+
+.planner-appt {
+  position: absolute;
+  left: 4px;
+  right: 4px;
   z-index: 2;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 18px;
-  padding-left: 24px;
-  padding-right: 24px;
-  text-align: center;
+  gap: 2px;
+  padding: 6px 8px;
+  border-radius: 3px;
+  background: var(--ink);
+  color: var(--page-bg);
+  font-size: 0.74rem;
+  line-height: 1.2;
+  transition: background-color 0.5s var(--ease), color 0.5s var(--ease), box-shadow 0.5s var(--ease);
+}
+.planner-appt.is-done {
+  background: transparent;
+  color: rgba(20, 20, 20, 0.8);
+  box-shadow: inset 0 0 0 1.5px rgba(20, 20, 20, 0.55);
+}
+.planner-appt-title,
+.planner-appt-who {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.planner-appt-title { font-weight: 600; }
+.planner-appt-who { opacity: 0.72; }
+.planner-appt:hover { z-index: 4; }
+
+.planner-tip {
+  position: absolute;
+  top: 0;
+  left: calc(100% + 8px);
+  z-index: 4;
+  width: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 12px 14px;
+  border-radius: 4px;
+  background: var(--deep-bg);
+  color: var(--ink);
+  box-shadow: 0 0 0 1px rgba(20, 20, 20, 0.14), 0 12px 28px -12px rgba(60, 44, 18, 0.45);
+  font-size: 0.8rem;
+  line-height: 1.4;
+  white-space: normal;
   pointer-events: none;
 }
-.hero-pitch > * { pointer-events: auto; }
-.hero-pitch-line {
-  margin: 0;
-  max-width: 620px;
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 500;
-  font-size: clamp(1rem, 1.35vw, 1.2rem);
-  line-height: 1.5;
-  color: var(--text);
+.planner-tip.is-flip { left: auto; right: calc(100% + 8px); }
+.planner-tip strong { font-weight: 600; }
+.planner-tip span:last-child { margin-top: 4px; color: var(--text-2); }
+
+/* "Now": a heavy rule across the current day (under its appointments),
+   tagged with the time just past the day's right edge */
+.planner-now {
+  position: absolute;
+  left: -1px;
+  right: -1px;
+  z-index: 1;
+  height: 2px;
+  background: var(--ink);
+  pointer-events: none;
 }
-.hero-pitch-btn.contact-book-btn {
-  margin-top: 0;
-  padding: 16px 34px;
+.planner-now::before {
+  content: "";
+  position: absolute;
+  left: -4px;
+  top: -4px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--ink);
+}
+.planner-now-tag {
+  position: absolute;
+  z-index: 3;
+  margin-left: 6px;
+  transform: translateY(-50%);
+  padding: 3px 8px;
+  border-radius: 3px;
+  background: var(--ink);
+  color: var(--page-bg);
+  font-size: 0.72rem;
+  font-weight: 500;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.planner-now-tag.is-flip { margin-left: 0; transform: translate(calc(-100% - 6px), -50%); }
+
+.planner-caption {
+  margin-top: 14px;
+  padding-left: var(--hours-w);
+  font-size: 0.82rem;
+  color: #4A3B22;
+}
+
+@media (max-width: 1100px) {
+  .hero {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    min-height: 0;
+  }
+  .hero-copy { max-width: 640px; }
+  .planner-tip { display: none; }
 }
 
 .glass-mark {
@@ -2043,34 +2230,23 @@ ul { list-style: none; }
   }
   .stat:hover .stat-num { transform: none; }
 
-  /* HERO — shorter band; the full SBM. mark stays intact (contain, never cropped)
-     and is scaled so the wordmark spans ~70% of the screen. The tile's own tan
-     matches --logo-fill, so the slight horizontal overflow is invisible. */
+  /* HERO — copy stacks over the planner; the planner keeps all six days
+     but drops the per-slot text, which no longer fits. */
   .hero {
-    height: 54vh;
-    min-height: 300px;
-    max-height: 460px;
+    padding: 100px 20px 40px; /* clears the fixed nav bar */
+    gap: 36px;
   }
-  /* Phones: logo on top, pitch stacked under it inside the tan panel */
-  .hero {
-    flex-direction: column;
-    height: auto;
-    min-height: 0;
-    max-height: none;
-    padding: 100px 0 0; /* clears the fixed nav bar */
-    gap: 8px;
-  }
-  .hero > .hero-motion { flex: 0 0 auto; height: auto; }
-  .glass-mark { height: auto; }
-  .glass-mark-static { padding: 12px 24px; }
-  .glass-mark-logo { width: min(62vw, 320px); }
-  .hero-pitch {
-    gap: 16px;
-    padding-bottom: 32px;
-  }
-  .hero-pitch-line { font-size: 1rem; max-width: 340px; }
+  .hero-copy { gap: 18px; }
+  .hero-title { font-size: clamp(4rem, 22vw, 6.5rem); }
+  .hero-pitch-line { font-size: 1rem; }
   .hero-pitch-btn.contact-book-btn { padding: 15px 28px; font-size: 0.82rem; }
   .hero-pitch-btn.anim-btn { --ab-arrow: 16px; --ab-inset: 14px; }
+  .hero-latest { min-height: 6.8em; }
+  .planner { --hours-w: 38px; }
+  .planner-body { height: 340px; }
+  .planner-hours span { font-size: 0.64rem; padding-right: 6px; }
+  .planner-appt { left: 2px; right: 2px; padding: 0; }
+  .planner-appt-title, .planner-appt-who { display: none; }
 
 
   /* HERO STATEMENT — supporting text follows the headline closely */
