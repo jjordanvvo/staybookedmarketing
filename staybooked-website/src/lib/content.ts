@@ -15,7 +15,7 @@ export const TEAM_EMAILS = [
 ]
 
 /** Headline, used in the hero, footer, social previews and prerender. */
-export const TAGLINE = ['Whatever you sell,', "we find who's buying."] as const
+export const TAGLINE = ['We find your', 'customers.'] as const
 export const TAGLINE_TEXT = TAGLINE.join(' ')
 
 /** "What we do" on the home page: one line, then the three things that

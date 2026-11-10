@@ -275,11 +275,12 @@ body::before {
   padding-top: clamp(72px, 13vh, 150px);
   font-family: var(--q-serif);
   font-weight: 400;
-  font-size: clamp(2.9rem, 9.4vw, 10.4rem);
-  line-height: 0.93;
+  font-size: min(7.9vw, 9.6rem);
+  line-height: 0.95;
   letter-spacing: -0.022em;
+  white-space: nowrap;
 }
-.q-hero-title span { display: block; }
+.q-hero-title > span { display: block; }
 
 .q-hero-foot {
   margin-top: clamp(32px, 4vw, 56px);
@@ -711,7 +712,7 @@ body::before {
 /* ---- what we do (one line + terms) ---- */
 .q-what-line {
   font-family: var(--q-serif);
-  font-size: clamp(2.2rem, 4.5vw, 4.4rem);
+  font-size: clamp(1.6rem, 4.5vw, 4.4rem);
   line-height: 1.05;
   letter-spacing: -0.015em;
 }

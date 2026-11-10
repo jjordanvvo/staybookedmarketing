@@ -34,14 +34,15 @@ export default function Hero() {
         </motion.ul>
 
         <h1 className="q-hero-title">
-          <motion.span {...enter(0.15)}>{TAGLINE[0]}</motion.span>
-          <motion.span className="q-tan" {...enter(0.3)}>{TAGLINE[1]}</motion.span>
+          <motion.span {...enter(0.15)}>
+            {TAGLINE[0]} <span className="q-tan">{TAGLINE[1]}</span>
+          </motion.span>
         </h1>
 
         <motion.div className="q-hero-foot" {...enter(0.5)}>
           <p className="q-hero-sub">
-            Custom campaigns, fast follow-up and the builds behind them, shaped around your
-            business. Appointments, orders, walk-ins or a launch, we bring in the customers.
+            Ads, fast follow-up and custom builds, shaped around how your business sells.
+            Appointments, orders, walk-ins or a product launch.
           </p>
           <div className="q-hero-actions">
             <a className="q-btn" href={PHONE_TEL}>Call {PHONE_DISPLAY}</a>

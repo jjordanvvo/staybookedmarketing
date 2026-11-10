@@ -109,7 +109,7 @@ const homeContent = [
   section(
     h1(TAGLINE_TEXT) +
       body(
-        'Custom campaigns, fast follow-up and the builds behind them, shaped around your business: appointments, orders, walk-ins or a product launch. Founded by Stanford graduates. Call (813) 480-5818 or book a 15-minute call.',
+        'Ads, fast follow-up and custom builds, shaped around how your business sells: appointments, orders, walk-ins or a product launch. Founded by Stanford graduates. Call (813) 480-5818 or book a 15-minute call.',
       ),
     'top',
   ),
