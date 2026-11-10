@@ -707,3 +707,60 @@ body::before {
   .q-pagehead { padding-bottom: 32px; }
   .q-split .q-kicker { margin-bottom: 0; }
 }
+
+/* ---- what we do (one paragraph) ---- */
+.q-what-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
+  gap: 24px clamp(40px, 6vw, 96px);
+}
+.q-what-text {
+  font-family: var(--q-serif);
+  font-size: clamp(1.55rem, 2.7vw, 2.5rem);
+  line-height: 1.24;
+  color: var(--q-dim);
+  max-width: 34ch;
+}
+.q-what-text em { font-style: normal; color: var(--q-paper); }
+.q-what-link { margin-top: 40px; }
+@media (max-width: 760px) {
+  .q-what-grid { grid-template-columns: 1fr; }
+}
+
+/* ---- finder goals ---- */
+.q-goals {
+  margin-top: 28px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 20px;
+  font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+}
+.q-goals-lead { color: var(--q-dim); }
+.q-goals-list { display: inline-flex; flex-wrap: wrap; gap: 6px 0; }
+.q-goals-list button {
+  background: none;
+  border: 0;
+  font: inherit;
+  color: var(--q-paper);
+  cursor: pointer;
+  padding: 2px 0;
+  border-bottom: 1px solid transparent;
+  transition: color 0.25s, border-color 0.25s;
+}
+.q-goals-list button:not(:last-child)::after {
+  content: '/';
+  color: var(--q-faint);
+  margin: 0 14px;
+  display: inline-block;
+}
+.q-goals-list button:hover { color: var(--q-tan); }
+.q-goals-list button.is-on { color: var(--q-tan); }
+.q-goals-list button.is-on { text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 1px; }
+.q-finder-actions { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; margin-top: 26px; }
+@media (max-width: 600px) {
+  .q-goals { flex-direction: column; gap: 10px; }
+  .q-goals-list { flex-direction: column; gap: 10px; }
+  .q-goals-list button { text-align: left; }
+  .q-goals-list button:not(:last-child)::after { display: none; }
+}

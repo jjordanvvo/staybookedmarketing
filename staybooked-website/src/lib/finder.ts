@@ -8,10 +8,10 @@ const KEYWORDS: Record<string, string[]> = {
   legal: ['law', 'lawyer', 'attorney', 'legal', 'firm', 'injury', 'divorce', 'immigration', 'dui', 'estate plan'],
   lifestyle: ['jewel', 'auto', 'car', 'dealer', 'boat', 'showroom', 'luxury', 'furniture', 'retail', 'watch', 'yacht', 'golf'],
   finance: ['financ', 'advisor', 'wealth', 'cpa', 'account', 'tax', 'insurance', 'mortgage', 'planner', 'bookkeep', 'loan'],
-  medical: ['medic', 'health', 'doctor', 'clinic', 'dent', 'ortho', 'chiro', 'med spa', 'medspa', 'spa', 'botox', 'aesthetic', 'therap', 'physical', 'np', 'nurse', 'practice', 'wellness', 'iv', 'derma', 'vet', 'optom', 'eye', 'mental', 'weight'],
+  medical: ['medic', 'health', 'doctor', 'clinic', 'dent', 'ortho', 'chiro', 'med spa', 'medspa', 'spa', 'botox', 'aesthetic', 'therap', 'physical', 'nurse', 'practice', 'wellness', 'iv therapy', 'derma', 'vet', 'optom', 'eye', 'mental', 'weight'],
   rentals: ['rental', 'rent', 'airbnb', 'vacation', 'equipment', 'tour', 'charter', 'property', 'storage', 'booking', 'reservation'],
   restaurants: ['restaurant', 'food', 'cafe', 'coffee', 'dining', 'catering', 'bakery', 'pizza', 'chef', 'brewery', 'winery'],
-  brand: ['brand', 'product', 'ecommerce', 'e-commerce', 'shop', 'store', 'launch', 'apparel', 'clothing', 'beauty', 'supplement'],
+  brand: ['brand', 'product', 'ecommerce', 'e-commerce', 'online', 'shopify', 'etsy', 'amazon', 'launch', 'apparel', 'clothing', 'beauty', 'supplement', 'startup', 'app'],
   'real-estate': ['real estate', 'realtor', 'realty', 'agent', 'broker', 'home buy', 'listing', 'house'],
   'private-schools': ['school', 'academy', 'education', 'tutor', 'admission', 'prep', 'montessori', 'daycare', 'preschool', 'learning'],
 }
@@ -24,7 +24,11 @@ export function findNiche(raw: string): Niche | null {
     let score = 0
     if (n.name.toLowerCase().includes(q)) score = 3
     for (const k of KEYWORDS[n.id] ?? []) {
-      if (q.includes(k) || (k.startsWith(q) && q.length >= 3)) score = Math.max(score, k.length >= 4 ? 2 : 1)
+      // Keywords match at the start of a word ("roof" finds "roofing" but
+      // "air" never finds "hair"); short ones must be the whole word.
+      const esc = k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+      const re = new RegExp(k.length < 4 ? `\\b${esc}\\b` : `\\b${esc}`)
+      if (re.test(q)) score = Math.max(score, k.length >= 4 ? 2 : 1)
     }
     if (score && (!best || score > best.score)) best = { niche: n, score }
   }
@@ -32,4 +36,4 @@ export function findNiche(raw: string): Niche | null {
 }
 
 /** Shown in the input, one at a time, as gentle examples. */
-export const FINDER_EXAMPLES = ['a roofing company', 'a med spa', 'a law firm', 'a restaurant', 'a private school', 'a real estate team']
+export const FINDER_EXAMPLES = ['a roofing company', 'an online store', 'a med spa', 'a product brand', 'a law firm', 'a restaurant', 'a gym', 'a software startup']

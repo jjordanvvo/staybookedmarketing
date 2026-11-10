@@ -20,10 +20,11 @@ export default function HowItWorks() {
     <>
       <Navbar />
       <main className="q-page">
-        <PageHead kicker="How it works" title={<>One system, <span className="q-tan">from first click to booked.</span></>}>
+        <PageHead kicker="How it works" title={<>Built around <span className="q-tan">how you make money.</span></>}>
           <p>
-            Most agencies hand you leads and leave the rest to you. We run the ads, answer every lead
-            within minutes, qualify them and put the appointment on your calendar.
+            Every business sells differently, so every campaign we run is custom. We bring in the
+            customers, answer every lead within minutes, and build whatever sits in between:
+            sites, apps, software and launches.
           </p>
         </PageHead>
 

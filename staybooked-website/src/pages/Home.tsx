@@ -1,7 +1,7 @@
 import Navbar from '@/components/sections/Navbar'
 import Footer from '@/components/sections/Footer'
 import Hero from '@/components/q/Hero'
-import Problems from '@/components/q/Problems'
+import WhatWeDo from '@/components/q/WhatWeDo'
 import Finder from '@/components/q/Finder'
 import Talk from '@/components/q/Talk'
 
@@ -13,7 +13,7 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
-        <Problems />
+        <WhatWeDo />
         <Finder />
         <Talk />
       </main>

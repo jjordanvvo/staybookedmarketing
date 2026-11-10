@@ -13,11 +13,11 @@ export default function Talk() {
       <div className="q-wrap q-talk-grid">
         <Fade className="q-talk-main">
           <p className="q-kicker">Talk to us</p>
-          <h2 className="q-h2">The quickest way in is a phone call.</h2>
+          <h2 className="q-h2">Tell us what you're building.</h2>
           <a className="q-bigphone" href={PHONE_TEL}>{PHONE_DISPLAY}</a>
           <p className="q-talk-note">
-            You'll talk to a founder, not a call center. Fifteen minutes, an honest read on your
-            business, and a plan whether or not we work together.
+            Campaign, website, product launch or something we haven't heard of yet. A call is the
+            fastest way to figure it out, and you'll be talking to a founder.
           </p>
           <Link className="q-link" to="/book">Rather pick a time? Book a call <Arrow /></Link>
 
@@ -30,7 +30,7 @@ export default function Talk() {
               ))}
             </ul>
             <p>
-              Five founders, running every account themselves.{' '}
+              Five founders, running every account personally.{' '}
               <Link to="/team">Meet them</Link>
             </p>
           </div>

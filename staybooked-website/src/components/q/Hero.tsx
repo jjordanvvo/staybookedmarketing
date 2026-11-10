@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom'
 import { motion, useReducedMotion } from 'framer-motion'
-import { PHONE_DISPLAY, PHONE_TEL } from '@/lib/content'
+import { PHONE_DISPLAY, PHONE_TEL, TAGLINE } from '@/lib/content'
 import Mark from './Mark'
 import Arrow from './Arrow'
 
 const LINES = [
-  { head: 'Ads', tail: 'that find your customers' },
+  { head: 'Campaigns', tail: 'built around how you sell' },
   { head: 'Follow-up', tail: 'that answers in minutes' },
-  { head: 'Software', tail: 'that keeps it all running' },
+  { head: 'Custom builds', tail: 'sites, apps, software, launches' },
 ]
 
 const ease = [0.22, 1, 0.36, 1] as const
@@ -34,14 +34,14 @@ export default function Hero() {
         </motion.ul>
 
         <h1 className="q-hero-title">
-          <motion.span {...enter(0.15)}>We don't chase leads.</motion.span>
-          <motion.span className="q-tan" {...enter(0.3)}>We book them.</motion.span>
+          <motion.span {...enter(0.15)}>{TAGLINE[0]}</motion.span>
+          <motion.span className="q-tan" {...enter(0.3)}>{TAGLINE[1]}</motion.span>
         </h1>
 
         <motion.div className="q-hero-foot" {...enter(0.5)}>
           <p className="q-hero-sub">
-            We run your ads, answer every new lead within minutes and put the appointment on
-            your calendar. You get back to running the business.
+            Custom campaigns, fast follow-up and the builds behind them, shaped around your
+            business. Appointments, orders, walk-ins or a launch, we bring in the customers.
           </p>
           <div className="q-hero-actions">
             <a className="q-btn" href={PHONE_TEL}>Call {PHONE_DISPLAY}</a>

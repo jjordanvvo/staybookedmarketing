@@ -14,29 +14,63 @@ export const TEAM_EMAILS = [
   'jordanniles@staybookedmarketing.com',
 ]
 
-/** The home page leads with the visitor's problem, then our answer. */
-export const PROBLEMS = [
-  {
-    problem: "The phone isn't ringing enough.",
-    answer: 'We run your ads on Google, Meta and social, aimed at people already looking for what you sell.',
-    service: 'Advertising',
-  },
-  {
-    problem: 'Leads come in and go cold.',
-    answer: 'Every new lead gets a reply in minutes, day or night. We qualify them and book them onto your calendar.',
-    service: 'Follow-up and booking',
-  },
-  {
-    problem: "Your website isn't bringing anyone in.",
-    answer: 'We design and build fast sites in-house, made to turn a visit into a call.',
-    service: 'Websites',
-  },
-  {
-    problem: 'Too much of the week is busywork.',
-    answer: 'Custom software and automation for the repetitive parts of running your business.',
-    service: 'Software',
-  },
+/** Headline, used in the hero, footer, social previews and prerender. */
+export const TAGLINE = ['Whatever you sell,', "we find who's buying."] as const
+export const TAGLINE_TEXT = TAGLINE.join(' ')
+
+/**
+ * "What we do" on the home page: one plain paragraph, read top to bottom.
+ * `em` pieces are set in the accent colour. Kept as data so the prerender
+ * writes the same words for search engines.
+ */
+export const WHAT_WE_DO: { text: string; em?: boolean }[] = [
+  { text: 'We run ' },
+  { text: 'custom ad campaigns', em: true },
+  { text: ' on Google, Meta and social, shaped around how your business actually makes money. Booked appointments, phone calls, online orders, walk-ins. When a lead comes in, ' },
+  { text: 'we answer within minutes', em: true },
+  { text: ', so nobody waits long enough to call someone else. We ' },
+  { text: 'launch products', em: true },
+  { text: ', build ' },
+  { text: 'websites and apps', em: true },
+  { text: ', and write the ' },
+  { text: 'custom software', em: true },
+  { text: " that ties it all together. And when what you need isn't on that list, we build that too." },
 ]
+
+/** Business finder: what the visitor wants more of. Each answer works for
+ *  any business; `{biz}` becomes what they typed. */
+export const GOALS = [
+  {
+    id: 'calls',
+    label: 'more calls',
+    answer: "We'd run search and social ads aimed at people already searching for what {biz} offers, and make sure every inquiry gets an answer within minutes.",
+  },
+  {
+    id: 'bookings',
+    label: 'more bookings',
+    answer: "We'd fill the top with targeted ads, reply to every lead within minutes, qualify them and put the appointment straight on your calendar.",
+  },
+  {
+    id: 'sales',
+    label: 'more online sales',
+    answer: "We'd point Meta and Google ads at a store built to convert, then follow up with the people who almost bought.",
+  },
+  {
+    id: 'walkins',
+    label: 'more foot traffic',
+    answer: "We'd target people close to {biz} with an offer worth the trip, and track which ads actually bring them through the door.",
+  },
+  {
+    id: 'launch',
+    label: 'a product launch',
+    answer: "We'd build the landing page, the creative and the paid campaign for the launch, then keep tuning it once it's live.",
+  },
+  {
+    id: 'custom',
+    label: 'something built',
+    answer: 'Websites, apps, internal tools, automations. If {biz} needs it built, tell us about it on a short call.',
+  },
+] as const
 
 export const SERVICES = [
   {

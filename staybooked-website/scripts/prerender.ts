@@ -22,7 +22,7 @@ import { NICHES } from '../src/lib/niches'
 import { SPEED_EVIDENCE } from '../src/lib/evidence'
 import { FAQS } from '../src/lib/faqs'
 import { FOUNDERS } from '../src/lib/founders'
-import { HOW_STEPS, SERVICES, PLAN_STEPS, PROBLEMS } from '../src/lib/content'
+import { HOW_STEPS, SERVICES, PLAN_STEPS, WHAT_WE_DO, GOALS, TAGLINE_TEXT } from '../src/lib/content'
 
 const DIST = join(process.cwd(), 'dist')
 const SITE = 'https://staybookedmarketing.com'
@@ -107,15 +107,15 @@ function writeRoute(r: Route) {
 
 const homeContent = [
   section(
-    h1("We don't chase leads. We book them.") +
+    h1(TAGLINE_TEXT) +
       body(
-        'Stay Booked Marketing runs your ads, answers every new lead within minutes and puts the appointment on your calendar. Founded by Stanford graduates. Call (813) 480-5818 or book a 15-minute call.',
+        'Custom campaigns, fast follow-up and the builds behind them, shaped around your business: appointments, orders, walk-ins or a product launch. Founded by Stanford graduates. Call (813) 480-5818 or book a 15-minute call.',
       ),
     'top',
   ),
   section(
-    label('What we do') + title('Where is business slipping away?') +
-      PROBLEMS.map((p) => `<p class="body"><strong>${esc(p.problem)}</strong> ${esc(p.answer)} (${esc(p.service)})</p>`).join(''),
+    label('What we do') + body(WHAT_WE_DO.map((p) => p.text).join('')) +
+      GOALS.map((g) => `<p class="body"><strong>Need ${esc(g.label)}?</strong> ${esc(g.answer.replace(/\{biz\}/g, 'your business'))}</p>`).join(''),
     'what',
   ),
   section(
@@ -126,7 +126,7 @@ const homeContent = [
     'find',
   ),
   section(
-    label('Talk to us') + title('The quickest way in is a phone call.') +
+    label('Talk to us') + title("Tell us what you're building.") +
       `<p class="body"><a href="tel:+18134805818">(813) 480-5818</a>. You'll talk to a founder: ${FOUNDERS.map((f) => `${esc(f.name)} (${esc(f.title)})`).join(', ')}. <a href="/book">Book a call</a> or <a href="/team">meet the team</a>.</p>`,
     'contact',
   ),
@@ -185,7 +185,7 @@ const routes: Route[] = [
     path: '/team',
     title: 'Meet the Team | Stay Booked Marketing',
     description:
-      'Meet the five founders behind Stay Booked Marketing: Stanford to Penn, running every account hands-on. No account managers, no ticket systems.',
+      'Meet the five founders behind Stay Booked Marketing: Stanford to Penn, running every account personally. No account managers, no ticket systems.',
     content: section(
       label('Meet the founders') + h1('The people behind Stay Booked.') +
         FOUNDERS.map(

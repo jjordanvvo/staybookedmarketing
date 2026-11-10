@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import Mark from '@/components/q/Mark'
-import { EMAIL, PHONE_DISPLAY, PHONE_TEL } from '@/lib/content'
+import { EMAIL, PHONE_DISPLAY, PHONE_TEL, TAGLINE_TEXT } from '@/lib/content'
 import { NICHES } from '@/lib/niches'
 
 /** Quiet footer. The industry links live here, small, for people who look
@@ -11,7 +11,7 @@ export default function Footer() {
       <div className="q-wrap q-foot-grid">
         <div className="q-foot-brand">
           <Mark />
-          <p>We don't chase leads. We book them.</p>
+          <p>{TAGLINE_TEXT}</p>
         </div>
 
         <div className="q-foot-col">
