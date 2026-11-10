@@ -22,9 +22,7 @@ import { NICHES } from '../src/lib/niches'
 import { SPEED_EVIDENCE } from '../src/lib/evidence'
 import { FAQS } from '../src/lib/faqs'
 import { FOUNDERS } from '../src/lib/founders'
-import { STEPS as HOW_STEPS } from '../src/components/sections/HowWeWork'
-import { SERVICES } from '../src/components/sections/Services'
-import { STEPS as PLAN_STEPS } from '../src/components/sections/HowToStart'
+import { HOW_STEPS, SERVICES, PLAN_STEPS, PROBLEMS } from '../src/lib/content'
 
 const DIST = join(process.cwd(), 'dist')
 const SITE = 'https://staybookedmarketing.com'
@@ -109,54 +107,59 @@ function writeRoute(r: Route) {
 
 const homeContent = [
   section(
-    label('The system') +
-      h1("We don't chase leads. We book them.") +
+    h1("We don't chase leads. We book them.") +
       body(
-        'Founded by Stanford graduates, Stay Booked Marketing builds complete lead generation systems for local businesses: targeted ads bring in the right local customers, our automated system qualifies them, and ready-to-book customers land straight on your calendar.',
+        'Stay Booked Marketing runs your ads, answers every new lead within minutes and puts the appointment on your calendar. Founded by Stanford graduates. Call (813) 480-5818 or book a 15-minute call.',
       ),
-    'statement',
+    'top',
   ),
   section(
-    label('How we work') + title('Three steps, one system.') +
-      HOW_STEPS.map((s) => `<p class="body"><strong>${esc(s.word)}.</strong> ${esc(s.desc)}</p>`).join(''),
+    label('What we do') + title('Where is business slipping away?') +
+      PROBLEMS.map((p) => `<p class="body"><strong>${esc(p.problem)}</strong> ${esc(p.answer)} (${esc(p.service)})</p>`).join(''),
+    'what',
+  ),
+  section(
+    label('Find your business') +
+      NICHES.map(
+        (n) => `<p class="body"><a href="/niches/${n.id}"><strong>${esc(n.name)}</strong></a>: ${esc(n.desc)}</p>`,
+      ).join(''),
+    'find',
+  ),
+  section(
+    label('Talk to us') + title('The quickest way in is a phone call.') +
+      `<p class="body"><a href="tel:+18134805818">(813) 480-5818</a>. You'll talk to a founder: ${FOUNDERS.map((f) => `${esc(f.name)} (${esc(f.title)})`).join(', ')}. <a href="/book">Book a call</a> or <a href="/team">meet the team</a>.</p>`,
+    'contact',
+  ),
+].join('')
+
+const howContent = [
+  section(
+    label('How it works') + h1('One system, from first click to booked.') +
+      HOW_STEPS.map((s) => `<p class="body"><strong>${esc(s.word)}.</strong> ${esc(s.desc)}</p>`).join('') +
+      PLAN_STEPS.map((s) => `<p class="body"><strong>${esc(s.name)}.</strong> ${esc(s.desc)}</p>`).join(''),
     'how',
   ),
   section(
-    label('Services') + title('What we build.') +
+    label('What we build') +
       SERVICES.map((s) => `<p class="body"><strong>${esc(s.name)}.</strong> ${esc(s.desc)}</p>`).join(''),
     'services',
   ),
   section(
-    label('Why speed wins') + title("Most businesses answer too slowly. Yours won't.") +
+    label('Why speed matters') + title('Most businesses answer too slowly.') +
       SPEED_EVIDENCE.map(
         (s) => `<p class="body"><strong>${esc(s.figure)}.</strong> ${esc(s.text)} <a href="${esc(s.url)}">${esc(s.source)}</a></p>`,
       ).join(''),
     'evidence',
   ),
   section(
-    label('Who we help') + title('Built for local businesses.') +
-      NICHES.map(
-        (n) =>
-          `<p class="body"><a href="/niches/${n.id}"><strong>${esc(n.name)}</strong></a>: ${esc(n.desc)}</p>`,
-      ).join(''),
-    'industries',
-  ),
-  section(
-    label('The team') + title('Our founders.') +
-      `<p class="body">Five founders running every account hands-on: ${FOUNDERS.map((f) => `${esc(f.name)} (${esc(f.title)})`).join(', ')}.</p><p class="body"><a href="/team">Meet our team</a></p>`,
-    'founders',
-  ),
-  section(
-    label('Pricing') + title('Pricing built around your business.') +
-      `<p class="body">Every program is quoted after a free 15-minute strategy call. No startup fee, no long-term contract, and ad spend goes straight to the ad platforms, never through us. <a href="/book">Book a free strategy call</a>, call or text <a href="tel:+18134805818">(813) 480-5818</a>, or email <a href="mailto:kolby@staybookedmarketing.com">kolby@staybookedmarketing.com</a>.</p>`,
+    label('Pricing') + title('Quoted for your business.') +
+      `<p class="body">Every program is quoted after a free 15-minute call. No startup fee, no long-term contract, and ad spend goes straight to the ad platforms, never through us. <a href="/book">Book a call</a> or call <a href="tel:+18134805818">(813) 480-5818</a>.</p>`,
     'pricing',
-    'section-deep',
   ),
   section(
-    label('FAQ') + title('Questions, answered.') +
+    label('Questions') + title('Asked often.') +
       FAQS.map((f) => `<p class="body"><strong>${esc(f.q)}</strong><br/>${esc(f.a)}</p>`).join(''),
     'faq',
-    'section-offwhite',
   ),
 ].join('')
 
@@ -169,6 +172,13 @@ const routes: Route[] = [
     description:
       'Stay Booked Marketing builds lead generation systems, multi-platform advertising, and custom software for local businesses that want more customers.',
     content: homeContent,
+  },
+  {
+    path: '/how-it-works',
+    title: 'How It Works | Stay Booked Marketing',
+    description:
+      'How Stay Booked Marketing works: ads, follow-up within minutes, qualification and booking, handled end to end. Pricing approach, research on lead response and FAQ.',
+    content: howContent,
     schema: jsonLd(faqSchema(FAQS)),
   },
   {
@@ -204,7 +214,7 @@ const routes: Route[] = [
         `<p class="body"><strong>What we book:</strong> ${n.books.map(esc).join(', ')}.</p>` +
         `<p class="body"><strong>The system is tuned around</strong> ${esc(n.tuned)}.</p>` +
         `<p class="body"><strong>Your AI books in real time and reports to</strong> ${esc(n.handoff)}.</p>` +
-        `<p class="body"><strong>Pricing:</strong> every program is quoted for your business after a free strategy call. No startup fee, no long-term contract, and ad spend goes directly to the ad platforms. <a href="/book">Book a strategy call</a> or <a href="/#industries">see every niche</a>.</p>`,
+        `<p class="body"><strong>Pricing:</strong> every program is quoted for your business after a free strategy call. No startup fee, no long-term contract, and ad spend goes directly to the ad platforms. <a href="/book">Book a strategy call</a> or <a href="/#find">see every industry</a>.</p>`,
       `nd-${n.id}`,
       'section-offwhite',
     )

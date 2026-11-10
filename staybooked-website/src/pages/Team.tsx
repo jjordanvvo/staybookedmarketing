@@ -1,95 +1,53 @@
 import { useEffect } from 'react'
-import { Reveal, RevealItem } from '@/components/ui/Reveal'
 import Navbar from '@/components/sections/Navbar'
-import kolbyPhoto from '@/assets/kolby.webp'
-import jordanPhoto from '@/assets/jordan.webp'
-import austinPhoto from '@/assets/austin.webp'
-import trevorPhoto from '@/assets/trevor.webp'
-import nilesPhoto from '@/assets/niles.webp'
+import Footer from '@/components/sections/Footer'
+import PageHead from '@/components/q/PageHead'
+import TalkBlock from '@/components/q/TalkBlock'
+import Fade from '@/components/q/Fade'
+import { PHOTOS } from '@/components/q/Portraits'
 import { FOUNDERS } from '@/lib/founders'
 
-const PHOTOS: Record<string, string> = {
-  trevor: trevorPhoto,
-  jordan: jordanPhoto,
-  kolby: kolbyPhoto,
-  austin: austinPhoto,
-  niles: nilesPhoto,
-}
-import Footer from '@/components/sections/Footer'
-
-/**
- * Team — the founders, on their own page. Same cards and data as the old
- * inline home section, but a dedicated page: bigger breathing room, one
- * column on mobile, easy to read and share. The home section now just holds
- * the title and a button that links here.
- */
 export default function Team() {
   useEffect(() => {
     document.title = 'Meet the Team | Stay Booked Marketing'
-    return () => {
-      document.title = 'Stay Booked Marketing | Lead Generation for Local Businesses'
-    }
+    return () => { document.title = 'Stay Booked Marketing | Lead Generation for Local Businesses' }
   }, [])
 
   return (
     <>
       <Navbar />
-      <div className="nav-spacer" aria-hidden="true" />
+      <main className="q-page">
+        <PageHead kicker="Team" title={<>Five founders. <span className="q-tan">No account managers.</span></>}>
+          <p>Founded by Stanford graduates. You talk to the people building your system, every time.</p>
+        </PageHead>
 
-      <section className="section section-offwhite" id="team">
-        <div className="wrap">
-          <Reveal amount={0.4}>
-            <RevealItem as="p" className="label">Meet the founders</RevealItem>
-            <RevealItem as="h1" className="title">The people behind Stay Booked.</RevealItem>
-            <RevealItem as="p" className="body lp-hook-body">
-              Five founders, Stanford to Penn, running every account hands-on. No account
-              managers, no ticket systems. You talk to the people building your system.
-            </RevealItem>
-          </Reveal>
-
-          {/* The same per-card reveal pattern as the old home section: each
-              card reveals independently as it scrolls in. */}
-          <div className="founders-grid">
+        <section className="q-sec q-wrap">
+          <div className="q-team">
             {FOUNDERS.map((f) => (
-              <Reveal as="article" className="founder-card" key={f.name} amount={0.15}>
-                <RevealItem className="founder-photo-frame">
-                  {f.photo && PHOTOS[f.photo] ? (
-                    <img className="founder-photo" src={PHOTOS[f.photo]} alt={f.name} />
-                  ) : (
-                    <span className="founder-monogram" aria-hidden="true">{f.initials}</span>
-                  )}
-                </RevealItem>
-                <RevealItem as="h3" className="founder-name">{f.name}</RevealItem>
-                <RevealItem as="p" className="founder-title">{f.title}</RevealItem>
-                {f.degree && <RevealItem as="p" className="founder-degree">{f.degree}</RevealItem>}
-                <RevealItem as="p" className="founder-bio">{f.bio}</RevealItem>
-                {(f.email || f.phone) && (
-                  <RevealItem className="founder-contact">
-                    <p className="founder-contact-who">
-                      Contact {f.name}, {f.title}
-                    </p>
-                    {f.email && (
-                      <p className="founder-contact-line">
-                        <span className="founder-contact-label">Email</span>
-                        <a className="founder-email" href={`mailto:${f.email}`}>{f.email}</a>
-                      </p>
-                    )}
-                    {f.phone && (
-                      <p className="founder-contact-line">
-                        <span className="founder-contact-label">Phone</span>
-                        <a className="founder-phone" href={`tel:${f.phone.replace(/[^\d+]/g, '')}`}>
-                          {f.phone}
-                        </a>
-                      </p>
-                    )}
-                  </RevealItem>
-                )}
-              </Reveal>
+              <Fade key={f.name} className="q-person">
+                <div className="q-person-photo">
+                  {f.photo && <img src={PHOTOS[f.photo]} alt={f.name} loading="lazy" />}
+                </div>
+                <div className="q-person-text">
+                  <h2>{f.name}</h2>
+                  <p className="q-person-role">{f.title}</p>
+                  {f.degree && <p className="q-person-degree">{f.degree}</p>}
+                  <details>
+                    <summary>Read more</summary>
+                    <p>{f.bio}</p>
+                  </details>
+                  <p className="q-person-contact">
+                    {f.email && <a href={`mailto:${f.email}`}>{f.email}</a>}
+                    {f.phone && <a href={`tel:${f.phone.replace(/[^\d+]/g, '')}`}>{f.phone}</a>}
+                  </p>
+                </div>
+              </Fade>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
+        <TalkBlock line="Want to talk to one of us?" />
+      </main>
       <Footer />
     </>
   )

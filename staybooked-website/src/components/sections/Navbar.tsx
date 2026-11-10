@@ -1,116 +1,89 @@
 import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { motion, useReducedMotion } from 'framer-motion'
-import logo from '@/assets/logo-nav.webp'
-import { EASE } from '@/components/ui/Reveal'
-import SiteSearch from '@/components/ui/SiteSearch'
-import AnimatedLabel from '@/components/ui/AnimatedLabel'
+import Mark from '@/components/q/Mark'
+import { PHONE_DISPLAY, PHONE_TEL } from '@/lib/content'
 
 type NavbarProps = {
-  /** Held offscreen until the intro curtains start lifting. */
+  /** Kept for older pages that still pass these; the bar no longer animates in. */
   revealed?: boolean
-  /** Entrance delay in seconds (longer after the intro so the hero lands first). */
   delay?: number
 }
 
-// Section anchors on the home page. Off "/" they route to /#id and the
-// ScrollToTop handler in App.tsx finishes the scroll once the section mounts.
-const ANCHORS = [
-  { label: 'Industries', id: 'industries' },
-  { label: 'Founders', id: 'founders' },
-  { label: 'Services', id: 'services' },
-  { label: 'Pricing', id: 'pricing' },
-  { label: 'FAQ', id: 'faq' },
-  { label: 'Contact', id: 'contact' },
+const LINKS = [
+  { label: 'What we do', to: '/#what' },
+  { label: 'How it works', to: '/how-it-works' },
+  { label: 'Team', to: '/team' },
 ]
 
 /**
- * The one site-wide navigation bar — identical on every page. Desktop shows
- * the full link row; mobile collapses to logo + Book a Call + hamburger, with
- * the links in a drop-down sheet under the bar (grid 0fr → 1fr collapse,
- * Escape and link-tap both close it).
+ * The site bar. Three links, the phone number and one button. On phones it is
+ * just the letters, a Call link and Menu; the menu opens a full sheet.
+ * The bar sits transparent over the top of the page and gains a solid
+ * ground once you scroll.
  */
-export default function Navbar({ revealed = true, delay = 0 }: NavbarProps) {
-  const reduce = useReducedMotion()
+export default function Navbar(_props: NavbarProps) {
   const { pathname } = useLocation()
-  const onHome = pathname === '/'
   const [open, setOpen] = useState(false)
-  const close = () => setOpen(false)
+  const [solid, setSolid] = useState(false)
+
+  useEffect(() => setOpen(false), [pathname])
 
   useEffect(() => {
+    const onScroll = () => setSolid(window.scrollY > 24)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('q-lock', open)
     if (!open) return
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setOpen(false)
-    }
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false)
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   }, [open])
 
-  // Leaving the page always retires the menu.
-  useEffect(() => {
-    setOpen(false)
-  }, [pathname])
-
-  const anchor = (a: (typeof ANCHORS)[number]) =>
-    onHome ? (
-      <a href={`#${a.id}`} onClick={close}>{a.label}</a>
-    ) : (
-      <Link to={`/#${a.id}`} onClick={close}>{a.label}</Link>
-    )
-
   return (
-    <motion.nav
-      className="nav"
-      aria-label="Main navigation"
-      initial={reduce ? false : { y: -18, opacity: 0 }}
-      animate={reduce || revealed ? { y: 0, opacity: 1 } : undefined}
-      transition={{ duration: 0.9, ease: EASE, delay }}
-    >
-      <div className="nav-left">
-        {onHome ? (
-          <a href="#hero" className="nav-logo-link" aria-label="Stay Booked Marketing home">
-            <img className="nav-logo" src={logo} alt="Stay Booked Marketing" />
-          </a>
-        ) : (
-          <Link to="/" className="nav-logo-link" aria-label="Stay Booked Marketing home">
-            <img className="nav-logo" src={logo} alt="Stay Booked Marketing" />
-          </Link>
-        )}
-        <span className="nav-wordmark">staybookedmarketing.com</span>
-      </div>
-      <div className="nav-right">
-        <ul className="nav-links">
-          {ANCHORS.map((a) => (
-            <li key={a.id}>{anchor(a)}</li>
-          ))}
-        </ul>
-        {/* Site search sits directly left of the CTA on every width */}
-        <SiteSearch />
-        {/* The nav CTA goes straight to the booking calendar — same link as
-            every other Book a Call button on the site. */}
-        <a className="nav-cta anim-btn" href="/book"><AnimatedLabel>Book a Call</AnimatedLabel></a>
-        <button
-          type="button"
-          className={`nav-burger${open ? ' nav-burger-open' : ''}`}
-          aria-label={open ? 'Close menu' : 'Open menu'}
-          aria-expanded={open}
-          aria-controls="nav-menu"
-          onClick={() => setOpen(!open)}
-        >
-          <span />
-          <span />
-          <span />
-        </button>
-      </div>
+    <>
+      <nav className={`q-nav${solid ? ' is-solid' : ''}${open ? ' is-open' : ''}`} aria-label="Main navigation">
+        <Link to="/" className="q-nav-home" aria-label="Stay Booked Marketing home">
+          <Mark />
+        </Link>
 
-      {/* Mobile drop-down sheet — lives inside the fixed nav so it tracks it */}
-      <div id="nav-menu" className={`nav-menu${open ? ' nav-menu-open' : ''}`}>
-        <ul className="nav-menu-inner">
-          {ANCHORS.map((a) => (
-            <li key={a.id}>{anchor(a)}</li>
+        <ul className="q-nav-links">
+          {LINKS.map((l) => (
+            <li key={l.to}>
+              <Link to={l.to} className={pathname === l.to ? 'is-here' : undefined}>{l.label}</Link>
+            </li>
           ))}
         </ul>
+
+        <div className="q-nav-end">
+          <a className="q-nav-phone" href={PHONE_TEL}>{PHONE_DISPLAY}</a>
+          <Link className="q-nav-book" to="/book">Book a call</Link>
+          <a className="q-nav-call" href={PHONE_TEL}>Call</a>
+          <button
+            type="button"
+            className="q-nav-menu"
+            aria-expanded={open}
+            aria-controls="q-sheet"
+            onClick={() => setOpen(!open)}
+          >
+            {open ? 'Close' : 'Menu'}
+          </button>
+        </div>
+      </nav>
+
+      <div id="q-sheet" className={`q-sheet${open ? ' is-open' : ''}`} aria-hidden={!open}>
+        <ul>
+          {[{ label: 'Home', to: '/' }, ...LINKS, { label: 'Book a call', to: '/book' }].map((l) => (
+            <li key={l.to}>
+              <Link to={l.to} onClick={() => setOpen(false)} tabIndex={open ? 0 : -1}>{l.label}</Link>
+            </li>
+          ))}
+        </ul>
+        <a className="q-sheet-phone" href={PHONE_TEL} tabIndex={open ? 0 : -1}>{PHONE_DISPLAY}</a>
       </div>
-    </motion.nav>
+    </>
   )
 }

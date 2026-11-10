@@ -1,18 +1,15 @@
 import { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { Reveal, RevealItem } from '@/components/ui/Reveal'
 import Navbar from '@/components/sections/Navbar'
+import Footer from '@/components/sections/Footer'
+import PageHead from '@/components/q/PageHead'
+import TalkBlock from '@/components/q/TalkBlock'
+import Fade from '@/components/q/Fade'
+import Arrow from '@/components/q/Arrow'
 import { NICHES } from '@/lib/niches'
-import { SPEED_EVIDENCE } from '@/lib/evidence'
-import AnimatedLabel from '@/components/ui/AnimatedLabel'
 
-/**
- * NicheDetail — the one-pager for a single niche, as its own page.
- * Reached from the "Who we help" list ("Learn more" on every niche) and from
- * site search. Everything renders from the same NICHES data that drives the
- * list, the Niche Explorer, and the search index, so the copy can never drift
- * from the rest of the site.
- */
+/** One industry, on one calm page. Same NICHES data as the finder and the
+ *  prerendered SEO pages. */
 export default function NicheDetail() {
   const { id = '' } = useParams()
   const niche = NICHES.find((n) => n.id === id)
@@ -21,26 +18,20 @@ export default function NicheDetail() {
     document.title = niche?.seo?.title ?? 'Stay Booked Marketing'
     const meta = document.querySelector('meta[name="description"]')
     if (niche?.seo?.description && meta) meta.setAttribute('content', niche.seo.description)
-    return () => {
-      document.title = 'Stay Booked Marketing | Lead Generation for Local Businesses'
-    }
+    return () => { document.title = 'Stay Booked Marketing | Lead Generation for Local Businesses' }
   }, [niche])
 
   if (!niche) {
     return (
       <>
         <Navbar />
-        <div className="nav-spacer" aria-hidden="true" />
-        <section className="section section-offwhite">
-          <div className="wrap lp-narrow">
-            <h1 className="title">We don't build for that yet.</h1>
-            <p className="body lp-hook-body">
-              If your business serves local customers, we can build for it. See every niche we
-              serve, or book a free strategy call.
-            </p>
-            <Link className="contact-book-btn" to="/">See who we help</Link>
-          </div>
-        </section>
+        <main className="q-page">
+          <PageHead kicker="Industries" title="We haven't written that one up yet.">
+            <p>If your customers can find you online, we can build for it. A short call is the fastest way to know.</p>
+          </PageHead>
+          <TalkBlock />
+        </main>
+        <Footer />
       </>
     )
   }
@@ -48,98 +39,41 @@ export default function NicheDetail() {
   return (
     <>
       <Navbar />
-      <div className="nav-spacer" aria-hidden="true" />
+      <main className="q-page">
+        <PageHead kicker={`Industries / ${niche.name}`} title={niche.name}>
+          <p>{niche.summary}</p>
+        </PageHead>
 
-      {/* 1. Header — the niche and who it's for */}
-      <section className="section section-offwhite" id={`nd-${niche.id}`}>
-        <Reveal className="wrap lp-narrow" amount={0.2}>
-          <RevealItem as="p" className="label">Industries / {niche.name}</RevealItem>
-          <RevealItem as="h1" className="title">{niche.name}.</RevealItem>
-          <RevealItem as="p" className="body lp-hook-body">{niche.desc}</RevealItem>
-          <RevealItem as="p" className="body lp-hook-body nd-examples">
-            Who it's for: {niche.examples}.
-          </RevealItem>
-        </Reveal>
-      </section>
+        <section className="q-sec q-wrap q-split">
+          <Fade>
+            <p className="q-kicker">What we do</p>
+          </Fade>
+          <Fade className="q-prose">
+            <p>{niche.whatWeDo}</p>
+          </Fade>
+        </section>
 
-      {/* 2. What we do — the one-pager voice */}
-      <section className="section section-light">
-        <div className="wrap lp-narrow">
-          <Reveal amount={0.2}>
-            <RevealItem as="p" className="label">What we do</RevealItem>
-            <RevealItem as="p" className="body nd-whatwedo">{niche.whatWeDo}</RevealItem>
-          </Reveal>
-          <Reveal className="nd-books" amount={0.15}>
-            <RevealItem as="p" className="label">What we book</RevealItem>
-            <div className="nx-books">
-              {niche.books.map((b) => (
-                <span className="nx-book" key={b}>{b}</span>
-              ))}
-            </div>
-          </Reveal>
-        </div>
-      </section>
+        <section className="q-sec q-wrap q-split">
+          <Fade>
+            <p className="q-kicker">The details</p>
+          </Fade>
+          <Fade>
+            <dl className="q-facts">
+              <div><dt>For</dt><dd>{niche.examples}</dd></div>
+              <div><dt>We book</dt><dd>{niche.books.join(', ')}</dd></div>
+              <div><dt>Tuned around</dt><dd>{niche.tuned}</dd></div>
+              <div><dt>Bookings reported to</dt><dd>{niche.handoff}</dd></div>
+              <div><dt>Pricing</dt><dd>Quoted after a free call. No startup fee, no long contract.</dd></div>
+            </dl>
+            {niche.to && (
+              <Link className="q-link q-facts-link" to={niche.to}>{niche.linkLabel} <Arrow /></Link>
+            )}
+          </Fade>
+        </section>
 
-      {/* 3. How the system is tuned — the one-pager details */}
-      <section className="section section-offwhite">
-        <div className="wrap lp-narrow">
-          <Reveal as="ul" className="lp-points ind-list" amount={0.15}>
-            <RevealItem as="li" className="lp-point ind-row nd-row">
-              <span className="ind-name">Tuned around</span>
-              <span className="ind-desc">{niche.tuned}.</span>
-            </RevealItem>
-            <RevealItem as="li" className="lp-point ind-row nd-row">
-              <span className="ind-name">Your AI reports to</span>
-              <span className="ind-desc">{niche.handoff}.</span>
-            </RevealItem>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* 4. Speed to lead + investment */}
-      <section className="section section-deep">
-        <div className="wrap lp-narrow">
-          <Reveal amount={0.2}>
-            <RevealItem as="p" className="label">Speed to lead</RevealItem>
-            <Reveal as="ul" className="nd-stats" amount={0.15}>
-              {SPEED_EVIDENCE.map((s) => (
-                <RevealItem as="li" className="nd-stat" key={s.figure}>
-                  <span className="nd-stat-value">{s.figure}</span>
-                  <span className="nd-stat-label">{s.text}</span>
-                  <a className="nd-stat-source" href={s.url} target="_blank" rel="noopener noreferrer">
-                    {s.source}
-                  </a>
-                </RevealItem>
-              ))}
-            </Reveal>
-          </Reveal>
-          <Reveal className="nd-invest" amount={0.15}>
-            <RevealItem as="p" className="label">Pricing</RevealItem>
-            <RevealItem as="p" className="body nd-whatwedo">
-              Every program is quoted for your business after a free strategy call. No startup fee
-              and no long-term contract. Ad spend goes directly to the ad platforms, not to us.
-              Call or text <a href="tel:+18134805818">(813) 480-5818</a> or email{' '}
-              <a href="mailto:kolby@staybookedmarketing.com">kolby@staybookedmarketing.com</a> for a quote.
-            </RevealItem>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* 5. CTA */}
-      <section className="section section-light lp-final">
-        <Reveal className="wrap wrap-contact" amount={0.35}>
-          <RevealItem as="h2" className="contact-headline">Sound like your business?</RevealItem>
-          <RevealItem as="p" className="body contact-body">
-            Book a free strategy call and we&apos;ll show you exactly how this system books {niche.books[0].toLowerCase()} for {niche.examples.toLowerCase()}.
-          </RevealItem>
-          <RevealItem as="div" className="hc-ctas" delay={0.2}>
-            <a className="contact-book-btn anim-btn" href="/book">
-              <AnimatedLabel>Book a Call</AnimatedLabel>
-            </a>
-            <Link className="contact-book-btn" to="/#industries">See every niche</Link>
-          </RevealItem>
-        </Reveal>
-      </section>
+        <TalkBlock line="Sound like your business?" />
+      </main>
+      <Footer />
     </>
   )
 }

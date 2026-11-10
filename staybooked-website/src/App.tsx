@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
-import ScrollProgress from '@/components/ui/ScrollProgress'
 import Home from '@/pages/Home'
 import Privacy from '@/pages/Privacy'
 import Terms from '@/pages/Terms'
@@ -8,15 +7,14 @@ import FreeCall from '@/pages/FreeCall'
 import Healthcare from '@/pages/Healthcare'
 import NicheDetail from '@/pages/NicheDetail'
 import Book from '@/pages/Book'
+import HowItWorks from '@/pages/HowItWorks'
 import Analytics from '@/components/Analytics'
 import ChatWidget from '@/components/ChatWidget'
+import CallBar from '@/components/q/CallBar'
 import Team from '@/pages/Team'
 import NotFound from '@/pages/NotFound'
 
-/** Route changes land at the top of the new page (browsers only restore
- *  scroll on history navigation, not on pushed links). A /#section hash keeps
- *  retrying until the target exists — home mounts its sections only after the
- *  intro reveals, so the element can appear seconds after navigation. */
+/** New pages open at the top; a /#section link scrolls to that section. */
 function ScrollToTop() {
   const { pathname, hash } = useLocation()
   useEffect(() => {
@@ -26,8 +24,8 @@ function ScrollToTop() {
       let timer: number | undefined
       const attempt = () => {
         const el = document.getElementById(id)
-        if (el) el.scrollIntoView()
-        else if (++tries < 60) timer = window.setTimeout(attempt, 200)
+        if (el) el.scrollIntoView({ behavior: 'smooth' })
+        else if (++tries < 20) timer = window.setTimeout(attempt, 100)
       }
       attempt()
       return () => window.clearTimeout(timer)
@@ -40,20 +38,21 @@ function ScrollToTop() {
 export default function App() {
   return (
     <BrowserRouter>
-      <ScrollProgress />
       <ScrollToTop />
       <Analytics />
       <ChatWidget />
+      <CallBar />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/how-it-works" element={<HowItWorks />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="/free-call" element={<FreeCall />} />
         <Route path="/healthcare" element={<Healthcare />} />
-      <Route path="/niches/:id" element={<NicheDetail />} />
-      <Route path="/team" element={<Team />} />
-      <Route path="/book" element={<Book />} />
-      <Route path="*" element={<NotFound />} />
+        <Route path="/niches/:id" element={<NicheDetail />} />
+        <Route path="/team" element={<Team />} />
+        <Route path="/book" element={<Book />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   )
