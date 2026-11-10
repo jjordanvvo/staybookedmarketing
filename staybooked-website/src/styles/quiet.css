@@ -708,23 +708,36 @@ body::before {
   .q-split .q-kicker { margin-bottom: 0; }
 }
 
-/* ---- what we do (one paragraph) ---- */
-.q-what-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
-  gap: 24px clamp(40px, 6vw, 96px);
-}
-.q-what-text {
+/* ---- what we do (one line + terms) ---- */
+.q-what-line {
   font-family: var(--q-serif);
-  font-size: clamp(1.55rem, 2.7vw, 2.5rem);
-  line-height: 1.24;
-  color: var(--q-dim);
-  max-width: 34ch;
+  font-size: clamp(2.2rem, 4.5vw, 4.4rem);
+  line-height: 1.05;
+  letter-spacing: -0.015em;
 }
-.q-what-text em { font-style: normal; color: var(--q-paper); }
-.q-what-link { margin-top: 40px; }
+@media (min-width: 861px) { .q-what-line { white-space: nowrap; } }
+.q-what-line a { transition: color 0.3s var(--q-ease); }
+.q-what-line a:hover { color: var(--q-tan); }
+.q-what-sep { color: var(--q-faint); }
+.q-terms {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: clamp(32px, 4vw, 52px);
+  border-top: 1px solid var(--q-line);
+}
+.q-terms li {
+  padding: 18px 40px 0 0;
+  margin-right: 40px;
+  font-size: 15px;
+  color: var(--q-dim);
+  border-right: 1px solid var(--q-line);
+}
+.q-terms li:last-child { border-right: 0; }
+.q-terms li::before { content: ''; display: inline-block; width: 6px; height: 6px; background: var(--q-tan); margin-right: 12px; transform: translateY(-2px); }
 @media (max-width: 760px) {
-  .q-what-grid { grid-template-columns: 1fr; }
+  .q-terms { flex-direction: column; }
+  .q-terms li { border-right: 0; padding: 12px 0 0; margin: 0; }
 }
 
 /* ---- finder goals ---- */

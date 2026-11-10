@@ -18,24 +18,10 @@ export const TEAM_EMAILS = [
 export const TAGLINE = ['Whatever you sell,', "we find who's buying."] as const
 export const TAGLINE_TEXT = TAGLINE.join(' ')
 
-/**
- * "What we do" on the home page: one plain paragraph, read top to bottom.
- * `em` pieces are set in the accent colour. Kept as data so the prerender
- * writes the same words for search engines.
- */
-export const WHAT_WE_DO: { text: string; em?: boolean }[] = [
-  { text: 'We run ' },
-  { text: 'custom ad campaigns', em: true },
-  { text: ' on Google, Meta and social, shaped around how your business actually makes money. Booked appointments, phone calls, online orders, walk-ins. When a lead comes in, ' },
-  { text: 'we answer within minutes', em: true },
-  { text: ', so nobody waits long enough to call someone else. We ' },
-  { text: 'launch products', em: true },
-  { text: ', build ' },
-  { text: 'websites and apps', em: true },
-  { text: ', and write the ' },
-  { text: 'custom software', em: true },
-  { text: " that ties it all together. And when what you need isn't on that list, we build that too." },
-]
+/** "What we do" on the home page: one line, then the three things that
+ *  make it easy to say yes (all stated in the FAQ). */
+export const WHAT_WE_DO = ['Ads', 'Follow-up', 'Websites', 'Software', 'Launches']
+export const TERMS = ['No setup fee', 'No long contract', 'You own every account and lead']
 
 /** Business finder: what the visitor wants more of. Each answer works for
  *  any business; `{biz}` becomes what they typed. */

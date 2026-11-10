@@ -22,7 +22,7 @@ import { NICHES } from '../src/lib/niches'
 import { SPEED_EVIDENCE } from '../src/lib/evidence'
 import { FAQS } from '../src/lib/faqs'
 import { FOUNDERS } from '../src/lib/founders'
-import { HOW_STEPS, SERVICES, PLAN_STEPS, WHAT_WE_DO, GOALS, TAGLINE_TEXT } from '../src/lib/content'
+import { HOW_STEPS, SERVICES, PLAN_STEPS, WHAT_WE_DO, TERMS, GOALS, TAGLINE_TEXT } from '../src/lib/content'
 
 const DIST = join(process.cwd(), 'dist')
 const SITE = 'https://staybookedmarketing.com'
@@ -114,7 +114,7 @@ const homeContent = [
     'top',
   ),
   section(
-    label('What we do') + body(WHAT_WE_DO.map((p) => p.text).join('')) +
+    label('What we do') + body(`${WHAT_WE_DO.join(', ')}. ${TERMS.join('. ')}.`) +
       GOALS.map((g) => `<p class="body"><strong>Need ${esc(g.label)}?</strong> ${esc(g.answer.replace(/\{biz\}/g, 'your business'))}</p>`).join(''),
     'what',
   ),
