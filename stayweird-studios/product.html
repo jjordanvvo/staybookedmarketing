@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Product | Stay Weird Studios</title>
+<meta name="description" content="Stay Weird Studios — clothing.">
+<link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+<main>
+<div class="pdp" id="pdp"></div>
+<section class="section">
+  <div class="section__head"><h2 class="section__title">You May Also Like</h2></div>
+  <div class="grid" id="recs"></div>
+</section>
+</main>
+<script src="/assets/products.js"></script>
+<script src="/assets/app.js"></script>
+<script>
+  const id = new URLSearchParams(location.search).get("id");
+  const p = SW_PRODUCTS.find(x => x.id === id) || SW_PRODUCTS[0];
+  document.title = p.name + " — " + p.color + " | Stay Weird Studios";
+  const sold = p.sizes.every(s => p.soldOut.includes(s));
+  const imgs = [0, 1, 2, 3, 4].map(i => SW_media(p, i, i % 2 === 1)).join("");
+  const coll = SW_COLLECTIONS.find(c => c.id === p.collection);
+  const oneSize = p.sizes.length === 1;
+  document.getElementById("pdp").innerHTML = `
+    <div><div class="pdp__gallery" id="gallery">${imgs}</div><div class="dots" id="dots">${[0,1,2,3,4].map(i => `<span class="${i ? "" : "on"}"></span>`).join("")}</div></div>
+    <div class="pdp__info">
+      <div class="crumbs"><a href="/">Home</a> / <a href="/shop?c=${p.collection}">${coll ? coll.name : "Shop"}</a></div>
+      <h1>${p.name}</h1>
+      <div class="pdp__color">${p.color}</div>
+      <div class="pdp__price">$${p.price}</div>
+      <div class="opt-label"><span>Size: <b id="size-label">${oneSize ? p.sizes[0] : "Select"}</b></span><a href="#size-chart" class="link-btn" onclick="document.getElementById('size-chart').open=true">Size Guide</a></div>
+      <div class="sizes" id="sizes">${p.sizes.map(s => `<button data-s="${s}" ${p.soldOut.includes(s) ? "disabled" : ""} class="${oneSize ? "sel" : ""}">${s}</button>`).join("")}</div>
+      <div class="pdp__actions">
+        <button class="btn" id="atc" ${sold ? "disabled" : ""}>${sold ? "Sold Out" : oneSize ? "Add to Cart" : "Select a Size"}</button>
+      </div>
+      <p class="pdp__note">Free shipping on orders over $150</p>
+      <div class="acc">
+        <details open><summary>Description</summary><div class="acc__body">Placeholder product description. Fabric, fit and details go here.</div></details>
+        <details><summary>Details & Care</summary><div class="acc__body">100% cotton (placeholder). Machine wash cold, hang dry.</div></details>
+        <details id="size-chart"><summary>Size Chart</summary><div class="acc__body">
+          <table><tr><th>Size</th><th>Chest</th><th>Length</th></tr><tr><td>S</td><td>21"</td><td>27"</td></tr><tr><td>M</td><td>22"</td><td>28"</td></tr><tr><td>L</td><td>23"</td><td>29"</td></tr><tr><td>XL</td><td>24"</td><td>30"</td></tr></table>
+        </div></details>
+        <details><summary>Shipping & Returns</summary><div class="acc__body">Orders ship in 3–5 business days. Returns accepted within 14 days on unworn items.</div></details>
+      </div>
+    </div>`;
+  let size = oneSize ? p.sizes[0] : null;
+  const atc = document.getElementById("atc");
+  document.getElementById("sizes").addEventListener("click", e => {
+    const b = e.target.closest("button[data-s]"); if (!b || b.disabled) return;
+    document.querySelectorAll("#sizes button").forEach(x => x.classList.remove("sel"));
+    b.classList.add("sel"); size = b.dataset.s;
+    document.getElementById("size-label").textContent = size;
+    atc.textContent = "Add to Cart";
+  });
+  atc.addEventListener("click", () => {
+    if (!size) { SW_toast("Please select a size"); return; }
+    SW_addToCart(p.id, size);
+  });
+  const g = document.getElementById("gallery"), dots = document.querySelectorAll("#dots span");
+  g.addEventListener("scroll", () => {
+    const i = Math.round(g.scrollLeft / g.clientWidth);
+    dots.forEach((d, j) => d.classList.toggle("on", j === i));
+  }, { passive: true });
+  const recs = SW_PRODUCTS.filter(x => x.id !== p.id && x.collection === p.collection)
+    .concat(SW_PRODUCTS.filter(x => x.id !== p.id && x.collection !== p.collection)).slice(0, 4);
+  document.getElementById("recs").innerHTML = recs.map(SW_card).join("");
+</script>
+</body>
+</html>

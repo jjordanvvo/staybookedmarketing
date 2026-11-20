@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shop | Stay Weird Studios</title>
+<meta name="description" content="Stay Weird Studios — clothing.">
+<link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+<main>
+<div class="coll-head"><h1 id="coll-title">Shop All</h1><p id="coll-count"></p></div>
+<div class="toolbar">
+  <nav class="chips" id="chips"></nav>
+  <label>Sort:
+    <select id="sort">
+      <option value="featured">Featured</option>
+      <option value="new">Newest</option>
+      <option value="low">Price, low to high</option>
+      <option value="high">Price, high to low</option>
+      <option value="az">A–Z</option>
+    </select>
+  </label>
+</div>
+<section class="section" style="padding-top:28px"><div class="grid" id="coll-grid"></div></section>
+</main>
+<script src="/assets/products.js"></script>
+<script src="/assets/app.js"></script>
+<script>
+  const params = new URLSearchParams(location.search);
+  const c = params.get("c") || "all";
+  const sortSel = document.getElementById("sort");
+  sortSel.value = params.get("sort") || "featured";
+  const coll = SW_COLLECTIONS.find(x => x.id === c) || SW_COLLECTIONS[0];
+  document.getElementById("coll-title").textContent = coll.name;
+  document.title = coll.name + " | Stay Weird Studios";
+  document.getElementById("chips").innerHTML = SW_COLLECTIONS.map(x =>
+    `<a href="/shop?c=${x.id}" class="${x.id === coll.id ? "active" : ""}">${x.name}</a>`).join("");
+  function render() {
+    let list = SW_PRODUCTS.filter(p => coll.id === "all" || p.collection === coll.id);
+    const s = sortSel.value;
+    if (s === "low") list = [...list].sort((a, b) => a.price - b.price);
+    if (s === "high") list = [...list].sort((a, b) => b.price - a.price);
+    if (s === "az") list = [...list].sort((a, b) => a.name.localeCompare(b.name));
+    if (s === "new") list = [...list].sort((a, b) => (b.badge === "New") - (a.badge === "New"));
+    document.getElementById("coll-count").textContent = list.length + (list.length === 1 ? " product" : " products");
+    document.getElementById("coll-grid").innerHTML = list.length ? list.map(SW_card).join("") : '<p class="empty">Nothing here yet</p>';
+  }
+  sortSel.addEventListener("change", () => {
+    params.set("sort", sortSel.value);
+    history.replaceState(null, "", "?" + params.toString());
+    render();
+  });
+  render();
+</script>
+</body>
+</html>
