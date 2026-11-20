@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Home | Stay Weird Studios</title>
+<meta name="description" content="Stay Weird Studios — clothing.">
+<link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+<main>
+<section class="hero">
+  <div class="ph">Hero image / video</div>
+  <div class="hero__content">
+    <h1 class="hero__title">Stay Weird</h1>
+    <p class="hero__sub">Drop 01 — Out Now</p>
+    <a class="btn btn--inline" href="/shop">Shop Now</a>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section__head"><h2 class="section__title">New Arrivals</h2><a class="section__link" href="/shop?sort=new">View All</a></div>
+  <div class="grid" id="home-new"></div>
+</section>
+
+<section class="tiles">
+  <a class="tile" href="/shop?c=tops"><div class="ph">Collection image</div><div class="tile__label">Tops<small>Shop</small></div></a>
+  <a class="tile" href="/shop?c=bottoms"><div class="ph ph--alt">Collection image</div><div class="tile__label">Bottoms<small>Shop</small></div></a>
+</section>
+
+<section class="section">
+  <div class="section__head"><h2 class="section__title">Best Sellers</h2><a class="section__link" href="/shop">Shop All</a></div>
+  <div class="grid" id="home-best"></div>
+</section>
+
+<section class="feature">
+  <div class="ph">Campaign image</div>
+  <div class="feature__text">
+    <h2>Made for the weird ones</h2>
+    <p>Placeholder story text about the brand. Swap this with the real copy when it's ready.</p>
+    <a class="btn btn--ghost btn--inline" href="/about">Our Story</a>
+  </div>
+</section>
+
+<section class="section" style="padding-left:0;padding-right:0">
+  <div class="section__head" style="padding:0 24px"><h2 class="section__title">Lookbook</h2><a class="section__link" href="https://instagram.com" target="_blank" rel="noopener">Follow</a></div>
+  <div class="strip"><div class="ph">Look 1</div><div class="ph ph--alt">Look 2</div><div class="ph">Look 3</div><div class="ph ph--alt">Look 4</div><div class="ph">Look 5</div><div class="ph ph--alt">Look 6</div></div>
+</section>
+</main>
+<script src="/assets/products.js"></script>
+<script src="/assets/app.js"></script>
+<script>
+  const P = window.SW_PRODUCTS;
+  document.getElementById("home-new").innerHTML = [...new Set(P.filter(p => p.badge === "New").concat(P))].slice(0, 4).map(SW_card).join("");
+  document.getElementById("home-best").innerHTML = P.slice(4, 8).map(SW_card).join("");
+</script>
+</body>
+</html>
