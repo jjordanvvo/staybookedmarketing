@@ -1,4 +1,71 @@
 {
+  "redirects": [
+    {
+      "source": "/answers/home-services-san-diego",
+      "destination": "/answers/home-services-marketing",
+      "permanent": true
+    },
+    {
+      "source": "/answers/clubs-san-diego",
+      "destination": "/answers/clubs-marketing",
+      "permanent": true
+    },
+    {
+      "source": "/answers/legal-san-diego",
+      "destination": "/answers/legal-marketing",
+      "permanent": true
+    },
+    {
+      "source": "/answers/lifestyle-san-diego",
+      "destination": "/answers/lifestyle-marketing",
+      "permanent": true
+    },
+    {
+      "source": "/answers/finance-san-diego",
+      "destination": "/answers/finance-marketing",
+      "permanent": true
+    },
+    {
+      "source": "/answers/medical-san-diego",
+      "destination": "/answers/medical-marketing",
+      "permanent": true
+    },
+    {
+      "source": "/answers/rentals-san-diego",
+      "destination": "/answers/rentals-marketing",
+      "permanent": true
+    },
+    {
+      "source": "/answers/restaurants-san-diego",
+      "destination": "/answers/restaurants-marketing",
+      "permanent": true
+    },
+    {
+      "source": "/answers/brand-san-diego",
+      "destination": "/answers/brand-marketing",
+      "permanent": true
+    },
+    {
+      "source": "/answers/real-estate-san-diego",
+      "destination": "/answers/real-estate-marketing",
+      "permanent": true
+    },
+    {
+      "source": "/answers/private-schools-san-diego",
+      "destination": "/answers/private-schools-marketing",
+      "permanent": true
+    },
+    {
+      "source": "/answers/best-advertising-agency-san-diego",
+      "destination": "/answers/lead-generation-agency",
+      "permanent": true
+    },
+    {
+      "source": "/answers/marketing-agency-cost-san-diego",
+      "destination": "/answers/marketing-agency-cost",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/(.*)",

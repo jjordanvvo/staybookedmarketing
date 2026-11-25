@@ -209,7 +209,7 @@ export default function FreeCall() {
             }}
             whileTap={reduce ? undefined : { scale: 0.98 }}
           >
-            Book a Free Call
+            Book a Free Strategy Call
           </motion.a>
         </div>
       </section>
@@ -296,7 +296,7 @@ export default function FreeCall() {
             href="/book"
             delay={0.2}
           >
-            Book a Free Call
+            Book a Free Strategy Call
           </RevealItem>
         </Reveal>
       </section>

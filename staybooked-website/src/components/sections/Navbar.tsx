@@ -16,9 +16,9 @@ type NavbarProps = {
 // Section anchors on the home page. Off "/" they route to /#id and the
 // ScrollToTop handler in App.tsx finishes the scroll once the section mounts.
 const ANCHORS = [
+  { label: 'Services', id: 'services' },
   { label: 'Industries', id: 'industries' },
   { label: 'Founders', id: 'founders' },
-  { label: 'Services', id: 'services' },
   { label: 'Pricing', id: 'pricing' },
   { label: 'FAQ', id: 'faq' },
   { label: 'Contact', id: 'contact' },
@@ -76,7 +76,7 @@ export default function Navbar({ revealed = true, delay = 0 }: NavbarProps) {
             <img className="nav-logo" src={logo} alt="Stay Booked Marketing" />
           </Link>
         )}
-        <span className="nav-wordmark">staybookedmarketing.com</span>
+        <span className="nav-wordmark">Stay Booked Marketing</span>
       </div>
       <div className="nav-right">
         <ul className="nav-links">

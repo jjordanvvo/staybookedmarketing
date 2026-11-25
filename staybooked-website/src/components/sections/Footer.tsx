@@ -5,7 +5,6 @@ export default function Footer() {
   return (
     <footer className="footer">
       <img className="footer-logo" src={logo} alt="Stay Booked Marketing" />
-      <span className="footer-domain">staybookedmarketing.com</span>
       <a className="footer-phone" href="tel:+18134805818">(813) 480-5818</a>
       <div className="footer-legal">
         <span className="footer-phone">© {new Date().getFullYear()} Stay Booked Marketing LLC</span>

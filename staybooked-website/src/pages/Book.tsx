@@ -19,7 +19,7 @@ const EMBED_URL =
 const AGENDA = [
   {
     head: '15 minutes, straight answers',
-    body: "We audit your current setup, look at your market, and tell you exactly what we'd do to book more jobs. You leave with a plan whether or not you hire us.",
+    body: "We audit your current setup, look at your market, and tell you exactly what we'd do to get more customers booked. You leave with a plan whether or not you hire us.",
   },
   {
     head: 'No pitch deck, no pressure',
@@ -47,7 +47,6 @@ export default function Book() {
       <section className="section section-offwhite" id="book">
         <div className="wrap">
           <Reveal amount={0.3}>
-            <RevealItem as="p" className="label">Book a Call</RevealItem>
             <RevealItem as="h1" className="title">Grab a time that works.</RevealItem>
             <RevealItem as="p" className="body lp-hook-body">
               {EMBED_URL

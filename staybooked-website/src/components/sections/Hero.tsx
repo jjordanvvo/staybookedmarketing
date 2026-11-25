@@ -3,6 +3,7 @@ import { motion, useReducedMotion, useSpring } from 'framer-motion'
 import GlassMark from '@/components/ui/GlassMark'
 import { EASE } from '@/components/ui/Reveal'
 import AnimatedLabel from '@/components/ui/AnimatedLabel'
+import { useIsMobile } from '@/hooks/useIsMobile'
 
 // Cursor parallax only makes sense with a real pointer (decided once at load).
 const FINE_POINTER =
@@ -11,34 +12,30 @@ const FINE_POINTER =
 
 type HeroProps = {
   /** False while the intro title card is still up — the entrance holds until
-   *  the curtains start lifting, so the mark settles in mid-reveal. */
+   *  the curtains start lifting. */
   revealed?: boolean
-  /** Whether this page load opened with the intro (pushes the idle breath back
-   *  so it never runs during the entrance). */
+  /** Whether this page load opened with the intro. */
   intro?: boolean
 }
 
 /**
- * Hero — cinematic glass-mark intro.
- * 1. The glass mark settles in with a slow scale-and-blur entrance (global
- *    easing), cued by the intro curtain when the title sequence plays.
- * 2. The Originkit glass torus slowly turns behind the STAY BOOKED lettering —
- *    the lettering stays the focal point; the glass is the accent.
- * 3. On desktop, the scene drifts a few pixels toward the cursor via lazy
- *    springs — disabled on touch devices and under prefers-reduced-motion.
+ * Hero — the offer first. The headline, the one-line promise, the booking
+ * button and the phone number all sit in the first screen; the glass SBM mark
+ * is the brand accent beside them on desktop (phones get text only, so the
+ * nav logo is the one logo on screen).
  */
 export default function Hero({ revealed = true, intro = false }: HeroProps) {
   const reduce = useReducedMotion()
+  const mobile = useIsMobile(900)
 
-  // Lazy, heavy springs — the drift trails the cursor rather than tracking it.
+  // Lazy, heavy springs — the glass drifts a few pixels toward the cursor.
   const x = useSpring(0, { stiffness: 40, damping: 18, mass: 1 })
   const y = useSpring(0, { stiffness: 40, damping: 18, mass: 1 })
-
   const onMove = (e: MouseEvent<HTMLElement>) => {
     if (!FINE_POINTER || reduce) return
     const r = e.currentTarget.getBoundingClientRect()
-    x.set(((e.clientX - r.left) / r.width - 0.5) * 12) // max ±6px drift
-    y.set(((e.clientY - r.top) / r.height - 0.5) * 10) // max ±5px drift
+    x.set(((e.clientX - r.left) / r.width - 0.5) * 12)
+    y.set(((e.clientY - r.top) / r.height - 0.5) * 10)
   }
   const onLeave = () => {
     x.set(0)
@@ -46,37 +43,46 @@ export default function Hero({ revealed = true, intro = false }: HeroProps) {
   }
 
   const show = reduce || revealed
+  const enter = (delay: number) => ({
+    initial: reduce ? { opacity: 1 } : { opacity: 0, y: 14 },
+    animate: show ? { opacity: 1, y: 0 } : undefined,
+    transition: { duration: 0.9, ease: EASE, delay: (intro ? 0.3 : 0) + delay },
+  })
 
   return (
     <header className="hero" id="hero" onMouseMove={onMove} onMouseLeave={onLeave}>
-      <motion.div
-        className="hero-motion"
-        style={{ x, y }}
-        initial={reduce ? { opacity: 1 } : { opacity: 0, scale: 1.045, filter: 'blur(14px)' }}
-        animate={show ? { opacity: 1, scale: 1, filter: 'blur(0px)' } : undefined}
-        transition={{ duration: 1.6, ease: EASE, delay: intro ? 0.35 : 0 }}
-      >
-        <GlassMark
-          background="#CFB48E"
-          text="STAY BOOKED"
-          textColor="#141414"
-        />
-      </motion.div>
-      {/* The promise and the one action, visible before any scroll. Lands with
-          the wordmark so ad traffic sees the offer in the first seconds. */}
-      <motion.div
-        className="hero-pitch"
-        initial={reduce ? { opacity: 1 } : { opacity: 0, y: 12 }}
-        animate={show ? { opacity: 1, y: 0 } : undefined}
-        transition={{ duration: 1.1, ease: EASE, delay: intro ? 0.75 : 0.2 }}
-      >
-        <p className="hero-pitch-line">
-          We run your ads, follow up with every lead in minutes, and book the appointments onto your calendar.
-        </p>
-        <a className="contact-book-btn hero-pitch-btn anim-btn" href="/book">
-          <AnimatedLabel>Book a Free Strategy Call</AnimatedLabel>
-        </a>
-      </motion.div>
+      <div className="hero-inner">
+        <div className="hero-copy">
+          <motion.p className="hero-cred" {...enter(0)}>
+            Founded by Stanford and Penn graduates
+          </motion.p>
+          <motion.h1 className="hero-title" {...enter(0.08)}>
+            We turn your ads into booked customers.
+          </motion.h1>
+          <motion.p className="hero-pitch-line" {...enter(0.18)}>
+            We run your ads, reply to every new lead within minutes, and book them onto your calendar.
+          </motion.p>
+          <motion.div className="hero-ctas" {...enter(0.28)}>
+            <a className="contact-book-btn hero-pitch-btn anim-btn" href="/book">
+              <AnimatedLabel>Book a Free Strategy Call</AnimatedLabel>
+            </a>
+            <a className="hero-phone" href="tel:+18134805818">
+              or call (813) 480-5818
+            </a>
+          </motion.div>
+        </div>
+        {!mobile && (
+          <motion.div
+            className="hero-motion"
+            style={{ x, y }}
+            initial={reduce ? { opacity: 1 } : { opacity: 0, scale: 1.04, filter: 'blur(12px)' }}
+            animate={show ? { opacity: 1, scale: 1, filter: 'blur(0px)' } : undefined}
+            transition={{ duration: 1.4, ease: EASE, delay: intro ? 0.2 : 0 }}
+          >
+            <GlassMark background="#CFB48E" text="SBM." textColor="#141414" size={34} />
+          </motion.div>
+        )}
+      </div>
     </header>
   )
 }

@@ -2,7 +2,8 @@ import type { ReactNode } from 'react'
 import { useReducedMotion } from 'framer-motion'
 import { Reveal, RevealItem } from '@/components/ui/Reveal'
 import AnimatedLabel from '@/components/ui/AnimatedLabel'
-import { CONTACT_FORM_URL } from '@/lib/booking'
+import { CONTACT_FORM_URL, CONTACT_FORM_ID } from '@/lib/booking'
+import { useGhlFormResize } from '@/hooks/useGhlFormResize'
 
 /**
  * Contact is the final section. The Footer is rendered as `children`
@@ -13,13 +14,13 @@ import { CONTACT_FORM_URL } from '@/lib/booking'
  */
 export default function Contact({ children }: { children?: ReactNode }) {
   const reduce = useReducedMotion()
+  useGhlFormResize()
   return (
     <section className="section section-deep contact-section" id="contact">
       <div className="contact-center">
         <Reveal className="wrap wrap-contact" amount={0.3}>
-          <RevealItem as="p" className="label">Get in touch</RevealItem>
           <RevealItem as="h2" className="contact-headline">Let's get you booked.</RevealItem>
-          <RevealItem as="p" className="body contact-body">Send us an email, give us a direct call, or schedule a 15-minute meeting with our team. Whatever works best for you.</RevealItem>
+          <RevealItem as="p" className="body contact-body">Book a free 15-minute call, send us a message, or call us directly.</RevealItem>
 
           {/* Primary call to action — a booked call is the best outcome.
               whileTap gives a confident press; hover lift + fill live in CSS. */}
@@ -29,7 +30,7 @@ export default function Contact({ children }: { children?: ReactNode }) {
             href="/book"
             whileTap={reduce ? undefined : { scale: 0.98 }}
           >
-            <AnimatedLabel>Book a 15-Minute Call</AnimatedLabel>
+            <AnimatedLabel>Book a Free Strategy Call</AnimatedLabel>
           </RevealItem>
 
           {/* Not ready to book? A short GHL form: creates the contact in GHL,
@@ -37,10 +38,13 @@ export default function Contact({ children }: { children?: ReactNode }) {
           <RevealItem as="div" className="contact-form">
             <p className="contact-alt-label">Or send a quick message</p>
             <iframe
+              id={`inline-${CONTACT_FORM_ID}`}
               src={CONTACT_FORM_URL}
               title="Contact Stay Booked Marketing"
               loading="lazy"
               className="contact-form-frame"
+              data-layout="{'id':'INLINE'}"
+              data-form-id={CONTACT_FORM_ID}
             />
           </RevealItem>
 

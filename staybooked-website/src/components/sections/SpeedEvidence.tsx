@@ -2,15 +2,14 @@ import { Reveal, RevealItem } from '@/components/ui/Reveal'
 import { SPEED_EVIDENCE } from '@/lib/evidence'
 
 /**
- * Why speed wins — sourced 2026 research on lead response, in the same
- * editorial number style as the free-call page. Every figure links to its
- * source (see src/lib/evidence.ts).
+ * Why speed wins — sourced 2026 research on lead response, set on the dark
+ * ink band so the page changes pace here. Every figure links to its source
+ * (see src/lib/evidence.ts).
  */
 export default function SpeedEvidence() {
   return (
-    <section className="section section-light lp-proof" id="evidence">
+    <section className="section section-ink lp-proof" id="evidence">
       <Reveal className="wrap" amount={0.35}>
-        <RevealItem as="p" className="label">Why speed wins</RevealItem>
         <RevealItem as="h2" className="title">Most businesses answer too slowly. Yours won't.</RevealItem>
       </Reveal>
       <Reveal as="div" className="wrap lp-stat-rows" amount={0.2}>

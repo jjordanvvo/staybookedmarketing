@@ -24,13 +24,12 @@ export default function NotFound() {
       <div className="nav-spacer" aria-hidden="true" />
       <section className="section section-offwhite" id="not-found">
         <div className="wrap">
-          <p className="label">Page not found</p>
           <h1 className="title">This page doesn't exist.</h1>
           <p className="body lp-hook-body">
             The link may be old or mistyped. Here's where you can go from here.
           </p>
           <div className="notfound-ctas">
-            <a className="contact-book-btn" href="/book">Book a Free Call</a>
+            <a className="contact-book-btn" href="/book">Book a Free Strategy Call</a>
             <Link className="notfound-home" to="/">Back to the homepage</Link>
           </div>
         </div>

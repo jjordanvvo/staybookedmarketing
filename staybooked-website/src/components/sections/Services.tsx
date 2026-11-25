@@ -4,17 +4,17 @@ export const SERVICES = [
   {
     num: '01',
     name: 'Lead Generation Systems',
-    desc: 'Our core offering. We build the entire path from first click to booked appointment: campaigns, landing pages, automated qualification, and follow-up that runs without you. Every lead is screened before it reaches you, so what lands on your calendar is ready to talk.',
+    desc: 'Our core offering. We build the whole path from first click to booked appointment: campaigns, landing pages, automated qualification, and follow-up that runs without you. Leads are screened before they reach you, so the people on your calendar are ready to talk.',
   },
   {
     num: '02',
     name: 'Multi-Platform Advertising',
-    desc: 'Meta, Google, and social, managed as one system rather than separate channels. We handle creative, targeting, budget, and testing, and we layer conversational AI on top so leads get a response in seconds instead of hours.',
+    desc: 'Facebook, Instagram, Google and other platforms, run as one budget instead of separate channels. We handle creative, targeting, budget and testing, and conversational AI replies to new leads in seconds instead of hours.',
   },
   {
     num: '03',
     name: 'Software Development',
-    desc: 'Websites, web applications, and custom software built in-house. Fast, clean, and built to convert, whether that is a site your ads can actually send traffic to or an internal tool that runs a piece of your business.',
+    desc: 'Websites, web apps and custom software, built in-house. That could be a site your ads can send traffic to without losing leads, or an internal tool that takes a manual job off your plate.',
   },
 ]
 
@@ -23,8 +23,7 @@ export default function Services() {
     <section className="section section-light" id="services">
       <div className="wrap">
         <Reveal>
-          <RevealItem as="p" className="label">Services</RevealItem>
-          <RevealItem as="h2" className="title">What we build.</RevealItem>
+          <RevealItem as="h2" className="title">What we build</RevealItem>
         </Reveal>
 
         <div className="svc-list">

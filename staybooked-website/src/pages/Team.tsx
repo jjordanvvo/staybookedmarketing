@@ -1,20 +1,8 @@
 import { useEffect } from 'react'
 import { Reveal, RevealItem } from '@/components/ui/Reveal'
 import Navbar from '@/components/sections/Navbar'
-import kolbyPhoto from '@/assets/kolby.webp'
-import jordanPhoto from '@/assets/jordan.webp'
-import austinPhoto from '@/assets/austin.webp'
-import trevorPhoto from '@/assets/trevor.webp'
-import nilesPhoto from '@/assets/niles.webp'
+import { FOUNDER_PHOTOS as PHOTOS } from '@/lib/founderPhotos'
 import { FOUNDERS } from '@/lib/founders'
-
-const PHOTOS: Record<string, string> = {
-  trevor: trevorPhoto,
-  jordan: jordanPhoto,
-  kolby: kolbyPhoto,
-  austin: austinPhoto,
-  niles: nilesPhoto,
-}
 import Footer from '@/components/sections/Footer'
 
 /**
@@ -39,7 +27,6 @@ export default function Team() {
       <section className="section section-offwhite" id="team">
         <div className="wrap">
           <Reveal amount={0.4}>
-            <RevealItem as="p" className="label">Meet the founders</RevealItem>
             <RevealItem as="h1" className="title">The people behind Stay Booked.</RevealItem>
             <RevealItem as="p" className="body lp-hook-body">
               Five founders, Stanford to Penn, running every account hands-on. No account

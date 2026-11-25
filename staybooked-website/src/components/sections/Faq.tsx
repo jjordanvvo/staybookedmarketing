@@ -11,13 +11,12 @@ type FaqProps = {
 }
 
 
-export default function Faq({ items = FAQS, title = 'Questions, answered.' }: FaqProps) {
+export default function Faq({ items = FAQS, title = 'Questions people ask us' }: FaqProps) {
   const [open, setOpen] = useState<number | null>(null)
   return (
     <section className="section section-offwhite" id="faq">
       <div className="wrap">
         <Reveal>
-          <RevealItem as="p" className="label">FAQ</RevealItem>
           <RevealItem as="h2" className="title">{title}</RevealItem>
         </Reveal>
 

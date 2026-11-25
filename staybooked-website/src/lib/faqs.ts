@@ -5,7 +5,7 @@ export type FaqEntry = { q: string; a: string }
 export const FAQS: FaqEntry[] = [
   {
     q: 'What industries do you work with?',
-    a: 'Any local service business: home services, trades, legal, fitness and med spas, professional services, and healthcare. If your customers are local and your business runs on appointments or jobs, the system fits. For medical and healthcare practices, we have a dedicated compliance-first approach you can read about on our healthcare page.',
+    a: 'Businesses that run on appointments, reservations and quotes: home services and trades, law firms, financial firms, medical and dental practices, real estate agents, restaurants, clubs and venues, rentals, private schools, big-ticket retail, and brands launching products. Healthcare practices get a compliance-first setup, covered on our healthcare page.',
   },
   {
     q: 'How fast will I see results?',
@@ -13,7 +13,11 @@ export const FAQS: FaqEntry[] = [
   },
   {
     q: 'How much does it cost?',
-    a: "Every business has a different market, budget, and goal, so we quote each program after a free 15-minute strategy call. Your program covers campaign creation and management, landing pages, automated lead follow-up, qualification, and booking, handled end to end. There's no startup fee. Ad spend is billed separately by the ad platforms and always stays yours. Call or text (813) 480-5818, email kolby@staybookedmarketing.com, or book a call to get your number.",
+    a: "We quote each program after a free 15-minute strategy call, because markets, budgets and goals differ. The program covers your campaigns, landing pages, lead follow-up, qualification and booking. There's no startup fee, and ad spend is billed by the ad platforms directly, so it always stays yours.",
+  },
+  {
+    q: "What if it doesn't work?",
+    a: "We set a goal together on the strategy call. If we don't hit it within 90 days, we keep working for free until we do.",
   },
   {
     q: 'Do you require a long-term contract?',

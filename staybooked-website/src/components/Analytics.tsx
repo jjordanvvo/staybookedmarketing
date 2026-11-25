@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
-import { initTracking, trackPageView, track, GA4_ID, META_PIXEL_ID } from '@/lib/tracking'
+import { initTracking, trackPageView, track } from '@/lib/tracking'
 
 /**
  * Analytics — mounts once in App. Loads GA4 + Meta Pixel when their IDs are
@@ -21,7 +21,7 @@ export default function Analytics() {
     const onClick = (e: MouseEvent) => {
       const t = e.target as HTMLElement | null
       if (!t) return
-      if (t.closest('a.contact-book-btn, a.nav-cta, a.stamp-cta')) {
+      if (t.closest('a.contact-book-btn, a.nav-cta')) {
         track('book_call_click', { location: window.location.pathname })
       } else if (t.closest('a.ind-learnmore')) {
         track('niche_learn_more', { location: window.location.pathname })
@@ -31,7 +31,5 @@ export default function Analytics() {
     return () => document.removeEventListener('click', onClick)
   }, [])
 
-  return (
-    GA4_ID || META_PIXEL_ID ? null : null
-  )
+  return null
 }

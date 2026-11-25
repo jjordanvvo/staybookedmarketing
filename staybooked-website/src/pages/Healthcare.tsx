@@ -146,7 +146,7 @@ export default function Healthcare() {
           <RevealItem as="div" className="hc-ctas" delay={0.2}>
             <Link className="contact-book-btn anim-btn" to="/free-call"><AnimatedLabel>See the program</AnimatedLabel></Link>
             <a className="contact-book-btn anim-btn" href="/book">
-              <AnimatedLabel>Book a Call</AnimatedLabel>
+              <AnimatedLabel>Book a Free Strategy Call</AnimatedLabel>
             </a>
           </RevealItem>
         </Reveal>

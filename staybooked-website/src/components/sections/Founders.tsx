@@ -1,33 +1,45 @@
 import { Link } from 'react-router-dom'
 import { Reveal, RevealItem } from '@/components/ui/Reveal'
-import type { Founder } from '@/lib/founders'
-import AnimatedLabel from '@/components/ui/AnimatedLabel'
+import { FOUNDERS, type Founder } from '@/lib/founders'
+import { FOUNDER_PHOTOS } from '@/lib/founderPhotos'
 
 export type { Founder }
 
-
 /**
- * Our Founders — five founder cards in a two-column grid (single compact
- * column on mobile; the odd fifth card centers itself across both columns).
- * Founder photos fill the square slots via object-fit: cover
- * (see .founder-photo); cards are data-driven so all five stay identical.
- * Two founders are named Jordan, so cards always show full names.
+ * Founders — the five people who run every account, faces first. A compact
+ * row of headshots with name and title; the full bios live on /team.
  */
-
-
-
 export default function Founders() {
   return (
     <section className="section section-offwhite" id="founders">
       <div className="wrap">
         <Reveal amount={0.4}>
-          <RevealItem as="p" className="label">Meet the founders</RevealItem>
-          <RevealItem as="h2" className="title">Our Founders</RevealItem>
+          <RevealItem as="h2" className="title">The five people running your account</RevealItem>
           <RevealItem as="p" className="body why-body">
-            Five founders running every account hands-on. No account managers, no ticket systems.
+            No account managers and no ticket queue. You work directly with the founders who build
+            and run your system.
           </RevealItem>
-          <RevealItem as="div" className="founders-cta" delay={0.15}>
-            <Link className="contact-book-btn anim-btn" to="/team"><AnimatedLabel>Meet our team</AnimatedLabel></Link>
+        </Reveal>
+        <Reveal as="ul" className="fr-row" amount={0.2}>
+          {FOUNDERS.map((f) => (
+            <RevealItem as="li" className="fr-card" key={f.name}>
+              <Link to="/team" className="fr-link">
+                <span className="fr-photo">
+                  {f.photo && FOUNDER_PHOTOS[f.photo] ? (
+                    <img src={FOUNDER_PHOTOS[f.photo]} alt="" loading="lazy" />
+                  ) : (
+                    <span className="founder-monogram" aria-hidden="true">{f.initials}</span>
+                  )}
+                </span>
+                <span className="fr-name">{f.name}</span>
+                <span className="fr-title">{f.title}</span>
+              </Link>
+            </RevealItem>
+          ))}
+        </Reveal>
+        <Reveal amount={0.5}>
+          <RevealItem as="p" className="fr-more">
+            <Link to="/team">Read their bios and contact details</Link>
           </RevealItem>
         </Reveal>
       </div>

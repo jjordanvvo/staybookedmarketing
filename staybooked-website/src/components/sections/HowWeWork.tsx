@@ -4,40 +4,37 @@ export const STEPS = [
   {
     num: '01',
     word: 'Advertise',
-    desc: 'We build and run targeted ad campaigns that put your business in front of the right local customers actively looking for what you offer.',
+    desc: 'We build and run ad campaigns aimed at local customers who are already looking for what you sell.',
   },
   {
     num: '02',
     word: 'Qualify',
-    desc: 'Every lead is automatically contacted and screened the moment they come in, so you never waste time on tire-kickers or cold inquiries.',
+    desc: 'Every new lead gets a reply and a few screening questions within minutes, so you stop spending time on tire-kickers.',
   },
   {
     num: '03',
     word: 'Book',
-    desc: 'Qualified, interested customers are delivered straight to you or booked directly onto your calendar, ready for their appointment.',
+    desc: 'Qualified customers land on your calendar, or go straight to you, ready for the appointment.',
   },
 ]
 
 /**
- * HOW WE WORK — signature editorial element.
- * Three full-width numbered rows with giant condensed words and hairline
- * separators. Each row choreographs its own entrance: the giant word lands
- * first, bold and confident, with its number and description cascading in
- * a tight stagger just after (stagger={0} + explicit delays).
+ * HOW IT WORKS — the system in three giant words. Each row choreographs its
+ * own entrance: the word lands first, number and description just after.
  */
 export default function HowWeWork() {
   return (
     <section className="howwework" id="how">
       <div className="howwework-inner">
         <Reveal amount={0.3}>
-          <RevealItem as="p" className="label">How We Work</RevealItem>
+          <RevealItem as="h2" className="title">How it works</RevealItem>
         </Reveal>
         <div className="hw-rows">
           {STEPS.map((step) => (
             <Reveal key={step.num} className="hw-row" amount={0.35} stagger={0}>
               <RevealItem as="span" className="hw-num" delay={0.16}>{step.num}</RevealItem>
               <div className="hw-main">
-                <RevealItem className="hw-word">{step.word}</RevealItem>
+                <RevealItem as="h3" className="hw-word">{step.word}</RevealItem>
                 <RevealItem as="p" className="hw-desc" delay={0.22}>{step.desc}</RevealItem>
               </div>
             </Reveal>

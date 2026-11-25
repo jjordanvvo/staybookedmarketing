@@ -18,7 +18,7 @@ import { prepare, type SearchEntry } from '@/lib/search'
  * every page. It is derived from the exported content constants the sections
  * render, so it is assembled at build time by the bundler and can never drift
  * from the live copy. The few hand-written entries below cover copy that lives
- * inline in JSX (hero statement, pricing, contact) — keep them in step if that
+ * inline in JSX (hero, why, pricing, contact) — keep them in step if that
  * copy changes.
  *
  * Built lazily (first search), which also keeps this module's page imports
@@ -50,11 +50,11 @@ function build(): SearchEntry[] {
   return [
     // ---- Home ----
     {
-      title: "We don't chase leads. We book them.",
+      title: 'We turn your ads into booked customers.',
       section: 'Overview',
       page: home,
-      path: '/#statement',
-      text: 'Founded by Stanford graduates. We build complete lead generation systems for local businesses. Targeted ads bring in the right local customers, our automated system qualifies them, and ready-to-book customers land straight on your calendar. Stay Booked Marketing builds lead generation systems for local businesses that want more customers. We run the ads, qualify every lead, and handle the digital side so you can focus on running your business.',
+      path: '/#hero',
+      text: 'Founded by Stanford and Penn graduates. We run your ads, reply to every new lead within minutes, and book them onto your calendar. Book a free strategy call or call (813) 480-5818.',
       keywords: 'about lead generation agency',
     },
     ...HOW_STEPS.map((s) => ({
@@ -89,12 +89,12 @@ function build(): SearchEntry[] {
       keywords: 'speed to lead research stats response time',
     },
     {
-      title: 'Results first. Terms that fit you.',
+      title: 'We earn your business every month',
       section: 'Why Stay Booked',
       page: home,
       path: '/#why',
-      text: 'We earn your business every month, on terms that fit you: month to month or a longer partnership, your choice. Every lead gets a fast reply, and you own everything we build. 5 minute lead follow-up. Your ads, leads and data. 24/7 automated follow-up.',
-      keywords: 'why us results stats',
+      text: 'Stay month to month or sign on for longer, your choice. Every lead gets a reply within minutes, and if we ever part ways, the ad accounts, audiences and leads go with you. 5 min reply to every new lead. 100% your ads, leads and data. 90 days to hit our goal, or we work free until we do.',
+      keywords: 'why us results stats terms contract guarantee',
     },
     ...FOUNDERS.map((f) => ({
       title: f.name,
@@ -125,7 +125,7 @@ function build(): SearchEntry[] {
       section: 'Pricing',
       page: home,
       path: '/#pricing',
-      text: 'Pricing built around your business. Every program is quoted after a free 15-minute strategy call. No startup fee, no long-term contract, and ad spend goes straight to the ad platforms. Call or text (813) 480-5818, email kolby@staybookedmarketing.com, or book a call. Run the growth calculator to see what more booked appointments could be worth.',
+      text: 'How pricing works. Every program is quoted after a free 15-minute strategy call. No startup fee, and ad spend is billed by the ad platforms directly. Our 90-day guarantee: if we miss the goal we set together within 90 days, we keep working for free until we do. Try the growth calculator for a rough idea first.',
       keywords: 'price cost rate fee monthly plan budget calculator estimate',
     },
     ...FAQS.map((f) => ({
@@ -141,7 +141,7 @@ function build(): SearchEntry[] {
       section: 'Contact',
       page: home,
       path: '/#contact',
-      text: 'Send us an email, give us a direct call, or schedule a 15-minute meeting with our team. Book a 15-Minute Call. Email us kolby@staybookedmarketing.com. Call direct (813) 480-5818.',
+      text: 'Book a free 15-minute call, send us a message, or call us directly. Book a Free Strategy Call. Email us kolby@staybookedmarketing.com. Call direct (813) 480-5818.',
       keywords: 'contact email phone call book a call schedule get in touch',
     },
 

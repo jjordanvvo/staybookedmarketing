@@ -3,51 +3,47 @@ import { Reveal, RevealItem } from '@/components/ui/Reveal'
 export const STEPS = [
   {
     num: '01',
-    name: 'Strategy Call',
-    desc: 'A quick call to learn your business, your goals, and what a new customer is worth to you.',
+    name: 'Strategy call',
+    desc: 'Fifteen minutes on your business, your goals, and what a new customer is worth to you.',
   },
   {
     num: '02',
-    name: 'Campaign Build',
-    desc: 'We build your ads, follow-up, and booking system, tailored to your business.',
+    name: 'Build',
+    desc: 'We set up your ads, follow-up and booking around how your business actually runs.',
   },
   {
     num: '03',
     name: 'Launch',
-    desc: 'Your campaigns go live and qualified leads start landing on your calendar.',
+    desc: 'Campaigns go live and qualified leads start landing on your calendar.',
   },
   {
     num: '04',
-    name: 'Ongoing Optimization',
-    desc: 'We review performance every month and keep improving what works.',
+    name: 'Improve',
+    desc: 'We review the numbers with you every month and keep adjusting what works.',
   },
 ]
 
 /**
- * The plan — four-step path from first call to ongoing optimization, reusing
- * the HOW WE WORK editorial row system at a smaller display scale. Each step
- * unfolds on its own as it enters view: number first, then name, then its
- * one-line description in a tight cascade.
+ * Getting started — the onboarding path from first call to ongoing work, as a
+ * compact four-column row so it can't be mistaken for the "How it works"
+ * system rows above.
  */
 export default function HowToStart() {
   return (
-    <section className="howwework" id="start">
-      <Reveal className="howwework-inner" amount={0.3}>
-        <RevealItem as="p" className="label">The plan</RevealItem>
-        <RevealItem as="h2" className="title">How it works</RevealItem>
-      </Reveal>
-      <div className="howwework-inner">
-        <div className="hw-rows">
+    <section className="section section-offwhite" id="start">
+      <div className="wrap">
+        <Reveal amount={0.3}>
+          <RevealItem as="h2" className="title">Getting started</RevealItem>
+        </Reveal>
+        <Reveal as="ul" className="gs-row" amount={0.25}>
           {STEPS.map((step) => (
-            <Reveal key={step.num} className="hw-row" amount={0.4} stagger={0}>
-              <RevealItem as="span" className="hw-num">{step.num}</RevealItem>
-              <div className="hw-main">
-                <RevealItem as="h3" className="hw-plan-word" delay={0.1}>{step.name}</RevealItem>
-                <RevealItem as="p" className="hw-desc" delay={0.2}>{step.desc}</RevealItem>
-              </div>
-            </Reveal>
+            <RevealItem as="li" className="gs-step" key={step.num}>
+              <span className="gs-num">{step.num}</span>
+              <h3 className="gs-name">{step.name}</h3>
+              <p className="gs-desc">{step.desc}</p>
+            </RevealItem>
           ))}
-        </div>
+        </Reveal>
       </div>
     </section>
   )

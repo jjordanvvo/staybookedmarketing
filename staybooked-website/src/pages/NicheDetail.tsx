@@ -56,9 +56,6 @@ export default function NicheDetail() {
           <RevealItem as="p" className="label">Industries / {niche.name}</RevealItem>
           <RevealItem as="h1" className="title">{niche.name}.</RevealItem>
           <RevealItem as="p" className="body lp-hook-body">{niche.desc}</RevealItem>
-          <RevealItem as="p" className="body lp-hook-body nd-examples">
-            Who it's for: {niche.examples}.
-          </RevealItem>
         </Reveal>
       </section>
 
@@ -134,7 +131,7 @@ export default function NicheDetail() {
           </RevealItem>
           <RevealItem as="div" className="hc-ctas" delay={0.2}>
             <a className="contact-book-btn anim-btn" href="/book">
-              <AnimatedLabel>Book a Call</AnimatedLabel>
+              <AnimatedLabel>Book a Free Strategy Call</AnimatedLabel>
             </a>
             <Link className="contact-book-btn" to="/#industries">See every niche</Link>
           </RevealItem>

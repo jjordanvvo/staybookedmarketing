@@ -63,11 +63,10 @@ export default function Industries() {
     <section className="section section-offwhite" id="industries">
       <div className="wrap">
         <Reveal>
-          <RevealItem as="p" className="label">Industries</RevealItem>
-          <RevealItem as="h2" className="title">Who we help.</RevealItem>
+          <RevealItem as="h2" className="title">Who we help</RevealItem>
           <RevealItem as="p" className="body why-body">
-            If your business serves local customers, we can build for it. Tap any niche for the
-            quick version. Learn more opens the full page.
+            If your customers book appointments, reserve tables or ask for quotes, we can build
+            the system for you.
           </RevealItem>
         </Reveal>
 
@@ -81,11 +80,10 @@ export default function Industries() {
                   className="ind-link ind-link-btn"
                   onClick={() => setOpen(isOpen ? null : niche.id)}
                   aria-expanded={isOpen}
-                  aria-label={`${isOpen ? 'Close' : 'Open'} ${niche.name}`}
                 >
                   <span className="ind-name">{niche.name}</span>
-                  <svg className="ind-arrow" width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                    <path d="M2 8h11M9 3.5 13.5 8 9 12.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                  <svg className="ind-arrow ind-plus" width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M8 2.5v11M2.5 8h11" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
                   </svg>
                 </button>
                 <AnimatePresence initial={false}>

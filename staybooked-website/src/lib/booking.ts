@@ -10,4 +10,5 @@ export const BOOKING_EMBED_URL = BOOKING_URL
 
 /** GHL "Website Contact Form" (SBM sub-account). Submissions create a contact in
  *  GHL, email kolby@ a "New website lead" alert, and auto-reply to the lead. */
-export const CONTACT_FORM_URL = 'https://api.leadconnectorhq.com/widget/form/KD6CTObZRUzx0U0nvH7o'
+export const CONTACT_FORM_ID = 'KD6CTObZRUzx0U0nvH7o'
+export const CONTACT_FORM_URL = `https://api.leadconnectorhq.com/widget/form/${CONTACT_FORM_ID}`

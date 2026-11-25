@@ -32,25 +32,41 @@ const FROM_CAMPAIGN =
   typeof window !== 'undefined' &&
   /[?&](utm_[a-z]+|fbclid|gclid|gbraid|wbraid|ttclid|msclkid)=/i.test(window.location.search)
 
+// Returning visitors already know the brand: the intro plays on a browser's
+// first visit only.
+const SEEN_KEY = 'sbm-intro-seen'
+const SEEN = (() => {
+  try {
+    return typeof window !== 'undefined' && window.localStorage.getItem(SEEN_KEY) === '1'
+  } catch {
+    return false
+  }
+})()
+
 /** Should this page load open with the intro? Decided once, in Home. */
 export function claimIntro(): boolean {
-  return typeof window !== 'undefined' && !REDUCE && !FROM_CAMPAIGN && !consumed
+  return typeof window !== 'undefined' && !REDUCE && !FROM_CAMPAIGN && !SEEN && !consumed
 }
 
 /** Called from Home's mount effect so remounts never replay the sequence. */
 export function consumeIntro() {
   consumed = true
+  try {
+    window.localStorage.setItem(SEEN_KEY, '1')
+  } catch {
+    /* storage blocked: the intro may replay next visit, which is harmless */
+  }
 }
 
 
 /* ---- Timeline (seconds, relative to "armed" = fonts ready) ---- */
-const TITLE_AT = 0.35 // letters rise almost immediately — no calendar beat
+const TITLE_AT = 0.2 // letters rise almost immediately — no calendar beat
 const LETTER_STAGGER = 0.03 // tight stagger — the title reads as one mass
-const DOT_AT = 1.05 // brand period pop
-const RING_AT = 1.17 // ripple ring around the period
-const SWEEP_AT = 1.45 // light sweep passes across the landed title
-const TAG_AT = 1.55 // serif brand line
-const EXIT_AT = 2.4 // curtains begin — short and simple
+const DOT_AT = 0.7 // brand period pop
+const RING_AT = 0.8 // ripple ring around the period
+const SWEEP_AT = 0.9 // light sweep passes across the landed title
+const TAG_AT = 0.95 // serif brand line
+const EXIT_AT = 1.5 // curtains begin — short and simple
 
 const WORDS = ['STAY', 'BOOKED']
 
@@ -125,7 +141,7 @@ const tagV: Variants = {
 
 const skipV: Variants = {
   hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { duration: 0.8, ease: EASE, delay: 1.3 } },
+  show: { opacity: 1, transition: { duration: 0.5, ease: EASE, delay: 0.4 } },
 }
 
 export default function Intro({ onReveal }: { onReveal: () => void }) {
@@ -144,7 +160,7 @@ export default function Intro({ onReveal }: { onReveal: () => void }) {
     Promise.race([
       document.fonts?.ready ?? Promise.resolve(),
       new Promise((r) => {
-        t = window.setTimeout(r, 900)
+        t = window.setTimeout(r, 400)
       }),
     ]).then(() => {
       if (on) setArmed(true)
@@ -204,7 +220,7 @@ export default function Intro({ onReveal }: { onReveal: () => void }) {
         className="intro-panel intro-panel-tan"
         initial={false}
         animate={exiting ? { y: '-100%' } : { y: '0%' }}
-        transition={{ duration: 0.9, ease: EASE, delay: 0.26 }}
+        transition={{ duration: 0.7, ease: EASE, delay: 0.16 }}
         onAnimationComplete={() => {
           if (exiting) setDone(true)
         }}
@@ -215,7 +231,7 @@ export default function Intro({ onReveal }: { onReveal: () => void }) {
         className="intro-panel intro-panel-cream"
         initial={false}
         animate={exiting ? { y: '-100%' } : { y: '0%' }}
-        transition={{ duration: 0.9, ease: EASE, delay: 0.1 }}
+        transition={{ duration: 0.7, ease: EASE, delay: 0.05 }}
       >
         {/* Sun-glow — blooms behind the headline as it lands. */}
         <motion.div className="intro-glow" variants={glowV} initial="hidden" animate={seq} />
