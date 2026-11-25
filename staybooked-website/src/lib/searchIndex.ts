@@ -1,9 +1,8 @@
-import { INDUSTRIES } from '@/components/sections/Industries'
-import { NICHES } from '@/lib/niches'
-import { SERVICES } from '@/components/sections/Services'
+import { SYSTEM_STAGES } from '@/lib/systemStages'
+import { NEXT_STEPS } from '@/lib/nextSteps'
+import { TERMS } from '@/components/sections/TermsMarquee'
 import { FAQS } from '@/lib/faqs'
 import { STEPS as HOW_STEPS } from '@/components/sections/HowWeWork'
-import { STEPS as PLAN_STEPS } from '@/components/sections/HowToStart'
 import { FOUNDERS } from '@/lib/founders'
 import { PILLARS, HEALTHCARE_FAQS } from '@/pages/Healthcare'
 import { STEPS as LP_STEPS, SPEED_STATS, WHY_POINTS } from '@/pages/FreeCall'
@@ -39,12 +38,6 @@ function legalEntries(page: string, path: string, intro: string[], sections: Leg
 }
 
 // Plain-language terms people search for, per service number.
-const SERVICE_KEYWORDS: Record<string, string> = {
-  '01': 'leads ads booking follow-up automation',
-  '02': 'ads paid advertising meta facebook instagram google social',
-  '03': 'website web design app software development',
-}
-
 function build(): SearchEntry[] {
   const home = 'Home'
   return [
@@ -64,22 +57,22 @@ function build(): SearchEntry[] {
       path: '/#how',
       text: s.desc,
     })),
-    ...SERVICES.map((s) => ({
-      title: s.name,
-      section: 'Services',
-      page: home,
-      path: '/#services',
-      text: s.desc,
-      keywords: `service what we build ${SERVICE_KEYWORDS[s.num] ?? ''}`,
+    ...SYSTEM_STAGES.map((st) => ({
+      title: st.title,
+      section: 'The system',
+      page: 'How the system works',
+      path: `/the-system#${st.id}`,
+      text: st.body,
+      keywords: 'how we built it system backend crm automation ai reply booking',
     })),
-    ...INDUSTRIES.map((i) => ({
-      title: i.name,
-      section: 'Industries',
+    {
+      title: 'See what we can do for you',
+      section: 'Get started',
       page: home,
-      path: '/#industries',
-      text: i.desc,
-      keywords: 'industry niche who we help',
-    })),
+      path: '/#get-started',
+      text: 'If customers reach you by calling, booking, reserving or buying, the system works for you. Tell us about your business. ' + NEXT_STEPS.map((n) => `${n.name}. ${n.desc}`).join(' '),
+      keywords: 'industry niche who we help form contact get started restaurants law firms contractors clinics schools brands',
+    },
     {
       title: "Most businesses answer too slowly. Yours won't.",
       section: 'Why speed wins',
@@ -88,14 +81,14 @@ function build(): SearchEntry[] {
       text: SPEED_STATS.map((s) => `${s.text} ${s.source}`).join(' ') + " Our system replies to every new lead within minutes, day or night.",
       keywords: 'speed to lead research stats response time',
     },
-    {
-      title: 'We earn your business every month',
-      section: 'Why Stay Booked',
+    ...TERMS.map((t) => ({
+      title: t.strong,
+      section: 'Pricing and guarantee',
       page: home,
-      path: '/#why',
-      text: 'Stay month to month or sign on for longer, your choice. Every lead gets a reply within minutes, and if we ever part ways, the ad accounts, audiences and leads go with you. 5 min reply to every new lead. 100% your ads, leads and data. 90 days to hit our goal, or we work free until we do.',
-      keywords: 'why us results stats terms contract guarantee',
-    },
+      path: '/#terms',
+      text: `${t.strong}. ${t.rest}.`,
+      keywords: 'price cost fee pricing guarantee contract terms month to month',
+    })),
     ...FOUNDERS.map((f) => ({
       title: f.name,
       section: 'Founders',
@@ -104,30 +97,6 @@ function build(): SearchEntry[] {
       text: `${f.title}. ${f.degree ?? ''} ${f.bio}`,
       keywords: 'team founder',
     })),
-    ...NICHES.map((n) => ({
-      title: n.name,
-      section: 'Niches',
-      page: 'Niche',
-      path: `/niches/${n.id}`,
-      text: `${n.desc} ${n.whatWeDo} What we book: ${n.books.join(', ')}. Tuned around ${n.tuned}.`,
-      keywords: 'industry niche one pager learn more',
-    })),
-    ...PLAN_STEPS.map((s) => ({
-      title: s.name,
-      section: 'The plan',
-      page: home,
-      path: '/#start',
-      text: s.desc,
-      keywords: 'how it works getting started',
-    })),
-    {
-      title: 'Pricing',
-      section: 'Pricing',
-      page: home,
-      path: '/#pricing',
-      text: 'How pricing works. Every program is quoted after a free 15-minute strategy call. No startup fee, and ad spend is billed by the ad platforms directly. Our 90-day guarantee: if we miss the goal we set together within 90 days, we keep working for free until we do. Try the growth calculator for a rough idea first.',
-      keywords: 'price cost rate fee monthly plan budget calculator estimate',
-    },
     ...FAQS.map((f) => ({
       title: f.q,
       section: 'FAQ',

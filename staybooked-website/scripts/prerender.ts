@@ -23,8 +23,9 @@ import { SPEED_EVIDENCE } from '../src/lib/evidence'
 import { FAQS } from '../src/lib/faqs'
 import { FOUNDERS } from '../src/lib/founders'
 import { STEPS as HOW_STEPS } from '../src/components/sections/HowWeWork'
-import { SERVICES } from '../src/components/sections/Services'
-import { STEPS as PLAN_STEPS } from '../src/components/sections/HowToStart'
+import { TERMS } from '../src/components/sections/TermsMarquee'
+import { NEXT_STEPS } from '../src/lib/nextSteps'
+import { SYSTEM_STAGES } from '../src/lib/systemStages'
 
 const DIST = join(process.cwd(), 'dist')
 const SITE = 'https://staybookedmarketing.com'
@@ -111,19 +112,26 @@ const homeContent = [
   section(
     `<p class="body">Founded by Stanford and Penn graduates</p>` +
       h1('We turn your ads into booked customers.') +
-      body('We run your ads, reply to every new lead within minutes, and book them onto your calendar.') +
-      `<p class="body"><a href="/book">Book a free strategy call</a> or call <a href="tel:+18134805818">(813) 480-5818</a>.</p>`,
+      `<p class="body"><a href="/book">Book a free strategy call</a> or call <a href="tel:+18134805818">(813) 480-5818</a>.</p>` +
+      body('We run your ads, reply to every new lead within minutes, and book them straight onto your calendar.'),
     'hero',
   ),
   section(
+    title('Our guarantee and terms') +
+      TERMS.map((t) => `<p class="body"><strong>${esc(t.strong)}.</strong> ${esc(t.rest)}.</p>`).join(''),
+    'terms',
+  ),
+  section(
     title('How it works') +
-      HOW_STEPS.map((s) => `<p class="body"><strong>${esc(s.word)}.</strong> ${esc(s.desc)}</p>`).join(''),
+      HOW_STEPS.map((s) => `<p class="body"><strong>${esc(s.word)}.</strong> ${esc(s.desc)}</p>`).join('') +
+      `<p class="body">People are always asking how we built this system. <a href="/the-system">Here's how.</a></p>`,
     'how',
   ),
   section(
-    title('What we build') +
-      SERVICES.map((s) => `<p class="body"><strong>${esc(s.name)}.</strong> ${esc(s.desc)}</p>`).join(''),
-    'services',
+    title('See what we can do for you') +
+      body('If customers reach you by calling, booking, reserving or buying, the system works for you. Tell us a little about your business.') +
+      NEXT_STEPS.map((n) => `<p class="body"><strong>${esc(n.name)}.</strong> ${esc(n.desc)}</p>`).join(''),
+    'get-started',
   ),
   section(
     title("Most businesses answer too slowly. Yours won't.") +
@@ -133,27 +141,9 @@ const homeContent = [
     'evidence',
   ),
   section(
-    title('Who we help') +
-      NICHES.map(
-        (n) =>
-          `<p class="body"><a href="/niches/${n.id}"><strong>${esc(n.name)}</strong></a>: ${esc(n.desc)}</p>`,
-      ).join(''),
-    'industries',
-  ),
-  section(
-    title('The five people running your account') +
+    title('We make it happen.') +
       `<p class="body">No account managers and no ticket queue: ${FOUNDERS.map((f) => `${esc(f.name)} (${esc(f.title)})`).join(', ')}.</p><p class="body"><a href="/team">Read their bios</a></p>`,
     'founders',
-  ),
-  section(
-    title('Getting started') +
-      PLAN_STEPS.map((s) => `<p class="body"><strong>${esc(s.name)}.</strong> ${esc(s.desc)}</p>`).join(''),
-    'start',
-  ),
-  section(
-    title('How pricing works') +
-      `<p class="body">Every program is quoted after a free 15-minute strategy call. No startup fee, and ad spend is billed by the ad platforms directly. Our 90-day guarantee: if we don't hit the goal we set together within 90 days, we keep working for free until we do. <a href="/book">Book a free strategy call</a>.</p>`,
-    'pricing',
   ),
   section(
     title('Questions people ask us') +
@@ -240,6 +230,19 @@ const routes: Route[] = [
         `<p class="body"><strong>15 minutes, straight answers.</strong> We audit your current setup, look at your market, and tell you exactly what we'd do to get more customers booked. You leave with a plan whether or not you hire us.</p>` +
         `<p class="body"><strong>A clear quote.</strong> What we'd build for your business, the ad budget we'd recommend, and your price. No surprises.</p>`,
       'book',
+      'section-offwhite',
+    ),
+  },
+  {
+    path: '/the-system',
+    title: 'How Our Lead System Works | Stay Booked Marketing',
+    description:
+      'How Stay Booked gets a reply to every lead within minutes and onto your calendar: capture, AI reply, qualification, booking, summaries and monthly tuning.',
+    content: section(
+      h1('How the system works behind the scenes') +
+        SYSTEM_STAGES.map((st, i) => `<h2 id="${st.id}">${i + 1}. ${esc(st.title)}</h2><p class="body">${esc(st.body)}</p>`).join('') +
+        `<p class="body"><a href="/book">Book a free strategy call</a></p>`,
+      'system',
       'section-offwhite',
     ),
   },

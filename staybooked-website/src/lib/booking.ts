@@ -8,7 +8,7 @@ export const BOOKING_URL = 'https://api.leadconnectorhq.com/widget/booking/5rlgG
  *  leaving the site. A Vercel env value (VITE_BOOKING_EMBED_URL) overrides it. */
 export const BOOKING_EMBED_URL = BOOKING_URL
 
-/** GHL "Website Contact Form" (SBM sub-account). Submissions create a contact in
- *  GHL, email kolby@ a "New website lead" alert, and auto-reply to the lead. */
-export const CONTACT_FORM_ID = 'KD6CTObZRUzx0U0nvH7o'
-export const CONTACT_FORM_URL = `https://api.leadconnectorhq.com/widget/form/${CONTACT_FORM_ID}`
+/** GHL workflow "Inbound Webhook" trigger URL — the custom LeadForm posts here.
+ *  A Vercel env value (VITE_LEAD_WEBHOOK_URL) overrides it. */
+export const LEAD_WEBHOOK_URL: string =
+  (import.meta.env.VITE_LEAD_WEBHOOK_URL as string | undefined)?.trim() || ''

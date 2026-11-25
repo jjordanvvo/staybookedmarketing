@@ -14,7 +14,7 @@ export default function Founders() {
     <section className="section section-offwhite" id="founders">
       <div className="wrap">
         <Reveal amount={0.4}>
-          <RevealItem as="h2" className="title">The five people running your account</RevealItem>
+          <RevealItem as="h2" className="title">We make it happen.</RevealItem>
           <RevealItem as="p" className="body why-body">
             No account managers and no ticket queue. You work directly with the founders who build
             and run your system.

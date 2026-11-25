@@ -16,10 +16,10 @@ type NavbarProps = {
 // Section anchors on the home page. Off "/" they route to /#id and the
 // ScrollToTop handler in App.tsx finishes the scroll once the section mounts.
 const ANCHORS = [
-  { label: 'Services', id: 'services' },
-  { label: 'Industries', id: 'industries' },
+  { label: 'How it works', id: 'how' },
+  { label: 'Get started', id: 'get-started' },
   { label: 'Founders', id: 'founders' },
-  { label: 'Pricing', id: 'pricing' },
+  { label: 'Pricing', id: 'terms' },
   { label: 'FAQ', id: 'faq' },
   { label: 'Contact', id: 'contact' },
 ]
