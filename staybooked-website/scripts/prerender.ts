@@ -111,7 +111,7 @@ function writeRoute(r: Route) {
 const homeContent = [
   section(
     `<p class="body">Founded by Stanford and Penn graduates</p>` +
-      h1('We turn your ads into booked customers.') +
+      h1('StayBooked makes growing your business look easy.') +
       `<p class="body"><a href="/book">Book a free strategy call</a> or call <a href="tel:+18134805818">(813) 480-5818</a>.</p>` +
       body('We run your ads, reply to every new lead within minutes, and book them straight onto your calendar.'),
     'hero',

@@ -40,7 +40,7 @@ export default function Hero({ revealed = true, intro = false }: HeroProps) {
             Founded by Stanford and Penn graduates
           </motion.p>
           <motion.h1 className="hero-title" {...enter(0.08)}>
-            We turn your ads into booked customers.
+            StayBooked makes growing your business look easy.
           </motion.h1>
           <motion.div className="hero-ctas" {...enter(0.18)}>
             <a className="contact-book-btn hero-pitch-btn anim-btn" href="/book">

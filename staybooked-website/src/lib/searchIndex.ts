@@ -43,7 +43,7 @@ function build(): SearchEntry[] {
   return [
     // ---- Home ----
     {
-      title: 'We turn your ads into booked customers.',
+      title: 'StayBooked makes growing your business look easy.',
       section: 'Overview',
       page: home,
       path: '/#hero',

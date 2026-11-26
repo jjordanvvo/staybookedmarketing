@@ -2381,12 +2381,17 @@ body { background: var(--page); }
   border-top: 1px solid rgba(20, 20, 20, 0.25);
   color: var(--ink);
 }
-.hero-tree { position: relative; height: clamp(380px, 46vw, 640px); will-change: transform; }
-.hero-tree-canvas { position: absolute; inset: -6% -8% -4% -8%; width: 116%; height: 110%; display: block; }
-@media (max-width: 900px) {
-  .hero-tree { height: 360px; margin-top: 8px; }
-  .hero-tree-canvas { inset: 0; width: 100%; height: 100%; }
+.hero { position: relative; isolation: isolate; }
+.hero-inner { grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr); }
+.hero-copy { position: relative; z-index: 1; }
+.hero-title { font-size: clamp(2.6rem, 5vw, 4.6rem); }
+/* the tree grows out of the hero's bottom-right corner, behind the copy */
+.hero-tree {
+  position: absolute; right: 0; bottom: 0; z-index: 0;
+  width: 58%; height: 100%;
+  transform-origin: 100% 100%; will-change: transform; pointer-events: none;
 }
+.hero-tree-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 
 /* ---- Terms strip: the guarantee and pricing, looping ---- */
 .tm { background: var(--ink); color: var(--hero-cream); overflow: hidden; position: relative; }
@@ -2656,7 +2661,8 @@ body { background: var(--page); }
 }
 @media (max-width: 900px) {
   .hero-inner { grid-template-columns: minmax(0, 1fr); }
-  .hero-tree { height: 320px; margin-top: 0; }
+  .hero { padding-bottom: 330px; }
+  .hero-tree { width: 100%; height: 380px; }
   .hero-title { font-size: clamp(2.5rem, 11vw, 3.4rem); }
 }
 @media (max-width: 960px) {
