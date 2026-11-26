@@ -1,6 +1,6 @@
-import { useId, useState, type FormEvent } from 'react'
+import { useId, useRef, useState, type FormEvent } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { LEAD_WEBHOOK_URL } from '@/lib/booking'
+import { LEAD_ENDPOINT } from '@/lib/booking'
 import { track } from '@/lib/tracking'
 
 /**
@@ -20,6 +20,7 @@ export default function LeadForm({ source, compact = false }: { source: string; 
   const [status, setStatus] = useState<Status>('idle')
   const [first, setFirst] = useState('')
   const [errors, setErrors] = useState<Record<string, string>>({})
+  const openedAt = useRef(performance.now())
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -41,7 +42,7 @@ export default function LeadForm({ source, compact = false }: { source: string; 
 
     setStatus('sending')
     const [firstName, ...rest] = name.split(/\s+/)
-    const body = new URLSearchParams({
+    const body = JSON.stringify({
       first_name: firstName,
       last_name: rest.join(' '),
       full_name: name,
@@ -52,11 +53,17 @@ export default function LeadForm({ source, compact = false }: { source: string; 
       message: String(data.get('message') || ''),
       source: `website: ${source}`,
       page: window.location.pathname,
+      // ms since the form appeared: humans take seconds, scripts take none
+      t: Math.round(performance.now() - openedAt.current),
+      company_site: String(data.get('company_site') || ''),
     })
     try {
-      if (!LEAD_WEBHOOK_URL) throw new Error('no webhook configured')
-      // no-cors: the webhook answers without CORS headers; a network failure still throws
-      await fetch(LEAD_WEBHOOK_URL, { method: 'POST', mode: 'no-cors', body })
+      const res = await fetch(LEAD_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body,
+      })
+      if (!res.ok) throw new Error(`lead endpoint ${res.status}`)
       setFirst(firstName)
       setStatus('sent')
       track('lead_form_submit', { location: source })

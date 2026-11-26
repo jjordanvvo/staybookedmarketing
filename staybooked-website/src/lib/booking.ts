@@ -8,7 +8,7 @@ export const BOOKING_URL = 'https://api.leadconnectorhq.com/widget/booking/5rlgG
  *  leaving the site. A Vercel env value (VITE_BOOKING_EMBED_URL) overrides it. */
 export const BOOKING_EMBED_URL = BOOKING_URL
 
-/** GHL workflow "Inbound Webhook" trigger URL — the custom LeadForm posts here.
- *  A Vercel env value (VITE_LEAD_WEBHOOK_URL) overrides it. */
-export const LEAD_WEBHOOK_URL: string =
-  (import.meta.env.VITE_LEAD_WEBHOOK_URL as string | undefined)?.trim() || ''
+/** Where the lead form posts. Our own Vercel function (api/lead.ts) screens
+ *  each submission and forwards it to GHL; the GHL webhook URL itself lives only
+ *  in the Vercel env var GHL_LEAD_WEBHOOK_URL, never in the browser or the repo. */
+export const LEAD_ENDPOINT = '/api/lead'
