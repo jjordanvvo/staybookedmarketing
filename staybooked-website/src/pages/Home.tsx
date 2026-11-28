@@ -6,6 +6,7 @@ import TermsMarquee from '@/components/sections/TermsMarquee'
 import HowWeWork from '@/components/sections/HowWeWork'
 import SystemTeaser from '@/components/sections/SystemTeaser'
 import SeeWhatWeCanDo from '@/components/sections/SeeWhatWeCanDo'
+import FitCheck from '@/components/sections/FitCheck'
 import SpeedEvidence from '@/components/sections/SpeedEvidence'
 import Founders from '@/components/sections/Founders'
 import Faq from '@/components/sections/Faq'
@@ -14,8 +15,8 @@ import Footer from '@/components/sections/Footer'
 
 /**
  * The one-page site at "/". It reads as one continuous story rather than a
- * stack of boxes: the hero hands off to the terms strip, then the
- * problem (the stickman's unanswered call), How it works down a single spine,
+ * stack of boxes: the hero hands off to the terms strip, the fit-check
+ * chat ("tell us what you run"), then the problem (the stickman's unanswered call), How it works down a single spine,
  * the step tree and the form, the system teaser, the founders, questions, and
  * the close.
  */
@@ -36,6 +37,7 @@ export default function Home() {
       {revealed && (
         <>
           <TermsMarquee />
+          <FitCheck />
           <SpeedEvidence />
           <HowWeWork />
           <SeeWhatWeCanDo />

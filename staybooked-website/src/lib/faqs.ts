@@ -4,10 +4,6 @@ export type FaqEntry = { q: string; a: string }
 
 export const FAQS: FaqEntry[] = [
   {
-    q: 'What industries do you work with?',
-    a: 'Businesses that run on appointments, reservations and quotes: home services and trades, law firms, financial firms, medical and dental practices, real estate agents, restaurants, clubs and venues, rentals, private schools, big-ticket retail, and brands launching products. Healthcare practices get a compliance-first setup, covered on our healthcare page.',
-  },
-  {
     q: 'How fast will I see results?',
     a: "Ads can start running within days of your strategy call, and our follow-up system goes to work on the very first lead. Timelines vary by industry and budget, so we'll give you an honest read on yours during the call.",
   },
