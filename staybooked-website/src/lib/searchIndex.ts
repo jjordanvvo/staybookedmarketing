@@ -1,6 +1,6 @@
 import { SYSTEM_STAGES } from '@/lib/systemStages'
 import { NEXT_STEPS } from '@/lib/nextSteps'
-import { TERMS } from '@/components/sections/TermsMarquee'
+import { TERMS } from '@/lib/terms'
 import { FAQS } from '@/lib/faqs'
 import { STEPS as HOW_STEPS } from '@/components/sections/HowWeWork'
 import { FOUNDERS } from '@/lib/founders'
@@ -85,7 +85,7 @@ function build(): SearchEntry[] {
       title: t.strong,
       section: 'Pricing and guarantee',
       page: home,
-      path: '/#terms',
+      path: t.strong === '90-day guarantee' ? '/#get-started' : '/#faq',
       text: `${t.strong}. ${t.rest}.`,
       keywords: 'price cost fee pricing guarantee contract terms month to month',
     })),

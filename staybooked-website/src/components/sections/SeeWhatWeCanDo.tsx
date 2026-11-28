@@ -1,13 +1,11 @@
 import { Reveal, RevealItem } from '@/components/ui/Reveal'
 import LeadForm from '@/components/ui/LeadForm'
-import { NEXT_STEPS } from '@/lib/nextSteps'
-
+import StepTree from '@/components/ui/StepTree'
 
 /**
- * See what we can do for you — replaces the industry list. The system works
- * for any business that wins customers by phone, booking, reservation or
- * sale, so this section asks about yours instead of making people find their
- * niche in a list. The form sits right here, a scroll below How it works.
+ * See what we can do for you. The four next steps grow as a small tree you
+ * can tap through, then the form. The 90-day guarantee (moved here from the
+ * old terms strip) sits right above the form, where the decision happens.
  */
 export default function SeeWhatWeCanDo() {
   return (
@@ -15,29 +13,26 @@ export default function SeeWhatWeCanDo() {
       <div className="swc-inner">
         <div className="swc-copy">
           <Reveal amount={0.2}>
-          <RevealItem as="h2" className="title">See what we can do for you</RevealItem>
-          <RevealItem as="p" className="body swc-lede">
-            Restaurants, law firms, contractors, clinics, schools, brands: if customers reach you by calling,
-            booking, reserving or buying, the system works for you. Tell us a little about your business.
-          </RevealItem>
+            <RevealItem as="h2" className="title">See what we can do for you</RevealItem>
+            <RevealItem as="p" className="body swc-lede">
+              Restaurants, law firms, contractors, clinics, schools, brands: if customers reach you by calling,
+              booking, reserving or buying, the system works for you. Here's what happens after you reach out.
+            </RevealItem>
           </Reveal>
-          <Reveal as="ul" className="swc-next" amount={0.2}>
-            {NEXT_STEPS.map((s, i) => (
-              <RevealItem as="li" key={s.name} className="swc-step">
-                <span className="swc-step-num">{String(i + 1).padStart(2, '0')}</span>
-                <span>
-                  <b>{s.name}</b>
-                  {s.desc}
-                </span>
-              </RevealItem>
-            ))}
+          <StepTree />
+        </div>
+        <div className="swc-side">
+          <Reveal amount={0.3}>
+            <RevealItem as="p" className="swc-guarantee">
+              <strong>90-day guarantee.</strong> If we don't hit the goal we set together, we keep working for free until we do.
+            </RevealItem>
+          </Reveal>
+          <Reveal className="swc-form" amount={0.1}>
+            <RevealItem>
+              <LeadForm source="see-what-we-can-do" />
+            </RevealItem>
           </Reveal>
         </div>
-        <Reveal className="swc-form" amount={0.1}>
-          <RevealItem>
-            <LeadForm source="see-what-we-can-do" />
-          </RevealItem>
-        </Reveal>
       </div>
     </section>
   )

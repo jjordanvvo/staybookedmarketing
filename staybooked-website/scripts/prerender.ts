@@ -23,7 +23,8 @@ import { SPEED_EVIDENCE } from '../src/lib/evidence'
 import { FAQS } from '../src/lib/faqs'
 import { FOUNDERS } from '../src/lib/founders'
 import { STEPS as HOW_STEPS } from '../src/components/sections/HowWeWork'
-import { TERMS } from '../src/components/sections/TermsMarquee'
+import { TERMS } from '../src/lib/terms'
+import { CLIENTS } from '../src/components/sections/ClientLogos'
 import { NEXT_STEPS } from '../src/lib/nextSteps'
 import { SYSTEM_STAGES } from '../src/lib/systemStages'
 
@@ -117,21 +118,9 @@ const homeContent = [
     'hero',
   ),
   section(
-    title('Our guarantee and terms') +
-      TERMS.map((t) => `<p class="body"><strong>${esc(t.strong)}.</strong> ${esc(t.rest)}.</p>`).join(''),
-    'terms',
-  ),
-  section(
-    title('How it works') +
-      HOW_STEPS.map((s) => `<p class="body"><strong>${esc(s.word)}.</strong> ${esc(s.desc)}</p>`).join('') +
-      `<p class="body">People are always asking how we built this system. <a href="/the-system">Here's how.</a></p>`,
-    'how',
-  ),
-  section(
-    title('See what we can do for you') +
-      body('If customers reach you by calling, booking, reserving or buying, the system works for you. Tell us a little about your business.') +
-      NEXT_STEPS.map((n) => `<p class="body"><strong>${esc(n.name)}.</strong> ${esc(n.desc)}</p>`).join(''),
-    'get-started',
+    title('Businesses we work with') +
+      `<p class="body">${CLIENTS.map((c) => esc(c.name)).join(', ')}.</p>`,
+    'clients',
   ),
   section(
     title("Most businesses answer too slowly. Yours won't.") +
@@ -140,6 +129,19 @@ const homeContent = [
       ).join(''),
     'evidence',
   ),
+  section(
+    title('How it works') +
+      HOW_STEPS.map((s) => `<p class="body"><strong>${esc(s.word)}.</strong> ${esc(s.desc)}</p>`).join(''),
+    'how',
+  ),
+  section(
+    title('See what we can do for you') +
+      body("If customers reach you by calling, booking, reserving or buying, the system works for you. Here's what happens after you reach out.") +
+      NEXT_STEPS.map((n, i) => `<p class="body"><strong>${String(i + 1).padStart(2, '0')}. ${esc(n.name)}.</strong> ${esc(n.desc)}</p>`).join('') +
+      `<p class="body"><strong>${esc(TERMS[0].strong)}.</strong> ${esc(TERMS[0].rest)}.</p>`,
+    'get-started',
+  ),
+  section(`<p class="body">People are always asking how we built this system. <a href="/the-system">Here's how.</a></p>`, 'the-system'),
   section(
     title('We make it happen.') +
       `<p class="body">No account managers and no ticket queue: ${FOUNDERS.map((f) => `${esc(f.name)} (${esc(f.title)})`).join(', ')}.</p><p class="body"><a href="/team">Read their bios</a></p>`,

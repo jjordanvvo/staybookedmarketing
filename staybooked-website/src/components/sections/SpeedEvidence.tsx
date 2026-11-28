@@ -166,7 +166,12 @@ export default function SpeedEvidence() {
             Our system replies to every new lead within minutes, day or night.
           </RevealItem>
           </Reveal>
-          <Reveal as="ul" className="sm-notes" amount={0.2}>
+        </div>
+        <div className="sm-stage" ref={stageRef}>
+          <Stickman live={live} />
+          <CallScreen phase={phase} live={live} />
+        </div>
+        <Reveal as="ul" className="sm-notes" amount={0.2}>
             {SPEED_EVIDENCE.map((s) => (
               <RevealItem as="li" className="sm-note" key={s.figure}>
                 <span className="sm-note-fig">{s.figure}</span>
@@ -177,11 +182,6 @@ export default function SpeedEvidence() {
               </RevealItem>
             ))}
           </Reveal>
-        </div>
-        <div className="sm-stage" ref={stageRef}>
-          <Stickman live={live} />
-          <CallScreen phase={phase} live={live} />
-        </div>
       </div>
     </section>
   )
