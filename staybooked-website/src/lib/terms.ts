@@ -1,4 +1,4 @@
-/** Our guarantee and pricing terms (search index; the guarantee also shows by the form, the rest in the FAQ). */
+/** Our guarantee and pricing terms: the strip under the hero (TermsMarquee), the search index and the prerender. */
 export const TERMS = [
   { strong: '90-day guarantee', rest: "If we don't hit the goal we set together, we work free until we do" },
   { strong: 'No startup fee', rest: 'You pay for the program, not the setup' },

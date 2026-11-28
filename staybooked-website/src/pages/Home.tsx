@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import Intro, { claimIntro, consumeIntro } from '@/components/ui/Intro'
 import Navbar from '@/components/sections/Navbar'
 import Hero from '@/components/sections/Hero'
-import ClientLogos from '@/components/sections/ClientLogos'
+import TermsMarquee from '@/components/sections/TermsMarquee'
 import HowWeWork from '@/components/sections/HowWeWork'
 import SystemTeaser from '@/components/sections/SystemTeaser'
 import SeeWhatWeCanDo from '@/components/sections/SeeWhatWeCanDo'
@@ -14,7 +14,7 @@ import Footer from '@/components/sections/Footer'
 
 /**
  * The one-page site at "/". It reads as one continuous story rather than a
- * stack of boxes: the hero hands off to the strip of client logos, then the
+ * stack of boxes: the hero hands off to the terms strip, then the
  * problem (the stickman's unanswered call), How it works down a single spine,
  * the step tree and the form, the system teaser, the founders, questions, and
  * the close.
@@ -35,7 +35,7 @@ export default function Home() {
       <Hero revealed={revealed} intro={intro} />
       {revealed && (
         <>
-          <ClientLogos />
+          <TermsMarquee />
           <SpeedEvidence />
           <HowWeWork />
           <SeeWhatWeCanDo />

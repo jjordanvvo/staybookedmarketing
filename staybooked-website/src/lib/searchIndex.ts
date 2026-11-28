@@ -85,7 +85,7 @@ function build(): SearchEntry[] {
       title: t.strong,
       section: 'Pricing and guarantee',
       page: home,
-      path: t.strong === '90-day guarantee' ? '/#get-started' : '/#faq',
+      path: '/#terms',
       text: `${t.strong}. ${t.rest}.`,
       keywords: 'price cost fee pricing guarantee contract terms month to month',
     })),

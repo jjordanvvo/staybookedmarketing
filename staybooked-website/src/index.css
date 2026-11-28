@@ -2394,32 +2394,25 @@ body { background: var(--page); }
 .hero-tree-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 
 /* ---- Terms strip: the guarantee and pricing, looping ---- */
-/* ---- Client logos: gold marks sliding under the hero ---- */
-.cl { background: var(--page-bg); border-block: 1px solid var(--rule); overflow: hidden; position: relative; padding: clamp(22px, 3vw, 34px) 0; }
-.cl::before, .cl::after { content: ""; position: absolute; top: 0; bottom: 0; width: clamp(40px, 10vw, 140px); z-index: 2; pointer-events: none; }
-.cl::before { left: 0; background: linear-gradient(90deg, var(--page-bg), transparent); }
-.cl::after { right: 0; background: linear-gradient(270deg, var(--page-bg), transparent); }
-.cl-rail { display: flex; width: max-content; animation: cl-slide 46s linear infinite; }
-.cl:hover .cl-rail { animation-play-state: paused; }
-.cl-track { display: flex; align-items: center; gap: clamp(64px, 8vw, 120px); padding-right: clamp(64px, 8vw, 120px); list-style: none; margin: 0; }
-.cl-item { display: flex; align-items: center; }
-.cl-logo { position: relative; display: block; height: calc(clamp(46px, 5vw, 66px) * var(--s, 1)); aspect-ratio: var(--ar); }
-.cl-logo img { display: block; width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.5)) drop-shadow(0 6px 10px rgba(110, 82, 34, 0.18)); }
-.cl-shine {
-  position: absolute; inset: 0; pointer-events: none;
-  -webkit-mask: var(--src) center / contain no-repeat; mask: var(--src) center / contain no-repeat;
-  background: linear-gradient(105deg, transparent 38%, rgba(255, 249, 228, 0.92) 50%, transparent 62%) no-repeat;
-  background-size: 260% 100%; background-position: 160% 0;
-  animation: cl-shine 6s var(--ease) infinite; animation-delay: calc(var(--i) * 1.4s);
-}
-@keyframes cl-slide { to { transform: translateX(-50%); } }
-@keyframes cl-shine { 0% { background-position: 160% 0; } 30%, 100% { background-position: -60% 0; } }
+.tm { background: var(--ink); color: var(--hero-cream); overflow: hidden; position: relative; }
+.tm::before, .tm::after { content: ""; position: absolute; top: 0; bottom: 0; width: 80px; z-index: 2; pointer-events: none; }
+.tm::before { left: 0; background: linear-gradient(90deg, var(--ink), transparent); }
+.tm::after { right: 0; background: linear-gradient(270deg, var(--ink), transparent); }
+.tm-rail { display: flex; width: max-content; animation: tm-slide 48s linear infinite; }
+.tm:hover .tm-rail { animation-play-state: paused; }
+.tm-track { display: flex; list-style: none; margin: 0; padding: 0; }
+.tm-item { display: flex; align-items: baseline; gap: 10px; padding: 22px 34px; white-space: nowrap; font-size: 1rem; }
+.tm-item strong { font-family: var(--font-display); font-weight: 800; font-size: 1.12rem; color: var(--logo-fill); letter-spacing: -0.005em; }
+.tm-item span { color: rgba(240, 235, 224, 0.86); }
+.tm-item::after { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--logo-fill); margin-left: 34px; align-self: center; opacity: 0.7; }
+@keyframes tm-slide { to { transform: translateX(-50%); } }
 @media (prefers-reduced-motion: reduce) {
-  .cl-rail { animation: none; width: auto; justify-content: center; }
-  .cl-track { flex-wrap: wrap; justify-content: center; row-gap: 28px; padding: 0 24px; }
-  .cl-track[aria-hidden] { display: none; }
-  .cl-shine { animation: none; opacity: 0; }
+  .tm-rail { animation: none; width: auto; }
+  .tm-track { flex-wrap: wrap; justify-content: center; }
+  .tm-track[aria-hidden] { display: none; }
+  .tm-item { white-space: normal; }
 }
+
 
 /* ---- How it works: alternating rows on a scroll-drawn spine ---- */
 .hw2 { padding: clamp(80px, 11vh, 140px) 48px clamp(40px, 6vh, 80px); background: var(--page); }

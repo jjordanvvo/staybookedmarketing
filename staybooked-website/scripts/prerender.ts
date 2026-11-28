@@ -24,7 +24,6 @@ import { FAQS } from '../src/lib/faqs'
 import { FOUNDERS } from '../src/lib/founders'
 import { STEPS as HOW_STEPS } from '../src/components/sections/HowWeWork'
 import { TERMS } from '../src/lib/terms'
-import { CLIENTS } from '../src/components/sections/ClientLogos'
 import { NEXT_STEPS } from '../src/lib/nextSteps'
 import { SYSTEM_STAGES } from '../src/lib/systemStages'
 
@@ -118,9 +117,9 @@ const homeContent = [
     'hero',
   ),
   section(
-    title('Businesses we work with') +
-      `<p class="body">${CLIENTS.map((c) => esc(c.name)).join(', ')}.</p>`,
-    'clients',
+    title('Our guarantee and terms') +
+      TERMS.map((t) => `<p class="body"><strong>${esc(t.strong)}.</strong> ${esc(t.rest)}.</p>`).join(''),
+    'terms',
   ),
   section(
     title("Most businesses answer too slowly. Yours won't.") +
