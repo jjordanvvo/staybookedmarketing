@@ -2742,3 +2742,43 @@ html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-stopped { overflow: hidden; }
 
 @media (max-width: 960px) { .sm-notes { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---- Who we work with: every industry up front (moved out of the FAQ) ---- */
+.wh { padding: clamp(60px, 8vw, 110px) 48px clamp(20px, 3vw, 40px); background: var(--page); }
+.wh-head { max-width: 760px; }
+.wh .title { font-size: clamp(2.2rem, 4.6vw, 3.6rem); }
+.wh-lede { margin-top: 16px; max-width: 36em; font-size: 1.1rem; }
+.wh-grid {
+  list-style: none; margin: clamp(28px, 4vw, 48px) 0 0; padding: 0;
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px;
+}
+.wh-tile { display: flex; min-width: 0; }
+.wh-link {
+  position: relative; flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px; min-height: 160px;
+  padding: 20px 20px 54px; border-radius: 20px; background: #fff; border: 1px solid rgba(20, 20, 20, 0.08);
+  color: var(--ink); text-decoration: none;
+  transition: transform 0.25s var(--ease), border-color 0.25s var(--ease), box-shadow 0.25s var(--ease);
+}
+.wh-name { font-family: var(--font-display); font-weight: 800; font-size: clamp(1.08rem, 1.5vw, 1.28rem); line-height: 1.15; letter-spacing: -0.01em; overflow-wrap: anywhere; }
+.wh-ex { font-size: 0.93rem; line-height: 1.5; color: var(--text-2); }
+.wh-arrow { position: absolute; left: 20px; bottom: 18px; width: 20px; height: 20px; color: var(--tan-ink); transition: transform 0.3s var(--ease); }
+.wh-badge { align-self: flex-start; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 999px; background: var(--logo-fill); color: var(--ink); }
+.wh-tile-cta .wh-link { background: var(--ink); color: var(--hero-cream); border-color: var(--ink); }
+.wh-tile-cta .wh-ex { color: rgba(240, 235, 224, 0.8); }
+.wh-tile-cta .wh-arrow { color: var(--logo-fill); }
+@media (hover: hover) and (pointer: fine) {
+  .wh-link:hover { transform: translateY(-3px); border-color: var(--logo-fill); box-shadow: 0 24px 40px -30px rgba(20, 20, 20, 0.45); }
+  .wh-link:hover .wh-arrow { transform: translateX(4px); }
+}
+.wh-link:active { transform: scale(0.98); }
+.wh-link:focus-visible { outline: 3px solid var(--tan-ink); outline-offset: 3px; }
+@media (max-width: 960px) { .wh-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 860px) { .wh { padding-left: 22px; padding-right: 22px; } }
+@media (max-width: 520px) {
+  .wh { padding-left: 16px; padding-right: 16px; }
+  .wh-grid { gap: 10px; }
+  .wh-link { min-height: 0; padding: 16px 14px 44px; border-radius: 16px; }
+  .wh-ex { font-size: 0.86rem; }
+  .wh-arrow { left: 14px; bottom: 14px; }
+}
+@media (prefers-reduced-motion: reduce) { .wh-link, .wh-arrow { transition: none; } }

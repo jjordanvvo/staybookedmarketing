@@ -4,6 +4,7 @@ import { TERMS } from '@/lib/terms'
 import { FAQS } from '@/lib/faqs'
 import { STEPS as HOW_STEPS } from '@/components/sections/HowWeWork'
 import { FOUNDERS } from '@/lib/founders'
+import { NICHES } from '@/lib/niches'
 import { PILLARS, HEALTHCARE_FAQS } from '@/pages/Healthcare'
 import { STEPS as LP_STEPS, SPEED_STATS, WHY_POINTS } from '@/pages/FreeCall'
 import { PRIVACY_INTRO, PRIVACY_SECTIONS } from '@/pages/Privacy'
@@ -65,6 +66,14 @@ function build(): SearchEntry[] {
       text: st.body,
       keywords: 'how we built it system backend crm automation ai reply booking',
     })),
+    {
+      title: 'Built for businesses that run on bookings.',
+      section: 'Who we work with',
+      page: home,
+      path: '/#industries',
+      text: 'If your customers book appointments, reserve tables or ask for quotes, we build the system that keeps your calendar full. ' + NICHES.map((n) => `${n.name}: ${n.examples}.`).join(' '),
+      keywords: 'industries industry niche who we work with who we help',
+    },
     {
       title: 'See what we can do for you',
       section: 'Get started',
